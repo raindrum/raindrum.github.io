@@ -1,0 +1,234 @@
+Slug: lawsearch
+Date: 2020-11-24
+Unhide_If: urlQuery()
+
+With this, you can use rough legal citations to look up federal statutes and court cases, plus [a few other bodies of law](#recognized-bodies-of-law). It usually recognizes subsections and pincites, too!
+
+<form class="main-search" onsubmit="return searchBar()">
+    <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go">
+    <div><label for="q" id="explainer"></label></div>
+</form>
+<script>
+const schemas = [
+// first, check it against federal bodies of law
+{ // U.S. Code
+"regexes": [/(?<title>\d+) U\.?S\.?(?:C\.?| Code) §? ?(?<section>[\w\.]+)(?:(?: |\()(?<hash>.+))?/i, /U\.?S\.?C\.? (?<title>\d+) §? ?(?<section>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/uscode/text/[title]/[section]",
+  "hashSeparator": "_"
+  }
+},
+{ // Code of Federal Regulations
+"regexes": [/(?<title>\d+) C\.?F\.?R\.? §? ?(?<section>[\w\.]+)(?:(?: |\()(?<hash>.+))?/i, /C\.?F\.?R\.? (?<title>\d+) §? ?(?<section>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/cfr/text/[title]/[section]",
+  "hashSeparator": "_"
+  }
+},
+{ // Federal Rules of Civil Procedure
+"regexes": [/F\.?R\.?C\.?P\.? ?(?<rule>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/rules/frcp/rule_[rule]",
+  "hashPrefix": "rule_[rule]_",
+  "hashSeparator": "_"
+  }
+},
+// next, check aganst known pre-codification statutes
+{ // Immigration and Nationality Act
+"regexes": [/I\.?N\.?A\.? §? ?(?<section>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/uscode/text/8/[section]",
+  "hashSeparator": "_"},
+"remapKeys": {"section": {"101":"1101", "102":"1102", "103":"1103", "104":"1104", "105":"1105", "106":"1105a", "201":"1151", "202":"1152", "203":"1153", "204":"1154", "205":"1155", "206":"1156", "207":"1157", "208":"1158", "209":"1159", "210":"1160", "210a":"1161", "211":"1181", "212":"1182", "213":"1183", "213a":"1183a", "214":"1184", "215":"1185", "216":"1186a", "216a":"1186b", "217":"1187", "218":"1188", "219":"1189", "221":"1201", "222":"1202", "223":"1203", "224":"1204", "231":"1221", "232":"1222", "233":"1223", "234":"1224", "235":"1225", "235a":"1225a", "236":"1226", "236a":"1226a", "237":"1227", "238":"1228", "239":"1229", "240":"1229a", "240a":"1229b", "240b":"1229c", "240c":"1230", "241":"1231", "242":"1252", "242a":"1252a", "242b":"1252b", "243":"1253", "244":"1254a", "245":"1255", "245a":"1255a", "246":"1256", "247":"1257", "248":"1258", "249":"1259", "250":"1260", "251":"1281", "252":"1282", "253":"1283", "254":"1284", "255":"1285", "256":"1286", "257":"1287", "258":"1288", "261":"1301", "262":"1302", "263":"1303", "264":"1304", "265":"1305", "266":"1306", "271":"1321", "272":"1322", "273":"1323", "274":"1324", "274a":"1324a", "274b":"1324b", "274c":"1324c", "274d":"1324d", "275":"1325", "276":"1326", "277":"1327", "278":"1328", "279":"1329", "280":"1330", "281":"1351", "282":"1352", "283":"1353", "284":"1354", "285":"1355", "286":"1356", "287":"1357", "288":"1358", "289":"1359", "290":"1360", "291":"1361", "292":"1362", "293":"1363", "294":"1363a", "295":"1363b", "301":"1401", "302":"1402", "303":"1403", "304":"1404", "305":"1405", "306":"1406", "307":"1407", "308":"1408", "309":"1409", "310":"1421", "311":"1422", "312":"1423", "313":"1424", "314":"1425", "315":"1426", "316":"1427", "317":"1428", "318":"1429", "319":"1430", "320":"1431", "321":"1432", "322":"1433", "323":"1434", "324":"1435", "325":"1436", "326":"1437", "327":"1438", "328":"1439", "329":"1440", "329a":"1440-1", "330":"1441", "331":"1442", "332":"1443", "333":"1444", "334":"1445", "335":"1446", "336":"1447", "337":"1448", "338":"1449", "339":"1450", "340":"1451", "341":"1452", "342":"1453", "343":"1454", "344":"1455", "345":"1456", "346":"1457", "347":"1458", "348":"1459", "349":"1481", "350":"1482", "351":"1483", "352":"1484", "353":"1485", "354":"1486", "355":"1487", "356":"1488", "357":"1489", "358":"1501", "359":"1502", "360":"1503", "361":"1504", "404":"1101", "405":"1101", "406":"1101", "407":"1101", "411":"1521", "412":"1522", "413":"1523", "414":"1524", "501":"1531", "502":"1532", "503":"1533", "504":"1534", "505":"1535", "506":"1536", "507":"1537"}}
+},
+{ // Clean Air Act
+"regexes": [/C\.?A\.?A\.? §? ?(?<section>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/uscode/text/42/[section]",
+  "hashSeparator": "_"},
+"remapKeys": {"section": {"101":"7401", "102":"7402", "103":"7403", "104":"7404", "105":"7405", "106":"7406", "107":"7407", "108":"7408", "109":"7409", "110":"7410", "111":"7411", "112":"7412", "113":"7413", "114":"7414", "115":"7415", "116":"7416", "117":"7417", "118":"7418", "119":"7419", "120":"7420", "121":"7421", "122":"7422", "123":"7423", "124":"7424", "125":"7425", "126":"7426", "127":"7427", "128":"7428", "129":"7429", "130":"7430", "131":"7431", "160":"7470", "161":"7471", "162":"7472", "163":"7473", "164":"7474", "165":"7475", "166":"7476", "167":"7477", "168":"7478", "169":"7479", "169a":"7491", "169A":"7491", "169b":"7492", "169B":"7492", "171":"7501", "172":"7502", "173":"7503", "174":"7504", "175":"7505", "175a":"7505a", "176":"7506", "176a":"7506a", "177":"7507", "178":"7508", "179":"7509", "179b":"7509a", "181":"7511", "182":"7511a", "183":"7511b", "184":"7511c", "185":"7511d", "185a":"7511e", "185b":"7511f", "186":"7512", "187":"7512a", "188":"7513", "189":"7513a", "190":"7513b", "191":"7514", "192":"7514a", "193":"7515", "202":"7521", "203":"7522", "204":"7523", "205":"7524", "206":"7525", "207":"7541", "208":"7542", "209":"7543", "210":"7544", "211":"7545", "213":"7547", "214":"7548", "215":"7549", "216":"7550", "217":"7552", "218":"7553", "219":"7554", "231":"7571", "232":"7572", "233":"7573", "234":"7574", "241":"7581", "242":"7582", "243":"7583", "244":"7584", "245":"7585", "246":"7586", "247":"7587", "248":"7588", "249":"7589", "250":"7590", "301":"7601", "302":"7602", "303":"7603", "304":"7604", "305":"7605", "306":"7606", "307":"7607", "308":"7608", "309":"7609", "310":"7610", "311":"7611", "312":"7612", "313":"7613", "314":"7614", "315":"7615", "316":"7616", "317":"7617", "318":"7618", "319":"7619", "320":"7620", "321":"7621", "322":"7622", "323":"7624", "324":"7625", "325":"7625-1", "326":"7625a", "327":"7626", "328":"7627", "201":"7641", "401":"7651", "402":"7651a", "403":"7651b", "404":"7651c", "405":"7651d", "406":"7651e", "407":"7651f", "408":"7651g", "409":"7651h", "410":"7651i", "411":"7651j", "412":"7651k", "413":"7651l", "414":"7651m", "415":"7651n", "416":"7651o", "501":"7661", "502":"7661a", "503":"7661b", "504":"7661c", "505":"7661d", "506":"7661e", "507":"7661f", "601":"7671", "602":"7671a", "603":"7671b", "604":"7671c", "605":"7671d", "606":"7671e", "607":"7671f", "608":"7671g", "609":"7671h", "610":"7671i", "611":"7671j", "612":"7671k", "613":"7671l", "614":"7671m", "615":"7671n", "616":"7671o", "617":"7671p", "618":"7671q"}}
+},
+{ // Clean Water Act
+"regexes": [/C\.?W\.?A\.? §? ?(?<section>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/uscode/text/33/[section]",
+  "hashSeparator": "_"},
+"remapKeys": {"section": {"101":"1251", "112":"1262", "115":"1265", "301":"1311", "302":"1312", "303":"1313", "304":"1314", "305":"1315", "306":"1316", "307":"1317", "308":"1318", "309":"1319", "310":"1320", "316":"1326", "319":"1329", "401":"1341", "402":"1342", "403":"1343", "404":"1344", "405":"1345", "406":"1346", "501":"1361", "502":"1362", "505":"1365", "509":"1369", "510":"1370", "511":"1371", "517":"1376", "518":"1377"}}
+},
+{ // National Labor Relations Act
+"regexes": [/N\.?L\.?R\.?A\.? §? ?(?<section>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/uscode/text/29/[section]",
+  "hashSeparator": "_"},
+"remapKeys": {"section": {"1":"151", "2":"152", "3":"153", "4":"154", "5":"155", "6":"156", "7":"157", "8":"158", "9":"159", "10":"160", "11":"161", "12":"162", "13":"163", "14":"164", "15":"165", "16":"166", "17":"167", "18":"168", "19":"169"}}
+},
+{ // Americans With Disabilities Act
+"regexes": [/A\.?D\.?A\.? §? ?(?<section>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/uscode/text/42/[section]",
+  "hashSeparator": "_"},
+"remapKeys": {"section": {"2":"12101", "3":"12102", "101":"12111", "102":"12112", "103":"12113", "104":"12114", "105":"12115", "106":"12116", "107":"12117", "201":"12131", "202":"12132", "203":"12133", "204":"12134", "221":"12141", "222":"12142", "223":"12143", "224":"12144", "225":"12145", "226":"12146", "227":"12147", "228":"12148", "229":"12149", "230":"12150", "241":"12161", "242":"12162", "243":"12163", "244":"12164", "245":"12165", "301":"12181", "302":"12182", "303":"12183", "304":"12184", "305":"12185", "306":"12186", "307":"12187", "308":"12188", "309":"12189", "501":"12201", "502":"12202", "503":"12203", "504":"12204", "505":"12205", "506":"12206", "507":"12207", "508":"12208", "509":"12209", "510":"12210", "511":"12211", "513":"12212", "514":"12213"}}
+},
+{ // Fair Housing Act
+"regexes": [/F\.?H\.?A\.? §? ?(?<section>\d+[a-z]?)(?:(?: |\()(?<hash>.+))?/i],
+"URLParts": {
+  "baseURL": "https://www.law.cornell.edu/uscode/text/42/[section]",
+  "hashSeparator": "_"},
+"remapKeys": {"section": {'801':'3601', '802':'3602', '803':'3603', '804':'3604', '805':'3605', '806':'3606', '807':'3607', '808':'3608', '808a':'3608a', '809':'3609', '810':'3610', '811':'3611', '812':'3612', '813':'3613', '814':'3614', '814a':'3614-1', '815':'3614a', '816':'3615', '817':'3616', '817a':'3616a', '818':'3617', '819':'3618', '820':'3619', '901':'3631'}}
+},
+{ // use Google Scholar if it looks like a full bluebook case citation
+"regexes": [/(?<name>.+), (?<cite>\d+ .+? \d+)(?:, (?<hash>\d+))?(?<remainder>.*?$)/i],
+"URLParts": {
+  "baseURL": "https://scholar.google.com/scholar?as_sdt=2006&btnI=I&q=[name], [cite][remainder]",
+  "hashPrefix": "p"}
+},
+{ // use CourtListener if it's a bare citation
+"regexes": [/^(?<volume>\d+) (?<reporter>.+) (?<page>\d+)$/i],
+"URLParts": { "baseURL": "https://www.courtlistener.com/c/[reporter]/[volume]/[page]" }
+},
+// check against known state statutes
+{ // California
+"regexes": [/^Cal\.? (?<code>[a-z]+) §? ?(?<section>[\w\.]+)/i],
+"URLParts": { "baseURL": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=[code]&sectionNum=[section]" },
+"forceUpperCase": ["code"]
+}
+]
+function lookup(query) {
+  for (var i = 0; i < schemas.length; i++) {
+    var schema = schemas[i];
+    for (var j = 0; j < schema.regexes.length; j++) {
+      var match = query.match(schema.regexes[j]);
+      if (match) { break; }
+    }
+    if (match) {
+      var keys = match.groups;
+      break;
+    }
+  }
+  if (!match) {
+    document.getElementById("explainer").innerHTML = "<strong>Sorry, I couldn't recognize that citation. Is it on the list of recognized bodies of law?</strong>";
+    return false;
+  }
+  for (var k in schema.forceUpperCase) {
+    keys[schema.forceUpperCase[k]] = keys[schema.forceUpperCase[k]].toUpperCase();
+  }
+  for (var k in schema.forceLowerCase) {
+    keys[schema.forceLowerCase[k]] = keys[schema.forceLowerCase[k]].toLowerCase();
+  }
+  for (var k in schema.remapKeys) {
+    let remaps = schema.remapKeys[k];
+    let newKey = remaps[keys[k]];
+    if (!newKey) { newKey = remaps[keys[k].toUpperCase()]; }
+    if (!newKey) { newKey = remaps[keys[k].toLowerCase()]; }
+    keys[k] = newKey;
+  }
+  for (var k in keys) {
+    for (var part in schema.URLParts) {
+      schema.URLParts[part] = schema.URLParts[part].replace("[" + k + "]", keys[k]);
+    }
+  }
+  let url = schema.URLParts.baseURL;
+  if (keys.hash) {
+    url += "#";
+    if (schema.URLParts.hashPrefix) { url += schema.URLParts.hashPrefix; }
+    if (schema.URLParts.hashSeparator) {
+      keys.hash = keys.hash.replace(/^\W+|\W+$/, '');
+      keys.hash = keys.hash.split(/\W+/).join(schema.URLParts.hashSeparator);
+    }
+    url += keys.hash;
+  }
+  window.location.href = url;
+  return true;
+}
+function urlQuery() {
+  if (!location.search) { return true; }
+  let query = decodeURIComponent(location.search).trim().replace(/^\?(?:q=)?|\.$|,$|;$/g, '');
+  document.getElementById("q").value = query.replace(/\+/g, ' ');
+  return !lookup(query);
+}
+function searchBar() {
+  let query = document.getElementById("q").value;
+  if (!query) { return false; }
+  return !lookup(query);
+}
+</script>
+If you're looking for ideas, try some example searches:
+
+- 42 USC § 1983
+- usc 42 1983
+- nlra 8 b 4
+- CAL CIV § 1947.12
+- 347 U.S. 483
+- Kinsman Transit Company, 338 F.2d 708, 715 (1964)
+
+## How it Works
+
+The program tries to match your search query against a series of [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) (regexes), where each regex recognizes a type of citation. For instance, one regex recognizes citations to the Code of Federal Regulations; another recognizes citations to the Federal Rules of Civil Procedure, and a third recognizes court case citations in rough Bluebook format. 
+
+If the search query matches a regex, the program generates a URL redirect to look up 
+
+### 1. Statutes
+
+First, the program tries to parse your query as a reference to one of [the bodies of law it knows](#recognized-bodies-of-law). Mostly that's the U.S. Code, and a few major statutes like the National Labor Relations Act, for which it opens the U.S. Code section where the  given section of the Act was codified.
+
+For most of these bodies of law, it's possible to specify a statutory *subsection*, though note that these are case-sensitive. Also note that the subsection you searched for will likely be hidden behind Cornell's website header, so you'll need to scroll up a bit or else disable the header with something like [uBlock Origin](https://ublockorigin.com/).
+
+The program is flexible in that it ignores section signs, and it treats spaces in your query the same as parentheses. For instance, "nlra 8 b 4" and "N.L.R.A. § 8(b)(4)" will both redirect to [Section 8(b)(4) of the National Labor Relations Act](https://www.law.cornell.edu/uscode/text/29/158#b_4).
+
+### 2. Cases
+
+The program looks up court case citations using either CourtListener or Google Scholar, depending on the query format:
+
+If the query starts and ends with a number, with something else in between, e.g. "347 U.S. 483", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's [Citation Lookup Tool](https://www.courtlistener.com/c/). I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong one.
+
+But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, 347 U.S. 483 (1954)", with a case name and reporter, the program will open the first result from [Google Scholar's case law search](https://scholar.google.com/scholar?as_sdt=2006). Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court cases.
+
+What makes up for the unreliability is that you can include pincites (i.e. citations to specific page numbers), and the program will try to link you to the precise page you're looking for. This is possible because unlike CourtListener, Google Scholar's cases support [anchor links](http://www.echoecho.com/htmllinks08.htm). However, it's unreliable because even when the program finds the correct case, the page numbers will be wrong if Google's copy is from a different court reporter than the one you're referencing. Still, I thought it was worth including because when it *does* work, it's magical.
+
+## Bookmark This Search!
+
+You're totally welcome to use the search engine by coming to my site and typing your citation into the search bar whenever you want to look something up. But it's more convenient if you can set up a search keyword so that you can just type something like "ls 42 usc 1983" in your URL bar to look up the law.
+
+To do that on Firefox, you can just right-click the search bar and click "Add a Keyword For This Search."
+
+On Chrome, it's a little more complicated. First, copy this URL:
+
+<code id="bookmarkURL"></code>
+
+Next, go to `Settings > Manage Search Engines`. From there, click "Add", and paste the address in the URL field.
+
+<script>
+document.getElementById("bookmarkURL").innerHTML = window.location.href.replace(window.location.search, '').replace(window.location.hash, '') + "?%s";
+</script>
+
+Either way, you'll also need to designate a keyword. I use "ls" (for "law search"), but anything works.
+
+<div hidden id="downloadOption"><strong>Alternatively</strong>, if you don't want to rely on my website, you can download your own copy of the search engine, and run it entirely locally. To do that, <a href="/lawsearch" download>download this page</a> and save it somewhere that you're unlikely to delete it. Then, close this tab, open your local copy, and follow these same directions. That way, it'll be yours forever, though you might miss out on updates.</div>
+<script>
+if (window.location.protocol != "file:") {
+    document.getElementById("downloadOption").removeAttribute("hidden")
+}
+</script>
+
+## Recognized Bodies of Law
+
+These are the bodies of law the program is able to recognize, not including the [court case formats](#2-cases) described above. The generic query format allows for some differences in capitalization and punctuation, as shown in the example queries. Most bodies of law, but not all, support citations to specific subsections.
+
+| Body of Law                               | Source                                                       | Generic Query Format                                         | Example Query                 |
+| ----------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------- |
+| U.S. Code                                 | [Cornell](https://www.law.cornell.edu/)                      | `TITLE usc SECTION [SUBSECTIONS]` or `usc TITLE SECTION [SUBSECTIONS]` | usc 42 1983                   |
+| Code of Federal Regulations (Cornell)     | [Cornell](https://www.law.cornell.edu/)                      | `TITLE cfr SECTION [SUBSECTIONS]` or `cfr TITLE SECTION [SUBSECTIONS]` | 29 CFR § 1926.1053(b)(17)(ii) |
+| California Codes (e.g. PEN, CIV, CCP ...) | [California Legislative Information](https://leginfo.legislature.ca.gov/faces/codes.xhtml) | `cal CODE SECTION`                                           | CAL CCP 1161.1                |
+| Federal Rules of Civil Procedure          | [Cornell](https://www.law.cornell.edu/)                      | `frcp RULE [SUBSECTIONS]`                                    | frcp 12 b 6                   |
+| Immigration and Nationality Act           | [Cornell](https://www.law.cornell.edu/)*                     | `ina SECTION [SUBSECTIONS]`                                  | I.N.A. § 212(a)(4)            |
+| National Labor Relations Act              | [Cornell](https://www.law.cornell.edu/)*                     | `nlra SECTION [SUBSECTIONS]`                                 | nlra § 7                      |
+| Americans With Disabilities Act           | [Cornell](https://www.law.cornell.edu/)*                     | `ada SECTION [SUBSECTIONS]`                                  | ada 102 c 2 C iii             |
+| Fair Housing Act                          | [Cornell](https://www.law.cornell.edu/)*                     | `fha SECTION [SUBSECTIONS]`                                  | fha  804 f 3 C iii V          |
+| Clean Air Act                             | [Cornell](https://www.law.cornell.edu/)*                     | `caa SECTION [SUBSECTIONS]`                                  | CAA § 112(k)(3)               |
+| Clean Water Act                           | [Cornell](https://www.law.cornell.edu/)*                     | `cwa SECTION [SUBSECTIONS]`                                  | cwa 301 b 2 A                 |
+
+\* As codified. Cross-references in the text will refer to U.S. Code section numbers, not sections of the original Act. 
+
+---
+
+If you want me to add any other bodies of law to the search, [send me an email](mailto:simonraindrum@gmail.com) and I'll see what I can do!
