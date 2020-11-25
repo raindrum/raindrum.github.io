@@ -9,17 +9,18 @@
   --link-color: var(--heading-color);
   --quote-color: var(--sidebar-bg-color);
   --button-color: var(--heading-color);
-  
   --sidebar-width: 14rem;
 }
-body {
-  margin: 0;
+html {
   color: var(--text-color);
   background-color: var(--bg-color);
   font-family: Sans;
+  font-size: 14pt;
   line-height: 1.5em;
 }
-
+body {
+  margin: 0;
+}
 /* Common elements */
 h1, h2, h3, h4, h5, h6 {
   color: var(--heading-color);
@@ -100,7 +101,7 @@ input[type=search], input[type=text] {
   text-align: center;
   width: 100%;
   position: relative;
-  height: auto;
+  height: 130%;
   overflow: auto;
 }
 .sidebar h1 {
@@ -143,11 +144,11 @@ main {
 }
 
 /* Convert sidebar to header on narrow screens */
-@media screen and (min-width: 42rem) {
+@media screen and (min-width: 45em) {
   .sidebar {
     text-align: left;
     width: var(--sidebar-width);
-    height: 100%;
+    height: 120%;
     position: fixed;
   }
   .sidebar nav {

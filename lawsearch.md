@@ -214,21 +214,19 @@ if (window.location.protocol != "file:") {
 
 These are the bodies of law the program is able to recognize, not including the [court case formats](#2-cases) described above. The generic query format allows for some differences in capitalization and punctuation, as shown in the example queries. Most bodies of law, but not all, support citations to specific subsections.
 
-| Body of Law                               | Source                                                       | Generic Query Format                                         | Example Query                 |
-| ----------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------- |
-| U.S. Code                                 | [Cornell](https://www.law.cornell.edu/)                      | `TITLE usc SECTION [SUBSECTIONS]` or `usc TITLE SECTION [SUBSECTIONS]` | usc 42 1983                   |
-| Code of Federal Regulations (Cornell)     | [Cornell](https://www.law.cornell.edu/)                      | `TITLE cfr SECTION [SUBSECTIONS]` or `cfr TITLE SECTION [SUBSECTIONS]` | 29 CFR § 1926.1053(b)(17)(ii) |
-| California Codes (e.g. PEN, CIV, CCP ...) | [California Legislative Information](https://leginfo.legislature.ca.gov/faces/codes.xhtml) | `cal CODE SECTION`                                           | CAL CCP 1161.1                |
-| Federal Rules of Civil Procedure          | [Cornell](https://www.law.cornell.edu/)                      | `frcp RULE [SUBSECTIONS]`                                    | frcp 12 b 6                   |
-| Immigration and Nationality Act           | [Cornell](https://www.law.cornell.edu/)*                     | `ina SECTION [SUBSECTIONS]`                                  | I.N.A. § 212(a)(4)            |
-| National Labor Relations Act              | [Cornell](https://www.law.cornell.edu/)*                     | `nlra SECTION [SUBSECTIONS]`                                 | nlra § 7                      |
-| Americans With Disabilities Act           | [Cornell](https://www.law.cornell.edu/)*                     | `ada SECTION [SUBSECTIONS]`                                  | ada 102 c 2 C iii             |
-| Fair Housing Act                          | [Cornell](https://www.law.cornell.edu/)*                     | `fha SECTION [SUBSECTIONS]`                                  | fha  804 f 3 C iii V          |
-| Clean Air Act                             | [Cornell](https://www.law.cornell.edu/)*                     | `caa SECTION [SUBSECTIONS]`                                  | CAA § 112(k)(3)               |
-| Clean Water Act                           | [Cornell](https://www.law.cornell.edu/)*                     | `cwa SECTION [SUBSECTIONS]`                                  | cwa 301 b 2 A                 |
+| Body of Law                                                  | Generic Query Format                                         | Example Query                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------- |
+| [U.S. Code](https://www.law.cornell.edu/uscode/text)         | `TITLE usc SECTION [SUBSECTIONS]` or `usc TITLE SECTION [SUBSECTIONS]` | usc 42 1983                   |
+| [Code of Federal Regulations](https://www.law.cornell.edu/cfr/text) | `TITLE cfr SECTION [SUBSECTIONS]` or `cfr TITLE SECTION [SUBSECTIONS]` | 29 CFR § 1926.1053(b)(17)(ii) |
+| [California Codes](https://leginfo.legislature.ca.gov/faces/codes.xhtml) (e.g. PEN, CIV, CCP ...) | `cal CODE SECTION`                                           | CAL CCP 1161.1                |
+| [Federal Rules of Civil Procedure](https://www.law.cornell.edu/rules/frcp) | `frcp RULE [SUBSECTIONS]`                                    | frcp 12 b 6                   |
+| [Immigration and Nationality Act](https://www.law.cornell.edu/topn/immigration_and_nationality_act) * | `ina SECTION [SUBSECTIONS]`                                  | I.N.A. § 212(a)(4)            |
+| [National Labor Relations Act](https://www.law.cornell.edu/topn/national_labor_relations_act) * | `nlra SECTION [SUBSECTIONS]`                                 | nlra § 7                      |
+| [Americans With Disabilities Act](https://www.law.cornell.edu/topn/americans_with_disabilities_act_of_1990) * | `ada SECTION [SUBSECTIONS]`                                  | ada 102 c 2 C iii             |
+| [Fair Housing Act](https://www.law.cornell.edu/topn/fair_housing_act) * | `fha SECTION [SUBSECTIONS]`                                  | fha 804 f 3 C iii V           |
+| [Clean Air Act](https://www.law.cornell.edu/topn/clean_air_act) * | `caa SECTION [SUBSECTIONS]`                                  | CAA § 112(k)(3)               |
+| [Clean Water Act](https://www.law.cornell.edu/topn/clean_water_act_of_1977) * | `cwa SECTION [SUBSECTIONS]`                                  | cwa 301 b 2 A                 |
 
 \* As codified. Cross-references in the text will refer to U.S. Code section numbers, not sections of the original Act. 
 
----
-
-If you want me to add any other bodies of law to the search, [send me an email](mailto:simonraindrum@gmail.com) and I'll see what I can do!
+Obviously this is far from a complete list. Most of the laws it supports are there because I was studying them while referencing this. If you'd like me to add other laws, or if you find any errors, [send me an email](mailto:simonraindrum@gmail.com) and I'll see what I can do!
