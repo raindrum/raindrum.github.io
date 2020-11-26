@@ -39,6 +39,7 @@ a:hover { text-decoration: underline; }
 li { margin-bottom: 0.2em; }
 table {
   border-collapse: separate;
+  table-layout:fixed;
   border-spacing: 0.25em;
 }
 img { width: 100%; }
@@ -157,6 +158,14 @@ main {
   .contentScaler { margin-left: var(--sidebar-width); }
 }
 
+article {
+  background-color: var(--alt-bg-color);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+}
+
 /* Specific part CSS */
 .posttitle { margin-bottom: 0; }
 h1 + label, h2 + label { font-weight: bold; }
@@ -168,7 +177,8 @@ h1 + label, h2 + label { font-weight: bold; }
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-.main-search { text-align: center; }
-.main-search input { font-size: 1.4em; }
-.main-search input[type=search] { width: 80%; }
-.main-search input[type=submit] { width: 20%; }
+.main-search {
+  text-align: center;
+  font-size: 1.4em;
+  width: 100%;
+}
