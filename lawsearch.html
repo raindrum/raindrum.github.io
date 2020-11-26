@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="https://raindrum.github.io/theme/css/main.css" />
   <link rel="shortcut icon" href="https://raindrum.github.io/theme/favicon.ico"/>
 </head>
-<body hidden onload="if (urlQuery()) { document.body.removeAttribute('hidden'); }">
+<body class="normal" hidden onload="if (urlQuery()) { document.body.removeAttribute('hidden'); }">
   <aside class="sidebar">
     <h1><a href="https://raindrum.github.io/">raindrum</a></h1>
     <div>Simon Raindrum Sherred's personal site. A home of research and rambling.</div>
@@ -23,8 +23,10 @@
 <p>With this, you can use rough legal citations to look up federal statutes and court cases, plus <a href="#recognized-bodies-of-law">a few other bodies of law</a>. It usually recognizes subsections and pincites,&nbsp;too!</p>
 <form class="main-search" onsubmit="return searchBar()">
     <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go">
-    <div><label for="q" id="explainer"></label></div>
+    <br>
+    <label for="q" id="explainer"></label>
 </form>
+
 <script>
 const schemas = [
 // first, check it against federal bodies of law
@@ -169,6 +171,7 @@ function searchBar() {
   return !lookup(query);
 }
 </script>
+
 <p>If you're looking for ideas, try some example&nbsp;searches:</p>
 <ul>
 <li>42 USC §&nbsp;1983</li>
@@ -202,6 +205,7 @@ document.getElementById("bookmarkURL").innerHTML = window.location.href.replace(
 
 <p>Either way, you&#8217;ll also need to designate a keyword. I use &#8220;ls&#8221; (for &#8220;law search&#8221;), but anything&nbsp;works.</p>
 <div hidden id="downloadOption"><strong>Alternatively</strong>, if you don&#8217;t want to rely on my website, you can download your own copy of the search engine, and run it entirely locally. To do that, <a href="/lawsearch" download>download this page</a> and save it somewhere that you&#8217;re unlikely to delete it. Then, close this tab, open your local copy, and follow these same directions. That way, it&#8217;ll be yours forever, though you might miss out on updates.</div>
+
 <script>
 if (window.location.protocol != "file:") {
     document.getElementById("downloadOption").removeAttribute("hidden")

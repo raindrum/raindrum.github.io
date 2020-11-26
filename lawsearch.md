@@ -6,7 +6,8 @@ With this, you can use rough legal citations to look up federal statutes and cou
 
 <form class="main-search" onsubmit="return searchBar()">
     <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go">
-    <div><label for="q" id="explainer"></label></div>
+    <br>
+    <label for="q" id="explainer"></label>
 </form>
 <script>
 const schemas = [
@@ -152,6 +153,7 @@ function searchBar() {
   return !lookup(query);
 }
 </script>
+
 If you're looking for ideas, try some example searches:
 
 - 42 USC § 1983

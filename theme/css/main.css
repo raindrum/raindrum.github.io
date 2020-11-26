@@ -18,9 +18,7 @@ html {
   font-size: 14pt;
   line-height: 1.5em;
 }
-body {
-  margin: 0;
-}
+body { margin: 0; }
 /* Common elements */
 h1, h2, h3, h4, h5, h6 {
   color: var(--heading-color);
@@ -72,15 +70,20 @@ ol { list-style-type: decimal; }
 ol ol { list-style-type: lower-alpha; }
 ol ol ol { list-style-type: lower-roman; }
 ol ol ol ol { list-style-type: circle; }
+
+/* Forms, etc */
+form label { text-align: center; }
+form input {
+  font-size: 1.4em;
+}
+form input[type=submit] { width: 20%; }
+form input[type=search] { width: 80%; }
 input {
   color: var(--emph-text-color);
   background-color: var(--alt-bg-color);
   border: none;
   border-radius: 0.25rem;
   padding: 0.5rem;
-}
-th input, td input {
-  background-color: var(--bg-color);
 }
 input[type=button], input[type=submit] {
   background-color: var(--button-color);
@@ -93,6 +96,9 @@ input[type=button]:hover, input[type=submit]:hover {
 input[type=search], input[type=text] {
   padding: 0.45rem;
   border: 0.05rem solid var(--text-color);
+}
+th input, td input {
+  background-color: var(--bg-color);
 }
 
 /* Sidebar */
@@ -158,6 +164,7 @@ main {
   .contentScaler { margin-left: var(--sidebar-width); }
 }
 
+/* Index page styling */
 article {
   background-color: var(--alt-bg-color);
   padding: 1rem;
@@ -165,20 +172,13 @@ article {
   margin-top: 1rem;
   border-radius: 0.5rem;
 }
+/*.index {
+  background-color: var(--alt-bg-color);
+}*/
 
 /* Specific part CSS */
 .posttitle { margin-bottom: 0; }
-h1 + label, h2 + label { font-weight: bold; }
 .paginator {
   text-align: center;
   font-size: 1.3em;
-}
-.post-divider {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-.main-search {
-  text-align: center;
-  font-size: 1.4em;
-  width: 100%;
 }
