@@ -152,6 +152,7 @@ th input, td input {
 .contentScaler {
   margin-left: 0;
   padding: 1rem 1rem;
+  word-wrap: break-word;
 }
 main {
   max-width: 40rem;
