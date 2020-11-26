@@ -157,7 +157,6 @@ main {
   max-width: 40rem;
   margin-left: auto;
   margin-right: auto;
-  overflow-x: auto;
 }
 
 /* Convert sidebar to header on narrow screens */
