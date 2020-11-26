@@ -35,9 +35,17 @@ a {
 a em, a strong { color: var(--link-color); }
 a:hover { text-decoration: underline; }
 li { margin-bottom: 0.2em; }
+.table-wrap {
+  overflow-x: scroll;
+  position: fixed;
+  width: 100%;
+}
+.table-wrapper { overflow-x: auto; }
+}
 table {
   border-collapse: separate;
-  table-layout:fixed;
+  table-layout: fixed;
+  max-width: 100%;
   border-spacing: 0.25em;
 }
 img { width: 100%; }
@@ -46,6 +54,7 @@ th, td {
   border: 1em;
   border-radius: 0.25em;
   background-color: var(--alt-bg-color);
+  overflow: auto;
 }
 blockquote {
   margin-left: 0;
@@ -148,6 +157,7 @@ main {
   max-width: 40rem;
   margin-left: auto;
   margin-right: auto;
+  overflow-x: auto;
 }
 
 /* Convert sidebar to header on narrow screens */

@@ -20,10 +20,10 @@
   <div class="contentScaler"><main>
 <h1 class="pagetitle">Law&nbsp;Search</h1>
 <hr>
-<p>With this, you can use rough legal citations to look up federal statutes and court cases, plus <a href="#recognized-bodies-of-law">a few other bodies of law</a>. It usually recognizes subsections and pincites,&nbsp;too!</p>
+</head><body><p>With this, you can use rough legal citations to look up federal statutes and court cases, plus <a href="#recognized-bodies-of-law">a few other bodies of law</a>. It usually recognizes subsections and pincites, too!</p>
 <form class="main-search" onsubmit="return searchBar()">
-    <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go">
-    <br>
+    <input id="q" name="q" placeholder="Enter citation..." type="search"/><input type="submit" value="Go"/>
+    <br/>
     <label for="q" id="explainer"></label>
 </form>
 
@@ -172,39 +172,39 @@ function searchBar() {
 }
 </script>
 
-<p>If you're looking for ideas, try some example&nbsp;searches:</p>
+<p>If you're looking for ideas, try some example searches:</p>
 <ul>
-<li>42 USC §&nbsp;1983</li>
-<li>usc 42&nbsp;1983</li>
-<li>nlra 8 b&nbsp;4</li>
-<li>CAL CIV §&nbsp;1947.12</li>
-<li>347 U.S.&nbsp;483</li>
-<li>Kinsman Transit Company, 338 F.2d 708, 715&nbsp;(1964)</li>
+<li>42 USC § 1983</li>
+<li>usc 42 1983</li>
+<li>nlra 8 b 4</li>
+<li>CAL CIV § 1947.12</li>
+<li>347 U.S. 483</li>
+<li>Kinsman Transit Company, 338 F.2d 708, 715 (1964)</li>
 </ul>
-<h2 id="how-it-works">How it&nbsp;Works</h2>
-<p>The program tries to match your search query against a series of <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> (regexes), where each regex recognizes a type of citation. For instance, one regex recognizes citations to the Code of Federal Regulations; another recognizes citations to the Federal Rules of Civil Procedure, and a third recognizes court case citations in rough Bluebook&nbsp;format. </p>
-<p>If the search query matches a regex, the program generates a URL redirect to look&nbsp;up </p>
-<h3 id="1-statutes">1.&nbsp;Statutes</h3>
-<p>First, the program tries to parse your query as a reference to one of <a href="#recognized-bodies-of-law">the bodies of law it knows</a>. Mostly that's the U.S. Code, and a few major statutes like the National Labor Relations Act, for which it opens the U.S. Code section where the  given section of the Act was&nbsp;codified.</p>
+<h2 id="how-it-works">How it Works</h2>
+<p>The program tries to match your search query against a series of <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> (regexes), where each regex recognizes a type of citation. For instance, one regex recognizes citations to the Code of Federal Regulations; another recognizes citations to the Federal Rules of Civil Procedure, and a third recognizes court case citations in rough Bluebook format. </p>
+<p>If the search query matches a regex, the program generates a URL redirect to look up </p>
+<h3 id="1-statutes">1. Statutes</h3>
+<p>First, the program tries to parse your query as a reference to one of <a href="#recognized-bodies-of-law">the bodies of law it knows</a>. Mostly that's the U.S. Code, and a few major statutes like the National Labor Relations Act, for which it opens the U.S. Code section where the  given section of the Act was codified.</p>
 <p>For most of these bodies of law, it's possible to specify a statutory <em>subsection</em>, though note that these are case-sensitive. Also note that the subsection you searched for will likely be hidden behind Cornell's website header, so you'll need to scroll up a bit or else disable the header with something like <a href="https://ublockorigin.com/">uBlock Origin</a>.</p>
 <p>The program is flexible in that it ignores section signs, and it treats spaces in your query the same as parentheses. For instance, "nlra 8 b 4" and "N.L.R.A. § 8(b)(4)" will both redirect to <a href="https://www.law.cornell.edu/uscode/text/29/158#b_4">Section 8(b)(4) of the National Labor Relations Act</a>.</p>
-<h3 id="2-cases">2.&nbsp;Cases</h3>
-<p>The program looks up court case citations using either CourtListener or Google Scholar, depending on the query&nbsp;format:</p>
-<p>If the query starts and ends with a number, with something else in between, e.g. "347 U.S. 483", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's <a href="https://www.courtlistener.com/c/">Citation Lookup Tool</a>. I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong&nbsp;one.</p>
-<p>But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, 347 U.S. 483 (1954)", with a case name and reporter, the program will open the first result from <a href="https://scholar.google.com/scholar?as_sdt=2006">Google Scholar's case law search</a>. Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court&nbsp;cases.</p>
-<p>What makes up for the unreliability is that you can include pincites (i.e. citations to specific page numbers), and the program will try to link you to the precise page you're looking for. This is possible because unlike CourtListener, Google Scholar's cases support <a href="http://www.echoecho.com/htmllinks08.htm">anchor links</a>. However, it's unreliable because even when the program finds the correct case, the page numbers will be wrong if Google's copy is from a different court reporter than the one you're referencing. Still, I thought it was worth including because when it <em>does</em> work, it's&nbsp;magical.</p>
-<h2 id="bookmark-this-search">Bookmark This&nbsp;Search!</h2>
-<p>You're totally welcome to use the search engine by coming to my site and typing your citation into the search bar whenever you want to look something up. But it's more convenient if you can set up a search keyword so that you can just type something like "ls 42 usc 1983" in your URL bar to look up the&nbsp;law.</p>
-<p>To do that on Firefox, you can just right-click the search bar and click "Add a Keyword For This&nbsp;Search."</p>
-<p>On Chrome, it's a little more complicated. First, copy this&nbsp;URL:</p>
+<h3 id="2-cases">2. Cases</h3>
+<p>The program looks up court case citations using either CourtListener or Google Scholar, depending on the query format:</p>
+<p>If the query starts and ends with a number, with something else in between, e.g. "347 U.S. 483", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's <a href="https://www.courtlistener.com/c/">Citation Lookup Tool</a>. I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong one.</p>
+<p>But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, 347 U.S. 483 (1954)", with a case name and reporter, the program will open the first result from <a href="https://scholar.google.com/scholar?as_sdt=2006">Google Scholar's case law search</a>. Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court cases.</p>
+<p>What makes up for the unreliability is that you can include pincites (i.e. citations to specific page numbers), and the program will try to link you to the precise page you're looking for. This is possible because unlike CourtListener, Google Scholar's cases support <a href="http://www.echoecho.com/htmllinks08.htm">anchor links</a>. However, it's unreliable because even when the program finds the correct case, the page numbers will be wrong if Google's copy is from a different court reporter than the one you're referencing. Still, I thought it was worth including because when it <em>does</em> work, it's magical.</p>
+<h2 id="bookmark-this-search">Bookmark This Search!</h2>
+<p>You're totally welcome to use the search engine by coming to my site and typing your citation into the search bar whenever you want to look something up. But it's more convenient if you can set up a search keyword so that you can just type something like "ls 42 usc 1983" in your URL bar to look up the law.</p>
+<p>To do that on Firefox, you can just right-click the search bar and click "Add a Keyword For This Search."</p>
+<p>On Chrome, it's a little more complicated. First, copy this URL:</p>
 <p><code id="bookmarkURL"></code></p>
-<p>Next, go to <code>Settings &gt; Manage Search Engines</code>. From there, click &#8220;Add&#8221;, and paste the address in the <span class="caps">URL</span>&nbsp;field.</p>
+<p>Next, go to <code>Settings &gt; Manage Search Engines</code>. From there, click “Add”, and paste the address in the <span class="caps">URL</span> field.</p>
 <script>
 document.getElementById("bookmarkURL").innerHTML = window.location.href.replace(window.location.search, '').replace(window.location.hash, '') + "?%s";
 </script>
 
-<p>Either way, you&#8217;ll also need to designate a keyword. I use &#8220;ls&#8221; (for &#8220;law search&#8221;), but anything&nbsp;works.</p>
-<div hidden id="downloadOption"><strong>Alternatively</strong>, if you don&#8217;t want to rely on my website, you can download your own copy of the search engine, and run it entirely locally. To do that, <a href="/lawsearch" download>download this page</a> and save it somewhere that you&#8217;re unlikely to delete it. Then, close this tab, open your local copy, and follow these same directions. That way, it&#8217;ll be yours forever, though you might miss out on updates.</div>
+<p>Either way, you’ll also need to designate a keyword. I use “ls” (for “law search”), but anything works.</p>
+<div hidden="" id="downloadOption"><strong>Alternatively</strong>, if you don’t want to rely on my website, you can download your own copy of the search engine, and run it entirely locally. To do that, <a download="" href="/lawsearch">download this page</a> and save it somewhere that you’re unlikely to delete it. Then, close this tab, open your local copy, and follow these same directions. That way, it’ll be yours forever, though you might miss out on updates.</div>
 
 <script>
 if (window.location.protocol != "file:") {
@@ -212,9 +212,9 @@ if (window.location.protocol != "file:") {
 }
 </script>
 
-<h2 id="recognized-bodies-of-law">Recognized Bodies of&nbsp;Law</h2>
-<p>These are the bodies of law the program is able to recognize, not including the <a href="#2-cases">court case formats</a> described above. The generic query format allows for some differences in capitalization and punctuation, as shown in the example queries. Most bodies of law, but not all, support citations to specific&nbsp;subsections.</p>
-<table>
+<h2 id="recognized-bodies-of-law">Recognized Bodies of Law</h2>
+<p>These are the bodies of law the program is able to recognize, not including the <a href="#2-cases">court case formats</a> described above. The generic query format allows for some differences in capitalization and punctuation, as shown in the example queries. Most bodies of law, but not all, support citations to specific subsections.</p>
+<div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Body of Law</th>
@@ -234,7 +234,7 @@ if (window.location.protocol != "file:") {
 <td>29 <span class="caps">CFR</span> § 1926.1053(b)(17)(ii)</td>
 </tr>
 <tr>
-<td><a href="https://leginfo.legislature.ca.gov/faces/codes.xhtml">California Codes</a> (e.g. <span class="caps">PEN</span>, <span class="caps">CIV</span>, <span class="caps">CCP</span> &#8230;)</td>
+<td><a href="https://leginfo.legislature.ca.gov/faces/codes.xhtml">California Codes</a> (e.g. <span class="caps">PEN</span>, <span class="caps">CIV</span>, <span class="caps">CCP</span> …)</td>
 <td><code>cal CODE SECTION</code></td>
 <td><span class="caps">CAL</span> <span class="caps">CCP</span> 1161.1</td>
 </tr>
@@ -274,9 +274,9 @@ if (window.location.protocol != "file:") {
 <td>cwa 301 b 2 A</td>
 </tr>
 </tbody>
-</table>
-<p>* As codified. Cross-references in the text will refer to <span class="caps">U.S.</span> Code section numbers, not sections of the original&nbsp;Act. </p>
-<p>Obviously this is far from a complete list. Most of the laws it supports are there because I was studying them while referencing this. If you&#8217;d like me to add other laws, or if you find any errors, <a href="mailto:simonraindrum@gmail.com">send me an email</a> and I&#8217;ll see what I can&nbsp;do!</p>
+</table></div>
+<p>* As codified. Cross-references in the text will refer to <span class="caps">U.S.</span> Code section numbers, not sections of the original Act. </p>
+<p>Obviously this is far from a complete list. Most of the laws it supports are there because I was studying them while referencing this. If you’d like me to add other laws, or if you find any errors, <a href="mailto:simonraindrum@gmail.com">send me an email</a> and I’ll see what I can do!</p>
   </main></div>
 </body>
 </html>
