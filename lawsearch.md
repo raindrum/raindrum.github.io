@@ -108,7 +108,7 @@ function lookup(query) {
   }
   if (!match) {
     document.getElementById("explainer").innerHTML = "Sorry, I couldn't recognize that citation. Is it on the list of <a href='#recognized-bodies-of-law'>recognized bodies of law</a> or <a href='#2-cases'>case citation formats</a>?";
-    return;
+    return false;
   }
   for (var k in schema.forceUpperCase) {
     keys[schema.forceUpperCase[k]] = keys[schema.forceUpperCase[k]].toUpperCase();
@@ -123,7 +123,7 @@ function lookup(query) {
     if (!newKey) { newKey = remaps[keys[k].toLowerCase()]; }
     if (!newKey) {
       document.getElementById("explainer").innerHTML = "Sorry, I don't have a U.S. Code section on file for that section of the Act. If it's a valid section, please <a href='mailto: simonraindrum@gmail.com'>let me know</a>!";
-      return;
+      return false;
     }
     keys[k] = newKey;
   }
@@ -143,13 +143,13 @@ function lookup(query) {
     url += keys.hash;
   }
   window.location.href = url;
+  return true;
 }
 function urlQuery() {
   if (!location.search) { return true; }
   let query = decodeURIComponent(location.search).trim().replace(/^\?(?:q=)?|\.$|,$|;$/g, '');
   document.getElementById("q").value = query.replace(/\+/g, ' ');
-  lookup(query);
-  return false;
+  return !lookup(query);
 }
 function searchBar() {
   let query = document.getElementById("q").value;
@@ -208,7 +208,7 @@ On Chrome, it's a little more complicated. First, copy this URL:
 Next, go to `Settings > Manage Search Engines`. From there, click "Add", and paste the address in the URL field.
 
 <script>
-document.getElementById("bookmarkURL").innerHTML = window.location.href.replace(window.location.search, '').replace(window.location.hash, '') + "?%s";
+document.getElementById("bookmarkURL").innerHTML = window.location.origin + window.location.pathname + "?%s";
 </script>
 
 Either way, you'll also need to designate a keyword. I use "ls" (for "law search"), but anything works.
