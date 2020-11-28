@@ -15,7 +15,7 @@ html {
   color: var(--text-color);
   background-color: var(--bg-color);
   font-family: Sans;
-  font-size: 14pt;
+  /*font-size: 14pt;*/
   line-height: 1.5em;
 }
 body { margin: 0; }
@@ -152,7 +152,7 @@ th input, td input {
 .contentScaler {
   margin-left: 0;
   padding: 1rem 1rem;
-  word-wrap: break-word;
+  /*overflow-wrap: anywhere;*/
 }
 main {
   max-width: 40rem;
@@ -191,4 +191,8 @@ article {
 .paginator {
   text-align: center;
   font-size: 1.3em;
+}
+.search-label {
+  color: var(--emph-text-color);
+  font-weight: bold;
 }

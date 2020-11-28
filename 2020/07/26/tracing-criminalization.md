@@ -557,7 +557,7 @@ The language of CAPC 653.22 provides that “*it is unlawful for any person to l
 
 The issue of policing of low-level offenses in Los Angeles has become a serious issue that local groups are working to address. This form of criminalization of low-level offenses serves to not only criminalize entire communities but also serves to create pipelines to carceral systems. The goal of this project and report is to bring light to this issue by using the data collected by Court Watch Los Angeles, the Los Angeles Police Department, and the Los Angeles City Attorney’s Office to analyze the state of misdemeanor and low-level offense criminalization in Los Angeles. We strongly believe that greater attention must be brought to the myriad of issues that the criminalization of low-level offenses poses to the Los Angeles community.
 
-## *Appendix
+## Appendix
 
 ### A. Table of Codes
 

@@ -7,7 +7,7 @@ With this, you can use rough legal citations to look up federal statutes and cou
 <form class="main-search" onsubmit="return searchBar()">
     <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go">
     <br>
-    <label for="q" id="explainer"></label>
+    <label for="q" id="explainer" class="search-label"></label>
 </form>
 <script>
 const schemas = [
@@ -107,8 +107,8 @@ function lookup(query) {
     }
   }
   if (!match) {
-    document.getElementById("explainer").innerHTML = "<strong>Sorry, I couldn't recognize that citation. Is it on the list of recognized bodies of law?</strong>";
-    return false;
+    document.getElementById("explainer").innerHTML = "Sorry, I couldn't recognize that citation. Is it on the list of <a href='#recognized-bodies-of-law'>recognized bodies of law</a> or <a href='#2-cases'>case citation formats</a>?";
+    return;
   }
   for (var k in schema.forceUpperCase) {
     keys[schema.forceUpperCase[k]] = keys[schema.forceUpperCase[k]].toUpperCase();
@@ -121,6 +121,10 @@ function lookup(query) {
     let newKey = remaps[keys[k]];
     if (!newKey) { newKey = remaps[keys[k].toUpperCase()]; }
     if (!newKey) { newKey = remaps[keys[k].toLowerCase()]; }
+    if (!newKey) {
+      document.getElementById("explainer").innerHTML = "Sorry, I don't have a U.S. Code section on file for that section of the Act. If it's a valid section, please <a href='mailto: simonraindrum@gmail.com'>let me know</a>!";
+      return;
+    }
     keys[k] = newKey;
   }
   for (var k in keys) {
@@ -139,18 +143,22 @@ function lookup(query) {
     url += keys.hash;
   }
   window.location.href = url;
-  return true;
 }
 function urlQuery() {
   if (!location.search) { return true; }
   let query = decodeURIComponent(location.search).trim().replace(/^\?(?:q=)?|\.$|,$|;$/g, '');
   document.getElementById("q").value = query.replace(/\+/g, ' ');
-  return !lookup(query);
+  lookup(query);
+  return false;
 }
 function searchBar() {
   let query = document.getElementById("q").value;
-  if (!query) { return false; }
-  return !lookup(query);
+  if (!query) {
+    document.getElementById("explainer").innerHTML = "";
+    return false;
+  }
+  lookup(query);
+  return false;
 }
 </script>
 
@@ -229,6 +237,6 @@ These are the bodies of law the program is able to recognize, not including the 
 | [Clean Air Act](https://www.law.cornell.edu/topn/clean_air_act) * | `caa SECTION [SUBSECTIONS]`                                  | CAA § 112(k)(3)               |
 | [Clean Water Act](https://www.law.cornell.edu/topn/clean_water_act_of_1977) * | `cwa SECTION [SUBSECTIONS]`                                  | cwa 301 b 2 A                 |
 
-\* As codified. Cross-references in the text will refer to U.S. Code section numbers, not sections of the original Act. 
+\* As codified. Cross-references in the text will refer to U.S. Code section numbers, not sections of the original Act.
 
-Obviously this is far from a complete list. Most of the laws it supports are there because I was studying them while referencing this. If you'd like me to add other laws, or if you find any errors, [send me an email](mailto:simonraindrum@gmail.com) and I'll see what I can do!
+Obviously this is far from a complete list. A lot of the laws it supports are there because I was studying them while working on this. If you'd like me to add other laws, or if you find any errors, [send me an email](mailto:simonraindrum@gmail.com) and I'll see what I can do!
