@@ -1,10 +1,10 @@
 Slug: lawsearch
 Date: 2020-11-24
-Unhide_If: urlQuery()
+Hide_Body: True
 
 With this, you can use rough legal citations to look up federal statutes and court cases, plus [a few other bodies of law](#recognized-bodies-of-law). It usually recognizes subsections and pincites, too!
 
-<form class="main-search" onsubmit="return searchBar()">
+<form class="main-search" onsubmit="handleSearch(event)">
     <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go">
     <br>
     <label for="q" id="explainer" class="search-label"></label>
@@ -147,52 +147,103 @@ const schemas = [
   "regexes": [/^Cal\.? (?<code>[a-z]+) §? ?(?<section>[\w\.]+)/i],
   "URLParts": {"baseURL": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=[code]&sectionNum=[section]"},
   "forceUpperCase": ["code"]
-}]
+}];
 
 /*
-Checks the given query against the schemas, and uses the matched
-schema to generate a URL, then redirect to that URL. Returns true
-if successful, false otherwise. Outputs error messages to the
-DOM element with id "explainer".
+  Parses URL search query, and passes it to handleQuery().
+  Runs upon page load, while the LawSearch page is hidden.
+  Returns true if the page should be unhidden, i.e. upon a *failed*
+  search. Returns false otherwise.
+  Also puts the query into the search bar.
 */
-function lookup(query) {
+document.addEventListener("DOMContentLoaded", () => {
+  if (!location.search) {
+    return document.body.removeAttribute('hidden');
+  }
+
+  let query = decodeURIComponent(location.search).trim().replace(/^\?(?:q=)?|\.$|,$|;$/g, '');
+  document.getElementById("q").value = query.replace(/\+/g, ' ');
+
+  handleQuery(query);
+});
+
+function handleSearch(event) {
+  event.preventDefault()
+  const query = document.getElementById("q").value
+  handleQuery(query);
+}
+
+function handleQuery(query) {
+  try {
+    if (!query) return document.getElementById("explainer").innerHTML = "";
+    window.location.href = getUrlForQuery(query);
+  } catch (error) {
+    document.body.removeAttribute('hidden');
+    document.getElementById("explainer").innerHTML = error.message;
+  }
+}
+
+function getUrlForQuery(query) {
+  const match = getMatch(query);
+
+  handleCaseInsensitivity(match);
+  handleRemappedKeys(match);
+  updateUrlParts(match);
+
+  return buildUrl(match);
+}
+
+const MATCH_ERROR = "Sorry, I couldn't recognize that citation. Is it on the list of <a href='#recognized-bodies-of-law'>recognized bodies of law</a> or <a href='#2-cases'>case citation formats</a>?"
+function getMatch(query) {
   for (var i = 0; i < schemas.length; i++) {
     var schema = schemas[i];
     for (var j = 0; j < schema.regexes.length; j++) {
       var match = query.match(schema.regexes[j]);
-      if (match) { break; }
-    }
-    if (match) {
-      var keys = match.groups;
-      break;
+      if (match) return {
+        keys: match.groups,
+        schema: schema
+      }
     }
   }
-  if (!match) {
-    document.getElementById("explainer").innerHTML = "Sorry, I couldn't recognize that citation. Is it on the list of <a href='#recognized-bodies-of-law'>recognized bodies of law</a> or <a href='#2-cases'>case citation formats</a>?";
-    return false;
-  }
+  throw Error(MATCH_ERROR);
+}
+
+function handleCaseInsensitivity(match) {
+  const {schema, keys} = match;
   for (var k in schema.forceUpperCase) {
     keys[schema.forceUpperCase[k]] = keys[schema.forceUpperCase[k]].toUpperCase();
   }
   for (var k in schema.forceLowerCase) {
     keys[schema.forceLowerCase[k]] = keys[schema.forceLowerCase[k]].toLowerCase();
   }
+}
+
+const REMAPPED_KEY_ERROR = "Sorry, I don't have a U.S. Code section on file for that section of the Act. If it's a valid section, please <a href='mailto: simonraindrum@gmail.com'>let me know</a>!"
+function handleRemappedKeys(match) {
+  const {schema, keys} = match;
   for (var k in schema.remapKeys) {
     let remaps = schema.remapKeys[k];
     let newKey = remaps[keys[k]];
     if (!newKey) { newKey = remaps[keys[k].toUpperCase()]; }
     if (!newKey) { newKey = remaps[keys[k].toLowerCase()]; }
     if (!newKey) {
-      document.getElementById("explainer").innerHTML = "Sorry, I don't have a U.S. Code section on file for that section of the Act. If it's a valid section, please <a href='mailto: simonraindrum@gmail.com'>let me know</a>!";
-      return false;
+      throw Error(REMAPPED_KEY_ERROR);
     }
     keys[k] = newKey;
   }
+}
+
+function updateUrlParts(match) {
+  const {schema, keys} = match;
   for (var k in keys) {
     for (var part in schema.URLParts) {
       schema.URLParts[part] = schema.URLParts[part].replace("[" + k + "]", keys[k]);
     }
   }
+}
+
+function buildUrl(match) {
+  const {schema, keys} = match;
   let url = schema.URLParts.baseURL;
   if (keys.hash) {
     url += "#";
@@ -203,35 +254,7 @@ function lookup(query) {
     }
     url += keys.hash;
   }
-  document.getElementById("explainer").innerHTML = "";
-  window.location.href = url;
-  return true;
-}
-
-/* Parses URL search query, and passes it to lookup().
-Meant to be run upon page load, while the LawSearch page is hidden.
-Returns true if the page should be unhidden, i.e. upon a *failed*
-search. Returns false otherwise.
-Also puts the query into the search bar.
-*/
-function urlQuery() {
-  if (!location.search) { return true; }
-  let query = decodeURIComponent(location.search).trim().replace(/^\?(?:q=)?|\.$|,$|;$/g, '');
-  document.getElementById("q").value = query.replace(/\+/g, ' ');
-  return !lookup(query);
-}
-
-/* Passes value from the search bar to lookup(). Always returns false
-so as not to reload the page upon form input. */
-function searchBar() {
-  let query = document.getElementById("q").value;
-  if (!query) { 
-    document.getElementById("explainer").innerHTML = "";
-  }
-  else {
-    lookup(query);
-  }
-  return false;
+  return url
 }
 </script>
 
@@ -277,12 +300,11 @@ To do that on Firefox, you can just right-click the search bar and click "Add a 
 On Chrome, it's a little more complicated. First, copy this URL:
 
 <code id="bookmarkURL"></code>
+<script>
+document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\?|#/)[0] + "?%s";
+</script>
 
 Next, go to `Settings > Manage Search Engines`. From there, click "Add", and paste the address in the URL field.
-
-<script>
-document.getElementById("bookmarkURL").innerHTML = window.location.origin + window.location.pathname + "?%s";
-</script>
 
 Either way, you'll also need to designate a keyword. I use "ls" (for "law search"), but anything works.
 

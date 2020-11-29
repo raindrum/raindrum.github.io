@@ -545,7 +545,7 @@ The language of CAPC 653.22 provides that “*it is unlawful for any person to l
 [^83]: Cal. Penal Code § 315 (West 2019).
 [^84]: Cal. Penal Code § 316 (West 2019).
 [^85]: Cal. Penal Code § 647(d) (West 2019).
-[^86]: Nury Martinez, *Councilwomen Nury Martinez and South LA Councilmembers Announce Half A Million to Save Victims of Human Trafficking in LAPD South Bureau*, City of Los Angeles Councilwomen, 6th District, January 31, 2019, http://www.nury-martinez.com/councilwoman_nury_martinez_and_south_la_councilmembers_announce_half_a_million_to_save_victims_of_human_trafficking_in_lapd_south_bureau
+[^86]: Nury Martinez, *Councilwomen Nury Martinez and South LA Councilmembers Announce Half A Million to Save Victims of Human Trafficking in LAPD South Bureau*, City of Los Angeles Councilwomen, 6th District, January 31, 2019.
 [^87]: *Los Angeles, CA Population 2019*, World Population Review, 2019, http://worldpopulationreview.com/us-cities/los-angeles-population/
 [^88]: Cal. Penal Code § 653.22(a) (West 2019).
 [^89]: Joanna Cifredo, *NCTE Backs Challenges to Prostitution Laws and Their Discriminatory Enforcement, National Center for Transgender Equality* (2016), https://transequality.org/blog/ncte-backs-challenges-to-prostitution-laws-and-their-discriminatory-enforcement
