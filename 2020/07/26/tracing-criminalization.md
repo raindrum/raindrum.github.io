@@ -533,7 +533,7 @@ The language of CAPC 653.22 provides that “*it is unlawful for any person to l
 [^71]: Cal. Penal Code § 647(b)(2) (West 2019).
 [^72]: Cal. Penal Code § 653.22(a) (West 2019).
 [^73]: Cal. Penal Code § 647(d) (West 2019).
-[^74]: 74 Cal. Penal Code § 652.23(a)(1) (West 2019). ↩*
+[^74]: Cal. Penal Code § 652.23(a)(1) (West 2019).
 [^75]: Los Angeles Municipal Code § 103.107.1(b)
 [^76]: Cal. Penal Code § 315 (West 2019).
 [^77]: Cal. Penal Code § 316 (West 2019).

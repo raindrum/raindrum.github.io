@@ -276,12 +276,12 @@ function buildUrl(match) {
 
 If you're looking for ideas, try some example searches:
 
-- 42 USC § 1983
+- 42 <span>USC §</span> 1983
 - usc 42 1983
 - nlra 8 b 4
-- CAL CIV § 1947.12
-- 347 U.S. 483
-- Kinsman Transit Company, 338 F.2d 708, 715 (1964)
+- CAL CIV § <span>1947.12</span>
+- 347 <span>U.S.</span> 483
+- Kinsman Transit Company, 338 <span>F.2d 708</span>, 715 (1964)
 
 ## How it Works
 
@@ -295,15 +295,15 @@ First, the program tries to parse your query as a reference to one of [the bodie
 
 For most of these bodies of law, it's possible to specify a statutory *subsection*, though note that these are case-sensitive. Also note that the subsection you searched for will likely be hidden behind Cornell's website header, so you'll need to scroll up a bit or else disable the header with something like [uBlock Origin](https://ublockorigin.com/).
 
-The program is flexible in that it ignores section signs, and it treats spaces in your query the same as parentheses. For instance, "nlra 8 b 4" and "N.L.R.A. § 8(b)(4)" will both redirect to [Section 8(b)(4) of the National Labor Relations Act](https://www.law.cornell.edu/uscode/text/29/158#b_4).
+The program is flexible in that it ignores section signs, and it treats spaces in your query the same as parentheses. For instance, "nlra 8 b 4" and "N.L.R.A. <span>§ 8(b)(4)</span>" will both redirect to [Section 8(b)(4) of the National Labor Relations Act](https://www.law.cornell.edu/uscode/text/29/158#b_4).
 
 ### 2. Cases
 
 The program looks up court case citations using either CourtListener or Google Scholar, depending on the query format:
 
-If the query starts and ends with a number, with something else in between, e.g. "347 U.S. 483", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's [Citation Lookup Tool](https://www.courtlistener.com/c/). I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong one.
+If the query starts and ends with a number, with something else in between, e.g. "347 <span>U.S.</span> 483", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's [Citation Lookup Tool](https://www.courtlistener.com/c/). I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong one.
 
-But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, 347 U.S. 483 (1954)", with a case name and reporter, the program will open the first result from [Google Scholar's case law search](https://scholar.google.com/scholar?as_sdt=2006). Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court cases.
+But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, 347 <span>U.S.</span> 483 (1954)", with a case name and reporter, the program will open the first result from [Google Scholar's case law search](https://scholar.google.com/scholar?as_sdt=2006). Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court cases.
 
 What makes up for the unreliability is that you can include pincites (i.e. citations to specific page numbers), and the program will try to link you to the precise page you're looking for. This is possible because unlike CourtListener, Google Scholar's cases support [anchor links](http://www.echoecho.com/htmllinks08.htm). However, it's unreliable because even when the program finds the correct case, the page numbers will be wrong if Google's copy is from a different court reporter than the one you're referencing. Still, I thought it was worth including because when it *does* work, it's magical.
 
@@ -335,20 +335,20 @@ if (window.location.protocol != "file:") {
 
 These are the bodies of law the program is able to recognize, not including the [court case formats](#2-cases) described above. The generic query format allows for some differences in capitalization and punctuation, as shown in the example queries. Most bodies of law, but not all, support citations to specific subsections.
 
-| Body of Law                                                  | Generic Query Format                                         | Example Query                 |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ----------------------------- |
-| [U.S. Code](https://www.law.cornell.edu/uscode/text)         | `TITLE usc SECTION [SUBSECTIONS]` or `usc TITLE SECTION [SUBSECTIONS]` | usc 42 1983                   |
-| [Code of Federal Regulations](https://www.law.cornell.edu/cfr/text) | `TITLE cfr SECTION [SUBSECTIONS]` or `cfr TITLE SECTION [SUBSECTIONS]` | 29 CFR § 1926.1053(b)(17)(ii) |
-| [Uniform Commercial Code](https://www.law.cornell.edu/ucc)   | `ucc ARTICLE SECTION [FIRST_SUBSECTION]`                     | ucc 8-108                     |
-| [California Codes](https://leginfo.legislature.ca.gov/faces/codes.xhtml) (e.g. PEN, CIV, CCP ...) | `cal CODE SECTION`                                           | CAL CCP 1161.1                |
-| [Federal Rules of Civil Procedure](https://www.law.cornell.edu/rules/frcp) | `frcp RULE [SUBSECTIONS]`                                    | frcp 12 b 6                   |
-| [Immigration and Nationality Act](https://www.law.cornell.edu/topn/immigration_and_nationality_act) * | `ina SECTION [SUBSECTIONS]`                                  | I.N.A. § 212(a)(4)            |
-| [National Labor Relations Act](https://www.law.cornell.edu/topn/national_labor_relations_act) * | `nlra SECTION [SUBSECTIONS]`                                 | nlra § 7                      |
-| [Americans With Disabilities Act](https://www.law.cornell.edu/topn/americans_with_disabilities_act_of_1990) * | `ada SECTION [SUBSECTIONS]`                                  | ada 102 c 2 C iii             |
-| [Fair Housing Act](https://www.law.cornell.edu/topn/fair_housing_act) * | `fha SECTION [SUBSECTIONS]`                                  | fha 804 f 3 C iii V           |
-| [Endangered Species Act](https://www.law.cornell.edu/topn/endangered_species_act_of_1973) * | `esa SECTION [SUBSECTIONS]`                                  | E. S. A. § 7                  |
-| [Clean Air Act](https://www.law.cornell.edu/topn/clean_air_act) * | `caa SECTION [SUBSECTIONS]`                                  | CAA § 112(k)(3)               |
-| [Clean Water Act](https://www.law.cornell.edu/topn/clean_water_act_of_1977) * | `cwa SECTION [SUBSECTIONS]`                                  | cwa 301 b 2 A                 |
+| Body of Law                                                  | Generic Query Format                                         | Example Query                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------ |
+| [U.S. Code](https://www.law.cornell.edu/uscode/text)         | `TITLE usc SECTION [SUBSECTIONS]` or `usc TITLE SECTION [SUBSECTIONS]` | usc 42 1983                                |
+| [Code of Federal Regulations](https://www.law.cornell.edu/cfr/text) | `TITLE cfr SECTION [SUBSECTIONS]` or `cfr TITLE SECTION [SUBSECTIONS]` | 29 <span>CFR § 1926.1053</span>(b)(17)(ii) |
+| [Uniform Commercial Code](https://www.law.cornell.edu/ucc)   | `ucc ARTICLE SECTION [FIRST_SUBSECTION]`                     | ucc 8-108                                  |
+| [California Codes](https://leginfo.legislature.ca.gov/faces/codes.xhtml) (e.g. PEN, CIV, CCP ...) | `cal CODE SECTION`                                           | CAL CCP <span>1161.1</span>                |
+| [Federal Rules of Civil Procedure](https://www.law.cornell.edu/rules/frcp) | `frcp RULE [SUBSECTIONS]`                                    | frcp 12 b 6                                |
+| [Immigration and Nationality Act](https://www.law.cornell.edu/topn/immigration_and_nationality_act) * | `ina SECTION [SUBSECTIONS]`                                  | I.N.A. <span>§ 212</span>(a)(4)            |
+| [National Labor Relations Act](https://www.law.cornell.edu/topn/national_labor_relations_act) * | `nlra SECTION [SUBSECTIONS]`                                 | nlra § 7                                   |
+| [Americans With Disabilities Act](https://www.law.cornell.edu/topn/americans_with_disabilities_act_of_1990) * | `ada SECTION [SUBSECTIONS]`                                  | ada 102 c 2 C iii                          |
+| [Fair Housing Act](https://www.law.cornell.edu/topn/fair_housing_act) * | `fha SECTION [SUBSECTIONS]`                                  | fha 804 f 3 C iii V                        |
+| [Endangered Species Act](https://www.law.cornell.edu/topn/endangered_species_act_of_1973) * | `esa SECTION [SUBSECTIONS]`                                  | E. S. A. § 7                               |
+| [Clean Air Act](https://www.law.cornell.edu/topn/clean_air_act) * | `caa SECTION [SUBSECTIONS]`                                  | CAA <span>§ 112</span>(k)(3)               |
+| [Clean Water Act](https://www.law.cornell.edu/topn/clean_water_act_of_1977) * | `cwa SECTION [SUBSECTIONS]`                                  | cwa 301 b 2 A                              |
 
 \* As codified. Cross-references in the text will refer to U.S. Code section numbers, not sections of the original Act.
 

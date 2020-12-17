@@ -293,12 +293,12 @@ function buildUrl(match) {
 
 <p>If you're looking for ideas, try some example searches:</p>
 <ul>
-<li><a href="https://www.law.cornell.edu/uscode/text/42/1983">42 USC § 1983</a></li>
+<li>42 <span>USC §</span> 1983</li>
 <li>usc 42 1983</li>
 <li>nlra 8 b 4</li>
-<li>CAL CIV § 1947.12</li>
-<li><a href="https://cite.case.law/us/347/483">347 U.S. 483</a></li>
-<li>Kinsman Transit Company, <a href="https://cite.case.law/f2d/338/708#p715">338 F.2d 708, 715</a> (1964)</li>
+<li>CAL CIV § <span>1947.12</span></li>
+<li>347 <span>U.S.</span> 483</li>
+<li>Kinsman Transit Company, 338 <span>F.2d 708</span>, 715 (1964)</li>
 </ul>
 <h2 id="how-it-works">How it Works</h2>
 <p>The program tries to match your search query against a series of <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> (regexes), where each regex recognizes a type of citation. For instance, one regex recognizes citations to the Code of Federal Regulations; another recognizes citations to the Federal Rules of Civil Procedure, and a third recognizes court case citations in rough Bluebook format. </p>
@@ -306,11 +306,11 @@ function buildUrl(match) {
 <h3 id="1-statutes">1. Statutes</h3>
 <p>First, the program tries to parse your query as a reference to one of <a href="#recognized-bodies-of-law">the bodies of law it knows</a>. Mostly that's the U.S. Code, and a few major statutes like the National Labor Relations Act, for which it opens the U.S. Code section where the given section of the Act was codified.</p>
 <p>For most of these bodies of law, it's possible to specify a statutory <em>subsection</em>, though note that these are case-sensitive. Also note that the subsection you searched for will likely be hidden behind Cornell's website header, so you'll need to scroll up a bit or else disable the header with something like <a href="https://ublockorigin.com/">uBlock Origin</a>.</p>
-<p>The program is flexible in that it ignores section signs, and it treats spaces in your query the same as parentheses. For instance, "nlra 8 b 4" and "N.L.R.A. § 8(b)(4)" will both redirect to <a href="https://www.law.cornell.edu/uscode/text/29/158#b_4">Section 8(b)(4) of the National Labor Relations Act</a>.</p>
+<p>The program is flexible in that it ignores section signs, and it treats spaces in your query the same as parentheses. For instance, "nlra 8 b 4" and "N.L.R.A. <span>§ 8(b)(4)</span>" will both redirect to <a href="https://www.law.cornell.edu/uscode/text/29/158#b_4">Section 8(b)(4) of the National Labor Relations Act</a>.</p>
 <h3 id="2-cases">2. Cases</h3>
 <p>The program looks up court case citations using either CourtListener or Google Scholar, depending on the query format:</p>
-<p>If the query starts and ends with a number, with something else in between, e.g. "<a href="https://cite.case.law/us/347/483">347 U.S. 483</a>", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's <a href="https://www.courtlistener.com/c/">Citation Lookup Tool</a>. I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong one.</p>
-<p>But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, <a href="https://cite.case.law/us/347/483">347 U.S. 483</a> (1954)", with a case name and reporter, the program will open the first result from <a href="https://scholar.google.com/scholar?as_sdt=2006">Google Scholar's case law search</a>. Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court cases.</p>
+<p>If the query starts and ends with a number, with something else in between, e.g. "347 <span>U.S.</span> 483", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's <a href="https://www.courtlistener.com/c/">Citation Lookup Tool</a>. I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong one.</p>
+<p>But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, 347 <span>U.S.</span> 483 (1954)", with a case name and reporter, the program will open the first result from <a href="https://scholar.google.com/scholar?as_sdt=2006">Google Scholar's case law search</a>. Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court cases.</p>
 <p>What makes up for the unreliability is that you can include pincites (i.e. citations to specific page numbers), and the program will try to link you to the precise page you're looking for. This is possible because unlike CourtListener, Google Scholar's cases support <a href="http://www.echoecho.com/htmllinks08.htm">anchor links</a>. However, it's unreliable because even when the program finds the correct case, the page numbers will be wrong if Google's copy is from a different court reporter than the one you're referencing. Still, I thought it was worth including because when it <em>does</em> work, it's magical.</p>
 <h2 id="bookmark-this-search">Bookmark This Search!</h2>
 <p>You're totally welcome to use the search engine by coming to my site and typing your citation into the search bar whenever you want to look something up. But it's more convenient if you can set up a search keyword so that you can just type something like "ls 42 usc 1983" in your URL bar to look up the law.</p>
@@ -349,7 +349,7 @@ if (window.location.protocol != "file:") {
 <tr>
 <td><a href="https://www.law.cornell.edu/cfr/text">Code of Federal Regulations</a></td>
 <td><code>TITLE cfr SECTION [SUBSECTIONS]</code> or <code>cfr TITLE SECTION [SUBSECTIONS]</code></td>
-<td>29 CFR § 1926.1053(b)(17)(ii)</td>
+<td>29 <span>CFR § 1926.1053</span>(b)(17)(ii)</td>
 </tr>
 <tr>
 <td><a href="https://www.law.cornell.edu/ucc">Uniform Commercial Code</a></td>
@@ -359,7 +359,7 @@ if (window.location.protocol != "file:") {
 <tr>
 <td><a href="https://leginfo.legislature.ca.gov/faces/codes.xhtml">California Codes</a> (e.g. PEN, CIV, CCP ...)</td>
 <td><code>cal CODE SECTION</code></td>
-<td>CAL CCP 1161.1</td>
+<td>CAL CCP <span>1161.1</span></td>
 </tr>
 <tr>
 <td><a href="https://www.law.cornell.edu/rules/frcp">Federal Rules of Civil Procedure</a></td>
@@ -369,7 +369,7 @@ if (window.location.protocol != "file:") {
 <tr>
 <td><a href="https://www.law.cornell.edu/topn/immigration_and_nationality_act">Immigration and Nationality Act</a> *</td>
 <td><code>ina SECTION [SUBSECTIONS]</code></td>
-<td><a href="https://www.law.cornell.edu/uscode/text/8/1182#a_4">I.N.A. § 212(a)(4)</a></td>
+<td>I.N.A. <span>§ 212</span>(a)(4)</td>
 </tr>
 <tr>
 <td><a href="https://www.law.cornell.edu/topn/national_labor_relations_act">National Labor Relations Act</a> *</td>
@@ -394,7 +394,7 @@ if (window.location.protocol != "file:") {
 <tr>
 <td><a href="https://www.law.cornell.edu/topn/clean_air_act">Clean Air Act</a> *</td>
 <td><code>caa SECTION [SUBSECTIONS]</code></td>
-<td>CAA § 112(k)(3)</td>
+<td>CAA <span>§ 112</span>(k)(3)</td>
 </tr>
 <tr>
 <td><a href="https://www.law.cornell.edu/topn/clean_water_act_of_1977">Clean Water Act</a> *</td>
