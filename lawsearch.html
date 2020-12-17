@@ -293,12 +293,12 @@ function buildUrl(match) {
 
 <p>If you're looking for ideas, try some example searches:</p>
 <ul>
-<li>42 USC § 1983</li>
+<li><a href="https://www.law.cornell.edu/uscode/text/42/1983">42 USC § 1983</a></li>
 <li>usc 42 1983</li>
 <li>nlra 8 b 4</li>
 <li>CAL CIV § 1947.12</li>
-<li>347 U.S. 483</li>
-<li>Kinsman Transit Company, 338 F.2d 708, 715 (1964)</li>
+<li><a href="https://cite.case.law/us/347/483">347 U.S. 483</a></li>
+<li>Kinsman Transit Company, <a href="https://cite.case.law/f2d/338/708#p715">338 F.2d 708, 715</a> (1964)</li>
 </ul>
 <h2 id="how-it-works">How it Works</h2>
 <p>The program tries to match your search query against a series of <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a> (regexes), where each regex recognizes a type of citation. For instance, one regex recognizes citations to the Code of Federal Regulations; another recognizes citations to the Federal Rules of Civil Procedure, and a third recognizes court case citations in rough Bluebook format. </p>
@@ -309,21 +309,21 @@ function buildUrl(match) {
 <p>The program is flexible in that it ignores section signs, and it treats spaces in your query the same as parentheses. For instance, "nlra 8 b 4" and "N.L.R.A. § 8(b)(4)" will both redirect to <a href="https://www.law.cornell.edu/uscode/text/29/158#b_4">Section 8(b)(4) of the National Labor Relations Act</a>.</p>
 <h3 id="2-cases">2. Cases</h3>
 <p>The program looks up court case citations using either CourtListener or Google Scholar, depending on the query format:</p>
-<p>If the query starts and ends with a number, with something else in between, e.g. "347 U.S. 483", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's <a href="https://www.courtlistener.com/c/">Citation Lookup Tool</a>. I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong one.</p>
-<p>But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, 347 U.S. 483 (1954)", with a case name and reporter, the program will open the first result from <a href="https://scholar.google.com/scholar?as_sdt=2006">Google Scholar's case law search</a>. Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court cases.</p>
+<p>If the query starts and ends with a number, with something else in between, e.g. "<a href="https://cite.case.law/us/347/483">347 U.S. 483</a>", the program treats the middle part as the name of a court reporter, and looks up the citation in CourtListener's <a href="https://www.courtlistener.com/c/">Citation Lookup Tool</a>. I've found their citation lookups pretty reliable, and they prefer to give no answer over a wrong one.</p>
+<p>But if the query is a more complete Bluebook citation, e.g. "Brown v. Board of Education, <a href="https://cite.case.law/us/347/483">347 U.S. 483</a> (1954)", with a case name and reporter, the program will open the first result from <a href="https://scholar.google.com/scholar?as_sdt=2006">Google Scholar's case law search</a>. Google Scholar isn't used for less-complete citations because it is unreliable, as it's essentially Google "I'm Feeling Lucky" for court cases.</p>
 <p>What makes up for the unreliability is that you can include pincites (i.e. citations to specific page numbers), and the program will try to link you to the precise page you're looking for. This is possible because unlike CourtListener, Google Scholar's cases support <a href="http://www.echoecho.com/htmllinks08.htm">anchor links</a>. However, it's unreliable because even when the program finds the correct case, the page numbers will be wrong if Google's copy is from a different court reporter than the one you're referencing. Still, I thought it was worth including because when it <em>does</em> work, it's magical.</p>
 <h2 id="bookmark-this-search">Bookmark This Search!</h2>
 <p>You're totally welcome to use the search engine by coming to my site and typing your citation into the search bar whenever you want to look something up. But it's more convenient if you can set up a search keyword so that you can just type something like "ls 42 usc 1983" in your URL bar to look up the law.</p>
 <p>To do that on Firefox, you can just right-click the search bar and click "Add a Keyword For This Search."</p>
 <p>On Chrome, it's a little more complicated. First, copy this URL:</p>
-<p><code id="bookmarkURL"></code>
+<p><code id="bookmarkURL"></code></p>
 <script>
 document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\?|#/)[0] + "?%s";
-</script></p>
+</script>
+
 <p>Next, go to <code>Settings &gt; Manage Search Engines</code>. From there, click "Add", and paste the address in the URL field.</p>
 <p>Either way, you'll also need to designate a keyword. I use "ls" (for "law search"), but anything works.</p>
 <div hidden id="downloadOption"><strong>Alternatively</strong>, if you don't want to rely on my website, you can download your own copy of the search engine, and run it entirely locally. To do that, <a href="/lawsearch" download>download this page</a> and save it somewhere that you're unlikely to delete it. Then, close this tab, open your local copy, and follow these same directions. That way, it'll be yours forever, though you might miss out on updates.</div>
-
 <script>
 if (window.location.protocol != "file:") {
     document.getElementById("downloadOption").removeAttribute("hidden")
@@ -369,7 +369,7 @@ if (window.location.protocol != "file:") {
 <tr>
 <td><a href="https://www.law.cornell.edu/topn/immigration_and_nationality_act">Immigration and Nationality Act</a> *</td>
 <td><code>ina SECTION [SUBSECTIONS]</code></td>
-<td>I.N.A. § 212(a)(4)</td>
+<td><a href="https://www.law.cornell.edu/uscode/text/8/1182#a_4">I.N.A. § 212(a)(4)</a></td>
 </tr>
 <tr>
 <td><a href="https://www.law.cornell.edu/topn/national_labor_relations_act">National Labor Relations Act</a> *</td>
