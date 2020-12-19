@@ -202,31 +202,31 @@ According to the LAPD data, the race breakdown of citations for the period 10/31
 According to the City Attorney data, the race breakdown of City Attorney cases for the period 1/1/2017 – 9/15/20 is: 79,355 Hispanic cases (47%), 38,719 Black cases (23%), 30,481 (18%) White cases, 11,078 other race cases (6.7%), and 1,260 Asian cases (0.7%). 
 
 ###### LAPD Data: Race Breakdown of Arrests
-![LAPD Data - Race Breakdown of Arrests](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Race%20Breakdown%20of%20Arrests.png)
+![LAPD Data - Race Breakdown of Arrests](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Race%20Breakdown%20of%20Arrests.png)
 
 ###### City Attorney: Race Breakdown of Cases
-![City Attorney: Race Breakdown of Cases](.././../../images/tracing-criminalization/City%20Attorney%20-%20Race%20Breakdown%20of%20Cases.png)
+![City Attorney: Race Breakdown of Cases](.././../../static/tracing-criminalization/City%20Attorney%20-%20Race%20Breakdown%20of%20Cases.png)
 
 In comparison, the demographics of Los Angeles County are: 70.8% White (including Hispanic White), White (non-Hispanic) 26.1%, 9.0% Black, 15.4% Asian, and 48.6% Hispanic.[^31] Clearly, there is a strong racial discrepancy in the rates of arrests. Interestingly, the percentages of the race breakdown for the LAPD misdemeanor arrest data and the City Attorney’s case data are roughly equivalent. The only major discrepancy is the decrease in white arrests in the LAPD data (21%) to the percentage of white cases in the City Attorney data (21%). 
 
 The following charts break down the most common types of charges according to each racial category. The charts of most common types of charges are taken from the LAPD misdemeanor arrest data. The charge types in the charts are not the specific charges, but instead categories of types of charges that each charge code was categorized into. As demonstrated below, the types of charges vary according to racial group.
 
 ###### LAPD Data: Most Common Charge Types for Hispanic Arrestees
-![LAPD Data: Most Common Charge Types for Hispanic Arrestees](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Charge%20Types%20for%20Hispanic%20Arrestees.png)
+![LAPD Data: Most Common Charge Types for Hispanic Arrestees](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Charge%20Types%20for%20Hispanic%20Arrestees.png)
 
 ###### LAPD Data: Most Common Charge Types for Black Arrestees
-![LAPD Data: Most Common Charge Types for Black Arrestees](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Charge%20Types%20for%20Black%20Arrestees.png)
+![LAPD Data: Most Common Charge Types for Black Arrestees](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Charge%20Types%20for%20Black%20Arrestees.png)
 
 ###### LAPD Data: Most Common Charge Types for White Arrests
-![LAPD Data: Most Common Charge Types for White Arrestees](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Charge%20Types%20for%20White%20Arrests.png)
+![LAPD Data: Most Common Charge Types for White Arrestees](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Charge%20Types%20for%20White%20Arrests.png)
 
 ###### LAPD Data: Most Common Charge Types for Asian Arrests
-![LAPD Data: Most Common Charge Types for Asian Arrestees](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Charge%20Types%20for%20Asian%20Arrests.png)
+![LAPD Data: Most Common Charge Types for Asian Arrestees](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Charge%20Types%20for%20Asian%20Arrests.png)
 
 Amongst Hispanic misdemeanor arrests, the three most common types of charges are crimes regarding driving under the influence, alcohol related crimes, and possession of drugs related crimes. Similarly, amongst Black misdemeanor arrests, the three most common types of charges are, in order of prevalence, crimes relating to alcohol, possession of drugs charges, and prostitution. Amongst the LAPD data’s 32,633 arrests for alcohol or drug related crimes, 16,256 of the arrestees were Hispanic (49.8%), 7946 of the arrestees were Black (24.3%), 6913 of the arrestees were white (21.2%), 1276 of the arrestees were other races (3.9%), and 199 of the arrestees were Asian (0.6%).
 
 ###### LAPD Data: Race Breakdown of Alcohol and Drug Related Arrests
-![LAPD Data: Race Breakdown of Alcohol and Drug Related Arrests](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Race%20Breakdown%20of%20Alcohol%20and%20Drug%20Related%20Arrests.png)
+![LAPD Data: Race Breakdown of Alcohol and Drug Related Arrests](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Race%20Breakdown%20of%20Alcohol%20and%20Drug%20Related%20Arrests.png)
 
 According to a recent Los Angeles Times analysis done in October 2019, the Times found that Los Angeles police officers search Black and Latino people far more often than white people during traffic stops, even though white people are more likely to be found with illegal items.[^32] The analysis found that in Los Angeles during a 10-month period, during police traffic stops 24% of Black drivers and passengers were searched, 16% of Latino drivers and passengers were searched, and 5% of white drivers and passengers were searched. In contrast, the hit rate at which illegal items such as drugs, weapons, or other contraband were found were: 20% of searches of white people, 17% of searches of Black people, 16% of searches of Latino people. Similarly, the LA Times found in another investigation that the LAPD’s Metropolitan Division stopped Black motorists five times their share of the city’s population.[^33] Nearly half of the drivers that the Metropolitan Division stops are Black, while the percentage of drivers that the LAPD in general stops is 28%.[^34] These percentages are far higher than the 9% share that Black residents make up in Los Angeles.
 
@@ -237,56 +237,56 @@ One notable aspect of the race breakdowns is the prevalence of prostitution char
 In general, men were arrested and charged with crimes in both the LAPD dataset and the City Attorney dataset more than women were. Below is a gender breakdown of all of the cases in the City Attorney dataset.
 
 ###### City Attorney Data: Gender Breakdown of Cases
-![City Attorney Data: Gender Breakdown of Cases](.././../../images/tracing-criminalization/City%20Attorney%20Data%20-%20Gender%20Breakdown%20of%20Cases.png)
+![City Attorney Data: Gender Breakdown of Cases](.././../../static/tracing-criminalization/City%20Attorney%20Data%20-%20Gender%20Breakdown%20of%20Cases.png)
 
 However, the gender breakdowns vary when broken down according to race. As seen below, amongst Hispanic arrests had the most skewed ratio of more men arrested than women at 83.2% arrestees men and 16.8% of arrestees women. Black arrestees and white arrestees had similar proportions of men to women ratios, while the data on Asian arrestees demonstrated a huge difference in the ratio. The gender ratio of Asian arrestees is 50.4% men and 49.6% women. The difference in gender ratio may be attributable to the types of charges that people in these racial categories are most frequently arrested for. In the next section, the types of charges broken down by gender and race will be analyzed.
 
 ###### LAPD Dataset: Gender Breakdown of Black Arrestees
-![LAPD Dataset: Gender Breakdown of Black Arrestees](.././../../images/tracing-criminalization/LAPD%20Dataset%20-%20Gender%20Breakdown%20of%20Black%20Arrestees.png)
+![LAPD Dataset: Gender Breakdown of Black Arrestees](.././../../static/tracing-criminalization/LAPD%20Dataset%20-%20Gender%20Breakdown%20of%20Black%20Arrestees.png)
 
 ###### LAPD Dataset: Gender Breakdown of Hispanic Arrestees
-![LAPD Data: Gender Breakdown of Hispanic Arrestees](.././../../images/tracing-criminalization/LAPD%20Dataset%20-%20Gender%20Breakdown%20of%20Hispanic%20Arrestees.png)
+![LAPD Data: Gender Breakdown of Hispanic Arrestees](.././../../static/tracing-criminalization/LAPD%20Dataset%20-%20Gender%20Breakdown%20of%20Hispanic%20Arrestees.png)
 
 ###### LAPD Dataset: Gender Breakdown of White Arrestees
-![LAPD Data: Gender Breakdown of White Arrestees](.././../../images/tracing-criminalization/LAPD%20Dataset%20-%20Gender%20Breakdown%20of%20White%20Arrestees.png)
+![LAPD Data: Gender Breakdown of White Arrestees](.././../../static/tracing-criminalization/LAPD%20Dataset%20-%20Gender%20Breakdown%20of%20White%20Arrestees.png)
 
 ###### LAPD Dataset: Gender Breakdown of Asian Arrestees
-![LAPD Data: Gender Breakdown of Asian Arrestees](.././../../images/tracing-criminalization/LAPD%20Dataset%20-%20Gender%20Breakdown%20of%20Asian%20Arrestees.png)
+![LAPD Data: Gender Breakdown of Asian Arrestees](.././../../static/tracing-criminalization/LAPD%20Dataset%20-%20Gender%20Breakdown%20of%20Asian%20Arrestees.png)
 
 The below table shows the most common types of charges across all demographics. The most common types of charges fall largely into a handful of categories: driving under the influence, battery, domestic violence, and alcohol and drugs related. As discussed in the Los Angeles Times, a significant number of arrests are for driving and illegal substance related arrests.[^37] In particular, the Los Angeles Times report found that Black and Hispanic drivers were stopped far more than white drivers despite having lower hit rates of illegal substances found, and when drivers are stopped is when illegal substances are often found, which result in charges related to illegal substances.[^38] The subsequent tables show the most common charges according to demographic: all demographics, men of all races, women of all races, Black women, Black men, Hispanic women, Hispanic men, white women, white men, Asian women, and Asian men.
 
 ###### City Attorney Dataset: Most Common Charges Across All Demographics
-![City Attorney Dataset: Most Common Charges Across All Demographics](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Across%20All%20Demographics.png)
+![City Attorney Dataset: Most Common Charges Across All Demographics](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Across%20All%20Demographics.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst Men of All Races
-![City Attorney Dataset: Most Common Charges Amongst Men of All Races](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Men%20of%20All%20Races.png)
+![City Attorney Dataset: Most Common Charges Amongst Men of All Races](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Men%20of%20All%20Races.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst Women of All Races
-![City Attorney Dataset: Most Common Charges Amongst Women of All Races](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Women%20of%20All%20Races.png)
+![City Attorney Dataset: Most Common Charges Amongst Women of All Races](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Women%20of%20All%20Races.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst Black Women
-![City Attorney Dataset: Most Common Charges Amongst Black Women](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Black%20Women.png)
+![City Attorney Dataset: Most Common Charges Amongst Black Women](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Black%20Women.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst Black Men
-![City Attorney Dataset: Most Common Charges Amongst Black Men](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Black%20Men.png)
+![City Attorney Dataset: Most Common Charges Amongst Black Men](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Black%20Men.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst Hispanic Women
-![City Attorney Dataset: Most Common Charges Amongst Hispanic Women](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Hispanic%20Women.png)
+![City Attorney Dataset: Most Common Charges Amongst Hispanic Women](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Hispanic%20Women.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst Hispanic Men
-![City Attorney Dataset: Most Common Charges Amongst Hispanic Men](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Hispanic%20Men.png)
+![City Attorney Dataset: Most Common Charges Amongst Hispanic Men](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Hispanic%20Men.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst White Women
-![City Attorney Dataset: Most Common Charges Amongst White Women](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20White%20Women.png)
+![City Attorney Dataset: Most Common Charges Amongst White Women](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20White%20Women.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst White Men
-![City Attorney Dataset: Most Common Charges Amongst White Men](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20White%20Men.png)
+![City Attorney Dataset: Most Common Charges Amongst White Men](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20White%20Men.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst Asian Women
-![City Attorney Dataset: Most Common Charges Amongst Asian Women](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Asian%20Women.png)
+![City Attorney Dataset: Most Common Charges Amongst Asian Women](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Asian%20Women.png)
 
 ###### City Attorney Dataset: Most Common Charges Amongst Asian Men
-![City Attorney Dataset: Most Common Charges Amongst Asian Men](.././../../images/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Asian%20Men.png)
+![City Attorney Dataset: Most Common Charges Amongst Asian Men](.././../../static/tracing-criminalization/City%20Attorney%20Dataset%20-%20Most%20Common%20Charges%20Amongst%20Asian%20Men.png)
 
 As shown by the tables, amongst Black women and Asian women, prostitution is one of the most common charges for which these populations are arrested. The higher prevalence of prostitution charges may explain for the higher ratio of women to men arrestees amongst the Asian racial group dataset. As discussed previously, prostitution arrests of Black women and Asian women has been a continuing issue in Los Angeles.[^39] The report will further delve into the issue of criminalization of prostitution in Section 5.
 
@@ -302,28 +302,28 @@ As shown by the tables, amongst Black women and Asian women, prostitution is one
 
 ### C. Location
 
-![Map of Citations Per Resident by Council District](.././../../images/tracing-criminalization/LAPD%20Citations%20Per%20Resident%20by%20Council%20District%20Map.png)
+![Map of Citations Per Resident by Council District](.././../../static/tracing-criminalization/LAPD%20Citations%20Per%20Resident%20by%20Council%20District%20Map.png)
 
 In general, the LAPD did not issue citations uniformly throughout the city. The number and kind of citations, as well as the demographics of their recipients, vary widely by area. Central L.A., represented by City Council districts 13, 14, and 1, is home to the city’s largest levels of criminalization.
 
 Districts 13 and 14 saw the greatest overall number of citations in the LAPD data, with 11,256 and 10,793 citations respectively. District 5 on the West Side saw the fewest with only 2,169.[^40] These trends remain constant when controlling for each district’s population size: Districts 13 and 14 each had around 0.044 citations per resident, and District 1, located between them, had 0.034. District 5 had the lowest rate of citations per resident, 0.009.[^41]
 
-![Heatmap of Citations Issued](.././../../images/tracing-criminalization/LAPD%20Total%20Citations%20Heatmap.png)
+![Heatmap of Citations Issued](.././../../static/tracing-criminalization/LAPD%20Total%20Citations%20Heatmap.png)
 
 Of course, a district is not a monolithic entity with uniform crime and policing throughout. It is a set of lines drawn on a map, that cut across the streets and neighborhoods that define city life. The reason why Districts 13, 14, and 1 all have very high citation numbers is because they contain several neighborhoods with very high concentrations of citations: Downtown, Westlake, and Hollywood.[^42] District 6 also has a relatively-high number of citations, at 7,750. This is driven in part by a concentrated cluster of citations along Sepulveda Boulevard, particularly between Saticoy and Vanowen. Other large clusters of citations throughout the city were issued around Venice Beach, Sawtelle, Boyle Heights, San Pedro, Canoga Park, and along South Figueroa Street.
 
 #### Racial Disparity Across Districts
 
-![Black Share of Population vs Black Share of Citations, by Council District](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Black%20Share%20of%20Population%20vs%20Black%20Share%20of%20Citations.png)
+![Black Share of Population vs Black Share of Citations, by Council District](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Black%20Share%20of%20Population%20vs%20Black%20Share%20of%20Citations.png)
 
 Racial trends in citations also vary across areas. In particular, the criminalization of Black residents is starkly different in different areas of the city. Granted, criminalization is disproportionate everywhere; Black people were cited at a higher rate than the general population in every district.[^43] And citywide, they were cited at 2.79 times the general rate. However, this number is heavily skewed upward by the three Central L.A. districts. The most extreme is District 13, where Black people are issued citations at 7.13 times the rate of the general population. By contrast, the lowest levels of disproportionality, 1.51 and 1.63, are found in districts 8 and 10, the two districts with the highest proportion of Black residents.
 
-![Citations Issued per Person by Race and District](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Citations%20per%20Person%20by%20Race.png)
+![Citations Issued per Person by Race and District](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Citations%20per%20Person%20by%20Race.png)
 
 In District 5 on the West Side, the disproportionality index is 6.02, even higher than one of the Central L.A. districts. However, District 5 also issued the fewest citations overall, whereas the Central L.A. districts issued the most. Central L.A.’s combination of severe racial disproportionality and large numbers of citations means that the Black population there is criminalized at far higher rates than anywhere else in the city. Across all districts, roughly 0.06 citations were issued for every Black person, compared to 0.02 for the overall population.[^44] But in District 13, that rate is 0.33. The data do not show how many individuals were issued multiple citations. However, if that number is small, then nearly a third of District 13’s Black residents were issued a citation in the last two years. In any case, Central L.A.’s Black population faces extreme levels of criminalization.
 
 #### Common Citations by Location
-![Relative Prevalence of Charge Categories by District](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Relative%20Prevalence%20of%20Charge%20Categories%20by%20Council%20District.png)
+![Relative Prevalence of Charge Categories by District](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Relative%20Prevalence%20of%20Charge%20Categories%20by%20Council%20District.png)
 
 While some types of citation were relatively evenly-distributed throughout the city, others were highly location-specific. After controlling for each district’s overall citation count, the three categories of citation that vary the most by district are prostitution-related, alcohol-related, and homelessness-related.[^45] Prostitution-related citations are rare in most districts, but they made up more than a fifth of the citations issued in Districts 6 and 8, and around fifteen percent of those issued in District 10. This is largely because these districts contain several highly-cited areas: District 8 has the stretch of Figueroa south of Gage Avenue; District 6 has Sepulveda Boulevard between Saticoy and Victory; and Districts 8 and 10 both have lengths of S Western Avenue that are very highly-cited for prostitution-related charges.[^46]
 
@@ -333,7 +333,7 @@ Homelessness-related citations are somewhat more diffuse than those related to p
 
 Intuition might suggest that the high number of homelessness-related citations in Central L.A. is merely a function of the high homeless population there. However, across the fifteen districts, homeless population and homelessness-related citations are only weakly correlated.[^47] District 9 had the second-highest homeless population of all the districts, at 3,826. Yet police there only issued 213 homelessness-related citations.
 
-![Homeless Count vs. Homelessness-Related Citations by District](.././../../images/tracing-criminalization/LAPD%20and%20LAHSA%20Data%20-%20Homeless%20Count%20vs%20Citations.png)
+![Homeless Count vs. Homelessness-Related Citations by District](.././../../static/tracing-criminalization/LAPD%20and%20LAHSA%20Data%20-%20Homeless%20Count%20vs%20Citations.png)
 
 Meanwhile, District 13, represented by Mitch O’Farrell, had fewer homeless people, but it issued homeless-related citations at a staggering rate: nearly one citation for nearly every homeless person in the district. This is noteworthy given O’Farrell’s efforts to reinstate LAMC Section 41.18(d), the ban on sitting, lying, and sleeping. His district has the most citations, the most extreme racial disparity, the most homelessness-related citations, and the most homeless citations relative to the homeless population. Mitch O’Farrell’s legislative agenda should be understood in light of these facts.
 
@@ -377,10 +377,10 @@ I made these tables in the same way as the LAPD data. First, I recorded the info
 As mentioned above, trespass related chargesd make up the highest number of charges under our “Issues Related to Homelessness Section” in the LAPD data (see Image 1). Out of the 17,477 arrests or citations in this section, 4,724 were Trespass related, or 27% of all arrests or citations. However, the charge with the highest number of citations or arrests is LAMC 41.18(D), commonly known as the “sit, lie, sleep” law. When the violations reach the prosecutorial stage, the percentage of trespass crimes increases in correlation with “homelessness-related” crimes in general. Out of the 8,198 Homelessness related cases that come in contact with the City Attorney’s office, 6,975 of these are trespass charges, or 85.4% of all homelessness-related cases (see Image 2). A reason for this jump in percentage between the two datasets may be the predominance of PC §602 in the trespass category – a state-level misdemeanor charge -- versus a municipal code violation. However, it indicates that a trespass related arrest will likely carry criminal justice consequences, as the City Attorney’s office accepts over 59% of the trespass misdemeanor charges (see Table 5). 
 
 ###### LAPD Data: Most Common Homelessness Related Charges -- By Category and Charge
-![LAPD Data: Most Common Homelessness Related Charges](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Homelessness%20Related%20Charges%20-%20By%20Charge.png) ![LAPD Data: Most Common Homelessness Related Charge Codes](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Homelessness%20Related%20Charges%20-%20By%20Code.png)
+![LAPD Data: Most Common Homelessness Related Charges](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Homelessness%20Related%20Charges%20-%20By%20Charge.png) ![LAPD Data: Most Common Homelessness Related Charge Codes](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Most%20Common%20Homelessness%20Related%20Charges%20-%20By%20Code.png)
 
 ###### City Attorney Data: Most Common Homelessness Related Charges -- By Category and Charge
-![City Attorney Data: Most Common Homelessness-Related Charges](.././../../images/tracing-criminalization/City%20Attorney%20Data%20-%20Most%20Common%20Homelessness%20Related%20Charges%20-%20By%20Charge.png) ![City Attorney Data: Most Common Homelessness-Related Charge Codes](.././../../images/tracing-criminalization/City%20Attorney%20Data%20Most%20Common%20Homelessness%20Related%20Charges%20-%20By%20Code.png)
+![City Attorney Data: Most Common Homelessness-Related Charges](.././../../static/tracing-criminalization/City%20Attorney%20Data%20-%20Most%20Common%20Homelessness%20Related%20Charges%20-%20By%20Charge.png) ![City Attorney Data: Most Common Homelessness-Related Charge Codes](.././../../static/tracing-criminalization/City%20Attorney%20Data%20Most%20Common%20Homelessness%20Related%20Charges%20-%20By%20Code.png)
 
 Looking aggregately at both data sets, there are similar patterns in the gender and racial breakdown of people arrested, and then charged with these crimes. This is not surprising, considering that the City Attorney receives 83.7% of their cases from the LAPD.[^51] Around 74% of those arrested and those charged with a trespass related crime are male, and around 26% female. 45.2% of all people arrested with trespass related crimes are Hispanic, as categorized by the LAPD, and 43.2% of the people charged with these same crimes are Hispanic, as categorized by the City Attorney.[^52] This is almost double the white and black arrests and charging patterns. White people make up 26.1% of all arrests or citations from the LAPD, and 26.2% of all charges brought by the City Attorney’s office. Black people make up 23.3% of all arrests or citations from the LAPD, and 25% of all charges.[^53] In comparison, the demographics of Los Angeles County are: 70.8% White (including Hispanic White), White (non-Hispanic) 26.1%, 9.0% Black, 15.4% Asian, and 48.6% Hispanic.[^54] The LAPD and City Attorney data, generalized as it is, demonstrate three key takeaways: that Hispanic people are being both arrested and charged with trespass crimes at a significantly higher rates than other races, black people are being arrested and charged with trespass related crimes in disproportionately high numbers, and that policing trends are highly correlated with charging trends.
 
@@ -480,22 +480,22 @@ Three of these charges accounted for the vast majority of the 8,060 prostitution
 
 The below map provides a useful breakdown of which city council districts, neighborhoods and areas are experiencing significant policing of prostitution. On the map, the red circles indicate areas with higher concentrations of prostitution charges, the yellow circles indicate areas with intermediate levels of prostitution charges, whereas the blue circles indicate minimal amounts of charges. 
 
-![Clusters of Sex Work-Related Charges](.././../../images/tracing-criminalization/LAPD%20Data%20-%20AT%20Concentrations%20of%20Sex%20Work%20Arrests.png)
+![Clusters of Sex Work-Related Charges](.././../../static/tracing-criminalization/LAPD%20Data%20-%20AT%20Concentrations%20of%20Sex%20Work%20Arrests.png)
 
 While it is slightly difficult to determine by looking at the map, the data indicates that charges are most commonly brought against prostitution related activities in Van Nuys and North Hollywood, as well as areas of Central Los Angeles and South Los Angeles. This type of data mapping is essential in terms of supporting the long terms goals of this project (providing compelling data and research necessary to convince policymakers of the need for criminalization), as it highlights which Council and Supervisor districts are and are not experiencing high rates of prostitution enforcement. For example, Van Nuys, which has some of the highest concentrations of prostitution charges in our data set, is part of Los Angeles Council District 6, and is represented by Councilmember Nury Martinez, who has made combating sex trafficking a priority.[^86] This type of data suggesting that the criminalization of low level prostitution crimes is pervasive in her district could potentially be valuable in future efforts to minimize the criminalization impact that anti-trafficking efforts have upon the sex workers themselves. For purposes of identifying where prostitution charges are being brought in relation to each Los Angeles City Council District, see the below map (darker shades of purple represent higher concentrations of charges) indicating that District 6 (Nury Martinez) and District 8 (Harris-Dawson) experience the highest rates of prostitution charges.
 
-![Map of Sex Work-Related Charges by District](.././../../images/tracing-criminalization/LAPD%20Data%20-%20Sex%20Work%20Citations%20by%20District%20Map.png)
+![Map of Sex Work-Related Charges by District](.././../../static/tracing-criminalization/LAPD%20Data%20-%20Sex%20Work%20Citations%20by%20District%20Map.png)
 
 The location of the prostitution charges do not significantly change when individual prostitution charges are analyzed separately. This makes sense as the locations where individuals purchase prostitution services are very likely the same locations where such services are offered. Below are maps of the most common types of prostitution charges listed in the data set, again indicating that the vast majority of prostitution enforcement takes place in Van Nuys and North Hollywood as well as areas of Central Los Angeles and South Los Angeles. 
 
 ###### Section 647(b)(1) charges: criminalizes individuals who engage in prostitution in exchange for compensation.
-![Clusters of 647(b)(1) Charges](.././../../images/tracing-criminalization/LAPD%20Data%20-%20AT%20Concentrations%20of%20647b1%20Charges.png)
+![Clusters of 647(b)(1) Charges](.././../../static/tracing-criminalization/LAPD%20Data%20-%20AT%20Concentrations%20of%20647b1%20Charges.png)
 
 ###### Section 647(b)(2) charges: criminalizes individuals seeking out or soliciting prostitution.
-![Clusters of 647(b)(2) Charges](.././../../images/tracing-criminalization/LAPD%20Data%20-%20AT%20Concentrations%20of%20647b2%20Charges.png)
+![Clusters of 647(b)(2) Charges](.././../../static/tracing-criminalization/LAPD%20Data%20-%20AT%20Concentrations%20of%20647b2%20Charges.png)
 
 ###### Section 653.22(a) charges: Criminalizes loitering with intent to prostitute oneself
-![Clusters of 653.22(a) Charges](.././../../images/tracing-criminalization/LAPD%20Data%20-%20AT%20Concentrations%20of%20653.22a%20Charges.png)
+![Clusters of 653.22(a) Charges](.././../../static/tracing-criminalization/LAPD%20Data%20-%20AT%20Concentrations%20of%20653.22a%20Charges.png)
 
 #### C. Gender
 
