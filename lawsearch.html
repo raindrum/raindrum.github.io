@@ -948,8 +948,27 @@ const schemas =
     }]
 }, {
     "name": "Colorado Revised Statutes",
-    "regex": "(Colo(rado|\\.)|CO)( ?Rev(ised|\\.))? Stat(utes?|s?\\.)( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?)[-‑–](?<article>\\d+(\\.\\d+)?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
-    "URL": ["https://www.sos.state.co.us/pubs/info_center/laws/Title{title}/Title{title}.pdf#search={title}-{article}-{section}."]
+    "regex": "(Colo(rado|\\.)|CO)( ?Rev(ised|\\.))? Stat(utes?|s?\\.)( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?)[-‑–](?<article>\\d+(\\.\\d+)?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
+    "URL": ["https://leg.colorado.gov/sites/default/files/images/olls/crs{year}-title-{title}.pdf#search={lpad}{title}-{article}-{section}."],
+    "defaults": {
+        "year": "2020"
+    },
+    "substitutions": [{
+        "token": "title",
+        "outputToken": "lpad",
+        "useRegex": true,
+        "index": {
+            "\\d{2}": "",
+            "\\d": "0"
+        }
+    }, {
+        "token": "year",
+        "allowUnmatched": true,
+        "useRegex": true,
+        "index": {
+            "1[89]\\d{2}|200\\d|201[0-2]": "2020"
+        }
+    }]
 }, {
     "name": "General Statutes of Connecticut",
     "regex": "(Conn(ecticut|\\.)|CT) ?Gen(eral|\\.) ?Stat(utes?|s?\\.)( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<section>(\\d[a-z\\-]*\\w|\\d+))(?<subsection>(\\(\\w+\\))+)?",
@@ -1198,7 +1217,7 @@ const schemas =
     "URL": ["https://revisor.mo.gov/main/OneSection.aspx?section={chapter}.{section}"]
 }, {
     "name": "Montana Code",
-    "regex": "(Mont(ana|\\.)|MT) Code( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Mont(ana|\\.)|MT)( Rev(ised|\\.))? Codes?( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/montana/mt-code/montana_code_{title}-{chapter}-{section}"]
 }, {
     "name": "Revised Statutes of Nebraska",
@@ -1909,7 +1928,7 @@ document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\
 <li><a href="https://regexper.com#Am%28erican%7C%5C.%29%20%3FSamoa%20Code%28%20Ann%28otated%7C%5C.%29%29%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">American Samoa Code</a></li>
 <li><a href="https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%20%3FStat%28utes%3F%7Cs%3F%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Arizona Revised Statutes</a></li>
 <li><a href="https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20Code%2C%3F%28%20Ann%28otated%7C%5C.%29%2C%3F%29%3F%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">California Codes</a></li>
-<li><a href="https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%20Stat%28utes%3F%7Cs%3F%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Colorado Revised Statutes</a></li>
+<li><a href="https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%20Stat%28utes%3F%7Cs%3F%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F">Colorado Revised Statutes</a></li>
 <li><a href="https://regexper.com#%28Conn%28ecticut%7C%5C.%29%7CCT%29%20%3FGen%28eral%7C%5C.%29%20%3FStat%28utes%3F%7Cs%3F%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5Ba-z%5C-%5D%2A%5Cw%7C%5Cd%2B%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">General Statutes of Connecticut</a></li>
 <li><a href="https://regexper.com#%28Del%28aware%7C%5C.%29%7CDE%29%20Code%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Delaware Code</a></li>
 <li><a href="https://regexper.com#%28D%5C.%3F%20%3FG%5C.%3F%20%3FC%5C.%3F%20%3FL%5C.%3F%7CDel%28aware%7C%5C.%29%20%3FGen%28eral%7C%5C.%29%20%3FCorp%28orations%3F%7Cs%3F%5C.%29%20%3FL%28aw%7C%5C.%29%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Delaware General Corporations Law</a></li>
@@ -1931,7 +1950,7 @@ document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\
 <li><a href="https://regexper.com#%28Minn%28esota%7C%5C.%29%7CMN%29%20%3FStat%28utes%3F%7Cs%3F%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%29%28%5C%28%28%5Cd%5Cw%2A%29%5C%29%28%5C%28%5Cw%2B%5C%29%29%2A%7C%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Minnesota Statutes</a></li>
 <li><a href="https://regexper.com#%28Miss%28issippi%7C%5C.%29%7CMS%29%20%3FCode%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F">Mississippi Code</a></li>
 <li><a href="https://regexper.com#%28%28M%28issouri%7Co%5C.%7CO%29%28%20Ann%28otated%7C%5C.%29%29%3F%20%3FRev%28ised%7C%5C.%29%20%3FStat%28utes%7Cs%3F%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%7CR%5C.%3FS%5C.%3FM%5BOo%5D%5C.%3F%29%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Missouri Revised Statutes</a></li>
-<li><a href="https://regexper.com#%28Mont%28ana%7C%5C.%29%7CMT%29%20Code%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Montana Code</a></li>
+<li><a href="https://regexper.com#%28Mont%28ana%7C%5C.%29%7CMT%29%28%20Rev%28ised%7C%5C.%29%29%3F%20Codes%3F%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Montana Code</a></li>
 <li><a href="https://regexper.com#%28Neb%28raska%7C%5C.%29%7CNE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%20%3FStat%28utes%3F%7C%5C.%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">Revised Statutes of Nebraska</a></li>
 <li><a href="https://regexper.com#%28New%20Hampshire%7CN%5C.%3F%20%3FH%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%20Stat%28utes%3F%7C%5C.%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5B-%E2%80%93%5D%5BA-Za-z%5D%29%3F%29%3A%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Za-z%5D%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">New Hampshire Revised Statutes</a></li>
 <li><a href="https://regexper.com#%28%28N%5C.%3F%20%3FJ%5C.%3F%7CNew%20Jersey%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%20Stat%28utes%7C%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%7CN%5C.%3FJ%5C.%3FS%5C.%3FA%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%3A%28%5Cd%2B%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">New Jersey Statutes</a></li>
