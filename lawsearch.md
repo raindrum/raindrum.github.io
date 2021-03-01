@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-02-26
+Modified: 2021-03-01
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -15,7 +15,7 @@ Type a legal citation into the box below, and I'll try to send you to whatever i
 const schemas =
 [{
     "name": "United States Code",
-    "regex": "(Title )?(?<title>\\d+) (U\\.?|United) ?(S\\.?|States) ?(C\\.?|Code)( ?[AS]\\.?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Title )?(?<title>\\d+) (U\\.?|United) ?(S\\.?|States) ?(C\\.?|Code)( ?[AS]\\.?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -26,7 +26,7 @@ const schemas =
     }]
 }, {
     "name": "United States Constitution",
-    "regex": "^([Aa]rt(icle|\\.) (?<article>[\\dIViv]{1,3})|[Aa]m(endment|(end|dt?)?\\.) (?<amendment>[\\dXIVxiv]{1,3}))((,? ((&sect;|&#167|§){1,2}|Sect?(ions?|s?\\.)) ?(?<section>\\d+))((,? (cl(ause|\\.) ?(?<clause>\\d+))))?)?",
+    "regex": "(^|(U\\.? ?S\\.?|United States) ?Const(itution|\\.),? )([Aa]rt(icle|\\.) (?<article>[\\dIViv]{1,3})|[Aa]m(endment|(end|dt?)?\\.) (?<amendment>[\\dXIVxiv]{1,3}))((,? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>\\d+))((,? ([Cc]l(ause|\\.) ?(?<clause>\\d+))))?)?",
     "URL": ["https://constitution.congress.gov/browse/",
         "amendment-{amendment}/",
         "article-{article}",
@@ -56,73 +56,95 @@ const schemas =
         }
     }, {
         "token": "article",
+        "useRegex": true,
         "allowUnmatched": true,
         "index": {
-            "i": "1",
-            "ii": "2",
-            "iii": "3",
-            "iv": "4",
-            "v": "5",
-            "vi": "6",
-            "vii": "7",
-            "viii": "8",
-            "ix": "9",
-            "x": "10",
-            "xi": "11",
-            "xii": "12",
-            "xiii": "13",
-            "xiv": "14",
-            "xv": "15",
-            "xvi": "16",
-            "xvii": "17",
-            "xviii": "18",
-            "xix": "19",
-            "xx": "20",
-            "xxi": "21",
-            "xxii": "22",
-            "xxiii": "23",
-            "xxiv": "24",
-            "xxv": "25",
-            "xxvi": "26",
-            "xxvii": "27",
-            "xxviii": "28",
-            "xxix": "29",
-            "xxx": "30"
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
         }
     }, {
         "token": "amendment",
+        "useRegex": true,
         "allowUnmatched": true,
         "index": {
-            "i": "1",
-            "ii": "2",
-            "iii": "3",
-            "iv": "4",
-            "v": "5",
-            "vi": "6",
-            "vii": "7",
-            "viii": "8",
-            "ix": "9",
-            "x": "10",
-            "xi": "11",
-            "xii": "12",
-            "xiii": "13",
-            "xiv": "14",
-            "xv": "15",
-            "xvi": "16",
-            "xvii": "17",
-            "xviii": "18",
-            "xix": "19",
-            "xx": "20",
-            "xxi": "21",
-            "xxii": "22",
-            "xxiii": "23",
-            "xxiv": "24",
-            "xxv": "25",
-            "xxvi": "26",
-            "xxvii": "27",
-            "xxviii": "28",
-            "xxix": "29",
-            "xxx": "30"
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
         }
     }]
 }, {
@@ -143,7 +165,7 @@ const schemas =
     }]
 }, {
     "name": "Code of Federal Regulations",
-    "regex": "(Title )?(?<title>\\d+) (C\\.? ?F\\.? ?R\\.?|Code of Federal Regulations)( [Pp]arts?| [Pp]ts?\\.)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Title )?(?<title>\\d+) (C\\.? ?F\\.? ?R\\.?|Code of Federal Regulations)( [Pp]arts?| [Pp]ts?\\.)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://ecfr.federalregister.gov/cfr-reference?cfr%5Bdate%5D=current&cfr%5Breference%5D={title} CFR {section}",
         "#p-{section}{subsection}"
     ]
@@ -180,7 +202,7 @@ const schemas =
     "URL": ["https://www.law.cornell.edu/rules/fre/rule_{rule}"]
 }, {
     "name": "Immigration and Nationality Act",
-    "regex": "(Immigration ([Aa]nd|&) Nationality Act|I\\.? ?N\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Immigration ([Aa]nd|&) Nationality Act|I\\.? ?N\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -379,7 +401,7 @@ const schemas =
     }]
 }, {
     "name": "Internal Revenue Code",
-    "regex": "(Internal Revenue Code|I\\.? ?R\\.? ?C\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Internal Revenue Code|I\\.? ?R\\.? ?C\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -393,7 +415,7 @@ const schemas =
     }]
 }, {
     "name": "Treasury Regulations",
-    "regex": "Treas(ury|\\.?) ?Reg(ulations?|\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "Treas(ury|\\.?) ?Reg(ulations?|\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://ecfr.federalregister.gov/cfr-reference?cfr%5Bdate%5D=current&cfr%5Breference%5D={title} CFR {section}",
         "#p-{section}{subsection}"
     ],
@@ -407,7 +429,7 @@ const schemas =
     }]
 }, {
     "name": "National Labor Relations Act",
-    "regex": "(Natioanal Labor Relations Act|N\\.? ?L\\.? ?R\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Natioanal Labor Relations Act|N\\.? ?L\\.? ?R\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -453,7 +475,7 @@ const schemas =
     "URL": ["https://www.nlrb.gov/cases-decisions/decisions/board-decisions?search_term=&volume={volume}&slip_opinion_number={slip}"]
 }, {
     "name": "Endangered Species Act",
-    "regex": "(Endangered Species Act|E\\.? ?S\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Endangered Species Act|E\\.? ?S\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -487,7 +509,7 @@ const schemas =
     }]
 }, {
     "name": "Clean Air Act",
-    "regex": "C\\.? ?A\\.? ?A\\.? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "C\\.? ?A\\.? ?A\\.? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -679,7 +701,7 @@ const schemas =
     }]
 }, {
     "name": "Clean Water Act",
-    "regex": "(Clean Water Act|C\\.? ?W\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Clean Water Act|C\\.? ?W\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -727,7 +749,7 @@ const schemas =
     }]
 }, {
     "name": "Fair Housing Act",
-    "regex": "(Fair Housing Act|F\\.? ?h\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Fair Housing Act|F\\.? ?h\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -770,7 +792,7 @@ const schemas =
     }]
 }, {
     "name": "Americans With Disabilities Act",
-    "regex": "(Americans [Ww]ith Disabilities Act|A\\.? ?D\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(Americans [Ww]ith Disabilities Act|A\\.? ?D\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -850,7 +872,7 @@ const schemas =
     }]
 }, {
     "name": "Code of Alabama, 1975",
-    "regex": "(Ala(bama|\\.)|AL)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Ala(bama|\\.)|AL)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://alisondb.legislature.state.al.us/alison/CodeOfAlabama/1975/{title}-{chapter}-{section}.htm"],
     "mutations": [{
         "token": "title",
@@ -860,16 +882,220 @@ const schemas =
         "case": "upper"
     }]
 }, {
+    "name": "Alabama Constitution",
+    "regex": "(Ala(bama|\\.)|AL) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Alabama_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Alaska Statutes",
-    "regex": "(Alaska|AK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?)\\.(?<chapter>\\d+[A-Za-z]?)\\.(?<section>\\d+[A-Za-z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Alaska|AK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?)\\.(?<chapter>\\d+[A-Za-z]?)\\.(?<section>\\d+[A-Za-z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["http://www.akleg.gov/basis/statutes.asp#{title}.{chapter}.{section}"]
 }, {
+    "name": "Alaska Constitution",
+    "regex": "(Alaska|AK) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Alaska_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "American Samoa Code",
-    "regex": "Am(erican|\\.) ?Samoa( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+)\\.(?<section>\\d+)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "Am(erican|\\.) ?Samoa( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+)\\.(?<section>\\d+)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://new.asbar.org/code-annotated/{title}-{section}"]
 }, {
+    "name": "American Samoa Constitution",
+    "regex": "Am(erican|\\.) ?Samoa ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_American_Samoa_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
+    "name": "Arkansas Constitution",
+    "regex": "(Ark(ansas|\\.)|AR) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{arabic_article},_Arkansas_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "arabic_article",
+        "useRegex": true,
+        "index": {
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
+        }
+    }]
+}, {
     "name": "Arizona Revised Statutes",
-    "regex": "(Ariz(ona|\\.)|AZ)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Ariz(ona|\\.)|AZ)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.azleg.gov/viewdocument/?docName=https://www.azleg.gov/ars/{title}/{lpad}{section}.htm"],
     "mutations": [{
         "token": "section",
@@ -889,8 +1115,59 @@ const schemas =
         }
     }]
 }, {
+    "name": "Arizona Constitution",
+    "regex": "(Ariz(ona|\\.)|AZ) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{arabic_article},_Arizona_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "arabic_article",
+        "useRegex": true,
+        "index": {
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
+        }
+    }]
+}, {
     "name": "California Codes",
-    "regex": "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode={codeAcronym}&sectionNum={section}"],
     "mutations": [{
         "token": "code",
@@ -932,8 +1209,59 @@ const schemas =
         }
     }]
 }, {
+    "name": "California Constitution",
+    "regex": "(Cal(ifornia|\\.)|CAL?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SEC.%20{section}.&article={roman_article}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Colorado Revised Statutes",
-    "regex": "(Colo(rado|\\.)|CO)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?)[-‑–](?<article>\\d+(\\.\\d+)?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
+    "regex": "(Colo(rado|\\.)|CO)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?)[-‑–](?<article>\\d+(\\.\\d+)?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
     "URL": ["https://leg.colorado.gov/sites/default/files/images/olls/crs{year}-title-{title}.pdf#search={lpad}{title}-{article}-{section}."],
     "defaults": {
         "year": "2020"
@@ -955,12 +1283,114 @@ const schemas =
         }
     }]
 }, {
+    "name": "Colorado Constitution",
+    "regex": "(Colo(rado|\\.)|CO) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Colorado_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "General Statutes of Connecticut",
-    "regex": "(Conn(ecticut|\\.)|CT) ?Gen(eral|\\.)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<section>(\\d[a-z\\-]*\\w|\\d+))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Conn(ecticut|\\.)|CT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<section>(\\d[a-z\\-]*\\w|\\d+))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/connecticut/ct-laws/connecticut_statutes_{section}"]
 }, {
+    "name": "Connecticut Constitution",
+    "regex": "(Conn(ecticut|\\.)|CT) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Connecticut_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Delaware Code",
-    "regex": "(Del(aware|\\.)|DE)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Del(aware|\\.)|DE)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/delaware/de-code/delaware_code_title_{title}_{section}"],
     "mutations": [{
         "token": "section",
@@ -968,7 +1398,7 @@ const schemas =
     }]
 }, {
     "name": "Delaware General Corporations Law",
-    "regex": "(D\\.? ?G\\.? ?C\\.? ?L\\.?|Del(aware|\\.) ?Gen(eral|\\.) ?Corp(orations?|s?\\.) ?L(aw|\\.)) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(D\\.? ?G\\.? ?C\\.? ?L\\.?|Del(aware|\\.) ?Gen(eral|\\.) ?Corp(orations?|s?\\.) ?L(aw|\\.)) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://delcode.delaware.gov/title8/c001/sc{subchapter}/index.shtml#{section}."],
     "substitutions": [{
         "token": "section",
@@ -996,14 +1426,65 @@ const schemas =
         }
     }]
 }, {
+    "name": "Delaware Constitution",
+    "regex": "(Del(aware|\\.)|DE) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Delaware_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "District of Columbia Official Code",
-    "regex": "(District of Columbia( Official)?|D\\.? ?C\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(District of Columbia( Official)?|D\\.? ?C\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://code.dccouncil.us/dc/council/code/sections/{title}-{section}.html",
         "#{subsection}"
     ]
 }, {
     "name": "Florida Statutes",
-    "regex": "(Fl(orida|a?\\.)|FL)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
+    "regex": "(Fl(orida|a?\\.)|FL)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
     "URL": ["https://www.flsenate.gov/Laws/Statutes/{year}/{lpad}{chapter}.{section}"],
     "defaults": {
         "year": "2020"
@@ -1020,13 +1501,174 @@ const schemas =
         }
     }]
 }, {
+    "name": "Florida Constitution",
+    "regex": "(Fl(orida|a?\\.)|FL) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://www.flsenate.gov/Laws/Constitution#A{arabic_article}S{lpad}{section}"],
+    "substitutions": [{
+        "token": "section",
+        "outputToken": "lpad",
+        "useRegex": true,
+        "index": {
+            "\\d{2}": "",
+            "\\d": "0"
+        }
+    }, {
+        "token": "article",
+        "outputToken": "arabic_article",
+        "useRegex": true,
+        "index": {
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
+        }
+    }]
+}, {
     "name": "Hawaii Revised Statutes",
-    "regex": "(Haw(ai.?i|\\.)|HI)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Haw(ai.?i|\\.)|HI)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/hawaii/hi-statutes/hawaii_statutes_{chapter}-{section}"]
 }, {
+    "name": "Hawaii Constitution",
+    "regex": "(Haw(ai.?i|\\.)|HI) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Hawaii_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Idaho Code",
-    "regex": "I(daho|D)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>(?<chapter>\\d{1,2})\\d{2}[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "I(daho|D)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>(?<chapter>\\d{1,2})\\d{2}[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://legislature.idaho.gov/statutesrules/idstat/Title{title}/T{title}CH{chapter}/SECT{title}-{section}/"]
+}, {
+    "name": "Idaho Constitution",
+    "regex": "I(daho|D) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Idaho_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
 }, {
     "name": "Illinois Compiled Statutes",
     "regex": "(?<chapter>\\d+) ILCS (?<act>\\d+)/(?<section>(\\d[\\d.-]*\\w|\\d))",
@@ -1053,8 +1695,59 @@ const schemas =
         }
     }]
 }, {
+    "name": "Illinois Constitution",
+    "regex": "(Il(linois|l?\\.)|IL) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Illinois_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Indiana Code",
-    "regex": "(Ind(iana|\\.)|IN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+)-(?<article>\\d+(\\.\\d+)?)-(?<chapter>\\d+(\\.\\d+)?)-(?<section>\\d+(\\.\\d+)?)(,? \\((?<year>\\d{4})\\))?",
+    "regex": "(Ind(iana|\\.)|IN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+)-(?<article>\\d+(\\.\\d+)?)-(?<chapter>\\d+(\\.\\d+)?)-(?<section>\\d+(\\.\\d+)?)(,? \\((?<year>\\d{4})\\))?",
     "URL": ["https://iga.in.gov/legislative/laws/{year}/ic/titles/{lpad}{title}#{title}-{article}-{chapter}-{section}"],
     "defaults": {
         "year": "2020"
@@ -1069,16 +1762,169 @@ const schemas =
         }
     }]
 }, {
+    "name": "Indiana Constitution",
+    "regex": "(Ind(iana|\\.)|IN) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{arabic_article},_Indiana_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "arabic_article",
+        "useRegex": true,
+        "index": {
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
+        }
+    }]
+}, {
     "name": "Iowa Code",
-    "regex": "I(owa|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "I(owa|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.legis.iowa.gov/docs/code/{chapter}.{section}.pdf"]
 }, {
+    "name": "Iowa Constitution",
+    "regex": "I(owa|A) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Iowa_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Kansas Statutes",
-    "regex": "(Kan(sas|\\.)|KS)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Kan(sas|\\.)|KS)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/kansas/ks-statutes/kansas_statutes_{chapter}-{section}"]
 }, {
+    "name": "Kansas Constitution",
+    "regex": "(Kan(sas|\\.)|KS) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{arabic_article},_Kansas_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "arabic_article",
+        "useRegex": true,
+        "index": {
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
+        }
+    }]
+}, {
     "name": "Kentucky Revised Statutes",
-    "regex": "(K(entucky|y\\.|Y)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|KRS )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>(\\d[\\d.]*\\w|\\d))\\.(?<section>\\d+)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(K(entucky|y\\.|Y)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|KRS )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>(\\d[\\d.]*\\w|\\d))\\.(?<section>\\d+)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/kentucky/ky-statutes/kentucky_statutes_{chapter}-{section}"],
     "mutations": [{
         "token": "chapter",
@@ -1088,7 +1934,7 @@ const schemas =
     }]
 }, {
     "name": "Louisiana Statutes",
-    "regex": "L(ouisiana|a\\.)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?):(?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "L(ouisiana|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?):(?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/louisiana/la-laws/louisiana_revised_statutes_{title}-{section}"]
 }, {
     "name": "Louisiana Codes",
@@ -1107,8 +1953,59 @@ const schemas =
         }
     }]
 }, {
+    "name": "Louisiana Constitution",
+    "regex": "L(ouisiana|a\\.|A) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Louisiana_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Maine Statutes",
-    "regex": "M(aine|e\\.|E)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "M(aine|e\\.|E)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://legislature.maine.gov/legis/statutes/{title}/title{title}sec{section}.html"],
     "mutations": [{
         "token": "title",
@@ -1120,8 +2017,59 @@ const schemas =
         "joiner": "-"
     }]
 }, {
+    "name": "Maine Constitution",
+    "regex": "M(aine|e\\.|E) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Maine_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Maryland Code",
-    "regex": "M(aryland|d\\.|D)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?(?<article>(Ac|Al|[BCEFHILNPRST]).{4,38}?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>[\\dA-Z\\-–.]*[\\dA-Z])(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "M(aryland|d\\.|D)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?(?<article>(Ac|Al|[BCEFHILNPRST]).{4,38}?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>[\\dA-Z\\-–.]*[\\dA-Z])(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article={article_code}&section={title}-{section}"],
     "mutations": [{
         "token": "section",
@@ -1171,6 +2119,57 @@ const schemas =
         }
     }]
 }, {
+    "name": "Maryland Constitution",
+    "regex": "M(aryland|d\\.|D) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Maryland_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Massachusetts General Laws",
     "regex": "((Mass(achusetts|\\.)|MA) ?(Gen(eral|\\.)|Ann(otated|\\.)) ?Laws( Ann(otated|\\.))?|M\\.?G\\.?L\\.?(A\\.?)?|A\\.?L\\.?M\\.?),? [Cc](hapter|h?\\.) ?(?<chapter>\\d+[A-Z]?),? ((&sect;|&#167|§){1,2}|Sect?(ions?|s?\\.))? ?(?<section>\\d+[A-Z]?\\d*([/]\\d+[A-Z]?)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://malegislature.gov/GeneralLaws/GoTo?ChapterGoTo={chapter}&SectionGoTo={section}"],
@@ -1184,33 +2183,339 @@ const schemas =
     "regex": "(Mich(igan|\\.)|MI) Comp(iled|\\.) Laws( (Serv(ice|\\.)|Ann(otated|\\.)))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://legislature.mi.gov/doc.aspx?mcl-{chapter}-{section}"]
 }, {
+    "name": "Michigan Constitution",
+    "regex": "(Mich(igan|\\.)|MI) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Michigan_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Minnesota Statutes",
-    "regex": "(Minn(esota|\\.)|MN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>\\((?<subdivision>\\d\\w*)\\)(\\(\\w+\\))*|(\\(\\w+\\))+)?",
+    "regex": "(Minn(esota|\\.)|MN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>\\((?<subdivision>\\d\\w*)\\)(\\(\\w+\\))*|(\\(\\w+\\))+)?",
     "URL": ["https://www.revisor.mn.gov/statutes/cite/{chapter}.{section}",
         "#stat.{chapter}.{section}.{subdivision}"
     ]
 }, {
+    "name": "Minnesota Constitution",
+    "regex": "(Minn(esota|\\.)|MN) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Minnesota_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Mississippi Code",
-    "regex": "(Miss(issippi|\\.)|MS)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
+    "regex": "(Miss(issippi|\\.)|MS)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
     "URL": ["https://law.justia.com/codes/mississippi/{year}/title-{title}/chapter-{chapter}/section-{title}-{chapter}-{section}/index.html"],
     "defaults": {
         "year": "2019"
     }
 }, {
+    "name": "Mississippi Constitution",
+    "regex": "(Miss(issippi|\\.)|MS) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Mississippi_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Missouri Revised Statutes",
     "regex": "((M(issouri|o\\.|O)( Ann(otated|\\.))? ?Rev(ised|\\.) ?Stat(utes|s?\\.)( Ann(otated|\\.))?|R\\.?S\\.?M[Oo]\\.?)) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://revisor.mo.gov/main/OneSection.aspx?section={chapter}.{section}"]
 }, {
+    "name": "Missouri Constitution",
+    "regex": "M(issouri|o\\.|O) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Missouri_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Montana Code",
-    "regex": "(Mont(ana|\\.)|MT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Mont(ana|\\.)|MT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/montana/mt-code/montana_code_{title}-{chapter}-{section}"]
 }, {
+    "name": "Montana Constitution",
+    "regex": "(Mont(ana|\\.)|MT) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Montana_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Revised Statutes of Nebraska",
-    "regex": "(Neb(raska|\\.)|NE)( ?Rev(ised|\\.))? ?Stat(utes?|\\.)( ?Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Neb(raska|\\.)|NE)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.nebraskalegislature.gov/laws/statutes.php?statute={chapter}-{section}"]
 }, {
+    "name": "Nebraska Constitution",
+    "regex": "(Neb(raska|\\.)|NE) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Nebraska_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "New Hampshire Revised Statutes",
-    "regex": "(New Hampshire|N\\.? ?H\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+([-–][A-Za-z])?):(?<section>\\d+([-‑–][A-Za-z])?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(New Hampshire|N\\.? ?H\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+([-–][A-Za-z])?):(?<section>\\d+([-‑–][A-Za-z])?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/new-hampshire/nh-statutes/new_hampshire_revised_statutes_{chapter}_{section}"],
     "mutations": [{
         "token": "chapter",
@@ -1225,11 +2530,62 @@ const schemas =
     }]
 }, {
     "name": "New Jersey Statutes",
-    "regex": "((N\\.? ?J\\.?|New Jersey)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|N\\.?J\\.?S\\.?A )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?):(?<chapter>\\d+[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?[A-Za-z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "((N\\.? ?J\\.?|New Jersey)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|N\\.?J\\.?S\\.?A )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?):(?<chapter>\\d+[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?[A-Za-z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://njlaw.rutgers.edu/collections/njstats/showsect.php?title={title}&chapter={chapter}&section={section}&actn=getsect"]
 }, {
+    "name": "New Jersey Constitution",
+    "regex": "(N\\.? ?J\\.?|New Jersey) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_New_Jersey_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Nevada Revised Statutes",
-    "regex": "((Nev(ada|\\.)|NV)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|NRS )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "((Nev(ada|\\.)|NV)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|NRS )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.leg.state.nv.us/NRS/NRS-{lpad}{chapter}.html#NRS{lpad}{chapter}Sec{section}"],
     "substitutions": [{
         "token": "chapter",
@@ -1242,8 +2598,59 @@ const schemas =
         }
     }]
 }, {
+    "name": "Nevada Constitution",
+    "regex": "(Nev(ada|\\.)|NV) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{arabic_article},_Nevada_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "arabic_article",
+        "useRegex": true,
+        "index": {
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
+        }
+    }]
+}, {
     "name": "New Mexico Statutes Annotated 1978",
-    "regex": "((New Mexico|N\\.? ?M\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|NMSA )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Za-z]?)-(?<article>\\d+[A-Za-z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "((New Mexico|N\\.? ?M\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|NMSA )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Za-z]?)-(?<article>\\d+[A-Za-z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://nmonesource.com/nmos/nmsa/en/item/{chapter_code}/index.do#!b/{chapter}-{article}-{section}"],
     "substitutions": [{
         "token": "chapter",
@@ -1335,8 +2742,59 @@ const schemas =
         }
     }]
 }, {
+    "name": "New Mexico Constitution",
+    "regex": "(New Mexico|N\\.? ?M\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_New_Mexico_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Consolidated Laws of New York",
-    "regex": "(New York|N\\.? ?Y\\.?) ?(?<chapter>.{2,40}?)( Law)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(New York|N\\.? ?Y\\.?) ?(?<chapter>.{2,40}?)( Law)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.nysenate.gov/legislation/laws/{chapterAcronym}/{section}"],
     "substitutions": [{
         "token": "chapter",
@@ -1426,9 +2884,111 @@ const schemas =
         }
     }]
 }, {
+    "name": "New York Constitution",
+    "regex": "(New York|N\\.? ?Y\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_New_York_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "North Carolina General Statutes",
     "regex": "((North Carolina|N\\.? ?C\\.?) ?Gen(eral|\\.) ?Stat(utes|s?\\.)|N\\.? ?C\\.? ?G\\.? ?S\\.?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_{chapter}/GS_{chapter}-{section}.html"]
+}, {
+    "name": "North Carolina Constitution",
+    "regex": "(North Carolina|N\\.? ?C\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_North_Carolina_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
 }, {
     "name": "North Dakota Century Code",
     "regex": "(North Dakota|N\\.? ?D\\.?) ?Cent(ury|\\.) ?Code( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
@@ -1462,18 +3022,171 @@ const schemas =
         }
     }]
 }, {
+    "name": "North Dakota Constitution",
+    "regex": "(North Dakota|N\\.? ?D\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_North_Dakota_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Northern Mariana Islands Commonwealth Code",
-    "regex": "(?<title>\\d+) N(orthern|\\.) ?Mar(iana|\\.) ?I(slands|\\.)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(?<title>\\d+) N(orthern|\\.) ?Mar(iana|\\.) ?I(slands|\\.)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://cnmilaw.org/pdf/cmc_section/T{title}/{section}.pdf"]
 }, {
+    "name": "Northern Mariana Islands Constitution",
+    "regex": "N(orthern|\\.) ?Mar(iana|\\.) ?I(slands|\\.) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Northern_Mariana_Islands_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Ohio Revised Code",
-    "regex": "O(hio|H)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+)(\\.(?<section>\\d+)(?<subsection>(\\(\\w+\\))+)?)?",
+    "regex": "O(hio|H)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+)(\\.(?<section>\\d+)(?<subsection>(\\(\\w+\\))+)?)?",
     "URL": ["https://codes.ohio.gov/orc/{chapter}",
         ".{section}v1"
     ]
 }, {
+    "name": "Ohio Constitution",
+    "regex": "O(hio|H) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Ohio_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Oklahoma Statutes",
-    "regex": "(Okla(homa|\\.)|OK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
+    "regex": "(Okla(homa|\\.)|OK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
     "URL": ["https://law.justia.com/codes/oklahoma/{year}/title-{title}/section-{title}-{section}/index.html"],
     "defaults": {
         "year": "2019"
@@ -1483,12 +3196,114 @@ const schemas =
         "case": "lower"
     }]
 }, {
+    "name": "Oklahoma Constitution",
+    "regex": "(Okla(homa|\\.)|OK) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Oklahoma_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Oregon Revised Statutes",
-    "regex": "(Or(egon|e?\\.)|OR)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Or(egon|e?\\.)|OR)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.oregonlaws.org/ors/{chapter}.{section}"]
 }, {
+    "name": "Oregon Constitution",
+    "regex": "(Or(egon|e?\\.)|OR) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Oregon_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Pennsylvania Code",
-    "regex": "(?<title>\\d+) (Pennsylvania|Pa\\.|PA)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(?<title>\\d+) (Pennsylvania|Pa\\.|PA)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/{lpad}{title}/chapter{chapter}/s{chapter}.{section}.html"],
     "substitutions": [{
         "token": "title",
@@ -1501,12 +3316,165 @@ const schemas =
         }
     }]
 }, {
+    "name": "Pennsylvania Constitution",
+    "regex": "(Pennsylvania|Pa\\.|PA) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Pennsylvania_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
+    "name": "Puerto Rico Constitution",
+    "regex": "(Puerto Rico|P\\.? ?R\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Puerto_Rico_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "General Laws of Rhode Island",
     "regex": "(Rhode Island|R\\.? ?I\\.?) ?Gen(eral|\\.) ?Laws ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["http://webserver.rilin.state.ri.us/Statutes/TITLE{title}/{title}-{chapter}/{title}-{chapter}-{section}.HTM"]
 }, {
+    "name": "Rhode Island Constitution",
+    "regex": "(Rhode Island|R\\.? ?I\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Rhode_Island_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "South Carolina Code of Laws",
-    "regex": "(South Carolina|S\\.? ?C\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(South Carolina|S\\.? ?C\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.scstatehouse.gov/code/t{title}c{lpad}{chapter}.php#{title}-{chapter}-{section}"],
     "substitutions": [{
         "token": "chapter",
@@ -1519,13 +3487,166 @@ const schemas =
         }
     }]
 }, {
+    "name": "South Carolina Constitution",
+    "regex": "(South Carolina|S\\.? ?C\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_South_Carolina_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "South Dakota Codified Laws",
     "regex": "(South Dakota|S\\.? ?D\\.?) ?(Codified|Comp(iled|\\.)) Laws( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://sdlegislature.gov/Statutes/Codified_Laws/DisplayStatute.aspx?Type=Statute&Statute={title}-{chapter}-{section}"]
 }, {
+    "name": "South Dakota Constitution",
+    "regex": "(South Dakota|S\\.? ?D\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_South_Dakota_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Tennessee Code",
-    "regex": "(Tenn(essee|\\.)|TN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Tenn(essee|\\.)|TN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/tennessee/tn-code/tennessee_code_{title}-{chapter}-{section}"]
+}, {
+    "name": "Tennessee Constitution",
+    "regex": "(Tenn(essee|\\.)|TN) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Tennessee_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
 }, {
     "name": "Texas Codes",
     "regex": "(Tex(as|\\.)|TX) (?<code>\\w.{2,40}?)( Code( Ann(otated|\\.))?)? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
@@ -1567,8 +3688,59 @@ const schemas =
         }
     }]
 }, {
+    "name": "Texas Constitution",
+    "regex": "(Tex(as|\\.)|TX) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://statutes.capitol.texas.gov/Docs/CN/htm/CN.{arabic_article}/CN.{arabic_article}.{section}.htm"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "arabic_article",
+        "useRegex": true,
+        "index": {
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
+        }
+    }]
+}, {
     "name": "Utah Code",
-    "regex": "(Utah|UT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Utah|UT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://le.utah.gov/xcode/Title{title}/Chapter{chapter}/{title}-{chapter}-S{section}.html",
         "#{title}-{chapter}-{section}{subsection}"
     ],
@@ -1577,37 +3749,292 @@ const schemas =
         "case": "upper"
     }]
 }, {
+    "name": "Utah Constitution",
+    "regex": "(Utah|UT) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Utah_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Vermont Statutes",
-    "regex": "V(ermont|t\\.|T)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.\\-—]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "V(ermont|t\\.|T)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/vermont/vt-statutes/vermont_statutes_title_{title}_{section}"]
 }, {
     "name": "Virginia Code",
-    "regex": "(?<!W\\. )(?<!West )(?<!W\\.)V(irginia|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(?<!W\\. )(?<!West )(?<!W\\.)V(irginia|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://law.lis.virginia.gov/vacode/title{title}/section{title}-{section}"]
 }, {
+    "name": "Virginia Constitution",
+    "regex": "(?<!W\\. )(?<!West )(?<!W\\.)V(irginia|a\\.|A) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Virginia_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Virgin Islands Code",
-    "regex": "(Virgin Islands|V\\.? ?I\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
+    "regex": "(Virgin Islands|V\\.? ?I\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?(,? \\((?<year>\\d{4})\\))?",
     "URL": ["https://law.justia.com/codes/virgin-islands/{year}/title-{title}/chapter-{chapter}/{section}/"],
     "defaults": {
         "year": "2019"
     }
 }, {
     "name": "Revised Code of Washington",
-    "regex": "((Wash(ington|\\.)|WA)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|R\\.?C\\.?W\\.? )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?)\\.(?<chapter>\\d+[A-Za-z]?)\\.(?<section>\\d+[A-Za-z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "((Wash(ington|\\.)|WA)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|R\\.?C\\.?W\\.? )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?)\\.(?<chapter>\\d+[A-Za-z]?)\\.(?<section>\\d+[A-Za-z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://app.leg.wa.gov/RCW/default.aspx?cite={title}.{chapter}.{section}"]
 }, {
+    "name": "Washington Constitution",
+    "regex": "(Wash(ington|\\.)|WA) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Washington_State_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "West Virginia Code",
-    "regex": "(West Virginia|W\\. ?Va?\\.|WV)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Za-z]?)-(?<article>\\d+[A-Za-z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(West Virginia|W\\. ?Va?\\.|WV)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Za-z]?)-(?<article>\\d+[A-Za-z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["http://www.wvlegislature.gov/wvcode/ChapterEntire.cfm?chap={chapter}&art={article}&section={section}"]
 }, {
+    "name": "West Virginia Constitution",
+    "regex": "(West Virginia|W\\. ?Va?\\.|WV) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_West_Virginia_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Wisconsin Statutes",
-    "regex": "(Wis(consin|\\.)|WI)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Wis(consin|\\.)|WI)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://docs.legis.wisconsin.gov/document/statutes/{chapter}.{section}",
         "{subsection}"
     ]
 }, {
+    "name": "Wisconsin Constitution",
+    "regex": "(Wis(consin|\\.)|WI) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article},_Wisconsin_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }]
+}, {
     "name": "Wyoming Statutes",
-    "regex": "(Wyo(ming|\\.)|WY)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Wyo(ming|\\.)|WY)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://wyoleg.gov/statutes/compress/title{lpad}{title}.pdf#search={title}-{chapter}-{section}."],
     "substitutions": [{
         "token": "title",
@@ -1619,8 +4046,59 @@ const schemas =
         }
     }]
 }, {
+    "name": "Wyoming Constitution",
+    "regex": "(Wyo(ming|\\.)|WY) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?",
+    "URL": ["https://ballotpedia.org/Article_{arabic_article},_Wyoming_Constitution#Section_{section}"],
+    "substitutions": [{
+        "token": "article",
+        "outputToken": "arabic_article",
+        "useRegex": true,
+        "index": {
+            "I|1": "1",
+            "II|2": "2",
+            "III|3": "3",
+            "IV|4": "4",
+            "V|5": "5",
+            "VI|6": "6",
+            "VII|7": "7",
+            "VIII|8": "8",
+            "IX|9": "9",
+            "X|10": "10",
+            "XI|11": "11",
+            "XII|12": "12",
+            "XIII|13": "13",
+            "XIV|14": "14",
+            "XV|15": "15",
+            "XVI|16": "16",
+            "XVII|17": "17",
+            "XVIII|18": "18",
+            "XIX|19": "19",
+            "XX|20": "20",
+            "XXI|21": "21",
+            "XXII|22": "22",
+            "XXIII|23": "23",
+            "XXIV|24": "24",
+            "XXV|25": "25",
+            "XXVI|26": "26",
+            "XXVII|27": "27",
+            "XXVIII|28": "28",
+            "XXIX|29": "29",
+            "XXX|30": "30",
+            "XXXI|31": "31",
+            "XXXII|32": "32",
+            "XXXIII|33": "33",
+            "XXXIV|34": "34",
+            "XXXV|35": "35",
+            "XXXVI|36": "36",
+            "XXXVII|37": "37",
+            "XXXVIII|38": "38",
+            "XXXIX|39": "39",
+            "XXXX|40": "40"
+        }
+    }]
+}, {
     "name": "Caselaw Access Project",
-    "regex": "(?<=\\b)(?<volume>\\d+) (?<reporter>Abb\\. Ct\\. App\\.|Abb\\.N\\. Cas\\.|Abb\\. Pr\\.|Abb\\. Pr\\. \\(n\\.s\\.\\)|Va\\. \\(Va\\. Cas\\.\\)|Adams Co\\. L\\.J\\.|Add\\.|Dallam|Franklin Co\\. Legal J\\.|Aik\\.|Ala\\. App\\.|Ala\\.|Alaska Fed\\.|Alaska|Am\\. Samoa|Am\\. Samoa 2d|Am\\. Samoa 3d|Ohio App\\. Unrep\\.|Ant\\. N\\.P\\. Cas\\.|A\\.D\\.2d|A\\.D\\.|A\\.D\\.3d|Ky\\. \\(Hughes\\)|Ariz\\. App\\.|Ariz\\.|Ark\\. App\\.|Ark\\.|Armstrong\\. Election Cases|A\\.|Balt\\. C\\. Rep\\.|Barb\\. Ch\\.|Barb\\.|B\\. Co\\. Leg\\. J\\.|Berk's Co\\. L\\.J\\.\\.|Blackf\\.|Blair Co\\. L\\.R\\.|Blair Co\\. L\\.R\\. 2d|Bosworth Super\\. Ct\\. Rep\\.|Bradford Co\\. L\\.J\\.|Brad\\.|Brayt\\.|Bucks Co\\. L\\.R\\.|Bur\\.|Bur\\.|Butler Co\\. Legal J\\.|E\\.D\\. Pa\\.|Cai\\. Cas\\.|Cai\\.|Cal\\. ?App\\.|Cal\\. ?App\\. ?5th|Cal\\. ?App\\. ?4th|Cal\\. ?App\\. ?2d|Cal\\. ?App\\. ?3d|Cal\\. ?3d|Cal\\. ?4th|Cal\\.|Cal\\. ?2d|Cal\\. ?Super\\. ?Ct\\.|Cal\\. ?Unrep\\.|Cambria Co\\. L\\.J\\.|Cambria Co\\. Rep\\.|Carbon Co\\. L\\.J\\.|N\\.C\\. \\(Car\\. L\\. Rep\\.\\)|N\\.J\\. \\(Manumission\\)|S\\.C\\.L\\. \\(McMul\\.\\)|S\\.C\\.L\\. \\(Chev\\.\\)|Tapp\\. Rep\\.|D\\. Pa\\.|Ohio|S\\.C\\. Eq\\. \\(Chev\\. Eq\\.\\)|Monaghan|Sadler|Ky\\. \\(Litt\\. Sel\\. Cas\\.\\)|C\\.C\\.L\\.J\\.|C\\.C\\.L\\.J\\. 2d|S\\.C\\. Eq\\. \\(McCord Eq\\.\\)|S\\.C\\. Eq\\. \\(Ril\\. Eq\\.\\)|Chand\\.|Charlton Rep\\.|Ches\\. Co\\. Rep\\.|D\\. Chip\\.|N\\. Chip\\.|Mun\\.  L\\. Rep\\.|Hosea's Rep\\.|N\\.Y\\. City Ct\\. Rep\\.|Cl\\. Ch\\.|Cole\\. & Cai\\. Cas\\.|Cole\\. Cas\\.|Colo\\. App\\.|Colo\\. L\\. Rep\\.|Colo\\. N\\. P\\.|Colo\\.|Willson|White & W\\.|N\\.C\\. \\(Cam\\. & Nor\\.\\)|King's Conflicting Cases|Conn\\. App\\.|Conn\\. Cir\\. Ct\\.|Kirby|Root|Conn\\.|Conn\\. Supp\\.|Connoly Sur\\. Rep\\.|Ct\\. Cl\\.|C\\.C\\.P\\.A\\.|Ct\\. Cust\\.|Cow\\.|Craw\\. Co\\. Leg\\. J\\.|Cumberland L\\.J\\.|Cust\\. B\\. & Dec\\.|Dakota|Dallam|Dall\\.|Daly \\(N\\.Y\\.\\)|Dau\\. Co\\. Rep\\.|Day|T\\.C\\.A\\.|P\\.R\\. Dec\\.|Teiss\\.|Va\\. Ch\\. Dec\\.|Ky\\. \\(Sneed\\)|Pears\\.|Smith|Ga\\. Super\\. Ct\\.|Georgia Decisions|C\\.M\\.A\\.|Del\\. Cas\\.|Del\\. Ch\\.|Del\\. Co\\. Reps\\.|Del\\. \\(Harr\\.\\)|Del\\. \\(Penne\\.\\)|Del\\. \\(Boyce\\)|Del\\. \\(Marv\\.\\)|Del\\. \\(Houst\\.\\)|Del\\.|Dem\\. Sur\\.|Denio|Docket|Dudley Rep\\.|Duer Super\\. Ct\\. Rep\\.|Edm\\. Sel\\. Cas\\.|E\\.D\\. Smith|Edw\\. Ch\\.|S\\.C\\. Eq\\. \\(McMul\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Speers Eq\\.\\)|Erie\\. Co\\. L\\.J\\.|P\\.R\\. Sent\\.|Fay\\. L\\.J\\.|F\\. Cas\\.|Fed\\. Cl\\.|F\\.|F\\. ?2d|F\\. ?3d|F\\.R\\.D\\.|F\\. ?Supp\\.( ?[23]d)?|Fla\\.|Fla\\. Supp\\.|Fla\\. Supp\\. 2d|Ga\\. App\\.|Ga\\. L\\. Rep\\.|Ga\\.|Gault|Gibb\\. Surr\\.|Guam|Hall Super\\. Ct\\. Rep\\.|H\\. & G\\.|Haw\\. App\\.|Haw\\.|Haz\\. Pa\\. Reg\\.|Va\\. \\(Hen\\. & M\\.\\)|Hill & Den\\.|Hill|Hilt\\.|Hoff\\. Ch\\.|Hopk\\. Ch\\.|How\\. App\\. Cas\\.|How\\. Pr\\.|How\\. Pr\\. \\(n\\.s\\.\\)|Idaho|Ill\\. App\\.|Ill\\. App\\. 2d|Ill\\. App\\. 3d|Ill\\. Cir\\. Ct\\. Rep\\.|Ill\\. Ct\\. Cl\\.|Ill\\. \\(Scam\\)|Ill\\. \\(Breese\\)|Ill\\. \\(Gilm\\.\\)|Ill\\.|Ill\\. 2d|Ind\\. App\\.|Ind\\. L\\. Rep\\.|Ind\\.|Indian Terr\\.|Iowa|Jeff\\.|Johns\\. Cas\\.|Johns\\. Ch\\.|Johns\\.|Jones and Spencer's Super\\. Ct\\. Rep\\.|Edsall|Pa\\. \\(Admiralty\\)|Kan\\. App\\. 2d|Kan\\.|Ky\\. \\(A\\.K\\. Marsh\\.\\)|Ky\\. Op\\.|Ky\\.|Keyes|Lack\\. Bar\\. R\\.|Lack\\. Bar  R\\.|Lack\\. Jur\\.|Lack\\. L\\. N\\.|Lack\\. L\\.R\\.|Lanc\\. Bar|Lanc\\. L\\. Rev\\.|Lans\\. Ch\\.|Lans\\.|Law\\. L\\.J\\.|Law Times|Law Times \\(N\\.S\\.\\)|Lebanon Co\\. L\\.J\\.|Foster|Leg\\. Gaz\\.|Leg\\. Gaz\\.|Pa\\. Leg\\. Gaz\\.|Gunby|Leg\\. Rec\\. Rep\\.|Lehigh Co\\. L\\.J\\.|Lehigh Val\\. L\\. Rep\\.|Liquor Tax Rep\\.|Lock\\. Rev\\. Cas\\.|La\\. Ann\\.|La\\. App\\.|La\\.|La\\.|Luz\\. L\\.J\\.|Luz\\. L\\.O\\.|Luz\\. Leg\\. Reg\\.|Luz\\. Leg\\. Reg\\.|Lycoming R\\.|Magis\\. & Const\\.|Me\\.|McGrath|N\\.C\\. \\(Mart\\.\\)|Mart\\. \\(n\\.s\\.\\)|Mart\\. \\(o\\.s\\.\\)|Md\\. App\\.|Md\\.|H\\. & McH\\.|Mass\\. \\(Allen\\)|Mass\\. App\\. Ct\\.|Mass\\. App\\. Dec\\.|Davis L\\. Ct\\. Cas\\.|Davis L\\. Ct\\. Cas\\.|Mass\\. \\(Cush\\)|Mass\\. \\(Pick\\.\\)|Mass\\. \\(Gray\\)|Mass\\. \\(Tyng\\)|Mass\\. \\(Will\\.\\)|Mass\\. \\(Met\\.\\)|Mass\\.|Mass\\. Supp\\.|Mercer|Mich\\. App\\. |Howell N\\.P\\.|Mich\\.|M\\.C\\.L\\.J\\.|Mills Surr\\.|Minn\\.|Minor|Va\\.|Miss\\. Ct\\. Rec\\.|Miss\\. Dec\\.|Miss\\. \\(Walker\\)|Miss\\.|Miss\\. \\(Howard\\)|Miss\\. \\(S\\. & M\\.\\)|Mor\\. St\\. Cas\\.|Mo\\. App\\.|Mo\\.|Monroe L\\.R\\.|Mont\\.|Mont\\. Co\\. L\\. Rep\\.|Navajo Rptr\\.|Neb\\. App\\.|Neb\\.|Nev\\.|N\\.H\\.|N\\.J\\. Eq\\.|N\\.J\\.L\\.|N\\.J\\. Misc\\.|N\\.J\\.|N\\.J\\. Super\\.|N\\.J\\. Tax Ct\\.|N\\.M\\.|N\\.M\\.|N\\.Y\\. Crim\\.|Misc\\.2d|Misc\\.3d|Misc\\.|N\\.Y\\. ?2d|N\\.Y\\.|N\\.Y\\. ?3d|N\\.Y\\. St\\. Rptr\\.|Northam\\. Law Rep\\.|N\\.C\\. App\\.|N\\.C\\.|N\\.C\\. \\(Busb\\. Eq\\)|N\\.C\\. \\(Busb\\.\\)|N\\.C\\. \\(Dev\\. & Bat\\. Eq\\.\\)|N\\.C\\. \\(Dev\\. & Bat\\.\\)|N\\.C\\. \\(Dev\\. Eq\\.\\)|N\\.C\\. \\(Dev\\.\\)|N\\.C\\. \\(Hawks\\)|N\\.C\\. \\(Hayw\\.\\)|N\\.C\\. \\(Ired\\. Eq\\.\\)|N\\.C\\. \\(Ired\\.\\)|N\\.C\\. \\(Jones Eq\\.\\)|N\\.C\\. \\(Jones\\)|N\\.C\\. \\(Mur\\.\\)|N\\.C\\. \\(Phil\\. Eq\\.\\)|N\\.C\\. \\(Phil\\.\\)|N\\.C\\. \\(Tay\\.\\)|N\\.C\\. \\(Win\\.\\)|N\\.D\\.|N\\.E\\.|N\\.E\\.2d|N\\.E\\.3d|N\\. Mar\\. I\\. Commw\\.|N\\. Mar\\. I\\.|Northum\\. Co\\. Leg\\. N\\.|Northumb\\. L\\.J\\.|N\\.W\\.|N\\.W\\.2d|Ohio App\\.|Ohio App\\. 2d|Ohio App\\. 3d|Ohio C\\.C\\. Dec\\.|Ohio C\\.C\\. \\(N\\.S\\.\\)|Ohio Cir\\. Dec\\.|Ohio Ct\\. App\\.|Ohio Misc\\.|Ohio Misc\\. 2d|Ohio Nisi Prius|Ohio Nisi Prius \\(N\\.S\\.\\)|Ohio Op\\. 2d|Ohio Op\\. 3d|Ohio Op\\.|Ohio St\\.|Ohio St\\. \\(n\\.s\\.\\)|Ohio St\\. 2d|Ohio St\\. 3d|Okla\\. Crim\\.|Okla\\.|Olwine's L\\.J\\.|Or\\.|Or\\. App\\.|Or\\. Tax|P\\.|P\\.2d|P\\.3d|Paige Ch\\.|Park\\. Crim\\. Rep\\.|Pelt\\.|Pa\\. L\\. Rec\\.|Pa\\. Commw\\.|Pa\\. Corp\\. R\\.|Pa\\. Co\\. Ct\\.|Pa\\. D\\. & C\\. 2d|Pa\\. D\\. & C\\.|Pa\\. D\\. & C\\. 3d|Pa\\. D\\. & C\\. 5th|Pa\\. D\\. & C\\. 4th|Pa\\. Fid\\.|Pa\\. Fid\\. 2d|Pa\\. Fid\\. 3d|Pa\\. Just\\. L\\. Rep\\.|Pa\\. L\\.J\\. Rep\\.|Pa\\.|Pa\\. Super\\. Ct\\.|Pennyp\\.|Phila\\. Co\\. R\\.|Phila\\. Reports|Pin\\.|Pittsb\\. L\\.J\\.|Pitts\\. R\\.|Port\\.|P\\.R\\. Fed\\.|Pow\\. Surr\\.|Mich\\. Pr\\.|Singer Prob\\. Cas\\.|N\\.Y\\. Proc\\. Ct\\. Ass\\.|P\\.R\\.|Rec\\. Q\\. Ct\\.|Rec\\. Ct\\. Assistants|Rec\\. Co\\. Ch\\. \\(S\\.C\\.\\)|Rec\\. Ct\\. Gen\\. Sess\\.|Rec\\. Bucks\\. Co\\. \\(Pa\\.\\)|Rec\\. T\\. Warwick \\(R\\.I\\.\\)|Rec\\. Ct\\. Ches\\. Co\\. Pa\\.|Rec\\. Co\\. Ct\\.|Rec\\. V\\.A\\. Ct\\. \\(R\\.I\\.\\)|Redf\\.|S\\.C\\.L\\. \\(Ril\\.\\)|Ct\\. Cl\\.|Mich\\. Ct\\. Cl\\.|App\\. D\\.C\\.|Bro\\. Com\\. P\\.|Ashm\\. \\(Pa\\.\\)|Conn\\. Super\\. Ct\\.|Conn\\. Super\\. Ct\\.|Disney \\(Ohio\\)|Binn\\.|Pen\\. & W\\.|Rawle|Serg\\. & Rawl\\.|Watts & Serg\\.|Whart\\.|Yeates|S\\.C\\. Eq\\. \\(Des\\.Eq\\.\\)|Ky\\. \\(Hard\\.\\)|Handy|Super\\. Ct\\. Jud\\.|Tenn\\. \\(Hayw\\.\\)|Grant|D\\.C\\. \\(MacArth\\. & M\\.\\)|D\\.C\\. \\(Tuck\\. & Cl\\.\\)|Jahn|S\\.C\\.L\\. \\(Strob\\.\\)|Gill|G\\. & J\\.|S\\.C\\. Eq\\. \\(Dud\\. Eq\\.\\)|S\\.C\\.L\\. \\(Bail\\.\\)|N\\.Y\\.|Walk\\. Ch\\.|Tenn\\. Crim\\. App\\.|H\\. & J\\.|Wilson|Miss\\. \\(S\\. & M\\. Ch\\.\\)|S\\.C\\.L\\. \\(Bay\\)|Morris|Watts|Tenn\\. \\(Mart\\. & Yer\\.\\)|Tenn\\. \\(Cold\\.\\)|Tenn\\. \\(Heisk\\.\\)|Tenn\\. \\(Yer\\.\\)|Tenn\\. \\(Head\\)|Tenn\\. \\(Meigs\\)|Tenn\\. \\(Hum\\.\\)|D\\.C\\.|D\\.C\\. \\(MacArth\\.\\)|D\\.C\\. \\(Mackey\\)|Doug\\.|Ark\\. Terr\\. Rep\\.|McGl\\.|D\\.C\\. \\(patent\\)|Ky\\. \\(Bibb\\)|Ky\\. \\(Litt\\.\\)|Ky\\. \\(T\\.B\\. Mon\\.\\)|Ky\\. \\(B\\. Mon\\.\\)|Wright|Ohio Ch\\.|Ky\\. \\(J\\.J\\. Marsh\\.\\)|S\\.C\\.L\\. \\(Speers\\)|S\\.C\\.L\\. \\(Rich\\.\\)|S\\.C\\.L\\. \\(Rice\\)|S\\.C\\.L\\. \\(Rich\\.\\)|S\\.C\\.L\\. \\(Dud\\.\\)|S\\.C\\.L\\. \\(Hill\\)|Hay\\. & Haz\\.|D\\.C\\. Cir\\.|D\\.C\\. \\(Cranch\\)|Brightly|Walker|Ind\\. App\\.|Kan\\. App\\.|Md\\. Ch\\.|Md\\. Ch\\.|Freem\\. Ch\\.|Wilcox|S\\.C\\.L\\. \\(McCord\\)|S\\.C\\.L\\. \\(Nott & McC\\.\\)|S\\.C\\.L\\. \\(Harp\\.\\)|Harr\\. Ch\\.|Miles|Cal\\. ?Dist\\. Ct\\.|McCahon|S\\.C\\. Eq\\. \\(Rice Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Hill Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Cas\\.\\)|S\\.C\\. Eq\\. \\(Strobh\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Bail\\. Eq\\.\\)|Greene|Myrick|D\\. Haw\\.|Rep\\. Cont\\. Elect\\. Case\\.|Rep\\. Cont\\. El\\.|Howison|Coffey|Charlton|S\\.C\\. Eq\\. \\(Harp\\. Eq\\.\\)|Brewster|S\\.C\\.L\\. \\(Mill\\)|S\\.C\\.L\\. \\(Tread\\.\\)|S\\.C\\.L\\. \\(Brev\\.\\)|Mass\\. App\\. Div\\.|Mass\\. App\\. Div\\.|Goebel|Ky\\. \\(Dana\\)|Ky\\. \\(Duv\\.\\)|Ky\\. \\(Met\\.\\)|Ky\\. \\(Bush\\)|Vaux|Tenn\\. \\(Swan\\)|Tenn\\. \\(Sneed\\)|Bradf\\.|T\\.C\\.|B\\.T\\.A\\.|R\\.I\\. Ct\\. Rec\\.|R\\.I\\. Dec\\.|R\\.I\\.|Super\\. Ct\\. \\(R\\.I\\.\\)|Robertson's Super\\. Ct\\. Rep\\.|Rob\\.|Sand\\. Ch\\.|Sandford Super\\. Ct\\. Rep\\.|Sarat\\. Ch\\. Sent\\.|Schuy\\. L\\. Rec\\.|Schuy\\. Reg\\.|Seld\\. Notes|Yates|Parsons|Sick\\. Op\\. Att'y Gen\\.|Silv\\. Ct\\. App\\.|Silv\\. Sup\\.|Smith|Som\\. L\\.J\\.|S\\.C\\.|S\\.D\\.|S\\.E\\.|S\\.E\\.2d|So\\.|So\\.2d|So\\.3d|S\\.W\\.|S\\.W\\.2d|S\\.W\\.3d|Stew\\.|Stew\\. & P\\.|S\\.C\\.D\\.C\\. \\(N\\.S\\.\\)|N\\.Y\\. Sup\\. Ct\\.|Susq\\. Leg\\. Chron\\.|Sweeney Super\\. Ct\\. Rep\\.|Robards|N\\.C\\. \\(Taylor\\)|La\\. App\\. \\(Teiss\\.\\)|Tenn\\. App\\.|Tenn\\. Cas\\.|Tenn\\. Ch\\. R\\.|Tenn\\.|Tenn\\. \\(Peck\\)|Tenn\\. \\(Cooke\\)|Tenn\\. \\(Overt\\.\\)|Tex\\. Civ\\. App\\.|Tex\\. Ct\\. App\\.|Tex\\. Crim\\.|Tex\\. L\\. R\\.|Tex\\.|Posey|N\\.J\\. \\(Burlington County Ct\\.\\)|Cin\\. Sup\\. Ct\\. Rep\\.|Com\\. Pl\\. Rep\\.|Pa\\. Dist\\.|Mass\\. Law Rep\\.|Mich\\. N\\.P\\. R\\.|Westchester|Ohio Law Abs\\.|Ohio L\\.R\\.|Ald\\.|Thomp\\. & Cook|Blume Sup\\. Ct\\. Trans\\.|Trans\\. App\\.|Tuck\\. Surr\\.|Tyl\\.|Cl\\. Ct\\.|U\\.S\\. App\\. D\\.C\\.|Ct\\. Int'l Trade|Cust\\. Ct\\.|U\\. ?S\\.|U\\.S\\. \\(Black\\)|U\\.S\\. \\(Cranch\\)|U\\.S\\. \\(Dall\\.\\)|U\\.S\\. \\(How\\.\\)|U\\.S\\. \\(Pet\\.\\)|U\\.S\\. \\(Wall\\.\\)|U\\.S\\. \\(Wheat\\.\\)|Mann\\. Unrep\\. Cas\\.|Blume Unrep\\. Op\\.|Unrep\\. Tenn\\. Cas\\.|Cal\\.|Utah|Utah 2d|Vt\\.|Va\\. Cir\\.|Va\\. Col\\. Dec\\.|Va\\. App\\.|Va\\. Dec\\.|Va\\. \\(Rand\\.\\)|Va\\. \\(Munf\\.\\)|Va\\. \\(Wash\\.\\)|Va\\.|Va\\. \\(Gratt\\.\\)|Va\\. \\(Gilmer\\)|Va\\. \\(Call\\)|Va\\. \\(Patt\\. & Heath\\)|Va\\. \\(Rob\\.\\)|Va\\. \\(Leigh\\)|V\\.I\\.|Wash\\. App\\.|Wash\\. Co\\.\\(Pa\\.\\)|Wash\\.|Wash\\. 2d|Wash\\. Terr\\.|Week\\. No\\. Cas\\. \\(Pa\\.\\)|Wend\\.|Wes\\. C\\.L\\.J\\.|Tribal|A\\.2d|A\\.3d|B\\.R\\.|F\\. App'?x\\.?|Haw\\.|M\\.J\\.|N\\.Y\\.S\\. 2d|N\\.Y\\.S\\. 2d|N\\.Y\\.S\\.|Vet\\. App\\.|W\\. Va\\.|Wheel\\. Cr\\. Cas\\.|Wis\\.|Wis\\. 2d|Wyo\\.|Yates Sel\\. Cas\\.|York Leg\\. Rec\\.) (?<page>\\d+)\\b(,?( at)? (?<pincite>\\d+)(([-‑–]| to | through )(?<pincite_end>\\d+))?\\b)?",
+    "regex": "(?<=\\b)(?<volume>\\d+) (?<reporter>Abb\\. Ct\\. App\\.|Abb\\.N\\. Cas\\.|Abb\\. Pr\\.|Abb\\. Pr\\. \\(n\\.s\\.\\)|Va\\. \\(Va\\. Cas\\.\\)|Adams Co\\. L\\.J\\.|Add\\.|Dallam|Franklin Co\\. Legal J\\.|Aik\\.|Ala\\. App\\.|Ala\\.|Alaska Fed\\.|Alaska|Am\\. Samoa|Am\\. Samoa 2d|Am\\. Samoa 3d|Ohio App\\. Unrep\\.|Ant\\. N\\.P\\. Cas\\.|A\\.D\\.2d|A\\.D\\.|A\\.D\\.3d|Ky\\. \\(Hughes\\)|Ariz\\. App\\.|Ariz\\.|Ark\\. App\\.|Ark\\.|Armstrong\\. Election Cases|A\\.|Balt\\. C\\. Rep\\.|Barb\\. Ch\\.|Barb\\.|B\\. Co\\. Leg\\. J\\.|Berk's Co\\. L\\.J\\.\\.|Blackf\\.|Blair Co\\. L\\.R\\.|Blair Co\\. L\\.R\\. 2d|Bosworth Super\\. Ct\\. Rep\\.|Bradford Co\\. L\\.J\\.|Brad\\.|Brayt\\.|Bucks Co\\. L\\.R\\.|Bur\\.|Bur\\.|Butler Co\\. Legal J\\.|E\\.D\\. Pa\\.|Cai\\. Cas\\.|Cai\\.|Cal\\. ?App\\.|Cal\\. ?App\\. ?5th|Cal\\. ?App\\. ?4th|Cal\\. ?App\\. ?2d|Cal\\. ?App\\. ?3d|Cal\\. ?3d|Cal\\. ?4th|Cal\\.|Cal\\. ?2d|Cal\\. ?Super\\. ?Ct\\.|Cal\\. ?Unrep\\.|Cambria Co\\. L\\.J\\.|Cambria Co\\. Rep\\.|Carbon Co\\. L\\.J\\.|N\\.C\\. \\(Car\\. L\\. Rep\\.\\)|N\\.J\\. \\(Manumission\\)|S\\.C\\.L\\. \\(McMul\\.\\)|S\\.C\\.L\\. \\(Chev\\.\\)|Tapp\\. Rep\\.|D\\. Pa\\.|Ohio|S\\.C\\. Eq\\. \\(Chev\\. Eq\\.\\)|Monaghan|Sadler|Ky\\. \\(Litt\\. Sel\\. Cas\\.\\)|C\\.C\\.L\\.J\\.|C\\.C\\.L\\.J\\. 2d|S\\.C\\. Eq\\. \\(McCord Eq\\.\\)|S\\.C\\. Eq\\. \\(Ril\\. Eq\\.\\)|Chand\\.|Charlton Rep\\.|Ches\\. Co\\. Rep\\.|D\\. Chip\\.|N\\. Chip\\.|Mun\\.  L\\. Rep\\.|Hosea's Rep\\.|N\\.Y\\. City Ct\\. Rep\\.|Cl\\. Ch\\.|Cole\\. & Cai\\. Cas\\.|Cole\\. Cas\\.|Colo\\. App\\.|Colo\\. L\\. Rep\\.|Colo\\. N\\. P\\.|Colo\\.|Willson|White & W\\.|N\\.C\\. \\(Cam\\. & Nor\\.\\)|King's Conflicting Cases|Conn\\. App\\.|Conn\\. Cir\\. Ct\\.|Kirby|Root|Conn\\.|Conn\\. Supp\\.|Connoly Sur\\. Rep\\.|Ct\\. Cl\\.|C\\.C\\.P\\.A\\.|Ct\\. Cust\\.|Cow\\.|Craw\\. Co\\. Leg\\. J\\.|Cumberland L\\.J\\.|Cust\\. B\\. & Dec\\.|Dakota|Dallam|Dall\\.|Daly \\(N\\.Y\\.\\)|Dau\\. Co\\. Rep\\.|Day|T\\.C\\.A\\.|P\\.R\\. Dec\\.|Teiss\\.|Va\\. Ch\\. Dec\\.|Ky\\. \\(Sneed\\)|Pears\\.|Smith|Ga\\. Super\\. Ct\\.|Georgia Decisions|C\\.M\\.A\\.|Del\\. Cas\\.|Del\\. Ch\\.|Del\\. Co\\. Reps\\.|Del\\. \\(Harr\\.\\)|Del\\. \\(Penne\\.\\)|Del\\. \\(Boyce\\)|Del\\. \\(Marv\\.\\)|Del\\. \\(Houst\\.\\)|Del\\.|Dem\\. Sur\\.|Denio|Docket|Dudley Rep\\.|Duer Super\\. Ct\\. Rep\\.|Edm\\. Sel\\. Cas\\.|E\\.D\\. Smith|Edw\\. Ch\\.|S\\.C\\. Eq\\. \\(McMul\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Speers Eq\\.\\)|Erie\\. Co\\. L\\.J\\.|P\\.R\\. Sent\\.|Fay\\. L\\.J\\.|F\\. Cas\\.|Fed\\. Cl\\.|F\\.|F\\. ?2d|F\\. ?3d|F\\.R\\.D\\.|F\\. ?Supp\\.( ?[23]d)?|Fla\\.|Fla\\. Supp\\.|Fla\\. Supp\\. 2d|Ga\\. App\\.|Ga\\. L\\. Rep\\.|Ga\\.|Gault|Gibb\\. Surr\\.|Guam|Hall Super\\. Ct\\. Rep\\.|H\\. & G\\.|Haw\\. App\\.|Haw\\.|Haz\\. Pa\\. Reg\\.|Va\\. \\(Hen\\. & M\\.\\)|Hill & Den\\.|Hill|Hilt\\.|Hoff\\. Ch\\.|Hopk\\. Ch\\.|How\\. App\\. Cas\\.|How\\. Pr\\.|How\\. Pr\\. \\(n\\.s\\.\\)|Idaho|Ill\\. App\\.|Ill\\. App\\. 2d|Ill\\. App\\. 3d|Ill\\. Cir\\. Ct\\. Rep\\.|Ill\\. Ct\\. Cl\\.|Ill\\. \\(Scam\\)|Ill\\. \\(Breese\\)|Ill\\. \\(Gilm\\.\\)|Ill\\.|Ill\\. 2d|Ind\\. App\\.|Ind\\. L\\. Rep\\.|Ind\\.|Indian Terr\\.|Iowa|Jeff\\.|Johns\\. Cas\\.|Johns\\. Ch\\.|Johns\\.|Jones and Spencer's Super\\. Ct\\. Rep\\.|Edsall|Pa\\. \\(Admiralty\\)|Kan\\. App\\. 2d|Kan\\.|Ky\\. \\(A\\.K\\. Marsh\\.\\)|Ky\\. Op\\.|Ky\\.|Keyes|Lack\\. Bar\\. R\\.|Lack\\. Bar  R\\.|Lack\\. Jur\\.|Lack\\. L\\. N\\.|Lack\\. L\\.R\\.|Lanc\\. Bar|Lanc\\. L\\. Rev\\.|Lans\\. Ch\\.|Lans\\.|Law\\. L\\.J\\.|Law Times|Law Times \\(N\\.S\\.\\)|Lebanon Co\\. L\\.J\\.|Foster|Leg\\. Gaz\\.|Leg\\. Gaz\\.|Pa\\. Leg\\. Gaz\\.|Gunby|Leg\\. Rec\\. Rep\\.|Lehigh Co\\. L\\.J\\.|Lehigh Val\\. L\\. Rep\\.|Liquor Tax Rep\\.|Lock\\. Rev\\. Cas\\.|La\\. Ann\\.|La\\. App\\.|La\\.|La\\.|Luz\\. L\\.J\\.|Luz\\. L\\.O\\.|Luz\\. Leg\\. Reg\\.|Luz\\. Leg\\. Reg\\.|Lycoming R\\.|Magis\\. & Const\\.|Me\\.|McGrath|N\\.C\\. \\(Mart\\.\\)|Mart\\. \\(n\\.s\\.\\)|Mart\\. \\(o\\.s\\.\\)|Md\\. App\\.|Md\\.|H\\. & McH\\.|Mass\\. \\(Allen\\)|Mass\\. App\\. Ct\\.|Mass\\. App\\. Dec\\.|Davis L\\. Ct\\. Cas\\.|Davis L\\. Ct\\. Cas\\.|Mass\\. \\(Cush\\)|Mass\\. \\(Pick\\.\\)|Mass\\. \\(Gray\\)|Mass\\. \\(Tyng\\)|Mass\\. \\(Will\\.\\)|Mass\\. \\(Met\\.\\)|Mass\\.|Mass\\. Supp\\.|Mercer|Mich\\. App\\. |Howell N\\.P\\.|Mich\\.|M\\.C\\.L\\.J\\.|Mills Surr\\.|Minn\\.|Minor|Va\\.|Miss\\. Ct\\. Rec\\.|Miss\\. Dec\\.|Miss\\. \\(Walker\\)|Miss\\.|Miss\\. \\(Howard\\)|Miss\\. \\(S\\. & M\\.\\)|Mor\\. St\\. Cas\\.|Mo\\. App\\.|Mo\\.|Monroe L\\.R\\.|Mont\\.|Mont\\. Co\\. L\\. Rep\\.|Navajo Rptr\\.|Neb\\. App\\.|Neb\\.|Nev\\.|N\\.H\\.|N\\.J\\. Eq\\.|N\\.J\\.L\\.|N\\.J\\. Misc\\.|N\\.J\\.|N\\.J\\. Super\\.|N\\.J\\. Tax Ct\\.|N\\.M\\.|N\\.M\\.|N\\.Y\\. Crim\\.|Misc\\.2d|Misc\\.3d|Misc\\.|N\\.Y\\. ?2d|N\\.Y\\.|N\\.Y\\. ?3d|N\\.Y\\. St\\. Rptr\\.|Northam\\. Law Rep\\.|N\\.C\\. App\\.|N\\.C\\.|N\\.C\\. \\(Busb\\. Eq\\)|N\\.C\\. \\(Busb\\.\\)|N\\.C\\. \\(Dev\\. & Bat\\. Eq\\.\\)|N\\.C\\. \\(Dev\\. & Bat\\.\\)|N\\.C\\. \\(Dev\\. Eq\\.\\)|N\\.C\\. \\(Dev\\.\\)|N\\.C\\. \\(Hawks\\)|N\\.C\\. \\(Hayw\\.\\)|N\\.C\\. \\(Ired\\. Eq\\.\\)|N\\.C\\. \\(Ired\\.\\)|N\\.C\\. \\(Jones Eq\\.\\)|N\\.C\\. \\(Jones\\)|N\\.C\\. \\(Mur\\.\\)|N\\.C\\. \\(Phil\\. Eq\\.\\)|N\\.C\\. \\(Phil\\.\\)|N\\.C\\. \\(Tay\\.\\)|N\\.C\\. \\(Win\\.\\)|N\\.D\\.|N\\.E\\.|N\\.E\\.2d|N\\.E\\.3d|N\\. Mar\\. I\\. Commw\\.|N\\. Mar\\. I\\.|Northum\\. Co\\. Leg\\. N\\.|Northumb\\. L\\.J\\.|N\\.W\\.|N\\.W\\.2d|Ohio App\\.|Ohio App\\. 2d|Ohio App\\. 3d|Ohio C\\.C\\. Dec\\.|Ohio C\\.C\\. \\(N\\.S\\.\\)|Ohio Cir\\. Dec\\.|Ohio Ct\\. App\\.|Ohio Misc\\.|Ohio Misc\\. 2d|Ohio Nisi Prius|Ohio Nisi Prius \\(N\\.S\\.\\)|Ohio Op\\. 2d|Ohio Op\\. 3d|Ohio Op\\.|Ohio St\\.|Ohio St\\. \\(n\\.s\\.\\)|Ohio St\\. 2d|Ohio St\\. 3d|Okla\\. Crim\\.|Okla\\.|Olwine's L\\.J\\.|Or\\.|Or\\. App\\.|Or\\. Tax|P\\.|P\\.2d|P\\.3d|Paige Ch\\.|Park\\. Crim\\. Rep\\.|Pelt\\.|Pa\\. L\\. Rec\\.|Pa\\. Commw\\.|Pa\\. Corp\\. R\\.|Pa\\. Co\\. Ct\\.|Pa\\. D\\. & C\\. 2d|Pa\\. D\\. & C\\.|Pa\\. D\\. & C\\. 3d|Pa\\. D\\. & C\\. 5th|Pa\\. D\\. & C\\. 4th|Pa\\. Fid\\.|Pa\\. Fid\\. 2d|Pa\\. Fid\\. 3d|Pa\\. Just\\. L\\. Rep\\.|Pa\\. L\\.J\\. Rep\\.|Pa\\.|Pa\\. Super\\. Ct\\.|Pennyp\\.|Phila\\. Co\\. R\\.|Phila\\. Reports|Pin\\.|Pittsb\\. L\\.J\\.|Pitts\\. R\\.|Port\\.|P\\.R\\. Fed\\.|Pow\\. Surr\\.|Mich\\. Pr\\.|Singer Prob\\. Cas\\.|N\\.Y\\. Proc\\. Ct\\. Ass\\.|P\\.R\\.|Rec\\. Q\\. Ct\\.|Rec\\. Ct\\. Assistants|Rec\\. Co\\. Ch\\. \\(S\\.C\\.\\)|Rec\\. Ct\\. Gen\\. Sess\\.|Rec\\. Bucks\\. Co\\. \\(Pa\\.\\)|Rec\\. T\\. Warwick \\(R\\.I\\.\\)|Rec\\. Ct\\. Ches\\. Co\\. Pa\\.|Rec\\. Co\\. Ct\\.|Rec\\. V\\.A\\. Ct\\. \\(R\\.I\\.\\)|Redf\\.|S\\.C\\.L\\. \\(Ril\\.\\)|Ct\\. Cl\\.|Mich\\. Ct\\. Cl\\.|App\\. D\\.C\\.|Bro\\. Com\\. P\\.|Ashm\\. \\(Pa\\.\\)|Conn\\. Super\\. Ct\\.|Conn\\. Super\\. Ct\\.|Disney \\(Ohio\\)|Binn\\.|Pen\\. & W\\.|Rawle|Serg\\. & Rawl\\.|Watts & Serg\\.|Whart\\.|Yeates|S\\.C\\. Eq\\. \\(Des\\.Eq\\.\\)|Ky\\. \\(Hard\\.\\)|Handy|Super\\. Ct\\. Jud\\.|Tenn\\. \\(Hayw\\.\\)|Grant|D\\.C\\. \\(MacArth\\. & M\\.\\)|D\\.C\\. \\(Tuck\\. & Cl\\.\\)|Jahn|S\\.C\\.L\\. \\(Strob\\.\\)|Gill|G\\. & J\\.|S\\.C\\. Eq\\. \\(Dud\\. Eq\\.\\)|S\\.C\\.L\\. \\(Bail\\.\\)|N\\.Y\\.|Walk\\. Ch\\.|Tenn\\. Crim\\. App\\.|H\\. & J\\.|Wilson|Miss\\. \\(S\\. & M\\. Ch\\.\\)|S\\.C\\.L\\. \\(Bay\\)|Morris|Watts|Tenn\\. \\(Mart\\. & Yer\\.\\)|Tenn\\. \\(Cold\\.\\)|Tenn\\. \\(Heisk\\.\\)|Tenn\\. \\(Yer\\.\\)|Tenn\\. \\(Head\\)|Tenn\\. \\(Meigs\\)|Tenn\\. \\(Hum\\.\\)|D\\.C\\.|D\\.C\\. \\(MacArth\\.\\)|D\\.C\\. \\(Mackey\\)|Doug\\.|Ark\\. Terr\\. Rep\\.|McGl\\.|D\\.C\\. \\(patent\\)|Ky\\. \\(Bibb\\)|Ky\\. \\(Litt\\.\\)|Ky\\. \\(T\\.B\\. Mon\\.\\)|Ky\\. \\(B\\. Mon\\.\\)|Wright|Ohio Ch\\.|Ky\\. \\(J\\.J\\. Marsh\\.\\)|S\\.C\\.L\\. \\(Speers\\)|S\\.C\\.L\\. \\(Rich\\.\\)|S\\.C\\.L\\. \\(Rice\\)|S\\.C\\.L\\. \\(Rich\\.\\)|S\\.C\\.L\\. \\(Dud\\.\\)|S\\.C\\.L\\. \\(Hill\\)|Hay\\. & Haz\\.|D\\.C\\. Cir\\.|D\\.C\\. \\(Cranch\\)|Brightly|Walker|Ind\\. App\\.|Kan\\. App\\.|Md\\. Ch\\.|Md\\. Ch\\.|Freem\\. Ch\\.|Wilcox|S\\.C\\.L\\. \\(McCord\\)|S\\.C\\.L\\. \\(Nott & McC\\.\\)|S\\.C\\.L\\. \\(Harp\\.\\)|Harr\\. Ch\\.|Miles|Cal\\. ?Dist\\. Ct\\.|McCahon|S\\.C\\. Eq\\. \\(Rice Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Hill Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Cas\\.\\)|S\\.C\\. Eq\\. \\(Strobh\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Bail\\. Eq\\.\\)|Greene|Myrick|D\\. Haw\\.|Rep\\. Cont\\. Elect\\. Case\\.|Rep\\. Cont\\. El\\.|Howison|Coffey|Charlton|S\\.C\\. Eq\\. \\(Harp\\. Eq\\.\\)|Brewster|S\\.C\\.L\\. \\(Mill\\)|S\\.C\\.L\\. \\(Tread\\.\\)|S\\.C\\.L\\. \\(Brev\\.\\)|Mass\\. App\\. Div\\.|Mass\\. App\\. Div\\.|Goebel|Ky\\. \\(Dana\\)|Ky\\. \\(Duv\\.\\)|Ky\\. \\(Met\\.\\)|Ky\\. \\(Bush\\)|Vaux|Tenn\\. \\(Swan\\)|Tenn\\. \\(Sneed\\)|Bradf\\.|T\\.C\\.|B\\.T\\.A\\.|R\\.I\\. Ct\\. Rec\\.|R\\.I\\. Dec\\.|R\\.I\\.|Super\\. Ct\\. \\(R\\.I\\.\\)|Robertson's Super\\. Ct\\. Rep\\.|Rob\\.|Sand\\. Ch\\.|Sandford Super\\. Ct\\. Rep\\.|Sarat\\. Ch\\. Sent\\.|Schuy\\. L\\. Rec\\.|Schuy\\. Reg\\.|Seld\\. Notes|Yates|Parsons|Sick\\. Op\\. Att'y Gen\\.|Silv\\. Ct\\. App\\.|Silv\\. Sup\\.|Smith|Som\\. L\\.J\\.|S\\.C\\.|S\\.D\\.|S\\.E\\.|S\\.E\\.2d|So\\.|So\\.2d|So\\.3d|S\\.W\\.|S\\.W\\.2d|S\\.W\\.3d|Stew\\.|Stew\\. & P\\.|S\\.C\\.D\\.C\\. \\(N\\.S\\.\\)|N\\.Y\\. Sup\\. Ct\\.|Susq\\. Leg\\. Chron\\.|Sweeney Super\\. Ct\\. Rep\\.|Robards|N\\.C\\. \\(Taylor\\)|La\\. App\\. \\(Teiss\\.\\)|Tenn\\. App\\.|Tenn\\. Cas\\.|Tenn\\. Ch\\. R\\.|Tenn\\.|Tenn\\. \\(Peck\\)|Tenn\\. \\(Cooke\\)|Tenn\\. \\(Overt\\.\\)|Tex\\. Civ\\. App\\.|Tex\\. Ct\\. App\\.|Tex\\. Crim\\.|Tex\\. L\\. R\\.|Tex\\.|Posey|N\\.J\\. \\(Burlington County Ct\\.\\)|Cin\\. Sup\\. Ct\\. Rep\\.|Com\\. Pl\\. Rep\\.|Pa\\. Dist\\.|Mass\\. Law Rep\\.|Mich\\. N\\.P\\. R\\.|Westchester|Ohio Law Abs\\.|Ohio L\\.R\\.|Ald\\.|Thomp\\. & Cook|Blume Sup\\. Ct\\. Trans\\.|Trans\\. App\\.|Tuck\\. Surr\\.|Tyl\\.|Cl\\. Ct\\.|U\\.S\\. App\\. D\\.C\\.|Ct\\. Int'l Trade|Cust\\. Ct\\.|U\\. ?S\\.|U\\.S\\. \\(Black\\)|U\\.S\\. \\(Cranch\\)|U\\.S\\. \\(Dall\\.\\)|U\\.S\\. \\(How\\.\\)|U\\.S\\. \\(Pet\\.\\)|U\\.S\\. \\(Wall\\.\\)|U\\.S\\. \\(Wheat\\.\\)|Mann\\. Unrep\\. Cas\\.|Blume Unrep\\. Op\\.|Unrep\\. Tenn\\. Cas\\.|Cal\\.|Utah|Utah 2d|Vt\\.|Va\\. Cir\\.|Va\\. Col\\. Dec\\.|Va\\. App\\.|Va\\. Dec\\.|Va\\. \\(Rand\\.\\)|Va\\. \\(Munf\\.\\)|Va\\. \\(Wash\\.\\)|Va\\.|Va\\. \\(Gratt\\.\\)|Va\\. \\(Gilmer\\)|Va\\. \\(Call\\)|Va\\. \\(Patt\\. & Heath\\)|Va\\. \\(Rob\\.\\)|Va\\. \\(Leigh\\)|V\\.I\\.|Wash\\. App\\.|Wash\\. Co\\.\\(Pa\\.\\)|Wash\\.|Wash\\. 2d|Wash\\. Terr\\.|Week\\. No\\. Cas\\. \\(Pa\\.\\)|Wend\\.|Wes\\. C\\.L\\.J\\.|Tribal|A\\. ?2d|A\\. ?3d|B\\.R\\.|F\\. App'?x\\.?|Haw\\.|M\\.J\\.|N\\.Y\\.S\\. 2d|N\\.Y\\.S\\. 2d|N\\.Y\\.S\\.|Vet\\. App\\.|W\\. Va\\.|Wheel\\. Cr\\. Cas\\.|Wis\\.|Wis\\. 2d|Wyo\\.|Yates Sel\\. Cas\\.|York Leg\\. Rec\\.) (?<page>\\d+)\\b(,?( at)? (?<pincite>\\d+)(([-‑–]| to | through )(?<pincite_end>\\d+))?\\b)?",
     "URL": ["https://cite.case.law/{reporter}/{volume}/{page}",
         "#p{pincite}"
     ],
@@ -1634,6 +4112,8 @@ const schemas =
     "substitutions": [{
         "token": "reporter",
         "index": {
+            "a-2d": "a2d",
+            "a-3d": "a3d",
             "fed-appx": "f-appx",
             "f-2d": "f2d",
             "f-3d": "f3d",
@@ -1884,7 +4364,7 @@ Law Search tries to match your query against a series of templates (technically 
 
 - For court opinions, it uses Harvard's [Caselaw Access Project](https://case.law/). I recommend making an account there, so you won't need to prove your non-robot status quite as often.
 - For the U.S. code and a number of federal rules (e.g. evidence), it uses Cornell's [Legal Information Institute](https://www.law.cornell.edu/). Unfortunately their website header gets in the way when you link directly to a subsection, so I recommend hiding it with [Ublock Origin](https://ublockorigin.com/), or getting into a habit of scrolling up slightly.
-- For codified state laws, it mostly uses individual states' websites, but when they aren't compatible, it uses [lawlerver.com](https://www.lawserver.com/), or occasionally [Justia](https://law.justia.com/codes/). All U.S. states and territories are supported in some form, except for Arkansas, Georgia, Guam, and Puerto Rico, whose laws are only available on LexisNexis or on sites where generating a URL would require more information than a typical citation contains.
+- For codified state laws, it mostly uses individual states' websites, but when they aren't compatible, it uses [lawserver.com](https://www.lawserver.com/), or occasionally [Justia](https://law.justia.com/codes/). All U.S. states and territories are supported in some form, except for Arkansas, Georgia, Guam, and Puerto Rico, whose laws are only available on LexisNexis or on sites where generating a URL would require more information than a typical citation contains.
 
 In any case, the program is entirely capable of generating broken links, for instance if you enter a valid-looking citation to a code provision that doesn't exist.
 
@@ -1896,82 +4376,130 @@ These are the sources of law the program is able to recognize. If you're wonderi
 
 Body of Law | Website   | Citation Template
 ----------- | --------- | -----------------
-United States Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Title%20%29%3F%28%5Cd%2B%29%20%28U%5C.%3F%7CUnited%29%20%3F%28S%5C.%3F%7CStates%29%20%3F%28C%5C.%3F%7CCode%29%28%20%3F%5BAS%5D%5C.%3F%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-United States Constitution | [constitution.congress.gov](https://constitution.congress.gov) | [view regex](https://regexper.com#%28U%5C.%3F%20%3FS%5C.%3F%20%3F%7CUnited%20States%29%20Const%28itution%7C%5C.%29%2C%3F%20%28%5BAa%5Drt%28icle%7C%5C.%29%20%28%5B%5CdIViv%5D%7B1%2C3%7D%29%7C%5BAa%5Dm%28endment%7C%28end%7Cdt%3F%29%3F%5C.%29%20%28%5B%5CdXIVxiv%5D%7B1%2C3%7D%29%29%28%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%5Cd%2B%29%29%28%28%2C%3F%20%28cl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%29%3F%29%3F)
+United States Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Title%20%29%3F%28%5Cd%2B%29%20%28U%5C.%3F%7CUnited%29%20%3F%28S%5C.%3F%7CStates%29%20%3F%28C%5C.%3F%7CCode%29%28%20%3F%5BAS%5D%5C.%3F%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+United States Constitution | [constitution.congress.gov](https://constitution.congress.gov) | [view regex](https://regexper.com#%28U%5C.%3F%20%3FS%5C.%3F%7CUnited%20States%29%20%3FConst%28itution%7C%5C.%29%2C%3F%20%28%5BAa%5Drt%28icle%7C%5C.%29%20%28%5B%5CdIViv%5D%7B1%2C3%7D%29%7C%5BAa%5Dm%28endment%7C%28end%7Cdt%3F%29%3F%5C.%29%20%28%5B%5CdXIVxiv%5D%7B1%2C3%7D%29%29%28%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%5Cd%2B%29%29%28%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%29%3F%29%3F)
 U.S. Public Laws | [uscode.house.gov](https://uscode.house.gov) | [view regex](https://regexper.com#Pub%28%5C.%3F%7Clic%29%20%3FL%28%5C.%3F%7Caw%29%20%3F%28No%5C.%3F%29%3F%20%3F%28%5Cd%2B%29%5B%E2%80%93%E2%80%91-%5D%28%5Cd%2B%29)
 U.S. Statutes at Large | [www.govinfo.gov](https://www.govinfo.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20Stat%5C.%3F%20%28%5Cd%2B%29%28%5B%E2%80%93%E2%80%91-%5D%5Cd%2B%29%3F)
 Federal Register | [www.federalregister.gov](https://www.federalregister.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20%28Fed%5C.%20%3FReg%5C.%7CF%5C.%3F%20%3FR%5C.%3F%29%20%28%5Cd%28%5B%2C%5Cd%5D%2B%5Cd%29%3F%29)
-Code of Federal Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#%28Title%20%29%3F%28%5Cd%2B%29%20%28C%5C.%3F%20%3FF%5C.%3F%20%3FR%5C.%3F%7CCode%20of%20Federal%20Regulations%29%28%20%5BPp%5Darts%3F%7C%20%5BPp%5Dts%3F%5C.%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Code of Federal Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#%28Title%20%29%3F%28%5Cd%2B%29%20%28C%5C.%3F%20%3FF%5C.%3F%20%3FR%5C.%3F%7CCode%20of%20Federal%20Regulations%29%28%20%5BPp%5Darts%3F%7C%20%5BPp%5Dts%3F%5C.%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Federal Rules of Civil Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28F%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FCiv%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Civil%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%5Ba-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Federal Rules of Appellate Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28F%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FApp%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Appellate%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%5Ba-z%5D%3F%29)
 Federal Rules of Criminal Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28F%5C.%3F%20%3FR%5C.%3F%20%3FCr%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FCrim%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Criminal%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%5Ba-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Federal Rules of Evidence | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28F%5C.%3F%20%3FR%5C.%3F%20%3FE%5C.%3F%7CFed%5C.%3F%20R%28%5C.%3F%7Cule%29%20%3FEvid%5C.%3F%7CFederal%20Rules%3F%20of%20Evidence%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%5Ba-z%5D%3F%29)
-Immigration and Nationality Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Immigration%20%28%5BAa%5Dnd%7C%26%29%20Nationality%20Act%7CI%5C.%3F%20%3FN%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Internal Revenue Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Internal%20Revenue%20Code%7CI%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Treasury Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#Treas%28ury%7C%5C.%3F%29%20%3FReg%28ulations%3F%7C%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-National Labor Relations Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Natioanal%20Labor%20Relations%20Act%7CN%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Immigration and Nationality Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Immigration%20%28%5BAa%5Dnd%7C%26%29%20Nationality%20Act%7CI%5C.%3F%20%3FN%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Internal Revenue Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Internal%20Revenue%20Code%7CI%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Treasury Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#Treas%28ury%7C%5C.%3F%29%20%3FReg%28ulations%3F%7C%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+National Labor Relations Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Natioanal%20Labor%20Relations%20Act%7CN%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 National Labor Relations Board Decisions | [www.nlrb.gov](https://www.nlrb.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FB%5C.%3F%20%28%5Cd%2B%29)
 National Labor Relations Board Slip Opinions | [www.nlrb.gov](https://www.nlrb.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FB%5C.%3F%20%28Slip%20Op%5C.%20%29%3FNo%5C.%20%28%5Cd%2B%29)
-Endangered Species Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Endangered%20Species%20Act%7CE%5C.%3F%20%3FS%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Clean Air Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Clean Water Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Clean%20Water%20Act%7CC%5C.%3F%20%3FW%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Fair Housing Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Fair%20Housing%20Act%7CF%5C.%3F%20%3Fh%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Americans With Disabilities Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Americans%20%5BWw%5Dith%20Disabilities%20Act%7CA%5C.%3F%20%3FD%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Endangered Species Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Endangered%20Species%20Act%7CE%5C.%3F%20%3FS%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Clean Air Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Clean Water Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Clean%20Water%20Act%7CC%5C.%3F%20%3FW%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Fair Housing Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Fair%20Housing%20Act%7CF%5C.%3F%20%3Fh%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Americans With Disabilities Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Americans%20%5BWw%5Dith%20Disabilities%20Act%7CA%5C.%3F%20%3FD%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Uniform Commercial Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Uniform%20Commercial%20Code%7CU%5C.%3F%20%3FC%5C.%3F%20%3FC%5C.%3F%29%28%20%3F%C2%A7%29%3F%20%28%5Cd%5Ba-z%5D%3F%29%5CW%2B%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Code of Alabama, 1975 | [alisondb.legislature.state.al.us](https://alisondb.legislature.state.al.us) | [view regex](https://regexper.com#%28Ala%28bama%7C%5C.%29%7CAL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Alaska Statutes | [www.akleg.gov](http://www.akleg.gov) | [view regex](https://regexper.com#%28Alaska%7CAK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-American Samoa Code | [new.asbar.org](https://new.asbar.org) | [view regex](https://regexper.com#Am%28erican%7C%5C.%29%20%3FSamoa%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Arizona Revised Statutes | [www.azleg.gov](https://www.azleg.gov) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-California Codes | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Colorado Revised Statutes | [leg.colorado.gov](https://leg.colorado.gov) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
-General Statutes of Connecticut | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Conn%28ecticut%7C%5C.%29%7CCT%29%20%3FGen%28eral%7C%5C.%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5Ba-z%5C-%5D%2A%5Cw%7C%5Cd%2B%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Delaware Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Del%28aware%7C%5C.%29%7CDE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Delaware General Corporations Law | [delcode.delaware.gov](https://delcode.delaware.gov) | [view regex](https://regexper.com#%28D%5C.%3F%20%3FG%5C.%3F%20%3FC%5C.%3F%20%3FL%5C.%3F%7CDel%28aware%7C%5C.%29%20%3FGen%28eral%7C%5C.%29%20%3FCorp%28orations%3F%7Cs%3F%5C.%29%20%3FL%28aw%7C%5C.%29%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-District of Columbia Official Code | [code.dccouncil.us](https://code.dccouncil.us) | [view regex](https://regexper.com#%28District%20of%20Columbia%28%20Official%29%3F%7CD%5C.%3F%20%3FC%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Florida Statutes | [www.flsenate.gov](https://www.flsenate.gov) | [view regex](https://regexper.com#%28Fl%28orida%7Ca%3F%5C.%29%7CFL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
-Hawaii Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Haw%28ai.%3Fi%7C%5C.%29%7CHI%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Idaho Code | [legislature.idaho.gov](https://legislature.idaho.gov) | [view regex](https://regexper.com#I%28daho%7CD%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%28%5Cd%7B1%2C2%7D%29%5Cd%7B2%7D%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Code of Alabama, 1975 | [alisondb.legislature.state.al.us](https://alisondb.legislature.state.al.us) | [view regex](https://regexper.com#%28Ala%28bama%7C%5C.%29%7CAL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Alabama Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ala%28bama%7C%5C.%29%7CAL%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Alaska Statutes | [www.akleg.gov](http://www.akleg.gov) | [view regex](https://regexper.com#%28Alaska%7CAK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Alaska Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Alaska%7CAK%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+American Samoa Code | [new.asbar.org](https://new.asbar.org) | [view regex](https://regexper.com#Am%28erican%7C%5C.%29%20%3FSamoa%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+American Samoa Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#Am%28erican%7C%5C.%29%20%3FSamoa%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Arkansas Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ark%28ansas%7C%5C.%29%7CAR%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Arizona Revised Statutes | [www.azleg.gov](https://www.azleg.gov) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Arizona Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+California Codes | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+California Constitution | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Colorado Revised Statutes | [leg.colorado.gov](https://leg.colorado.gov) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
+Colorado Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+General Statutes of Connecticut | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Conn%28ecticut%7C%5C.%29%7CCT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5Ba-z%5C-%5D%2A%5Cw%7C%5Cd%2B%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Connecticut Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Conn%28ecticut%7C%5C.%29%7CCT%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Delaware Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Del%28aware%7C%5C.%29%7CDE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Delaware General Corporations Law | [delcode.delaware.gov](https://delcode.delaware.gov) | [view regex](https://regexper.com#%28D%5C.%3F%20%3FG%5C.%3F%20%3FC%5C.%3F%20%3FL%5C.%3F%7CDel%28aware%7C%5C.%29%20%3FGen%28eral%7C%5C.%29%20%3FCorp%28orations%3F%7Cs%3F%5C.%29%20%3FL%28aw%7C%5C.%29%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Delaware Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Del%28aware%7C%5C.%29%7CDE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+District of Columbia Official Code | [code.dccouncil.us](https://code.dccouncil.us) | [view regex](https://regexper.com#%28District%20of%20Columbia%28%20Official%29%3F%7CD%5C.%3F%20%3FC%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Florida Statutes | [www.flsenate.gov](https://www.flsenate.gov) | [view regex](https://regexper.com#%28Fl%28orida%7Ca%3F%5C.%29%7CFL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
+Florida Constitution | [www.flsenate.gov](https://www.flsenate.gov) | [view regex](https://regexper.com#%28Fl%28orida%7Ca%3F%5C.%29%7CFL%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Hawaii Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Haw%28ai.%3Fi%7C%5C.%29%7CHI%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Hawaii Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Haw%28ai.%3Fi%7C%5C.%29%7CHI%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Idaho Code | [legislature.idaho.gov](https://legislature.idaho.gov) | [view regex](https://regexper.com#I%28daho%7CD%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%28%5Cd%7B1%2C2%7D%29%5Cd%7B2%7D%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Idaho Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#I%28daho%7CD%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
 Illinois Compiled Statutes | [www.ilga.gov](https://www.ilga.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20ILCS%20%28%5Cd%2B%29%2F%28%28%5Cd%5B%5Cd.-%5D%2A%5Cw%7C%5Cd%29%29)
-Indiana Code | [iga.in.gov](https://iga.in.gov) | [view regex](https://regexper.com#%28Ind%28iana%7C%5C.%29%7CIN%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
-Iowa Code | [www.legis.iowa.gov](https://www.legis.iowa.gov) | [view regex](https://regexper.com#I%28owa%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Kansas Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Kan%28sas%7C%5C.%29%7CKS%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Kentucky Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28K%28entucky%7Cy%5C.%7CY%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CKRS%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5B%5Cd.%5D%2A%5Cw%7C%5Cd%29%29%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Louisiana Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%3A%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Illinois Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Il%28linois%7Cl%3F%5C.%29%7CIL%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Indiana Code | [iga.in.gov](https://iga.in.gov) | [view regex](https://regexper.com#%28Ind%28iana%7C%5C.%29%7CIN%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
+Indiana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ind%28iana%7C%5C.%29%7CIN%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Iowa Code | [www.legis.iowa.gov](https://www.legis.iowa.gov) | [view regex](https://regexper.com#I%28owa%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Iowa Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#I%28owa%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Kansas Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Kan%28sas%7C%5C.%29%7CKS%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Kansas Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Kan%28sas%7C%5C.%29%7CKS%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Kentucky Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28K%28entucky%7Cy%5C.%7CY%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CKRS%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5B%5Cd.%5D%2A%5Cw%7C%5Cd%29%29%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Louisiana Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%3A%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Louisiana Codes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%20%3F%28Civ%28il%7C%5C.%29%20%3FCode%7CCode%28%20of%29%3F%20%28%28Civ%28il%7C%5C.%29%7CCrim%28inal%7C%5C.%29%29%20%3FProc%28edure%7C%5C.%29%7CEvid%28ence%7C%5C.%29%29%7CChild%28ren%27%3Fs%7C%5C.%29%20%3FCode%29%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%28%20%5BAa%5Drt%28icle%7C%5C.%29%29%3F%20%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Maine Statutes | [legislature.maine.gov](https://legislature.maine.gov) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Maryland Code | [mgaleg.maryland.gov](https://mgaleg.maryland.gov) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Ac%7CAl%7C%5BBCEFHILNPRST%5D%29.%7B4%2C38%7D%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5B%5CdA-Z%5C-%E2%80%93.%5D%2A%5B%5CdA-Z%5D%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Louisiana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Maine Statutes | [legislature.maine.gov](https://legislature.maine.gov) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Maine Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Maryland Code | [mgaleg.maryland.gov](https://mgaleg.maryland.gov) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Ac%7CAl%7C%5BBCEFHILNPRST%5D%29.%7B4%2C38%7D%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5B%5CdA-Z%5C-%E2%80%93.%5D%2A%5B%5CdA-Z%5D%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Maryland Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
 Massachusetts General Laws | [malegislature.gov](https://malegislature.gov) | [view regex](https://regexper.com#%28%28Mass%28achusetts%7C%5C.%29%7CMA%29%20%3F%28Gen%28eral%7C%5C.%29%7CAnn%28otated%7C%5C.%29%29%20%3FLaws%28%20Ann%28otated%7C%5C.%29%29%3F%7CM%5C.%3FG%5C.%3FL%5C.%3F%28A%5C.%3F%29%3F%7CA%5C.%3FL%5C.%3FM%5C.%3F%29%2C%3F%20%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5Cd%2B%5BA-Z%5D%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%5Cd%2B%5BA-Z%5D%3F%5Cd%2A%28%5B%2F%5D%5Cd%2B%5BA-Z%5D%3F%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Michigan Compiled Laws | [legislature.mi.gov](https://legislature.mi.gov) | [view regex](https://regexper.com#%28Mich%28igan%7C%5C.%29%7CMI%29%20Comp%28iled%7C%5C.%29%20Laws%28%20%28Serv%28ice%7C%5C.%29%7CAnn%28otated%7C%5C.%29%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Minnesota Statutes | [www.revisor.mn.gov](https://www.revisor.mn.gov) | [view regex](https://regexper.com#%28Minn%28esota%7C%5C.%29%7CMN%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%5C%28%28%5Cd%5Cw%2A%29%5C%29%28%5C%28%5Cw%2B%5C%29%29%2A%7C%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Mississippi Code | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Miss%28issippi%7C%5C.%29%7CMS%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
+Michigan Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Mich%28igan%7C%5C.%29%7CMI%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Minnesota Statutes | [www.revisor.mn.gov](https://www.revisor.mn.gov) | [view regex](https://regexper.com#%28Minn%28esota%7C%5C.%29%7CMN%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%5C%28%28%5Cd%5Cw%2A%29%5C%29%28%5C%28%5Cw%2B%5C%29%29%2A%7C%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Minnesota Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Minn%28esota%7C%5C.%29%7CMN%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Mississippi Code | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Miss%28issippi%7C%5C.%29%7CMS%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
+Mississippi Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Miss%28issippi%7C%5C.%29%7CMS%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
 Missouri Revised Statutes | [revisor.mo.gov](https://revisor.mo.gov) | [view regex](https://regexper.com#%28%28M%28issouri%7Co%5C.%7CO%29%28%20Ann%28otated%7C%5C.%29%29%3F%20%3FRev%28ised%7C%5C.%29%20%3FStat%28utes%7Cs%3F%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%7CR%5C.%3FS%5C.%3FM%5BOo%5D%5C.%3F%29%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Montana Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Mont%28ana%7C%5C.%29%7CMT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Revised Statutes of Nebraska | [www.nebraskalegislature.gov](https://www.nebraskalegislature.gov) | [view regex](https://regexper.com#%28Neb%28raska%7C%5C.%29%7CNE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%20%3FStat%28utes%3F%7C%5C.%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-New Hampshire Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28New%20Hampshire%7CN%5C.%3F%20%3FH%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5B-%E2%80%93%5D%5BA-Za-z%5D%29%3F%29%3A%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Za-z%5D%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-New Jersey Statutes | [njlaw.rutgers.edu](https://njlaw.rutgers.edu) | [view regex](https://regexper.com#%28%28N%5C.%3F%20%3FJ%5C.%3F%7CNew%20Jersey%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CN%5C.%3FJ%5C.%3FS%5C.%3FA%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%3A%28%5Cd%2B%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Nevada Revised Statutes | [www.leg.state.nv.us](https://www.leg.state.nv.us) | [view regex](https://regexper.com#%28%28Nev%28ada%7C%5C.%29%7CNV%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CNRS%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-New Mexico Statutes Annotated 1978 | [nmonesource.com](https://nmonesource.com) | [view regex](https://regexper.com#%28%28New%20Mexico%7CN%5C.%3F%20%3FM%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CNMSA%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Consolidated Laws of New York | [www.nysenate.gov](https://www.nysenate.gov) | [view regex](https://regexper.com#%28New%20York%7CN%5C.%3F%20%3FY%5C.%3F%29%20%3F%28.%7B2%2C40%7D%3F%29%28%20Law%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Missouri Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28issouri%7Co%5C.%7CO%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Montana Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Mont%28ana%7C%5C.%29%7CMT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Montana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Mont%28ana%7C%5C.%29%7CMT%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Revised Statutes of Nebraska | [www.nebraskalegislature.gov](https://www.nebraskalegislature.gov) | [view regex](https://regexper.com#%28Neb%28raska%7C%5C.%29%7CNE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Nebraska Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Neb%28raska%7C%5C.%29%7CNE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+New Hampshire Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28New%20Hampshire%7CN%5C.%3F%20%3FH%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5B-%E2%80%93%5D%5BA-Za-z%5D%29%3F%29%3A%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Za-z%5D%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+New Jersey Statutes | [njlaw.rutgers.edu](https://njlaw.rutgers.edu) | [view regex](https://regexper.com#%28%28N%5C.%3F%20%3FJ%5C.%3F%7CNew%20Jersey%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CN%5C.%3FJ%5C.%3FS%5C.%3FA%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%3A%28%5Cd%2B%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+New Jersey Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28N%5C.%3F%20%3FJ%5C.%3F%7CNew%20Jersey%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Nevada Revised Statutes | [www.leg.state.nv.us](https://www.leg.state.nv.us) | [view regex](https://regexper.com#%28%28Nev%28ada%7C%5C.%29%7CNV%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CNRS%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Nevada Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Nev%28ada%7C%5C.%29%7CNV%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+New Mexico Statutes Annotated 1978 | [nmonesource.com](https://nmonesource.com) | [view regex](https://regexper.com#%28%28New%20Mexico%7CN%5C.%3F%20%3FM%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CNMSA%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+New Mexico Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28New%20Mexico%7CN%5C.%3F%20%3FM%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Consolidated Laws of New York | [www.nysenate.gov](https://www.nysenate.gov) | [view regex](https://regexper.com#%28New%20York%7CN%5C.%3F%20%3FY%5C.%3F%29%20%3F%28.%7B2%2C40%7D%3F%29%28%20Law%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+New York Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28New%20York%7CN%5C.%3F%20%3FY%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
 North Carolina General Statutes | [www.ncleg.gov](https://www.ncleg.gov) | [view regex](https://regexper.com#%28%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FGen%28eral%7C%5C.%29%20%3FStat%28utes%7Cs%3F%5C.%29%7CN%5C.%3F%20%3FC%5C.%3F%20%3FG%5C.%3F%20%3FS%5C.%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+North Carolina Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
 North Dakota Century Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28North%20Dakota%7CN%5C.%3F%20%3FD%5C.%3F%29%20%3FCent%28ury%7C%5C.%29%20%3FCode%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Northern Mariana Islands Commonwealth Code | [cnmilaw.org](https://cnmilaw.org) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%28orthern%7C%5C.%29%20%3FMar%28iana%7C%5C.%29%20%3FI%28slands%7C%5C.%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Ohio Revised Code | [codes.ohio.gov](https://codes.ohio.gov) | [view regex](https://regexper.com#O%28hio%7CH%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29%28%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%29%3F)
-Oklahoma Statutes | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Okla%28homa%7C%5C.%29%7COK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
-Oregon Revised Statutes | [www.oregonlaws.org](https://www.oregonlaws.org) | [view regex](https://regexper.com#%28Or%28egon%7Ce%3F%5C.%29%7COR%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Pennsylvania Code | [www.pacodeandbulletin.gov](https://www.pacodeandbulletin.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20%28Pennsylvania%7CPa%5C.%7CPA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+North Dakota Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28North%20Dakota%7CN%5C.%3F%20%3FD%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Northern Mariana Islands Commonwealth Code | [cnmilaw.org](https://cnmilaw.org) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%28orthern%7C%5C.%29%20%3FMar%28iana%7C%5C.%29%20%3FI%28slands%7C%5C.%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Northern Mariana Islands Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#N%28orthern%7C%5C.%29%20%3FMar%28iana%7C%5C.%29%20%3FI%28slands%7C%5C.%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Ohio Revised Code | [codes.ohio.gov](https://codes.ohio.gov) | [view regex](https://regexper.com#O%28hio%7CH%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29%28%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%29%3F)
+Ohio Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#O%28hio%7CH%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Oklahoma Statutes | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Okla%28homa%7C%5C.%29%7COK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
+Oklahoma Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Okla%28homa%7C%5C.%29%7COK%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Oregon Revised Statutes | [www.oregonlaws.org](https://www.oregonlaws.org) | [view regex](https://regexper.com#%28Or%28egon%7Ce%3F%5C.%29%7COR%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Oregon Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Or%28egon%7Ce%3F%5C.%29%7COR%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Pennsylvania Code | [www.pacodeandbulletin.gov](https://www.pacodeandbulletin.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20%28Pennsylvania%7CPa%5C.%7CPA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Pennsylvania Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Pennsylvania%7CPa%5C.%7CPA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Puerto Rico Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Puerto%20Rico%7CP%5C.%3F%20%3FR%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
 General Laws of Rhode Island | [webserver.rilin.state.ri.us](http://webserver.rilin.state.ri.us) | [view regex](https://regexper.com#%28Rhode%20Island%7CR%5C.%3F%20%3FI%5C.%3F%29%20%3FGen%28eral%7C%5C.%29%20%3FLaws%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-South Carolina Code of Laws | [www.scstatehouse.gov](https://www.scstatehouse.gov) | [view regex](https://regexper.com#%28South%20Carolina%7CS%5C.%3F%20%3FC%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Rhode Island Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Rhode%20Island%7CR%5C.%3F%20%3FI%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+South Carolina Code of Laws | [www.scstatehouse.gov](https://www.scstatehouse.gov) | [view regex](https://regexper.com#%28South%20Carolina%7CS%5C.%3F%20%3FC%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+South Carolina Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28South%20Carolina%7CS%5C.%3F%20%3FC%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
 South Dakota Codified Laws | [sdlegislature.gov](https://sdlegislature.gov) | [view regex](https://regexper.com#%28South%20Dakota%7CS%5C.%3F%20%3FD%5C.%3F%29%20%3F%28Codified%7CComp%28iled%7C%5C.%29%29%20Laws%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Tennessee Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Tenn%28essee%7C%5C.%29%7CTN%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+South Dakota Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28South%20Dakota%7CS%5C.%3F%20%3FD%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Tennessee Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Tenn%28essee%7C%5C.%29%7CTN%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Tennessee Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Tenn%28essee%7C%5C.%29%7CTN%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
 Texas Codes | [statutes.capitol.texas.gov](https://statutes.capitol.texas.gov) | [view regex](https://regexper.com#%28Tex%28as%7C%5C.%29%7CTX%29%20%28%5Cw.%7B2%2C40%7D%3F%29%28%20Code%28%20Ann%28otated%7C%5C.%29%29%3F%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Utah Code | [le.utah.gov](https://le.utah.gov) | [view regex](https://regexper.com#%28Utah%7CUT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Vermont Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#V%28ermont%7Ct%5C.%7CT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5C-%E2%80%94%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Virginia Code | [law.lis.virginia.gov](https://law.lis.virginia.gov) | [view regex](https://regexper.com#V%28irginia%7Ca%5C.%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Virgin Islands Code | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Virgin%20Islands%7CV%5C.%3F%20%3FI%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
-Revised Code of Washington | [app.leg.wa.gov](https://app.leg.wa.gov) | [view regex](https://regexper.com#%28%28Wash%28ington%7C%5C.%29%7CWA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CR%5C.%3FC%5C.%3FW%5C.%3F%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-West Virginia Code | [www.wvlegislature.gov](http://www.wvlegislature.gov) | [view regex](https://regexper.com#%28West%20Virginia%7CW%5C.%20%3FVa%3F%5C.%7CWV%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Wisconsin Statutes | [docs.legis.wisconsin.gov](https://docs.legis.wisconsin.gov) | [view regex](https://regexper.com#%28Wis%28consin%7C%5C.%29%7CWI%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Wyoming Statutes | [wyoleg.gov](https://wyoleg.gov) | [view regex](https://regexper.com#%28Wyo%28ming%7C%5C.%29%7CWY%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Caselaw Access Project | [cite.case.law](https://cite.case.law) | [view regex](https://regexper.com#%28%5Cd%2B%29%20%28Abb%5C.%20Ct%5C.%20App%5C.%7CAbb%5C.N%5C.%20Cas%5C.%7CAbb%5C.%20Pr%5C.%7CAbb%5C.%20Pr%5C.%20%5C%28n%5C.s%5C.%5C%29%7CVa%5C.%20%5C%28Va%5C.%20Cas%5C.%5C%29%7CAdams%20Co%5C.%20L%5C.J%5C.%7CAdd%5C.%7CDallam%7CFranklin%20Co%5C.%20Legal%20J%5C.%7CAik%5C.%7CAla%5C.%20App%5C.%7CAla%5C.%7CAlaska%20Fed%5C.%7CAlaska%7CAm%5C.%20Samoa%7CAm%5C.%20Samoa%202d%7CAm%5C.%20Samoa%203d%7COhio%20App%5C.%20Unrep%5C.%7CAnt%5C.%20N%5C.P%5C.%20Cas%5C.%7CA%5C.D%5C.2d%7CA%5C.D%5C.%7CA%5C.D%5C.3d%7CKy%5C.%20%5C%28Hughes%5C%29%7CAriz%5C.%20App%5C.%7CAriz%5C.%7CArk%5C.%20App%5C.%7CArk%5C.%7CArmstrong%5C.%20Election%20Cases%7CA%5C.%7CBalt%5C.%20C%5C.%20Rep%5C.%7CBarb%5C.%20Ch%5C.%7CBarb%5C.%7CB%5C.%20Co%5C.%20Leg%5C.%20J%5C.%7CBerk%27s%20Co%5C.%20L%5C.J%5C.%5C.%7CBlackf%5C.%7CBlair%20Co%5C.%20L%5C.R%5C.%7CBlair%20Co%5C.%20L%5C.R%5C.%202d%7CBosworth%20Super%5C.%20Ct%5C.%20Rep%5C.%7CBradford%20Co%5C.%20L%5C.J%5C.%7CBrad%5C.%7CBrayt%5C.%7CBucks%20Co%5C.%20L%5C.R%5C.%7CBur%5C.%7CBur%5C.%7CButler%20Co%5C.%20Legal%20J%5C.%7CE%5C.D%5C.%20Pa%5C.%7CCai%5C.%20Cas%5C.%7CCai%5C.%7CCal%5C.%20%3FApp%5C.%7CCal%5C.%20%3FApp%5C.%20%3F5th%7CCal%5C.%20%3FApp%5C.%20%3F4th%7CCal%5C.%20%3FApp%5C.%20%3F2d%7CCal%5C.%20%3FApp%5C.%20%3F3d%7CCal%5C.%20%3F3d%7CCal%5C.%20%3F4th%7CCal%5C.%7CCal%5C.%20%3F2d%7CCal%5C.%20%3FSuper%5C.%20%3FCt%5C.%7CCal%5C.%20%3FUnrep%5C.%7CCambria%20Co%5C.%20L%5C.J%5C.%7CCambria%20Co%5C.%20Rep%5C.%7CCarbon%20Co%5C.%20L%5C.J%5C.%7CN%5C.C%5C.%20%5C%28Car%5C.%20L%5C.%20Rep%5C.%5C%29%7CN%5C.J%5C.%20%5C%28Manumission%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28McMul%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Chev%5C.%5C%29%7CTapp%5C.%20Rep%5C.%7CD%5C.%20Pa%5C.%7COhio%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Chev%5C.%20Eq%5C.%5C%29%7CMonaghan%7CSadler%7CKy%5C.%20%5C%28Litt%5C.%20Sel%5C.%20Cas%5C.%5C%29%7CC%5C.C%5C.L%5C.J%5C.%7CC%5C.C%5C.L%5C.J%5C.%202d%7CS%5C.C%5C.%20Eq%5C.%20%5C%28McCord%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Ril%5C.%20Eq%5C.%5C%29%7CChand%5C.%7CCharlton%20Rep%5C.%7CChes%5C.%20Co%5C.%20Rep%5C.%7CD%5C.%20Chip%5C.%7CN%5C.%20Chip%5C.%7CMun%5C.%20%20L%5C.%20Rep%5C.%7CHosea%27s%20Rep%5C.%7CN%5C.Y%5C.%20City%20Ct%5C.%20Rep%5C.%7CCl%5C.%20Ch%5C.%7CCole%5C.%20%26%20Cai%5C.%20Cas%5C.%7CCole%5C.%20Cas%5C.%7CColo%5C.%20App%5C.%7CColo%5C.%20L%5C.%20Rep%5C.%7CColo%5C.%20N%5C.%20P%5C.%7CColo%5C.%7CWillson%7CWhite%20%26%20W%5C.%7CN%5C.C%5C.%20%5C%28Cam%5C.%20%26%20Nor%5C.%5C%29%7CKing%27s%20Conflicting%20Cases%7CConn%5C.%20App%5C.%7CConn%5C.%20Cir%5C.%20Ct%5C.%7CKirby%7CRoot%7CConn%5C.%7CConn%5C.%20Supp%5C.%7CConnoly%20Sur%5C.%20Rep%5C.%7CCt%5C.%20Cl%5C.%7CC%5C.C%5C.P%5C.A%5C.%7CCt%5C.%20Cust%5C.%7CCow%5C.%7CCraw%5C.%20Co%5C.%20Leg%5C.%20J%5C.%7CCumberland%20L%5C.J%5C.%7CCust%5C.%20B%5C.%20%26%20Dec%5C.%7CDakota%7CDallam%7CDall%5C.%7CDaly%20%5C%28N%5C.Y%5C.%5C%29%7CDau%5C.%20Co%5C.%20Rep%5C.%7CDay%7CT%5C.C%5C.A%5C.%7CP%5C.R%5C.%20Dec%5C.%7CTeiss%5C.%7CVa%5C.%20Ch%5C.%20Dec%5C.%7CKy%5C.%20%5C%28Sneed%5C%29%7CPears%5C.%7CSmith%7CGa%5C.%20Super%5C.%20Ct%5C.%7CGeorgia%20Decisions%7CC%5C.M%5C.A%5C.%7CDel%5C.%20Cas%5C.%7CDel%5C.%20Ch%5C.%7CDel%5C.%20Co%5C.%20Reps%5C.%7CDel%5C.%20%5C%28Harr%5C.%5C%29%7CDel%5C.%20%5C%28Penne%5C.%5C%29%7CDel%5C.%20%5C%28Boyce%5C%29%7CDel%5C.%20%5C%28Marv%5C.%5C%29%7CDel%5C.%20%5C%28Houst%5C.%5C%29%7CDel%5C.%7CDem%5C.%20Sur%5C.%7CDenio%7CDocket%7CDudley%20Rep%5C.%7CDuer%20Super%5C.%20Ct%5C.%20Rep%5C.%7CEdm%5C.%20Sel%5C.%20Cas%5C.%7CE%5C.D%5C.%20Smith%7CEdw%5C.%20Ch%5C.%7CS%5C.C%5C.%20Eq%5C.%20%5C%28McMul%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Speers%20Eq%5C.%5C%29%7CErie%5C.%20Co%5C.%20L%5C.J%5C.%7CP%5C.R%5C.%20Sent%5C.%7CFay%5C.%20L%5C.J%5C.%7CF%5C.%20Cas%5C.%7CFed%5C.%20Cl%5C.%7CF%5C.%7CF%5C.%20%3F2d%7CF%5C.%20%3F3d%7CF%5C.R%5C.D%5C.%7CF%5C.%20%3FSupp%5C.%28%20%3F%5B23%5Dd%29%3F%7CFla%5C.%7CFla%5C.%20Supp%5C.%7CFla%5C.%20Supp%5C.%202d%7CGa%5C.%20App%5C.%7CGa%5C.%20L%5C.%20Rep%5C.%7CGa%5C.%7CGault%7CGibb%5C.%20Surr%5C.%7CGuam%7CHall%20Super%5C.%20Ct%5C.%20Rep%5C.%7CH%5C.%20%26%20G%5C.%7CHaw%5C.%20App%5C.%7CHaw%5C.%7CHaz%5C.%20Pa%5C.%20Reg%5C.%7CVa%5C.%20%5C%28Hen%5C.%20%26%20M%5C.%5C%29%7CHill%20%26%20Den%5C.%7CHill%7CHilt%5C.%7CHoff%5C.%20Ch%5C.%7CHopk%5C.%20Ch%5C.%7CHow%5C.%20App%5C.%20Cas%5C.%7CHow%5C.%20Pr%5C.%7CHow%5C.%20Pr%5C.%20%5C%28n%5C.s%5C.%5C%29%7CIdaho%7CIll%5C.%20App%5C.%7CIll%5C.%20App%5C.%202d%7CIll%5C.%20App%5C.%203d%7CIll%5C.%20Cir%5C.%20Ct%5C.%20Rep%5C.%7CIll%5C.%20Ct%5C.%20Cl%5C.%7CIll%5C.%20%5C%28Scam%5C%29%7CIll%5C.%20%5C%28Breese%5C%29%7CIll%5C.%20%5C%28Gilm%5C.%5C%29%7CIll%5C.%7CIll%5C.%202d%7CInd%5C.%20App%5C.%7CInd%5C.%20L%5C.%20Rep%5C.%7CInd%5C.%7CIndian%20Terr%5C.%7CIowa%7CJeff%5C.%7CJohns%5C.%20Cas%5C.%7CJohns%5C.%20Ch%5C.%7CJohns%5C.%7CJones%20and%20Spencer%27s%20Super%5C.%20Ct%5C.%20Rep%5C.%7CEdsall%7CPa%5C.%20%5C%28Admiralty%5C%29%7CKan%5C.%20App%5C.%202d%7CKan%5C.%7CKy%5C.%20%5C%28A%5C.K%5C.%20Marsh%5C.%5C%29%7CKy%5C.%20Op%5C.%7CKy%5C.%7CKeyes%7CLack%5C.%20Bar%5C.%20R%5C.%7CLack%5C.%20Bar%20%20R%5C.%7CLack%5C.%20Jur%5C.%7CLack%5C.%20L%5C.%20N%5C.%7CLack%5C.%20L%5C.R%5C.%7CLanc%5C.%20Bar%7CLanc%5C.%20L%5C.%20Rev%5C.%7CLans%5C.%20Ch%5C.%7CLans%5C.%7CLaw%5C.%20L%5C.J%5C.%7CLaw%20Times%7CLaw%20Times%20%5C%28N%5C.S%5C.%5C%29%7CLebanon%20Co%5C.%20L%5C.J%5C.%7CFoster%7CLeg%5C.%20Gaz%5C.%7CLeg%5C.%20Gaz%5C.%7CPa%5C.%20Leg%5C.%20Gaz%5C.%7CGunby%7CLeg%5C.%20Rec%5C.%20Rep%5C.%7CLehigh%20Co%5C.%20L%5C.J%5C.%7CLehigh%20Val%5C.%20L%5C.%20Rep%5C.%7CLiquor%20Tax%20Rep%5C.%7CLock%5C.%20Rev%5C.%20Cas%5C.%7CLa%5C.%20Ann%5C.%7CLa%5C.%20App%5C.%7CLa%5C.%7CLa%5C.%7CLuz%5C.%20L%5C.J%5C.%7CLuz%5C.%20L%5C.O%5C.%7CLuz%5C.%20Leg%5C.%20Reg%5C.%7CLuz%5C.%20Leg%5C.%20Reg%5C.%7CLycoming%20R%5C.%7CMagis%5C.%20%26%20Const%5C.%7CMe%5C.%7CMcGrath%7CN%5C.C%5C.%20%5C%28Mart%5C.%5C%29%7CMart%5C.%20%5C%28n%5C.s%5C.%5C%29%7CMart%5C.%20%5C%28o%5C.s%5C.%5C%29%7CMd%5C.%20App%5C.%7CMd%5C.%7CH%5C.%20%26%20McH%5C.%7CMass%5C.%20%5C%28Allen%5C%29%7CMass%5C.%20App%5C.%20Ct%5C.%7CMass%5C.%20App%5C.%20Dec%5C.%7CDavis%20L%5C.%20Ct%5C.%20Cas%5C.%7CDavis%20L%5C.%20Ct%5C.%20Cas%5C.%7CMass%5C.%20%5C%28Cush%5C%29%7CMass%5C.%20%5C%28Pick%5C.%5C%29%7CMass%5C.%20%5C%28Gray%5C%29%7CMass%5C.%20%5C%28Tyng%5C%29%7CMass%5C.%20%5C%28Will%5C.%5C%29%7CMass%5C.%20%5C%28Met%5C.%5C%29%7CMass%5C.%7CMass%5C.%20Supp%5C.%7CMercer%7CMich%5C.%20App%5C.%20%7CHowell%20N%5C.P%5C.%7CMich%5C.%7CM%5C.C%5C.L%5C.J%5C.%7CMills%20Surr%5C.%7CMinn%5C.%7CMinor%7CVa%5C.%7CMiss%5C.%20Ct%5C.%20Rec%5C.%7CMiss%5C.%20Dec%5C.%7CMiss%5C.%20%5C%28Walker%5C%29%7CMiss%5C.%7CMiss%5C.%20%5C%28Howard%5C%29%7CMiss%5C.%20%5C%28S%5C.%20%26%20M%5C.%5C%29%7CMor%5C.%20St%5C.%20Cas%5C.%7CMo%5C.%20App%5C.%7CMo%5C.%7CMonroe%20L%5C.R%5C.%7CMont%5C.%7CMont%5C.%20Co%5C.%20L%5C.%20Rep%5C.%7CNavajo%20Rptr%5C.%7CNeb%5C.%20App%5C.%7CNeb%5C.%7CNev%5C.%7CN%5C.H%5C.%7CN%5C.J%5C.%20Eq%5C.%7CN%5C.J%5C.L%5C.%7CN%5C.J%5C.%20Misc%5C.%7CN%5C.J%5C.%7CN%5C.J%5C.%20Super%5C.%7CN%5C.J%5C.%20Tax%20Ct%5C.%7CN%5C.M%5C.%7CN%5C.M%5C.%7CN%5C.Y%5C.%20Crim%5C.%7CMisc%5C.2d%7CMisc%5C.3d%7CMisc%5C.%7CN%5C.Y%5C.%20%3F2d%7CN%5C.Y%5C.%7CN%5C.Y%5C.%20%3F3d%7CN%5C.Y%5C.%20St%5C.%20Rptr%5C.%7CNortham%5C.%20Law%20Rep%5C.%7CN%5C.C%5C.%20App%5C.%7CN%5C.C%5C.%7CN%5C.C%5C.%20%5C%28Busb%5C.%20Eq%5C%29%7CN%5C.C%5C.%20%5C%28Busb%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20%26%20Bat%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20%26%20Bat%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Hawks%5C%29%7CN%5C.C%5C.%20%5C%28Hayw%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Ired%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Ired%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Jones%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Jones%5C%29%7CN%5C.C%5C.%20%5C%28Mur%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Phil%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Phil%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Tay%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Win%5C.%5C%29%7CN%5C.D%5C.%7CN%5C.E%5C.%7CN%5C.E%5C.2d%7CN%5C.E%5C.3d%7CN%5C.%20Mar%5C.%20I%5C.%20Commw%5C.%7CN%5C.%20Mar%5C.%20I%5C.%7CNorthum%5C.%20Co%5C.%20Leg%5C.%20N%5C.%7CNorthumb%5C.%20L%5C.J%5C.%7CN%5C.W%5C.%7CN%5C.W%5C.2d%7COhio%20App%5C.%7COhio%20App%5C.%202d%7COhio%20App%5C.%203d%7COhio%20C%5C.C%5C.%20Dec%5C.%7COhio%20C%5C.C%5C.%20%5C%28N%5C.S%5C.%5C%29%7COhio%20Cir%5C.%20Dec%5C.%7COhio%20Ct%5C.%20App%5C.%7COhio%20Misc%5C.%7COhio%20Misc%5C.%202d%7COhio%20Nisi%20Prius%7COhio%20Nisi%20Prius%20%5C%28N%5C.S%5C.%5C%29%7COhio%20Op%5C.%202d%7COhio%20Op%5C.%203d%7COhio%20Op%5C.%7COhio%20St%5C.%7COhio%20St%5C.%20%5C%28n%5C.s%5C.%5C%29%7COhio%20St%5C.%202d%7COhio%20St%5C.%203d%7COkla%5C.%20Crim%5C.%7COkla%5C.%7COlwine%27s%20L%5C.J%5C.%7COr%5C.%7COr%5C.%20App%5C.%7COr%5C.%20Tax%7CP%5C.%7CP%5C.2d%7CP%5C.3d%7CPaige%20Ch%5C.%7CPark%5C.%20Crim%5C.%20Rep%5C.%7CPelt%5C.%7CPa%5C.%20L%5C.%20Rec%5C.%7CPa%5C.%20Commw%5C.%7CPa%5C.%20Corp%5C.%20R%5C.%7CPa%5C.%20Co%5C.%20Ct%5C.%7CPa%5C.%20D%5C.%20%26%20C%5C.%202d%7CPa%5C.%20D%5C.%20%26%20C%5C.%7CPa%5C.%20D%5C.%20%26%20C%5C.%203d%7CPa%5C.%20D%5C.%20%26%20C%5C.%205th%7CPa%5C.%20D%5C.%20%26%20C%5C.%204th%7CPa%5C.%20Fid%5C.%7CPa%5C.%20Fid%5C.%202d%7CPa%5C.%20Fid%5C.%203d%7CPa%5C.%20Just%5C.%20L%5C.%20Rep%5C.%7CPa%5C.%20L%5C.J%5C.%20Rep%5C.%7CPa%5C.%7CPa%5C.%20Super%5C.%20Ct%5C.%7CPennyp%5C.%7CPhila%5C.%20Co%5C.%20R%5C.%7CPhila%5C.%20Reports%7CPin%5C.%7CPittsb%5C.%20L%5C.J%5C.%7CPitts%5C.%20R%5C.%7CPort%5C.%7CP%5C.R%5C.%20Fed%5C.%7CPow%5C.%20Surr%5C.%7CMich%5C.%20Pr%5C.%7CSinger%20Prob%5C.%20Cas%5C.%7CN%5C.Y%5C.%20Proc%5C.%20Ct%5C.%20Ass%5C.%7CP%5C.R%5C.%7CRec%5C.%20Q%5C.%20Ct%5C.%7CRec%5C.%20Ct%5C.%20Assistants%7CRec%5C.%20Co%5C.%20Ch%5C.%20%5C%28S%5C.C%5C.%5C%29%7CRec%5C.%20Ct%5C.%20Gen%5C.%20Sess%5C.%7CRec%5C.%20Bucks%5C.%20Co%5C.%20%5C%28Pa%5C.%5C%29%7CRec%5C.%20T%5C.%20Warwick%20%5C%28R%5C.I%5C.%5C%29%7CRec%5C.%20Ct%5C.%20Ches%5C.%20Co%5C.%20Pa%5C.%7CRec%5C.%20Co%5C.%20Ct%5C.%7CRec%5C.%20V%5C.A%5C.%20Ct%5C.%20%5C%28R%5C.I%5C.%5C%29%7CRedf%5C.%7CS%5C.C%5C.L%5C.%20%5C%28Ril%5C.%5C%29%7CCt%5C.%20Cl%5C.%7CMich%5C.%20Ct%5C.%20Cl%5C.%7CApp%5C.%20D%5C.C%5C.%7CBro%5C.%20Com%5C.%20P%5C.%7CAshm%5C.%20%5C%28Pa%5C.%5C%29%7CConn%5C.%20Super%5C.%20Ct%5C.%7CConn%5C.%20Super%5C.%20Ct%5C.%7CDisney%20%5C%28Ohio%5C%29%7CBinn%5C.%7CPen%5C.%20%26%20W%5C.%7CRawle%7CSerg%5C.%20%26%20Rawl%5C.%7CWatts%20%26%20Serg%5C.%7CWhart%5C.%7CYeates%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Des%5C.Eq%5C.%5C%29%7CKy%5C.%20%5C%28Hard%5C.%5C%29%7CHandy%7CSuper%5C.%20Ct%5C.%20Jud%5C.%7CTenn%5C.%20%5C%28Hayw%5C.%5C%29%7CGrant%7CD%5C.C%5C.%20%5C%28MacArth%5C.%20%26%20M%5C.%5C%29%7CD%5C.C%5C.%20%5C%28Tuck%5C.%20%26%20Cl%5C.%5C%29%7CJahn%7CS%5C.C%5C.L%5C.%20%5C%28Strob%5C.%5C%29%7CGill%7CG%5C.%20%26%20J%5C.%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Dud%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Bail%5C.%5C%29%7CN%5C.Y%5C.%7CWalk%5C.%20Ch%5C.%7CTenn%5C.%20Crim%5C.%20App%5C.%7CH%5C.%20%26%20J%5C.%7CWilson%7CMiss%5C.%20%5C%28S%5C.%20%26%20M%5C.%20Ch%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Bay%5C%29%7CMorris%7CWatts%7CTenn%5C.%20%5C%28Mart%5C.%20%26%20Yer%5C.%5C%29%7CTenn%5C.%20%5C%28Cold%5C.%5C%29%7CTenn%5C.%20%5C%28Heisk%5C.%5C%29%7CTenn%5C.%20%5C%28Yer%5C.%5C%29%7CTenn%5C.%20%5C%28Head%5C%29%7CTenn%5C.%20%5C%28Meigs%5C%29%7CTenn%5C.%20%5C%28Hum%5C.%5C%29%7CD%5C.C%5C.%7CD%5C.C%5C.%20%5C%28MacArth%5C.%5C%29%7CD%5C.C%5C.%20%5C%28Mackey%5C%29%7CDoug%5C.%7CArk%5C.%20Terr%5C.%20Rep%5C.%7CMcGl%5C.%7CD%5C.C%5C.%20%5C%28patent%5C%29%7CKy%5C.%20%5C%28Bibb%5C%29%7CKy%5C.%20%5C%28Litt%5C.%5C%29%7CKy%5C.%20%5C%28T%5C.B%5C.%20Mon%5C.%5C%29%7CKy%5C.%20%5C%28B%5C.%20Mon%5C.%5C%29%7CWright%7COhio%20Ch%5C.%7CKy%5C.%20%5C%28J%5C.J%5C.%20Marsh%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Speers%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rich%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rice%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rich%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Dud%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Hill%5C%29%7CHay%5C.%20%26%20Haz%5C.%7CD%5C.C%5C.%20Cir%5C.%7CD%5C.C%5C.%20%5C%28Cranch%5C%29%7CBrightly%7CWalker%7CInd%5C.%20App%5C.%7CKan%5C.%20App%5C.%7CMd%5C.%20Ch%5C.%7CMd%5C.%20Ch%5C.%7CFreem%5C.%20Ch%5C.%7CWilcox%7CS%5C.C%5C.L%5C.%20%5C%28McCord%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Nott%20%26%20McC%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Harp%5C.%5C%29%7CHarr%5C.%20Ch%5C.%7CMiles%7CCal%5C.%20%3FDist%5C.%20Ct%5C.%7CMcCahon%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rice%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Hill%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Cas%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Strobh%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Bail%5C.%20Eq%5C.%5C%29%7CGreene%7CMyrick%7CD%5C.%20Haw%5C.%7CRep%5C.%20Cont%5C.%20Elect%5C.%20Case%5C.%7CRep%5C.%20Cont%5C.%20El%5C.%7CHowison%7CCoffey%7CCharlton%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Harp%5C.%20Eq%5C.%5C%29%7CBrewster%7CS%5C.C%5C.L%5C.%20%5C%28Mill%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Tread%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Brev%5C.%5C%29%7CMass%5C.%20App%5C.%20Div%5C.%7CMass%5C.%20App%5C.%20Div%5C.%7CGoebel%7CKy%5C.%20%5C%28Dana%5C%29%7CKy%5C.%20%5C%28Duv%5C.%5C%29%7CKy%5C.%20%5C%28Met%5C.%5C%29%7CKy%5C.%20%5C%28Bush%5C%29%7CVaux%7CTenn%5C.%20%5C%28Swan%5C%29%7CTenn%5C.%20%5C%28Sneed%5C%29%7CBradf%5C.%7CT%5C.C%5C.%7CB%5C.T%5C.A%5C.%7CR%5C.I%5C.%20Ct%5C.%20Rec%5C.%7CR%5C.I%5C.%20Dec%5C.%7CR%5C.I%5C.%7CSuper%5C.%20Ct%5C.%20%5C%28R%5C.I%5C.%5C%29%7CRobertson%27s%20Super%5C.%20Ct%5C.%20Rep%5C.%7CRob%5C.%7CSand%5C.%20Ch%5C.%7CSandford%20Super%5C.%20Ct%5C.%20Rep%5C.%7CSarat%5C.%20Ch%5C.%20Sent%5C.%7CSchuy%5C.%20L%5C.%20Rec%5C.%7CSchuy%5C.%20Reg%5C.%7CSeld%5C.%20Notes%7CYates%7CParsons%7CSick%5C.%20Op%5C.%20Att%27y%20Gen%5C.%7CSilv%5C.%20Ct%5C.%20App%5C.%7CSilv%5C.%20Sup%5C.%7CSmith%7CSom%5C.%20L%5C.J%5C.%7CS%5C.C%5C.%7CS%5C.D%5C.%7CS%5C.E%5C.%7CS%5C.E%5C.2d%7CSo%5C.%7CSo%5C.2d%7CSo%5C.3d%7CS%5C.W%5C.%7CS%5C.W%5C.2d%7CS%5C.W%5C.3d%7CStew%5C.%7CStew%5C.%20%26%20P%5C.%7CS%5C.C%5C.D%5C.C%5C.%20%5C%28N%5C.S%5C.%5C%29%7CN%5C.Y%5C.%20Sup%5C.%20Ct%5C.%7CSusq%5C.%20Leg%5C.%20Chron%5C.%7CSweeney%20Super%5C.%20Ct%5C.%20Rep%5C.%7CRobards%7CN%5C.C%5C.%20%5C%28Taylor%5C%29%7CLa%5C.%20App%5C.%20%5C%28Teiss%5C.%5C%29%7CTenn%5C.%20App%5C.%7CTenn%5C.%20Cas%5C.%7CTenn%5C.%20Ch%5C.%20R%5C.%7CTenn%5C.%7CTenn%5C.%20%5C%28Peck%5C%29%7CTenn%5C.%20%5C%28Cooke%5C%29%7CTenn%5C.%20%5C%28Overt%5C.%5C%29%7CTex%5C.%20Civ%5C.%20App%5C.%7CTex%5C.%20Ct%5C.%20App%5C.%7CTex%5C.%20Crim%5C.%7CTex%5C.%20L%5C.%20R%5C.%7CTex%5C.%7CPosey%7CN%5C.J%5C.%20%5C%28Burlington%20County%20Ct%5C.%5C%29%7CCin%5C.%20Sup%5C.%20Ct%5C.%20Rep%5C.%7CCom%5C.%20Pl%5C.%20Rep%5C.%7CPa%5C.%20Dist%5C.%7CMass%5C.%20Law%20Rep%5C.%7CMich%5C.%20N%5C.P%5C.%20R%5C.%7CWestchester%7COhio%20Law%20Abs%5C.%7COhio%20L%5C.R%5C.%7CAld%5C.%7CThomp%5C.%20%26%20Cook%7CBlume%20Sup%5C.%20Ct%5C.%20Trans%5C.%7CTrans%5C.%20App%5C.%7CTuck%5C.%20Surr%5C.%7CTyl%5C.%7CCl%5C.%20Ct%5C.%7CU%5C.S%5C.%20App%5C.%20D%5C.C%5C.%7CCt%5C.%20Int%27l%20Trade%7CCust%5C.%20Ct%5C.%7CU%5C.%20%3FS%5C.%7CU%5C.S%5C.%20%5C%28Black%5C%29%7CU%5C.S%5C.%20%5C%28Cranch%5C%29%7CU%5C.S%5C.%20%5C%28Dall%5C.%5C%29%7CU%5C.S%5C.%20%5C%28How%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Pet%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Wall%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Wheat%5C.%5C%29%7CMann%5C.%20Unrep%5C.%20Cas%5C.%7CBlume%20Unrep%5C.%20Op%5C.%7CUnrep%5C.%20Tenn%5C.%20Cas%5C.%7CCal%5C.%7CUtah%7CUtah%202d%7CVt%5C.%7CVa%5C.%20Cir%5C.%7CVa%5C.%20Col%5C.%20Dec%5C.%7CVa%5C.%20App%5C.%7CVa%5C.%20Dec%5C.%7CVa%5C.%20%5C%28Rand%5C.%5C%29%7CVa%5C.%20%5C%28Munf%5C.%5C%29%7CVa%5C.%20%5C%28Wash%5C.%5C%29%7CVa%5C.%7CVa%5C.%20%5C%28Gratt%5C.%5C%29%7CVa%5C.%20%5C%28Gilmer%5C%29%7CVa%5C.%20%5C%28Call%5C%29%7CVa%5C.%20%5C%28Patt%5C.%20%26%20Heath%5C%29%7CVa%5C.%20%5C%28Rob%5C.%5C%29%7CVa%5C.%20%5C%28Leigh%5C%29%7CV%5C.I%5C.%7CWash%5C.%20App%5C.%7CWash%5C.%20Co%5C.%5C%28Pa%5C.%5C%29%7CWash%5C.%7CWash%5C.%202d%7CWash%5C.%20Terr%5C.%7CWeek%5C.%20No%5C.%20Cas%5C.%20%5C%28Pa%5C.%5C%29%7CWend%5C.%7CWes%5C.%20C%5C.L%5C.J%5C.%7CTribal%7CA%5C.2d%7CA%5C.3d%7CB%5C.R%5C.%7CF%5C.%20App%27%3Fx%5C.%3F%7CHaw%5C.%7CM%5C.J%5C.%7CN%5C.Y%5C.S%5C.%202d%7CN%5C.Y%5C.S%5C.%202d%7CN%5C.Y%5C.S%5C.%7CVet%5C.%20App%5C.%7CW%5C.%20Va%5C.%7CWheel%5C.%20Cr%5C.%20Cas%5C.%7CWis%5C.%7CWis%5C.%202d%7CWyo%5C.%7CYates%20Sel%5C.%20Cas%5C.%7CYork%20Leg%5C.%20Rec%5C.%29%20%28%5Cd%2B%29%5Cb%28%2C%3F%28%20at%29%3F%20%28%5Cd%2B%29%28%28%5B-%E2%80%91%E2%80%93%5D%7C%20to%20%7C%20through%20%29%28%5Cd%2B%29%29%3F%5Cb%29%3F)
+Texas Constitution | [statutes.capitol.texas.gov](https://statutes.capitol.texas.gov) | [view regex](https://regexper.com#%28Tex%28as%7C%5C.%29%7CTX%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Utah Code | [le.utah.gov](https://le.utah.gov) | [view regex](https://regexper.com#%28Utah%7CUT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Utah Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Utah%7CUT%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Vermont Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#V%28ermont%7Ct%5C.%7CT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Virginia Code | [law.lis.virginia.gov](https://law.lis.virginia.gov) | [view regex](https://regexper.com#V%28irginia%7Ca%5C.%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Virginia Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#V%28irginia%7Ca%5C.%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Virgin Islands Code | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Virgin%20Islands%7CV%5C.%3F%20%3FI%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
+Revised Code of Washington | [app.leg.wa.gov](https://app.leg.wa.gov) | [view regex](https://regexper.com#%28%28Wash%28ington%7C%5C.%29%7CWA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CR%5C.%3FC%5C.%3FW%5C.%3F%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Washington Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Wash%28ington%7C%5C.%29%7CWA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+West Virginia Code | [www.wvlegislature.gov](http://www.wvlegislature.gov) | [view regex](https://regexper.com#%28West%20Virginia%7CW%5C.%20%3FVa%3F%5C.%7CWV%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+West Virginia Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28West%20Virginia%7CW%5C.%20%3FVa%3F%5C.%7CWV%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Wisconsin Statutes | [docs.legis.wisconsin.gov](https://docs.legis.wisconsin.gov) | [view regex](https://regexper.com#%28Wis%28consin%7C%5C.%29%7CWI%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Wisconsin Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Wis%28consin%7C%5C.%29%7CWI%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Wyoming Statutes | [wyoleg.gov](https://wyoleg.gov) | [view regex](https://regexper.com#%28Wyo%28ming%7C%5C.%29%7CWY%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Wyoming Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Wyo%28ming%7C%5C.%29%7CWY%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F)
+Caselaw Access Project | [cite.case.law](https://cite.case.law) | [view regex](https://regexper.com#%28%5Cd%2B%29%20%28Abb%5C.%20Ct%5C.%20App%5C.%7CAbb%5C.N%5C.%20Cas%5C.%7CAbb%5C.%20Pr%5C.%7CAbb%5C.%20Pr%5C.%20%5C%28n%5C.s%5C.%5C%29%7CVa%5C.%20%5C%28Va%5C.%20Cas%5C.%5C%29%7CAdams%20Co%5C.%20L%5C.J%5C.%7CAdd%5C.%7CDallam%7CFranklin%20Co%5C.%20Legal%20J%5C.%7CAik%5C.%7CAla%5C.%20App%5C.%7CAla%5C.%7CAlaska%20Fed%5C.%7CAlaska%7CAm%5C.%20Samoa%7CAm%5C.%20Samoa%202d%7CAm%5C.%20Samoa%203d%7COhio%20App%5C.%20Unrep%5C.%7CAnt%5C.%20N%5C.P%5C.%20Cas%5C.%7CA%5C.D%5C.2d%7CA%5C.D%5C.%7CA%5C.D%5C.3d%7CKy%5C.%20%5C%28Hughes%5C%29%7CAriz%5C.%20App%5C.%7CAriz%5C.%7CArk%5C.%20App%5C.%7CArk%5C.%7CArmstrong%5C.%20Election%20Cases%7CA%5C.%7CBalt%5C.%20C%5C.%20Rep%5C.%7CBarb%5C.%20Ch%5C.%7CBarb%5C.%7CB%5C.%20Co%5C.%20Leg%5C.%20J%5C.%7CBerk%27s%20Co%5C.%20L%5C.J%5C.%5C.%7CBlackf%5C.%7CBlair%20Co%5C.%20L%5C.R%5C.%7CBlair%20Co%5C.%20L%5C.R%5C.%202d%7CBosworth%20Super%5C.%20Ct%5C.%20Rep%5C.%7CBradford%20Co%5C.%20L%5C.J%5C.%7CBrad%5C.%7CBrayt%5C.%7CBucks%20Co%5C.%20L%5C.R%5C.%7CBur%5C.%7CBur%5C.%7CButler%20Co%5C.%20Legal%20J%5C.%7CE%5C.D%5C.%20Pa%5C.%7CCai%5C.%20Cas%5C.%7CCai%5C.%7CCal%5C.%20%3FApp%5C.%7CCal%5C.%20%3FApp%5C.%20%3F5th%7CCal%5C.%20%3FApp%5C.%20%3F4th%7CCal%5C.%20%3FApp%5C.%20%3F2d%7CCal%5C.%20%3FApp%5C.%20%3F3d%7CCal%5C.%20%3F3d%7CCal%5C.%20%3F4th%7CCal%5C.%7CCal%5C.%20%3F2d%7CCal%5C.%20%3FSuper%5C.%20%3FCt%5C.%7CCal%5C.%20%3FUnrep%5C.%7CCambria%20Co%5C.%20L%5C.J%5C.%7CCambria%20Co%5C.%20Rep%5C.%7CCarbon%20Co%5C.%20L%5C.J%5C.%7CN%5C.C%5C.%20%5C%28Car%5C.%20L%5C.%20Rep%5C.%5C%29%7CN%5C.J%5C.%20%5C%28Manumission%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28McMul%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Chev%5C.%5C%29%7CTapp%5C.%20Rep%5C.%7CD%5C.%20Pa%5C.%7COhio%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Chev%5C.%20Eq%5C.%5C%29%7CMonaghan%7CSadler%7CKy%5C.%20%5C%28Litt%5C.%20Sel%5C.%20Cas%5C.%5C%29%7CC%5C.C%5C.L%5C.J%5C.%7CC%5C.C%5C.L%5C.J%5C.%202d%7CS%5C.C%5C.%20Eq%5C.%20%5C%28McCord%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Ril%5C.%20Eq%5C.%5C%29%7CChand%5C.%7CCharlton%20Rep%5C.%7CChes%5C.%20Co%5C.%20Rep%5C.%7CD%5C.%20Chip%5C.%7CN%5C.%20Chip%5C.%7CMun%5C.%20%20L%5C.%20Rep%5C.%7CHosea%27s%20Rep%5C.%7CN%5C.Y%5C.%20City%20Ct%5C.%20Rep%5C.%7CCl%5C.%20Ch%5C.%7CCole%5C.%20%26%20Cai%5C.%20Cas%5C.%7CCole%5C.%20Cas%5C.%7CColo%5C.%20App%5C.%7CColo%5C.%20L%5C.%20Rep%5C.%7CColo%5C.%20N%5C.%20P%5C.%7CColo%5C.%7CWillson%7CWhite%20%26%20W%5C.%7CN%5C.C%5C.%20%5C%28Cam%5C.%20%26%20Nor%5C.%5C%29%7CKing%27s%20Conflicting%20Cases%7CConn%5C.%20App%5C.%7CConn%5C.%20Cir%5C.%20Ct%5C.%7CKirby%7CRoot%7CConn%5C.%7CConn%5C.%20Supp%5C.%7CConnoly%20Sur%5C.%20Rep%5C.%7CCt%5C.%20Cl%5C.%7CC%5C.C%5C.P%5C.A%5C.%7CCt%5C.%20Cust%5C.%7CCow%5C.%7CCraw%5C.%20Co%5C.%20Leg%5C.%20J%5C.%7CCumberland%20L%5C.J%5C.%7CCust%5C.%20B%5C.%20%26%20Dec%5C.%7CDakota%7CDallam%7CDall%5C.%7CDaly%20%5C%28N%5C.Y%5C.%5C%29%7CDau%5C.%20Co%5C.%20Rep%5C.%7CDay%7CT%5C.C%5C.A%5C.%7CP%5C.R%5C.%20Dec%5C.%7CTeiss%5C.%7CVa%5C.%20Ch%5C.%20Dec%5C.%7CKy%5C.%20%5C%28Sneed%5C%29%7CPears%5C.%7CSmith%7CGa%5C.%20Super%5C.%20Ct%5C.%7CGeorgia%20Decisions%7CC%5C.M%5C.A%5C.%7CDel%5C.%20Cas%5C.%7CDel%5C.%20Ch%5C.%7CDel%5C.%20Co%5C.%20Reps%5C.%7CDel%5C.%20%5C%28Harr%5C.%5C%29%7CDel%5C.%20%5C%28Penne%5C.%5C%29%7CDel%5C.%20%5C%28Boyce%5C%29%7CDel%5C.%20%5C%28Marv%5C.%5C%29%7CDel%5C.%20%5C%28Houst%5C.%5C%29%7CDel%5C.%7CDem%5C.%20Sur%5C.%7CDenio%7CDocket%7CDudley%20Rep%5C.%7CDuer%20Super%5C.%20Ct%5C.%20Rep%5C.%7CEdm%5C.%20Sel%5C.%20Cas%5C.%7CE%5C.D%5C.%20Smith%7CEdw%5C.%20Ch%5C.%7CS%5C.C%5C.%20Eq%5C.%20%5C%28McMul%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Speers%20Eq%5C.%5C%29%7CErie%5C.%20Co%5C.%20L%5C.J%5C.%7CP%5C.R%5C.%20Sent%5C.%7CFay%5C.%20L%5C.J%5C.%7CF%5C.%20Cas%5C.%7CFed%5C.%20Cl%5C.%7CF%5C.%7CF%5C.%20%3F2d%7CF%5C.%20%3F3d%7CF%5C.R%5C.D%5C.%7CF%5C.%20%3FSupp%5C.%28%20%3F%5B23%5Dd%29%3F%7CFla%5C.%7CFla%5C.%20Supp%5C.%7CFla%5C.%20Supp%5C.%202d%7CGa%5C.%20App%5C.%7CGa%5C.%20L%5C.%20Rep%5C.%7CGa%5C.%7CGault%7CGibb%5C.%20Surr%5C.%7CGuam%7CHall%20Super%5C.%20Ct%5C.%20Rep%5C.%7CH%5C.%20%26%20G%5C.%7CHaw%5C.%20App%5C.%7CHaw%5C.%7CHaz%5C.%20Pa%5C.%20Reg%5C.%7CVa%5C.%20%5C%28Hen%5C.%20%26%20M%5C.%5C%29%7CHill%20%26%20Den%5C.%7CHill%7CHilt%5C.%7CHoff%5C.%20Ch%5C.%7CHopk%5C.%20Ch%5C.%7CHow%5C.%20App%5C.%20Cas%5C.%7CHow%5C.%20Pr%5C.%7CHow%5C.%20Pr%5C.%20%5C%28n%5C.s%5C.%5C%29%7CIdaho%7CIll%5C.%20App%5C.%7CIll%5C.%20App%5C.%202d%7CIll%5C.%20App%5C.%203d%7CIll%5C.%20Cir%5C.%20Ct%5C.%20Rep%5C.%7CIll%5C.%20Ct%5C.%20Cl%5C.%7CIll%5C.%20%5C%28Scam%5C%29%7CIll%5C.%20%5C%28Breese%5C%29%7CIll%5C.%20%5C%28Gilm%5C.%5C%29%7CIll%5C.%7CIll%5C.%202d%7CInd%5C.%20App%5C.%7CInd%5C.%20L%5C.%20Rep%5C.%7CInd%5C.%7CIndian%20Terr%5C.%7CIowa%7CJeff%5C.%7CJohns%5C.%20Cas%5C.%7CJohns%5C.%20Ch%5C.%7CJohns%5C.%7CJones%20and%20Spencer%27s%20Super%5C.%20Ct%5C.%20Rep%5C.%7CEdsall%7CPa%5C.%20%5C%28Admiralty%5C%29%7CKan%5C.%20App%5C.%202d%7CKan%5C.%7CKy%5C.%20%5C%28A%5C.K%5C.%20Marsh%5C.%5C%29%7CKy%5C.%20Op%5C.%7CKy%5C.%7CKeyes%7CLack%5C.%20Bar%5C.%20R%5C.%7CLack%5C.%20Bar%20%20R%5C.%7CLack%5C.%20Jur%5C.%7CLack%5C.%20L%5C.%20N%5C.%7CLack%5C.%20L%5C.R%5C.%7CLanc%5C.%20Bar%7CLanc%5C.%20L%5C.%20Rev%5C.%7CLans%5C.%20Ch%5C.%7CLans%5C.%7CLaw%5C.%20L%5C.J%5C.%7CLaw%20Times%7CLaw%20Times%20%5C%28N%5C.S%5C.%5C%29%7CLebanon%20Co%5C.%20L%5C.J%5C.%7CFoster%7CLeg%5C.%20Gaz%5C.%7CLeg%5C.%20Gaz%5C.%7CPa%5C.%20Leg%5C.%20Gaz%5C.%7CGunby%7CLeg%5C.%20Rec%5C.%20Rep%5C.%7CLehigh%20Co%5C.%20L%5C.J%5C.%7CLehigh%20Val%5C.%20L%5C.%20Rep%5C.%7CLiquor%20Tax%20Rep%5C.%7CLock%5C.%20Rev%5C.%20Cas%5C.%7CLa%5C.%20Ann%5C.%7CLa%5C.%20App%5C.%7CLa%5C.%7CLa%5C.%7CLuz%5C.%20L%5C.J%5C.%7CLuz%5C.%20L%5C.O%5C.%7CLuz%5C.%20Leg%5C.%20Reg%5C.%7CLuz%5C.%20Leg%5C.%20Reg%5C.%7CLycoming%20R%5C.%7CMagis%5C.%20%26%20Const%5C.%7CMe%5C.%7CMcGrath%7CN%5C.C%5C.%20%5C%28Mart%5C.%5C%29%7CMart%5C.%20%5C%28n%5C.s%5C.%5C%29%7CMart%5C.%20%5C%28o%5C.s%5C.%5C%29%7CMd%5C.%20App%5C.%7CMd%5C.%7CH%5C.%20%26%20McH%5C.%7CMass%5C.%20%5C%28Allen%5C%29%7CMass%5C.%20App%5C.%20Ct%5C.%7CMass%5C.%20App%5C.%20Dec%5C.%7CDavis%20L%5C.%20Ct%5C.%20Cas%5C.%7CDavis%20L%5C.%20Ct%5C.%20Cas%5C.%7CMass%5C.%20%5C%28Cush%5C%29%7CMass%5C.%20%5C%28Pick%5C.%5C%29%7CMass%5C.%20%5C%28Gray%5C%29%7CMass%5C.%20%5C%28Tyng%5C%29%7CMass%5C.%20%5C%28Will%5C.%5C%29%7CMass%5C.%20%5C%28Met%5C.%5C%29%7CMass%5C.%7CMass%5C.%20Supp%5C.%7CMercer%7CMich%5C.%20App%5C.%20%7CHowell%20N%5C.P%5C.%7CMich%5C.%7CM%5C.C%5C.L%5C.J%5C.%7CMills%20Surr%5C.%7CMinn%5C.%7CMinor%7CVa%5C.%7CMiss%5C.%20Ct%5C.%20Rec%5C.%7CMiss%5C.%20Dec%5C.%7CMiss%5C.%20%5C%28Walker%5C%29%7CMiss%5C.%7CMiss%5C.%20%5C%28Howard%5C%29%7CMiss%5C.%20%5C%28S%5C.%20%26%20M%5C.%5C%29%7CMor%5C.%20St%5C.%20Cas%5C.%7CMo%5C.%20App%5C.%7CMo%5C.%7CMonroe%20L%5C.R%5C.%7CMont%5C.%7CMont%5C.%20Co%5C.%20L%5C.%20Rep%5C.%7CNavajo%20Rptr%5C.%7CNeb%5C.%20App%5C.%7CNeb%5C.%7CNev%5C.%7CN%5C.H%5C.%7CN%5C.J%5C.%20Eq%5C.%7CN%5C.J%5C.L%5C.%7CN%5C.J%5C.%20Misc%5C.%7CN%5C.J%5C.%7CN%5C.J%5C.%20Super%5C.%7CN%5C.J%5C.%20Tax%20Ct%5C.%7CN%5C.M%5C.%7CN%5C.M%5C.%7CN%5C.Y%5C.%20Crim%5C.%7CMisc%5C.2d%7CMisc%5C.3d%7CMisc%5C.%7CN%5C.Y%5C.%20%3F2d%7CN%5C.Y%5C.%7CN%5C.Y%5C.%20%3F3d%7CN%5C.Y%5C.%20St%5C.%20Rptr%5C.%7CNortham%5C.%20Law%20Rep%5C.%7CN%5C.C%5C.%20App%5C.%7CN%5C.C%5C.%7CN%5C.C%5C.%20%5C%28Busb%5C.%20Eq%5C%29%7CN%5C.C%5C.%20%5C%28Busb%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20%26%20Bat%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20%26%20Bat%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Hawks%5C%29%7CN%5C.C%5C.%20%5C%28Hayw%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Ired%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Ired%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Jones%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Jones%5C%29%7CN%5C.C%5C.%20%5C%28Mur%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Phil%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Phil%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Tay%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Win%5C.%5C%29%7CN%5C.D%5C.%7CN%5C.E%5C.%7CN%5C.E%5C.2d%7CN%5C.E%5C.3d%7CN%5C.%20Mar%5C.%20I%5C.%20Commw%5C.%7CN%5C.%20Mar%5C.%20I%5C.%7CNorthum%5C.%20Co%5C.%20Leg%5C.%20N%5C.%7CNorthumb%5C.%20L%5C.J%5C.%7CN%5C.W%5C.%7CN%5C.W%5C.2d%7COhio%20App%5C.%7COhio%20App%5C.%202d%7COhio%20App%5C.%203d%7COhio%20C%5C.C%5C.%20Dec%5C.%7COhio%20C%5C.C%5C.%20%5C%28N%5C.S%5C.%5C%29%7COhio%20Cir%5C.%20Dec%5C.%7COhio%20Ct%5C.%20App%5C.%7COhio%20Misc%5C.%7COhio%20Misc%5C.%202d%7COhio%20Nisi%20Prius%7COhio%20Nisi%20Prius%20%5C%28N%5C.S%5C.%5C%29%7COhio%20Op%5C.%202d%7COhio%20Op%5C.%203d%7COhio%20Op%5C.%7COhio%20St%5C.%7COhio%20St%5C.%20%5C%28n%5C.s%5C.%5C%29%7COhio%20St%5C.%202d%7COhio%20St%5C.%203d%7COkla%5C.%20Crim%5C.%7COkla%5C.%7COlwine%27s%20L%5C.J%5C.%7COr%5C.%7COr%5C.%20App%5C.%7COr%5C.%20Tax%7CP%5C.%7CP%5C.2d%7CP%5C.3d%7CPaige%20Ch%5C.%7CPark%5C.%20Crim%5C.%20Rep%5C.%7CPelt%5C.%7CPa%5C.%20L%5C.%20Rec%5C.%7CPa%5C.%20Commw%5C.%7CPa%5C.%20Corp%5C.%20R%5C.%7CPa%5C.%20Co%5C.%20Ct%5C.%7CPa%5C.%20D%5C.%20%26%20C%5C.%202d%7CPa%5C.%20D%5C.%20%26%20C%5C.%7CPa%5C.%20D%5C.%20%26%20C%5C.%203d%7CPa%5C.%20D%5C.%20%26%20C%5C.%205th%7CPa%5C.%20D%5C.%20%26%20C%5C.%204th%7CPa%5C.%20Fid%5C.%7CPa%5C.%20Fid%5C.%202d%7CPa%5C.%20Fid%5C.%203d%7CPa%5C.%20Just%5C.%20L%5C.%20Rep%5C.%7CPa%5C.%20L%5C.J%5C.%20Rep%5C.%7CPa%5C.%7CPa%5C.%20Super%5C.%20Ct%5C.%7CPennyp%5C.%7CPhila%5C.%20Co%5C.%20R%5C.%7CPhila%5C.%20Reports%7CPin%5C.%7CPittsb%5C.%20L%5C.J%5C.%7CPitts%5C.%20R%5C.%7CPort%5C.%7CP%5C.R%5C.%20Fed%5C.%7CPow%5C.%20Surr%5C.%7CMich%5C.%20Pr%5C.%7CSinger%20Prob%5C.%20Cas%5C.%7CN%5C.Y%5C.%20Proc%5C.%20Ct%5C.%20Ass%5C.%7CP%5C.R%5C.%7CRec%5C.%20Q%5C.%20Ct%5C.%7CRec%5C.%20Ct%5C.%20Assistants%7CRec%5C.%20Co%5C.%20Ch%5C.%20%5C%28S%5C.C%5C.%5C%29%7CRec%5C.%20Ct%5C.%20Gen%5C.%20Sess%5C.%7CRec%5C.%20Bucks%5C.%20Co%5C.%20%5C%28Pa%5C.%5C%29%7CRec%5C.%20T%5C.%20Warwick%20%5C%28R%5C.I%5C.%5C%29%7CRec%5C.%20Ct%5C.%20Ches%5C.%20Co%5C.%20Pa%5C.%7CRec%5C.%20Co%5C.%20Ct%5C.%7CRec%5C.%20V%5C.A%5C.%20Ct%5C.%20%5C%28R%5C.I%5C.%5C%29%7CRedf%5C.%7CS%5C.C%5C.L%5C.%20%5C%28Ril%5C.%5C%29%7CCt%5C.%20Cl%5C.%7CMich%5C.%20Ct%5C.%20Cl%5C.%7CApp%5C.%20D%5C.C%5C.%7CBro%5C.%20Com%5C.%20P%5C.%7CAshm%5C.%20%5C%28Pa%5C.%5C%29%7CConn%5C.%20Super%5C.%20Ct%5C.%7CConn%5C.%20Super%5C.%20Ct%5C.%7CDisney%20%5C%28Ohio%5C%29%7CBinn%5C.%7CPen%5C.%20%26%20W%5C.%7CRawle%7CSerg%5C.%20%26%20Rawl%5C.%7CWatts%20%26%20Serg%5C.%7CWhart%5C.%7CYeates%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Des%5C.Eq%5C.%5C%29%7CKy%5C.%20%5C%28Hard%5C.%5C%29%7CHandy%7CSuper%5C.%20Ct%5C.%20Jud%5C.%7CTenn%5C.%20%5C%28Hayw%5C.%5C%29%7CGrant%7CD%5C.C%5C.%20%5C%28MacArth%5C.%20%26%20M%5C.%5C%29%7CD%5C.C%5C.%20%5C%28Tuck%5C.%20%26%20Cl%5C.%5C%29%7CJahn%7CS%5C.C%5C.L%5C.%20%5C%28Strob%5C.%5C%29%7CGill%7CG%5C.%20%26%20J%5C.%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Dud%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Bail%5C.%5C%29%7CN%5C.Y%5C.%7CWalk%5C.%20Ch%5C.%7CTenn%5C.%20Crim%5C.%20App%5C.%7CH%5C.%20%26%20J%5C.%7CWilson%7CMiss%5C.%20%5C%28S%5C.%20%26%20M%5C.%20Ch%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Bay%5C%29%7CMorris%7CWatts%7CTenn%5C.%20%5C%28Mart%5C.%20%26%20Yer%5C.%5C%29%7CTenn%5C.%20%5C%28Cold%5C.%5C%29%7CTenn%5C.%20%5C%28Heisk%5C.%5C%29%7CTenn%5C.%20%5C%28Yer%5C.%5C%29%7CTenn%5C.%20%5C%28Head%5C%29%7CTenn%5C.%20%5C%28Meigs%5C%29%7CTenn%5C.%20%5C%28Hum%5C.%5C%29%7CD%5C.C%5C.%7CD%5C.C%5C.%20%5C%28MacArth%5C.%5C%29%7CD%5C.C%5C.%20%5C%28Mackey%5C%29%7CDoug%5C.%7CArk%5C.%20Terr%5C.%20Rep%5C.%7CMcGl%5C.%7CD%5C.C%5C.%20%5C%28patent%5C%29%7CKy%5C.%20%5C%28Bibb%5C%29%7CKy%5C.%20%5C%28Litt%5C.%5C%29%7CKy%5C.%20%5C%28T%5C.B%5C.%20Mon%5C.%5C%29%7CKy%5C.%20%5C%28B%5C.%20Mon%5C.%5C%29%7CWright%7COhio%20Ch%5C.%7CKy%5C.%20%5C%28J%5C.J%5C.%20Marsh%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Speers%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rich%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rice%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rich%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Dud%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Hill%5C%29%7CHay%5C.%20%26%20Haz%5C.%7CD%5C.C%5C.%20Cir%5C.%7CD%5C.C%5C.%20%5C%28Cranch%5C%29%7CBrightly%7CWalker%7CInd%5C.%20App%5C.%7CKan%5C.%20App%5C.%7CMd%5C.%20Ch%5C.%7CMd%5C.%20Ch%5C.%7CFreem%5C.%20Ch%5C.%7CWilcox%7CS%5C.C%5C.L%5C.%20%5C%28McCord%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Nott%20%26%20McC%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Harp%5C.%5C%29%7CHarr%5C.%20Ch%5C.%7CMiles%7CCal%5C.%20%3FDist%5C.%20Ct%5C.%7CMcCahon%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rice%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Hill%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Cas%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Strobh%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Bail%5C.%20Eq%5C.%5C%29%7CGreene%7CMyrick%7CD%5C.%20Haw%5C.%7CRep%5C.%20Cont%5C.%20Elect%5C.%20Case%5C.%7CRep%5C.%20Cont%5C.%20El%5C.%7CHowison%7CCoffey%7CCharlton%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Harp%5C.%20Eq%5C.%5C%29%7CBrewster%7CS%5C.C%5C.L%5C.%20%5C%28Mill%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Tread%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Brev%5C.%5C%29%7CMass%5C.%20App%5C.%20Div%5C.%7CMass%5C.%20App%5C.%20Div%5C.%7CGoebel%7CKy%5C.%20%5C%28Dana%5C%29%7CKy%5C.%20%5C%28Duv%5C.%5C%29%7CKy%5C.%20%5C%28Met%5C.%5C%29%7CKy%5C.%20%5C%28Bush%5C%29%7CVaux%7CTenn%5C.%20%5C%28Swan%5C%29%7CTenn%5C.%20%5C%28Sneed%5C%29%7CBradf%5C.%7CT%5C.C%5C.%7CB%5C.T%5C.A%5C.%7CR%5C.I%5C.%20Ct%5C.%20Rec%5C.%7CR%5C.I%5C.%20Dec%5C.%7CR%5C.I%5C.%7CSuper%5C.%20Ct%5C.%20%5C%28R%5C.I%5C.%5C%29%7CRobertson%27s%20Super%5C.%20Ct%5C.%20Rep%5C.%7CRob%5C.%7CSand%5C.%20Ch%5C.%7CSandford%20Super%5C.%20Ct%5C.%20Rep%5C.%7CSarat%5C.%20Ch%5C.%20Sent%5C.%7CSchuy%5C.%20L%5C.%20Rec%5C.%7CSchuy%5C.%20Reg%5C.%7CSeld%5C.%20Notes%7CYates%7CParsons%7CSick%5C.%20Op%5C.%20Att%27y%20Gen%5C.%7CSilv%5C.%20Ct%5C.%20App%5C.%7CSilv%5C.%20Sup%5C.%7CSmith%7CSom%5C.%20L%5C.J%5C.%7CS%5C.C%5C.%7CS%5C.D%5C.%7CS%5C.E%5C.%7CS%5C.E%5C.2d%7CSo%5C.%7CSo%5C.2d%7CSo%5C.3d%7CS%5C.W%5C.%7CS%5C.W%5C.2d%7CS%5C.W%5C.3d%7CStew%5C.%7CStew%5C.%20%26%20P%5C.%7CS%5C.C%5C.D%5C.C%5C.%20%5C%28N%5C.S%5C.%5C%29%7CN%5C.Y%5C.%20Sup%5C.%20Ct%5C.%7CSusq%5C.%20Leg%5C.%20Chron%5C.%7CSweeney%20Super%5C.%20Ct%5C.%20Rep%5C.%7CRobards%7CN%5C.C%5C.%20%5C%28Taylor%5C%29%7CLa%5C.%20App%5C.%20%5C%28Teiss%5C.%5C%29%7CTenn%5C.%20App%5C.%7CTenn%5C.%20Cas%5C.%7CTenn%5C.%20Ch%5C.%20R%5C.%7CTenn%5C.%7CTenn%5C.%20%5C%28Peck%5C%29%7CTenn%5C.%20%5C%28Cooke%5C%29%7CTenn%5C.%20%5C%28Overt%5C.%5C%29%7CTex%5C.%20Civ%5C.%20App%5C.%7CTex%5C.%20Ct%5C.%20App%5C.%7CTex%5C.%20Crim%5C.%7CTex%5C.%20L%5C.%20R%5C.%7CTex%5C.%7CPosey%7CN%5C.J%5C.%20%5C%28Burlington%20County%20Ct%5C.%5C%29%7CCin%5C.%20Sup%5C.%20Ct%5C.%20Rep%5C.%7CCom%5C.%20Pl%5C.%20Rep%5C.%7CPa%5C.%20Dist%5C.%7CMass%5C.%20Law%20Rep%5C.%7CMich%5C.%20N%5C.P%5C.%20R%5C.%7CWestchester%7COhio%20Law%20Abs%5C.%7COhio%20L%5C.R%5C.%7CAld%5C.%7CThomp%5C.%20%26%20Cook%7CBlume%20Sup%5C.%20Ct%5C.%20Trans%5C.%7CTrans%5C.%20App%5C.%7CTuck%5C.%20Surr%5C.%7CTyl%5C.%7CCl%5C.%20Ct%5C.%7CU%5C.S%5C.%20App%5C.%20D%5C.C%5C.%7CCt%5C.%20Int%27l%20Trade%7CCust%5C.%20Ct%5C.%7CU%5C.%20%3FS%5C.%7CU%5C.S%5C.%20%5C%28Black%5C%29%7CU%5C.S%5C.%20%5C%28Cranch%5C%29%7CU%5C.S%5C.%20%5C%28Dall%5C.%5C%29%7CU%5C.S%5C.%20%5C%28How%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Pet%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Wall%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Wheat%5C.%5C%29%7CMann%5C.%20Unrep%5C.%20Cas%5C.%7CBlume%20Unrep%5C.%20Op%5C.%7CUnrep%5C.%20Tenn%5C.%20Cas%5C.%7CCal%5C.%7CUtah%7CUtah%202d%7CVt%5C.%7CVa%5C.%20Cir%5C.%7CVa%5C.%20Col%5C.%20Dec%5C.%7CVa%5C.%20App%5C.%7CVa%5C.%20Dec%5C.%7CVa%5C.%20%5C%28Rand%5C.%5C%29%7CVa%5C.%20%5C%28Munf%5C.%5C%29%7CVa%5C.%20%5C%28Wash%5C.%5C%29%7CVa%5C.%7CVa%5C.%20%5C%28Gratt%5C.%5C%29%7CVa%5C.%20%5C%28Gilmer%5C%29%7CVa%5C.%20%5C%28Call%5C%29%7CVa%5C.%20%5C%28Patt%5C.%20%26%20Heath%5C%29%7CVa%5C.%20%5C%28Rob%5C.%5C%29%7CVa%5C.%20%5C%28Leigh%5C%29%7CV%5C.I%5C.%7CWash%5C.%20App%5C.%7CWash%5C.%20Co%5C.%5C%28Pa%5C.%5C%29%7CWash%5C.%7CWash%5C.%202d%7CWash%5C.%20Terr%5C.%7CWeek%5C.%20No%5C.%20Cas%5C.%20%5C%28Pa%5C.%5C%29%7CWend%5C.%7CWes%5C.%20C%5C.L%5C.J%5C.%7CTribal%7CA%5C.%20%3F2d%7CA%5C.%20%3F3d%7CB%5C.R%5C.%7CF%5C.%20App%27%3Fx%5C.%3F%7CHaw%5C.%7CM%5C.J%5C.%7CN%5C.Y%5C.S%5C.%202d%7CN%5C.Y%5C.S%5C.%202d%7CN%5C.Y%5C.S%5C.%7CVet%5C.%20App%5C.%7CW%5C.%20Va%5C.%7CWheel%5C.%20Cr%5C.%20Cas%5C.%7CWis%5C.%7CWis%5C.%202d%7CWyo%5C.%7CYates%20Sel%5C.%20Cas%5C.%7CYork%20Leg%5C.%20Rec%5C.%29%20%28%5Cd%2B%29%5Cb%28%2C%3F%28%20at%29%3F%20%28%5Cd%2B%29%28%28%5B-%E2%80%91%E2%80%93%5D%7C%20to%20%7C%20through%20%29%28%5Cd%2B%29%29%3F%5Cb%29%3F)
 
 If you find an issue in one of these, or if there's a source of law you'd like to see added, please open a ticket [here](https://github.com/raindrum/citeurl/issues)!
