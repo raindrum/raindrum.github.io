@@ -4684,4 +4684,4 @@ If you find an issue in one of these, or if there's a source of law you'd like t
 
 If you get a lot of use out of Law Search and want to support it financially, you can use the link below:
 
-<a href="https://www.buymeacoffee.com/simonsherred"><button>☕ Buy me a coffee</button></a>
+<a href="https://ko-fi.com/simonsherred"><button>☕ Buy me a coffee</button></a>

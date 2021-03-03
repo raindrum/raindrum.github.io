@@ -8,4 +8,5 @@ If you'd like to get in touch, [send me an email](mailto:simonraindrum@gmail.com
 
 If you want to support [Law Search](./lawsearch) or my other projects financially, you can use the link below:
 
-<a href="https://www.buymeacoffee.com/simonsherred"><button>☕ Buy me a coffee</button></a>
+<a href="https://ko-fi.com/simonsherred"><button>☕ Buy me a coffee</button></a>
+
