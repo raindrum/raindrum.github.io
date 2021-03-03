@@ -89,19 +89,19 @@ form input {
 }
 form input[type=submit] { width: 20%; }
 form input[type=search] { width: 80%; }
-input {
+input, button {
   color: var(--emph-text-color);
   background-color: var(--alt-bg-color);
   border: none;
   border-radius: 0.25rem;
   padding: 0.5rem;
 }
-input[type=button], input[type=submit] {
+input[type=button], input[type=submit], button {
   background-color: var(--button-color);
   font-weight: bold;
   cursor: pointer;
 }
-input[type=button]:hover, input[type=submit]:hover {
+input[type=button]:hover, input[type=submit]:hover, button:hover {
   opacity: 80%;
 }
 input[type=search], input[type=text] {
@@ -183,6 +183,9 @@ article {
   margin-bottom: 1rem;
   margin-top: 1rem;
   border-radius: 0.5rem;
+}
+article[onclick]:hover {
+  opacity: 80%;
 }
 /*.index {
   background-color: var(--alt-bg-color);

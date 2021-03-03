@@ -4684,4 +4684,4 @@ If you find an issue in one of these, or if there's a source of law you'd like t
 
 If you get a lot of use out of Law Search and want to support it financially, you can use the link below:
 
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="simonsherred" data-color="#c34a4b" data-emoji="☕" data-font="Arial" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+<a href="https://www.buymeacoffee.com/simonsherred"><button>☕ Buy me a coffee</button></a>
