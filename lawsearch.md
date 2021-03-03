@@ -4528,9 +4528,11 @@ Either way, you'll also need to designate a keyword. I use "ls", but anything wo
 
 ## How it Works
 
-Law Search is not technically a search engine. Essentially it tries to match your query against a series of templates (technically [regexes](https://en.wikipedia.org/wiki/Regular_expression), each one recognizing one kind of citation. These templates are listed [below](#sources-of-law). Each template has instructions for how to turn a citation into a link to a website where you can read it. The websites vary across different sources of law, but these are some of the most prominent ones:
+Law Search is not technically a search engine. Essentially it tries to match your query against a series of templates (technically [regexes](https://en.wikipedia.org/wiki/Regular_expression), each one recognizing one kind of citation. These templates are listed [below](#sources-of-law). Each template has instructions for how to turn a citation into a link to a website where you can read it.
 
-- For court opinions, it uses Harvard's [Caselaw Access Project](https://case.law/). I recommend making an account there, so you won't need to prove your non-robot status quite as often. Unfortunately they only support pre-2018 cases, so anything more recent than that will be a broken link. Also note that you can go directly to a specific page of an opinion if you provide a pincite, like "338 <span>F.2d</span> 708, 715."
+The websites vary across different sources of law, but here are some of the most prominent ones:
+
+- For court opinions, Law Search uses Harvard's [Caselaw Access Project](https://case.law/). I recommend making an account there, so you won't need to prove your non-robot status quite as often. Unfortunately they only support pre-2018 cases, so anything more recent than that will be a broken link. Also note that you can go directly to a specific page of an opinion if you provide a pincite, like "338 <span>F.2d</span> 708, 715."
 - For the U.S. code and a number of federal rules (e.g. rules of civil procedure), it uses Cornell's [Legal Information Institute](https://www.law.cornell.edu/). Unfortunately their website header gets in the way when you link directly to a subsection, so I recommend the header with [Ublock Origin](https://ublockorigin.com/), or getting into a habit of scrolling up slightly.
 - Many federal laws, like the Immigration and Nationality Act (INA) and National Labor Relations Act (NLRA), are often cited by their original section numbers (e.g. "NLRA <span>§</span> 7") instead of the corresponding U.S. Code provisions. Law Search supports this kind of citation for a few bodies of law, by linking directly to the corresponding U.S. code citation on the Cornell website.
 - For codified state laws, Law Search mostly uses individual states' websites, but when they aren't compatible, it uses [lawserver.com](https://www.lawserver.com/), or occasionally [Justia](https://law.justia.com/codes/). All U.S. states and territories are supported in some form, except for Arkansas, Georgia, Guam, and Puerto Rico, whose laws are only available on LexisNexis or on sites where generating a URL would require more information than a typical citation contains.
@@ -4539,6 +4541,7 @@ Law Search is not technically a search engine. Essentially it tries to match you
 Note that it's entirely possible for Law Search to generate broken links, because it will create a link from any citation that *looks* correct, regardless of whether the referenced law actually exists.
 
 Two final notes for those interested in the more technical side:
+
 - Law Search runs entirely in your browser, without any server-side logic. If you want to, you can even <a href="" download>download this page</a> and run the search locally without even connecting to my website; you'll just miss out on updates.
 - I also maintain Law Search as a Python library called [CiteURL](https://github.com/raindrum/citeurl/). The advantage of the Python version is that it can process an entire block of text, like a court opinion, and insert hyperlinks for every citation it finds, including shortform citations.
 
