@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-03-04
+Modified: 2021-03-05
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -509,7 +509,7 @@ const schemas =
     }]
 }, {
     "name": "Clean Air Act",
-    "regex": "C\\.? ?A\\.? ?A\\.? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(C\\.? ?A\\.? ?A\\.?|Clean Air Act) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -1177,7 +1177,7 @@ const schemas =
     }]
 }, {
     "name": "California Codes",
-    "regex": "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Code)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode={codeAcronym}&sectionNum={section}"],
     "mutations": [{
         "token": "code",
@@ -4603,7 +4603,7 @@ National Labor Relations Act | [www.law.cornell.edu](https://www.law.cornell.edu
 National Labor Relations Board Decisions | [www.nlrb.gov](https://www.nlrb.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FB%5C.%3F%20%28%5Cd%2B%29)
 National Labor Relations Board Slip Opinions | [www.nlrb.gov](https://www.nlrb.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FB%5C.%3F%20%28Slip%20Op%5C.%20%29%3FNo%5C.%20%28%5Cd%2B%29)
 Endangered Species Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Endangered%20Species%20Act%7CE%5C.%3F%20%3FS%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Clean Air Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Clean Air Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%7CClean%20Air%20Act%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Clean Water Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Clean%20Water%20Act%7CC%5C.%3F%20%3FW%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Fair Housing Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Fair%20Housing%20Act%7CF%5C.%3F%20%3Fh%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Americans With Disabilities Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Americans%20%5BWw%5Dith%20Disabilities%20Act%7CA%5C.%3F%20%3FD%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
@@ -4617,7 +4617,7 @@ American Samoa Constitution | [ballotpedia.org](https://ballotpedia.org) | [view
 Arkansas Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ark%28ansas%7C%5C.%29%7CAR%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Arizona Revised Statutes | [www.azleg.gov](https://www.azleg.gov) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Arizona Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-California Codes | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+California Codes | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FCode%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 California Constitution | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Colorado Revised Statutes | [leg.colorado.gov](https://leg.colorado.gov) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
 Colorado Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)

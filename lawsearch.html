@@ -524,7 +524,7 @@ const schemas =
     }]
 }, {
     "name": "Clean Air Act",
-    "regex": "C\\.? ?A\\.? ?A\\.? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+    "regex": "(C\\.? ?A\\.? ?A\\.?|Clean Air Act) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))( ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
     "URL": ["https://www.law.cornell.edu/uscode/text/{title}/{section}",
         "#{subsection}"
     ],
@@ -1192,7 +1192,7 @@ const schemas =
     }]
 }, {
     "name": "California Codes",
-    "regex": "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Code)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode={codeAcronym}&sectionNum={section}"],
     "mutations": [{
         "token": "code",
@@ -4685,7 +4685,7 @@ document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\
 <tr>
 <td>Clean Air Act</td>
 <td><a href="https://www.law.cornell.edu">www.law.cornell.edu</a></td>
-<td><a href="https://regexper.com#C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">view regex</a></td>
+<td><a href="https://regexper.com#%28C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%7CClean%20Air%20Act%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">view regex</a></td>
 </tr>
 <tr>
 <td>Clean Water Act</td>
@@ -4755,7 +4755,7 @@ document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\
 <tr>
 <td>California Codes</td>
 <td><a href="https://leginfo.legislature.ca.gov">leginfo.legislature.ca.gov</a></td>
-<td><a href="https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">view regex</a></td>
+<td><a href="https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FCode%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F">view regex</a></td>
 </tr>
 <tr>
 <td>California Constitution</td>

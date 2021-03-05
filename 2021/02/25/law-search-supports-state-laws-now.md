@@ -7,3 +7,5 @@ As always, you can find the lookup tool on the [Law Search](../../../lawsearch) 
 For the more programming-inclined, it's also available [as a Python library](https://github.com/raindrum/citeurl/) on my GitHub page, with documentation available [here](https://raindrum.github.io/citeurl/). The advantage of the Python version is that it can process an entire block of text, like a court opinion, and insert links for every citation it finds, including shortform citations.
 
 I'll probably add support for state constitutions next, and maybe even state regulations, though the latter will likely be too big a hassle.
+
+**UPDATE:** Most state constitutions are working now, and I'm in the process of adding support for the rest.
