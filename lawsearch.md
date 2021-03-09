@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-03-06
+Modified: 2021-03-09
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -1313,7 +1313,7 @@ const schemas =
     }]
 }, {
     "name": "California Codes",
-    "regex": "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Code)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Code( Ann(otated|\\.))?,?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode={codeAcronym}&sectionNum={section}"],
     "mutations": [{
         "token": "code",
@@ -1345,7 +1345,7 @@ const schemas =
             "Penal|PEN": "PEN",
             "Prob(ate|\\.)|PROB": "PROB",
             "Pub(lic|\\.) Cont(ract|\\.)|PCC": "PCC",
-            "Pub(lic|\\.) Res(ources|\\.)|PRC": "PRC",
+            "Pub(lic|\\.) ?Res(ources|\\.)|PRC": "PRC",
             "Pub(lic|\\.) Util(ities|s?\\.)|PUC": "PUC",
             "Rev(enue|\\.) (and|&) Tax(ation|\\.)|RTC|R&T": "RTC",
             "St(reets|s\\.) (and|&) High(ways|\\.)|SHC|S&H": "SHC",
@@ -1555,7 +1555,7 @@ const schemas =
     }]
 }, {
     "name": "Delaware Code",
-    "regex": "(Del(aware|\\.)|DE)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
+    "regex": "([Tt]it(le|\\.) )?(?<title>\\d{1,2}),? (Del(aware|\\.)|DE) ?C(ode|\\.) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/delaware/de-code/delaware_code_title_{title}_{section}"],
     "mutations": [{
         "token": "section",
@@ -4995,13 +4995,13 @@ American Samoa Constitution | [ballotpedia.org](https://ballotpedia.org) | [view
 Arkansas Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ark%28ansas%7C%5C.%29%7CAR%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Arizona Revised Statutes | [www.azleg.gov](https://www.azleg.gov) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Arizona Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-California Codes | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FCode%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+California Codes | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FCode%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 California Constitution | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Colorado Revised Statutes | [leg.colorado.gov](https://leg.colorado.gov) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
 Colorado Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 General Statutes of Connecticut | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Conn%28ecticut%7C%5C.%29%7CCT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5Ba-z%5C-%5D%2A%5Cw%7C%5Cd%2B%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Connecticut Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Conn%28ecticut%7C%5C.%29%7CCT%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Delaware Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Del%28aware%7C%5C.%29%7CDE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Delaware Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28%5BTt%5Dit%28le%7C%5C.%29%20%29%3F%28%5Cd%7B1%2C2%7D%29%2C%3F%20%28Del%28aware%7C%5C.%29%7CDE%29%20%3FC%28ode%7C%5C.%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Delaware General Corporations Law | [delcode.delaware.gov](https://delcode.delaware.gov) | [view regex](https://regexper.com#%28D%5C.%3F%20%3FG%5C.%3F%20%3FC%5C.%3F%20%3FL%5C.%3F%7CDel%28aware%7C%5C.%29%20%3FGen%28eral%7C%5C.%29%20%3FCorp%28orations%3F%7Cs%3F%5C.%29%20%3FL%28aw%7C%5C.%29%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Delaware Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Del%28aware%7C%5C.%29%7CDE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 District of Columbia Official Code | [code.dccouncil.us](https://code.dccouncil.us) | [view regex](https://regexper.com#%28District%20of%20Columbia%28%20Official%29%3F%7CD%5C.%3F%20%3FC%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
