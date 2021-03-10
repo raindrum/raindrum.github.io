@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-03-09
+Modified: 2021-03-10
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -2266,6 +2266,288 @@ const schemas =
         "joiner": "-"
     }]
 }, {
+    "name": "Kentucky Constitution",
+    "regex": "K(entucky|y\\.|Y) ?Const(itution|\\.),?( ?(Art(icle|\\.) ?)?([IVXivx]{1,7}|\\d{1,2}|Bill of Rights|Rights of Victims of Crime|Dist(ribution|\\.) of the Powers of Gov(ernment|('t)?\\.?)|(The )?(Leg(islative|(is)?\\.)|Exec(utive|\\.)|Jud(icial|\\.)) ?Dep(artment|('t)?\\.?)|Counties (and|&) County Seats|Impeachments|(C(ounty|ty\\.)|Fisc(al|\\.)) ?C(ourts|ts\\.)|Justices of the Peace|Suff(rage|\\.) ?(and|&) ?Elec(tions|\\.)|Mun(icipalities|i?\\.)|Rev(enue|\\.) ?(and|&) ?Tax(ation|\\.?)|Educ(ation|\\.)|Corp(orations?|s?\\.)|R(ailroads|\\.R\\.) (and|&) Com(merce|m?\\.)|(The )?Militia|Gen(eral|\\.) ?Prov(isions|s?\\.)|Mode of Rev(ision|\\.)),?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))",
+    "URL": ["https://apps.legislature.ky.gov/Law/Constitution/Constitution/ViewConstitution?rsn={rsn}"],
+    "substitutions": [{
+        "token": "section",
+        "outputToken": "rsn",
+        "index": {
+            "1": "3",
+            "2": "4",
+            "3": "5",
+            "4": "6",
+            "5": "7",
+            "6": "8",
+            "7": "9",
+            "8": "10",
+            "9": "11",
+            "10": "12",
+            "11": "13",
+            "12": "14",
+            "13": "15",
+            "14": "16",
+            "15": "17",
+            "16": "18",
+            "17": "19",
+            "18": "20",
+            "19": "21",
+            "20": "22",
+            "21": "23",
+            "22": "24",
+            "23": "25",
+            "24": "26",
+            "25": "27",
+            "26": "28",
+            "26A": "305",
+            "27": "30",
+            "28": "31",
+            "29": "33",
+            "30": "34",
+            "31": "35",
+            "32": "36",
+            "33": "37",
+            "34": "38",
+            "35": "39",
+            "36": "40",
+            "37": "41",
+            "38": "42",
+            "39": "43",
+            "40": "44",
+            "41": "45",
+            "42": "46",
+            "43": "47",
+            "44": "48",
+            "45": "49",
+            "46": "50",
+            "47": "51",
+            "48": "52",
+            "49": "53",
+            "50": "54",
+            "51": "55",
+            "52": "56",
+            "53": "57",
+            "54": "58",
+            "55": "59",
+            "56": "60",
+            "57": "61",
+            "58": "62",
+            "59": "63",
+            "60": "64",
+            "61": "65",
+            "62": "66",
+            "63": "68",
+            "64": "69",
+            "65": "70",
+            "66": "72",
+            "67": "73",
+            "68": "74",
+            "69": "77",
+            "70": "78",
+            "71": "79",
+            "72": "80",
+            "73": "81",
+            "74": "82",
+            "75": "83",
+            "76": "84",
+            "77": "85",
+            "78": "86",
+            "79": "87",
+            "80": "88",
+            "81": "89",
+            "82": "90",
+            "83": "91",
+            "84": "92",
+            "85": "93",
+            "86": "94",
+            "87": "95",
+            "88": "96",
+            "89": "97",
+            "90": "98",
+            "91": "99",
+            "92": "100",
+            "93": "101",
+            "94": "102",
+            "95": "103",
+            "96": "104",
+            "97": "106",
+            "98": "107",
+            "99": "108",
+            "100": "109",
+            "101": "110",
+            "102": "111",
+            "103": "112",
+            "104": "113",
+            "105": "114",
+            "106": "115",
+            "107": "116",
+            "108": "117",
+            "109": "119",
+            "110": "121",
+            "111": "123",
+            "112": "125",
+            "113": "127",
+            "114": "129",
+            "115": "131",
+            "116": "132",
+            "117": "134",
+            "118": "135",
+            "119": "136",
+            "120": "137",
+            "121": "138",
+            "122": "139",
+            "123": "140",
+            "124": "141",
+            "125": "142",
+            "126": "143",
+            "127": "144",
+            "128": "145",
+            "129": "146",
+            "130": "147",
+            "131": "148",
+            "132": "149",
+            "133": "150",
+            "134": "151",
+            "135": "152",
+            "136": "153",
+            "137": "154",
+            "138": "155",
+            "139": "156",
+            "140": "158",
+            "141": "159",
+            "142": "161",
+            "143": "162",
+            "144": "164",
+            "145": "166",
+            "146": "167",
+            "147": "168",
+            "148": "169",
+            "149": "170",
+            "150": "171",
+            "151": "172",
+            "152": "173",
+            "153": "174",
+            "154": "175",
+            "155": "176",
+            "156": "180",
+            "156A": "177",
+            "156B": "178",
+            "157": "183",
+            "157A": "181",
+            "157B": "182",
+            "158": "184",
+            "159": "185",
+            "160": "186",
+            "161": "187",
+            "162": "188",
+            "163": "189",
+            "164": "190",
+            "165": "191",
+            "166": "192",
+            "167": "193",
+            "168": "194",
+            "169": "196",
+            "170": "197",
+            "171": "198",
+            "172": "201",
+            "172A": "199",
+            "172B": "200",
+            "173": "202",
+            "174": "203",
+            "175": "204",
+            "176": "205",
+            "177": "206",
+            "178": "207",
+            "179": "208",
+            "180": "209",
+            "181": "210",
+            "182": "211",
+            "183": "213",
+            "184": "214",
+            "185": "215",
+            "186": "216",
+            "187": "217",
+            "188": "218",
+            "189": "219",
+            "190": "221",
+            "191": "222",
+            "192": "223",
+            "193": "224",
+            "194": "225",
+            "195": "226",
+            "196": "227",
+            "197": "228",
+            "198": "229",
+            "199": "230",
+            "200": "231",
+            "201": "232",
+            "202": "233",
+            "203": "234",
+            "204": "235",
+            "205": "236",
+            "206": "237",
+            "207": "238",
+            "208": "239",
+            "210": "242",
+            "211": "243",
+            "212": "244",
+            "213": "245",
+            "214": "246",
+            "215": "247",
+            "216": "248",
+            "217": "249",
+            "218": "250",
+            "219": "252",
+            "220": "253",
+            "221": "254",
+            "222": "255",
+            "223": "256",
+            "224": "258",
+            "225": "259",
+            "226": "261",
+            "226A": "260",
+            "227": "262",
+            "228": "263",
+            "229": "264",
+            "230": "265",
+            "231": "266",
+            "232": "267",
+            "233": "269",
+            "233A": "268",
+            "234": "270",
+            "235": "271",
+            "236": "272",
+            "237": "273",
+            "238": "274",
+            "239": "275",
+            "240": "276",
+            "241": "277",
+            "242": "278",
+            "243": "279",
+            "244": "281",
+            "244A": "280",
+            "245": "282",
+            "246": "283",
+            "247": "284",
+            "248": "285",
+            "249": "286",
+            "250": "287",
+            "251": "288",
+            "252": "300",
+            "253": "290",
+            "254": "291",
+            "255": "292",
+            "255A": "302",
+            "256": "294",
+            "257": "295",
+            "258": "296",
+            "259": "297",
+            "260": "298",
+            "261": "299",
+            "263": "301"
+        }
+    }]
+}, {
     "name": "Louisiana Statutes",
     "regex": "L(ouisiana|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?):(?<section>\\d+(\\.\\d+)?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/louisiana/la-laws/louisiana_revised_statutes_{title}-{section}"]
@@ -2353,8 +2635,10 @@ const schemas =
     }]
 }, {
     "name": "Maine Constitution",
-    "regex": "M(aine|e\\.|E) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-    "URL": ["https://ballotpedia.org/Article_{roman_article},_Maine_Constitution",
+    "regex": "M(aine|e\\.|E) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? [Pp](art|t\\.) ?(?<part>\\d))?(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
+    "URL": ["https://ballotpedia.org/Article_{roman_article}",
+        "--Part_{part}",
+        ",_Maine_Constitution",
         "#Section_{section}"
     ],
     "substitutions": [{
@@ -2402,6 +2686,12 @@ const schemas =
             "38|XXXVIII": "XXXVIII",
             "39|XXXIX": "XXXIX",
             "40|XXXX": "XXXX"
+        }
+    }, {
+        "token": "part",
+        "index": {
+            "1": "First",
+            "2": "Second"
         }
     }]
 }, {
@@ -2516,6 +2806,170 @@ const schemas =
         "token": "section",
         "splitter": "/",
         "joiner": "~"
+    }]
+}, {
+    "name": "Massachusetts Constitution",
+    "regex": "(Mass(achusetts|\\.)|MA) Const(itution|\\.),? [Pp](art|t\\.) ?(?<part>II?|1|2|[Tt]he ([Ff]irst|[Ss]econd))(,? [Cc](hapter|h?\\.) ?(?<chapter>\\d+|[IVXivx]{1,7})(,? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>\\d+|[IVXivx]{1,7}))?)?(,? [Aa]rt(icle|\\.) ?(?<article>\\d+|[IVXivx]{1,7}))?",
+    "URL": ["https://malegislature.gov/Laws/Constitution",
+        "{isFirst}#article{article}",
+        "{isSecond}#chapter{chapter}Section{section}",
+        "{isSecond}Article{article}"
+    ],
+    "defaults": {
+        "chapter": "I",
+        "section": "I"
+    },
+    "substitutions": [{
+        "token": "part",
+        "outputToken": "isFirst",
+        "useRegex": true,
+        "allowUnmatched": true,
+        "index": {
+            "1|I|.*irst": ""
+        }
+    }, {
+        "token": "part",
+        "outputToken": "isSecond",
+        "useRegex": true,
+        "allowUnmatched": true,
+        "index": {
+            "2|II|.*econd": ""
+        }
+    }, {
+        "token": "chapter",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }, {
+        "token": "section",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }, {
+        "token": "article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
     }]
 }, {
     "name": "Michigan Compiled Laws",
@@ -2880,18 +3334,107 @@ const schemas =
         "case": "lower"
     }]
 }, {
+    "name": "New Hampshire Constitution",
+    "regex": "(New Hampshire|N\\.? ?H\\.?) ?Const(itution|\\.),? ?[Pp](art|t\\.) ?(?<part>II?|1|2|([Tt]he )([Ff]irst|[Ss]econd)),? [Aa]rt(icle|\\.) ?(?<article>\\d+(-\\w)?)",
+    "URL": ["https://ballotpedia.org/",
+        "{isPart1}Part_First",
+        "{isPart2}{part2Section}",
+        ",_New_Hampshire_Constitution",
+        "#Article_{article}"
+    ],
+    "substitutions": [{
+        "token": "part",
+        "outputToken": "isPart1",
+        "allowUnmatched": true,
+        "useRegex": true,
+        "index": {
+            "I|1|The First": ""
+        }
+    }, {
+        "token": "part",
+        "outputToken": "isPart2",
+        "allowUnmatched": true,
+        "useRegex": true,
+        "index": {
+            "II|2|The Second": ""
+        }
+    }, {
+        "token": "article",
+        "outputToken": "part2Section",
+        "useRegex": true,
+        "allowUnmatched": true,
+        "index": {
+            "[1-8](-[ab])?": "Part_Second",
+            "(9|2[0-4])(-[ab])?": "House_of_Representatives",
+            "(2[5-9]|3\\d|40)(-[ab])?": "Senate",
+            "(4[1-9]|5\\d)(-[ab])?": "Executive_Power_-_Governor",
+            "6[0-6]": "Council",
+            "(6[7-9]|70)": "Secretary",
+            "7[12]": "County_Treasurer",
+            "(7[3-9](-[ab])?|8[01])": "Judiciary_Power",
+            "82": "Clerks_of_Courts",
+            "83": "Encouragement_of_Literature,_Trade,_Etc.",
+            "(8[4-9]|9\\d|10[01])": "Oaths_and_Subscriptions_Exclusion_from_Offices,_Etc."
+        }
+    }]
+}, {
     "name": "New Jersey Statutes",
     "regex": "((N\\.? ?J\\.?|New Jersey)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|N\\.?J\\.?S\\.?A )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?):(?<chapter>\\d+[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?[A-Za-z]?)(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://njlaw.rutgers.edu/collections/njstats/showsect.php?title={title}&chapter={chapter}&section={section}&actn=getsect"]
 }, {
     "name": "New Jersey Constitution",
-    "regex": "(N\\.? ?J\\.?|New Jersey) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-    "URL": ["https://ballotpedia.org/Article_{roman_article},_New_Jersey_Constitution",
-        "#Section_{section}"
+    "regex": "(N\\.? ?J\\.?|New Jersey) ?Const(itution|\\.),? ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ((&sect;|&#167|§|[Ss]ec(tion|t?\\.)) ?(?<section>[\\dIVXivx]{1,8})|[Pp](ar(agraph|a?\\.)) ?(?<paragraph>\\d+))",
+    "URL": ["https://ballotpedia.org/Article_{article},_New_Jersey_Constitution",
+        "#Section_{section}",
+        "#Paragraph_{paragraph}"
     ],
     "substitutions": [{
         "token": "article",
-        "outputToken": "roman_article",
+        "useRegex": true,
+        "index": {
+            "1|I": "I",
+            "2|II": "II",
+            "3|III": "III",
+            "4|IV": "IV",
+            "5|V": "V",
+            "6|VI": "VI",
+            "7|VII": "VII",
+            "8|VIII": "VIII",
+            "9|IX": "IX",
+            "10|X": "X",
+            "11|XI": "XI",
+            "12|XII": "XII",
+            "13|XIII": "XIII",
+            "14|XIV": "XIV",
+            "15|XV": "XV",
+            "16|XVI": "XVI",
+            "17|XVII": "XVII",
+            "18|XVIII": "XVIII",
+            "19|XIX": "XIX",
+            "20|XX": "XX",
+            "21|XXI": "XXI",
+            "22|XXII": "XXII",
+            "23|XXIII": "XXIII",
+            "24|XXIV": "XXIV",
+            "25|XXV": "XXV",
+            "26|XXVI": "XXVI",
+            "27|XXVII": "XXVII",
+            "28|XXVIII": "XXVIII",
+            "29|XXIX": "XXIX",
+            "30|XXX": "XXX",
+            "31|XXXI": "XXXI",
+            "32|XXXII": "XXXII",
+            "33|XXXIII": "XXXIII",
+            "34|XXXIV": "XXXIV",
+            "35|XXXV": "XXXV",
+            "36|XXXVI": "XXXVI",
+            "37|XXXVII": "XXXVII",
+            "38|XXXVIII": "XXXVIII",
+            "39|XXXIX": "XXXIX",
+            "40|XXXX": "XXXX"
+        }
+    }, {
+        "token": "section",
         "useRegex": true,
         "index": {
             "1|I": "I",
@@ -3666,56 +4209,13 @@ const schemas =
     "URL": ["https://www.oregonlaws.org/ors/{chapter}.{section}"]
 }, {
     "name": "Oregon Constitution",
-    "regex": "(Or(egon|e?\\.)|OR) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-    "URL": ["https://ballotpedia.org/Article_{roman_article},_Oregon_Constitution",
+    "regex": "(Or(egon|e?\\.)|OR) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[IVXivx]{1,5}(-\\w(\\(\\d\\))?)?)(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
+    "URL": ["https://ballotpedia.org/Article_{article},_Oregon_Constitution",
         "#Section_{section}"
     ],
-    "substitutions": [{
+    "mutations": [{
         "token": "article",
-        "outputToken": "roman_article",
-        "useRegex": true,
-        "index": {
-            "1|I": "I",
-            "2|II": "II",
-            "3|III": "III",
-            "4|IV": "IV",
-            "5|V": "V",
-            "6|VI": "VI",
-            "7|VII": "VII",
-            "8|VIII": "VIII",
-            "9|IX": "IX",
-            "10|X": "X",
-            "11|XI": "XI",
-            "12|XII": "XII",
-            "13|XIII": "XIII",
-            "14|XIV": "XIV",
-            "15|XV": "XV",
-            "16|XVI": "XVI",
-            "17|XVII": "XVII",
-            "18|XVIII": "XVIII",
-            "19|XIX": "XIX",
-            "20|XX": "XX",
-            "21|XXI": "XXI",
-            "22|XXII": "XXII",
-            "23|XXIII": "XXIII",
-            "24|XXIV": "XXIV",
-            "25|XXV": "XXV",
-            "26|XXVI": "XXVI",
-            "27|XXVII": "XXVII",
-            "28|XXVIII": "XXVIII",
-            "29|XXIX": "XXIX",
-            "30|XXX": "XXX",
-            "31|XXXI": "XXXI",
-            "32|XXXII": "XXXII",
-            "33|XXXIII": "XXXIII",
-            "34|XXXIV": "XXXIV",
-            "35|XXXV": "XXXV",
-            "36|XXXVI": "XXXVI",
-            "37|XXXVII": "XXXVII",
-            "38|XXXVIII": "XXXVIII",
-            "39|XXXIX": "XXXIX",
-            "40|XXXX": "XXXX"
-        }
+        "case": "upper"
     }]
 }, {
     "name": "Pennsylvania Code",
@@ -4278,6 +4778,67 @@ const schemas =
     "name": "Vermont Statutes",
     "regex": "V(ermont|t\\.|T)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(?<subsection>(\\(\\w+\\))+)?",
     "URL": ["https://www.lawserver.com/law/state/vermont/vt-statutes/vermont_statutes_title_{title}_{section}"]
+}, {
+    "name": "Vermont Constitution",
+    "regex": "V(ermont|t\\.|T) ?Const(itution|\\.),? ?[Cc](hapter|h?\\.) ?(?<chapter>[Ii]{1,2})(,? ([Aa]rt(icle|\\.)|&sect;|&#167|§) ?(?<article>\\d+)(st|nd|th)?)?",
+    "URL": ["https://ballotpedia.org/",
+        "{isChapterI}Chapter_I",
+        "{isChapterII}{chapter2section}",
+        ",_Vermont_Constitution",
+        "{isChapterI}#Article_{article}{articleSuffix}",
+        "{isChapterII}#Section_{article}"
+    ],
+    "defaults": {
+        "chapter2section": "Chapter_II"
+    },
+    "mutations": [{
+        "token": "chapter",
+        "case": "upper"
+    }],
+    "substitutions": [{
+        "token": "chapter",
+        "outputToken": "isChapterI",
+        "allowUnmatched": true,
+        "index": {
+            "I": ""
+        }
+    }, {
+        "token": "chapter",
+        "outputToken": "isChapterII",
+        "allowUnmatched": true,
+        "index": {
+            "II": ""
+        }
+    }, {
+        "token": "article",
+        "outputToken": "articleSuffix",
+        "useRegex": true,
+        "index": {
+            "1": "st",
+            "2": "nd",
+            "3": "rd",
+            "[4-9]|\\d{2,}": "th"
+        }
+    }, {
+        "token": "article",
+        "outputToken": "chapter2section",
+        "allowUnmatched": true,
+        "useRegex": true,
+        "index": {
+            "[1-5]": "Delegation_and_Distribution_of_Powers",
+            "[6-9]|1\\d": "Legislative_Department",
+            "2[0-7]": "Executive_Department",
+            "2[89]|3\\d|4[01]": "Judiciary_Department",
+            "42": "Qualifications_of_Freemen_and_Freewomen",
+            "4[3-9]|5[0-5]": "Elections;_Officers;_Terms_of_Office",
+            "56": "Oath_of_Allegiance;_Oath_of_Office",
+            "5[78]": "Impeachment",
+            "59": "Militia",
+            "6\\d|7[01]": "General_Provisions",
+            "7[23]": "Amendment_of_the_Constitution",
+            "7[4-6]": "Temporary_Provisions"
+        }
+    }]
 }, {
     "name": "Virginia Code",
     "regex": "(?<!W\\. )(?<!West )(?<!W\\.)V(irginia|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(?<subsection>(\\(\\w+\\))+)?",
@@ -4922,7 +5483,14 @@ function buildUrl(match) {
   return url;
 }
 </script>
-Law Search recognizes vaguely Bluebook-style citations to court cases, sections of federal law, and the vast majority of state statutes, plus a few other sources. For the full list, and the recognized citation formats for each, see [Sources of Law](#sources-of-law).
+Law Search recognizes vaguely Bluebook-style citations to the following sources of law, plus a few others:
+
+- most state and federal court cases
+- the U.S. Code and Code of Federal Regulations
+- the U.S. Constitution and all state constitutions
+- codified laws for every state and territory except Arkansas, Georgia, Guam, and Puerto Rico
+
+For the full list, and the recognized citation formats for each, see [Sources of Law](#sources-of-law).
 
 ## Bookmark This Search!
 
@@ -4949,7 +5517,7 @@ The websites vary across different sources of law, but here are some of the most
 - For the U.S. code and a number of federal rules (e.g. rules of civil procedure), it uses Cornell's [Legal Information Institute](https://www.law.cornell.edu/). Unfortunately their website header gets in the way when you link directly to a subsection, so I recommend the header with [Ublock Origin](https://ublockorigin.com/), or getting into a habit of scrolling up slightly.
 - Many federal laws, like the Immigration and Nationality Act (INA) and National Labor Relations Act (NLRA), are often cited by their original section numbers (e.g. "NLRA <span>§</span> 7") instead of the corresponding U.S. Code provisions. Law Search supports this kind of citation for a few bodies of law, by linking directly to the corresponding U.S. code citation on the Cornell website.
 - For codified state laws, Law Search mostly uses individual states' websites, but when they aren't compatible, it uses [lawserver.com](https://www.lawserver.com/), or occasionally [Justia](https://law.justia.com/codes/). All U.S. states and territories are supported in some form, except for Arkansas, Georgia, Guam, and Puerto Rico, whose laws are only available on LexisNexis or on sites where generating a URL would require more information than a typical citation contains.
-- For state constitutions, it mostly uses [ballotpedia.org](https://ballotpedia.org/). A few states (KY, MA, ME, MD, OR, NH, NJ, and VT) aren't fully supported yet, but I'll try to add them soon.
+- For state constitutions, it mostly uses [ballotpedia.org](https://ballotpedia.org/).
 
 Note that it's entirely possible for Law Search to generate broken links, because it will create a link from any citation that *looks* correct, regardless of whether the referenced law actually exists.
 
@@ -5021,14 +5589,16 @@ Iowa Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](ht
 Kansas Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Kan%28sas%7C%5C.%29%7CKS%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Kansas Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Kan%28sas%7C%5C.%29%7CKS%29%20%3FConst%28itution%7C%5C.%29%20%3F%28%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%7C%28Bill%20of%20Rights%7CPreamble%29%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Kentucky Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28K%28entucky%7Cy%5C.%7CY%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CKRS%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5B%5Cd.%5D%2A%5Cw%7C%5Cd%29%29%5C.%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Kentucky Constitution | [apps.legislature.ky.gov](https://apps.legislature.ky.gov) | [view regex](https://regexper.com#K%28entucky%7Cy%5C.%7CY%29%20%3FConst%28itution%7C%5C.%29%2C%3F%28%20%3F%28Art%28icle%7C%5C.%29%20%3F%29%3F%28%5BIVXivx%5D%7B1%2C7%7D%7C%5Cd%7B1%2C2%7D%7CBill%20of%20Rights%7CRights%20of%20Victims%20of%20Crime%7CDist%28ribution%7C%5C.%29%20of%20the%20Powers%20of%20Gov%28ernment%7C%28%27t%29%3F%5C.%3F%29%7C%28The%20%29%3F%28Leg%28islative%7C%28is%29%3F%5C.%29%7CExec%28utive%7C%5C.%29%7CJud%28icial%7C%5C.%29%29%20%3FDep%28artment%7C%28%27t%29%3F%5C.%3F%29%7CCounties%20%28and%7C%26%29%20County%20Seats%7CImpeachments%7C%28C%28ounty%7Cty%5C.%29%7CFisc%28al%7C%5C.%29%29%20%3FC%28ourts%7Cts%5C.%29%7CJustices%20of%20the%20Peace%7CSuff%28rage%7C%5C.%29%20%3F%28and%7C%26%29%20%3FElec%28tions%7C%5C.%29%7CMun%28icipalities%7Ci%3F%5C.%29%7CRev%28enue%7C%5C.%29%20%3F%28and%7C%26%29%20%3FTax%28ation%7C%5C.%3F%29%7CEduc%28ation%7C%5C.%29%7CCorp%28orations%3F%7Cs%3F%5C.%29%7CR%28ailroads%7C%5C.R%5C.%29%20%28and%7C%26%29%20Com%28merce%7Cm%3F%5C.%29%7C%28The%20%29%3FMilitia%7CGen%28eral%7C%5C.%29%20%3FProv%28isions%7Cs%3F%5C.%29%7CMode%20of%20Rev%28ision%7C%5C.%29%29%2C%3F%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29)
 Louisiana Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%3A%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Louisiana Codes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%20%3F%28Civ%28il%7C%5C.%29%20%3FCode%7CCode%28%20of%29%3F%20%28%28Civ%28il%7C%5C.%29%7CCrim%28inal%7C%5C.%29%29%20%3FProc%28edure%7C%5C.%29%7CEvid%28ence%7C%5C.%29%29%7CChild%28ren%27%3Fs%7C%5C.%29%20%3FCode%29%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%28%20%5BAa%5Drt%28icle%7C%5C.%29%29%3F%20%28%5Cd%2B%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Louisiana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Maine Statutes | [legislature.maine.gov](https://legislature.maine.gov) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Maine Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
+Maine Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%5BPp%5D%28art%7Ct%5C.%29%20%3F%28%5Cd%29%29%3F%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Maryland Code | [mgaleg.maryland.gov](https://mgaleg.maryland.gov) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Ac%7CAl%7C%5BBCEFHILNPRST%5D%29.%7B4%2C38%7D%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5B%5CdA-Z%5C-%E2%80%93.%5D%2A%5B%5CdA-Z%5D%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Maryland Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Massachusetts General Laws | [malegislature.gov](https://malegislature.gov) | [view regex](https://regexper.com#%28%28Mass%28achusetts%7C%5C.%29%7CMA%29%20%3F%28Gen%28eral%7C%5C.%29%7CAnn%28otated%7C%5C.%29%29%20%3FLaws%28%20Ann%28otated%7C%5C.%29%29%3F%7CM%5C.%3FG%5C.%3FL%5C.%3F%28A%5C.%3F%29%3F%7CA%5C.%3FL%5C.%3FM%5C.%3F%29%2C%3F%20%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5Cd%2B%5BA-Z%5D%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%5Cd%2B%5BA-Z%5D%3F%5Cd%2A%28%5B%2F%5D%5Cd%2B%5BA-Z%5D%3F%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Massachusetts Constitution | [malegislature.gov](https://malegislature.gov) | [view regex](https://regexper.com#%28Mass%28achusetts%7C%5C.%29%7CMA%29%20Const%28itution%7C%5C.%29%2C%3F%20%5BPp%5D%28art%7Ct%5C.%29%20%3F%28II%3F%7C1%7C2%7C%5BTt%5Dhe%20%28%5BFf%5Dirst%7C%5BSs%5Decond%29%29%28%2C%3F%20%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%3F%29%3F%28%2C%3F%20%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%3F)
 Michigan Compiled Laws | [legislature.mi.gov](https://legislature.mi.gov) | [view regex](https://regexper.com#%28Mich%28igan%7C%5C.%29%7CMI%29%20Comp%28iled%7C%5C.%29%20Laws%28%20%28Serv%28ice%7C%5C.%29%7CAnn%28otated%7C%5C.%29%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Michigan Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Mich%28igan%7C%5C.%29%7CMI%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Minnesota Statutes | [www.revisor.mn.gov](https://www.revisor.mn.gov) | [view regex](https://regexper.com#%28Minn%28esota%7C%5C.%29%7CMN%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%5C%28%28%5Cd%5Cw%2A%29%5C%29%28%5C%28%5Cw%2B%5C%29%29%2A%7C%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
@@ -5042,8 +5612,9 @@ Montana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex]
 Revised Statutes of Nebraska | [www.nebraskalegislature.gov](https://www.nebraskalegislature.gov) | [view regex](https://regexper.com#%28Neb%28raska%7C%5C.%29%7CNE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Nebraska Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Neb%28raska%7C%5C.%29%7CNE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 New Hampshire Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28New%20Hampshire%7CN%5C.%3F%20%3FH%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5B-%E2%80%93%5D%5BA-Za-z%5D%29%3F%29%3A%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Za-z%5D%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+New Hampshire Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28New%20Hampshire%7CN%5C.%3F%20%3FH%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%2C%3F%20%3F%5BPp%5D%28art%7Ct%5C.%29%20%3F%28II%3F%7C1%7C2%7C%28%5BTt%5Dhe%20%29%28%5BFf%5Dirst%7C%5BSs%5Decond%29%29%2C%3F%20%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5Cd%2B%28-%5Cw%29%3F%29)
 New Jersey Statutes | [njlaw.rutgers.edu](https://njlaw.rutgers.edu) | [view regex](https://regexper.com#%28%28N%5C.%3F%20%3FJ%5C.%3F%7CNew%20Jersey%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CN%5C.%3FJ%5C.%3FS%5C.%3FA%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%3A%28%5Cd%2B%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-New Jersey Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28N%5C.%3F%20%3FJ%5C.%3F%7CNew%20Jersey%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
+New Jersey Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28N%5C.%3F%20%3FJ%5C.%3F%7CNew%20Jersey%29%20%3FConst%28itution%7C%5C.%29%2C%3F%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%7C%5BSs%5Dec%28tion%7Ct%3F%5C.%29%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%7C%5BPp%5D%28ar%28agraph%7Ca%3F%5C.%29%29%20%3F%28%5Cd%2B%29%29)
 Nevada Revised Statutes | [www.leg.state.nv.us](https://www.leg.state.nv.us) | [view regex](https://regexper.com#%28%28Nev%28ada%7C%5C.%29%7CNV%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CNRS%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Nevada Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Nev%28ada%7C%5C.%29%7CNV%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 New Mexico Statutes Annotated 1978 | [nmonesource.com](https://nmonesource.com) | [view regex](https://regexper.com#%28%28New%20Mexico%7CN%5C.%3F%20%3FM%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CNMSA%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
@@ -5061,7 +5632,7 @@ Ohio Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](ht
 Oklahoma Statutes | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Okla%28homa%7C%5C.%29%7COK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
 Oklahoma Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Okla%28homa%7C%5C.%29%7COK%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Oregon Revised Statutes | [www.oregonlaws.org](https://www.oregonlaws.org) | [view regex](https://regexper.com#%28Or%28egon%7Ce%3F%5C.%29%7COR%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
-Oregon Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Or%28egon%7Ce%3F%5C.%29%7COR%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
+Oregon Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Or%28egon%7Ce%3F%5C.%29%7COR%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5BIVXivx%5D%7B1%2C5%7D%28-%5Cw%28%5C%28%5Cd%5C%29%29%3F%29%3F%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Pennsylvania Code | [www.pacodeandbulletin.gov](https://www.pacodeandbulletin.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20%28Pennsylvania%7CPa%5C.%7CPA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Pennsylvania Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Pennsylvania%7CPa%5C.%7CPA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Puerto Rico Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Puerto%20Rico%7CP%5C.%3F%20%3FR%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
@@ -5078,6 +5649,7 @@ Texas Constitution | [statutes.capitol.texas.gov](https://statutes.capitol.texas
 Utah Code | [le.utah.gov](https://le.utah.gov) | [view regex](https://regexper.com#%28Utah%7CUT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Utah Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Utah%7CUT%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Vermont Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#V%28ermont%7Ct%5C.%7CT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
+Vermont Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#V%28ermont%7Ct%5C.%7CT%29%20%3FConst%28itution%7C%5C.%29%2C%3F%20%3F%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5BIi%5D%7B1%2C2%7D%29%28%2C%3F%20%28%5BAa%5Drt%28icle%7C%5C.%29%7C%26sect%3B%7C%26%23167%7C%C2%A7%29%20%3F%28%5Cd%2B%29%28st%7Cnd%7Cth%29%3F%29%3F)
 Virginia Code | [law.lis.virginia.gov](https://law.lis.virginia.gov) | [view regex](https://regexper.com#V%28irginia%7Ca%5C.%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F)
 Virginia Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#V%28irginia%7Ca%5C.%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Virgin Islands Code | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Virgin%20Islands%7CV%5C.%3F%20%3FI%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
