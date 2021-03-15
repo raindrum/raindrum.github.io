@@ -15,7 +15,6 @@ html {
   color: var(--text-color);
   background-color: var(--bg-color);
   font-family: Sans;
-  /*font-size: 14pt;*/
   line-height: 1.5em;
 }
 body { margin: 0; }
@@ -87,8 +86,8 @@ form label { text-align: center; }
 form input {
   font-size: 1.4em;
 }
-form input[type=submit] { width: 20%; }
 form input[type=search] { width: 80%; }
+form input[type=submit] { width: 20%; }
 input, button {
   color: var(--emph-text-color);
   background-color: var(--alt-bg-color);
@@ -198,7 +197,7 @@ article[onclick]:hover, article[onclick]:active {
   text-align: center;
   font-size: 1.3em;
 }
-.search-label {
+.citeurl-explainer {
   color: var(--emph-text-color);
   font-weight: bold;
 }
