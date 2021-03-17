@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-03-15
+Modified: 2021-03-17
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -25,14 +25,22 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(Title )?(?<title>\\d+) (U\\.?|United) ?(S\\.?|States) ?(C\\.?|Code)( ?[AS]\\.?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "United States Constitution",
@@ -46,171 +54,23 @@ const schemas = [
             "_C{clause}"
         ],
         "regex": "(^|(U\\.? ?S\\.?|United States) ?Const(itution|\\.),? )([Aa]rt(icle|\\.) (?<article>[\\dIViv]{1,3})|[Aa]m(endment|(end|dt?)?\\.) (?<amendment>[\\dXIVxiv]{1,3}))((,? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>\\d+|[IVXivx]{1,7}))((,? ([Cc]l(ause|\\.) ?(?<clause>\\d+))))?)?",
-        "mutations": [
+        "operations": [
             {
                 "token": "article",
-                "case": "lower"
+                "numberFormat": "roman",
+                "output": "article_roman"
+            },
+            {
+                "token": "article",
+                "numberFormat": "digit"
             },
             {
                 "token": "amendment",
-                "case": "lower"
-            }
-        ],
-        "substitutions": [
-            {
-                "token": "article",
-                "index": {
-                    "1|i": "I",
-                    "2|ii": "II",
-                    "3|iii": "III",
-                    "4|iv": "IV",
-                    "5|v": "V",
-                    "6|vi": "VI",
-                    "7|vii": "VII"
-                },
-                "useRegex": true,
-                "outputToken": "article_roman"
-            },
-            {
-                "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "allowUnmatched": true
-            },
-            {
-                "token": "amendment",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "allowUnmatched": true
+                "numberFormat": "digit"
             },
             {
                 "token": "section",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "allowUnmatched": true
+                "numberFormat": "digit"
             }
         ]
     },
@@ -220,9 +80,7 @@ const schemas = [
         "URL": [
             "https://uscode.house.gov/statutes/pl/{congress}/{law}.pdf"
         ],
-        "regex": "(\\b|^)Pub(\\.?|lic) ?L(\\.?|aw) ?(No\\.?)? ?(?<congress>\\d+)[–‑-](?<law>\\d+)",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)Pub(\\.?|lic) ?L(\\.?|aw) ?(No\\.?)? ?(?<congress>\\d+)[–‑-](?<law>\\d+)"
     },
     {
         "name": "U.S. Statutes at Large",
@@ -230,9 +88,7 @@ const schemas = [
         "URL": [
             "https://www.govinfo.gov/content/pkg/STATUTE-{volume}/pdf/STATUTE-{volume}-Pg{page}.pdf"
         ],
-        "regex": "(\\b|^)(?<volume>\\d+) Stat\\.? (?<page>\\d+)([–‑-]\\d+)?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(?<volume>\\d+) Stat\\.? (?<page>\\d+)([–‑-]\\d+)?"
     },
     {
         "name": "Federal Register",
@@ -241,13 +97,15 @@ const schemas = [
             "https://www.federalregister.gov/documents/search?conditions[term]={volume}+FR+{page}"
         ],
         "regex": "(\\b|^)(?<volume>\\d+) (Fed\\. ?Reg\\.|F\\.? ?R\\.?) (?<page>\\d([,\\d]+\\d)?)",
-        "mutations": [
+        "operations": [
             {
                 "token": "page",
-                "omit": ","
+                "sub": [
+                    ",",
+                    ""
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Code of Federal Regulations",
@@ -256,9 +114,7 @@ const schemas = [
             "https://ecfr.federalregister.gov/cfr-reference?cfr%5Bdate%5D=current&cfr%5Breference%5D={title} CFR {section}",
             "#p-{section}{subsection}"
         ],
-        "regex": "(Title )?(?<title>\\d+) (C\\.? ?F\\.? ?R\\.?|Code of Federal Regulations)( [Pp]arts?| [Pp]ts?\\.)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(Title )?(?<title>\\d+) (C\\.? ?F\\.? ?R\\.?|Code of Federal Regulations)( [Pp]arts?| [Pp]ts?\\.)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
     },
     {
         "name": "Federal Rules of Civil Procedure",
@@ -268,14 +124,22 @@ const schemas = [
             "#rule_{rule}_{subsection}"
         ],
         "regex": "(F\\.? ?R\\.? ?C\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Civ\\.? ?Pr?o?c?\\.?|Federal Rules? of Civil Procedure) ?(Rule )?(?<rule>\\d+[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Federal Rules of Appellate Procedure",
@@ -283,9 +147,7 @@ const schemas = [
         "URL": [
             "https://www.law.cornell.edu/rules/frap/rule_{rule}"
         ],
-        "regex": "(\\b|^)(F\\.? ?R\\.? ?A\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?App\\.? ?Pr?o?c?\\.?|Federal Rules? of Appellate Procedure) ?(Rule )?(?<rule>\\d+[a-z]?)",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(F\\.? ?R\\.? ?A\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?App\\.? ?Pr?o?c?\\.?|Federal Rules? of Appellate Procedure) ?(Rule )?(?<rule>\\d+[a-z]?)"
     },
     {
         "name": "Federal Rules of Criminal Procedure",
@@ -296,14 +158,22 @@ const schemas = [
             "#rule_{rule}_{subsection}"
         ],
         "regex": "(F\\.? ?R\\.? ?Cr\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Crim\\.? ?Pr?o?c?\\.?|Federal Rules? of Criminal Procedure) ?(Rule )?(?<rule>\\d+[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Federal Rules of Evidence",
@@ -311,9 +181,7 @@ const schemas = [
         "URL": [
             "https://www.law.cornell.edu/rules/fre/rule_{rule}"
         ],
-        "regex": "(\\b|^)(F\\.? ?R\\.? ?E\\.?|Fed\\.? R(\\.?|ule) ?Evid\\.?|Federal Rules? of Evidence) ?(Rule )?(?<rule>\\d+[a-z]?)",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(F\\.? ?R\\.? ?E\\.?|Fed\\.? R(\\.?|ule) ?Evid\\.?|Federal Rules? of Evidence) ?(Rule )?(?<rule>\\d+[a-z]?)"
     },
     {
         "name": "Immigration and Nationality Act",
@@ -325,17 +193,10 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(Immigration ([Aa]nd|&) Nationality Act|I\\.?N\\.?A\\.?|I\\. N\\. A\\.) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
-            {
-                "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
-            }
-        ],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
+                "lookup": {
                     "101": "1101",
                     "102": "1102",
                     "103": "1103",
@@ -517,6 +378,20 @@ const schemas = [
                     "506": "1536",
                     "507": "1537"
                 }
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
         ]
     },
@@ -530,14 +405,22 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(Internal Revenue Code|I\\.? ?R\\.? ?C\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Treasury Regulations",
@@ -549,14 +432,22 @@ const schemas = [
             "#p-{section}{subsection}"
         ],
         "regex": "Treas(ury|\\.?) ?Reg(ulations?|\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "National Labor Relations Act",
@@ -568,17 +459,10 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(Natioanal Labor Relations Act|N\\.? ?L\\.? ?R\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
-            {
-                "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
-            }
-        ],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
+                "lookup": {
                     "1": "151",
                     "2": "152",
                     "3": "153",
@@ -599,6 +483,20 @@ const schemas = [
                     "18": "168",
                     "19": "169"
                 }
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
         ]
     },
@@ -608,9 +506,7 @@ const schemas = [
         "URL": [
             "https://www.nlrb.gov/cases-decisions/decisions/board-decisions?search_term=&volume={volume}&page_number={page}"
         ],
-        "regex": "(\\b|^)(?<volume>\\d+) N\\.? ?L\\.? ?R\\.? ?B\\.? (?<page>\\d+)",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(?<volume>\\d+) N\\.? ?L\\.? ?R\\.? ?B\\.? (?<page>\\d+)"
     },
     {
         "name": "National Labor Relations Board Slip Opinions",
@@ -618,9 +514,7 @@ const schemas = [
         "URL": [
             "https://www.nlrb.gov/cases-decisions/decisions/board-decisions?search_term=&volume={volume}&slip_opinion_number={slip}"
         ],
-        "regex": "(\\b|^)(?<volume>\\d+) N\\.? ?L\\.? ?R\\.? ?B\\.? (Slip Op\\. )?No\\. (?<slip>\\d+)",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(?<volume>\\d+) N\\.? ?L\\.? ?R\\.? ?B\\.? (Slip Op\\. )?No\\. (?<slip>\\d+)"
     },
     {
         "name": "Endangered Species Act",
@@ -632,17 +526,10 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(Endangered Species Act|E\\.? ?S\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
-            {
-                "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
-            }
-        ],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
+                "lookup": {
                     "2": "1531",
                     "3": "1532",
                     "4": "1533",
@@ -659,6 +546,20 @@ const schemas = [
                     "17": "1543",
                     "18": "1544"
                 }
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
         ]
     },
@@ -672,17 +573,10 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(C\\.? ?A\\.? ?A\\.?|Clean Air Act) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
-            {
-                "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
-            }
-        ],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
+                "lookup": {
                     "101": "7401",
                     "102": "7402",
                     "103": "7403",
@@ -870,17 +764,10 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(Clean Water Act|C\\.? ?W\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
-            {
-                "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
-            }
-        ],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
+                "lookup": {
                     "101": "1251",
                     "112": "1262",
                     "115": "1265",
@@ -911,6 +798,20 @@ const schemas = [
                     "517": "1376",
                     "518": "1377"
                 }
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
         ]
     },
@@ -924,17 +825,10 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(Fair Housing Act|F\\.? ?h\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
-            {
-                "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
-            }
-        ],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
+                "lookup": {
                     "801": "3601",
                     "802": "3602",
                     "803": "3603",
@@ -960,6 +854,20 @@ const schemas = [
                     "820": "3619",
                     "901": "3631"
                 }
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
         ]
     },
@@ -973,14 +881,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regex": "(Americans [Ww]ith Disabilities Act|A\\. D\\. A\\.|A\\.?D\\.?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
-            {
-                "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
-            }
-        ],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
                 "index": {
@@ -1035,6 +936,20 @@ const schemas = [
                     "513": "12212",
                     "514": "12213"
                 }
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
         ]
     },
@@ -1045,15 +960,23 @@ const schemas = [
             "https://www.law.cornell.edu/ucc/{article}/{article}-{section}",
             "#{article}-{section}{subsection}"
         ],
-        "regex": "(Uniform Commercial Code|U\\.? ?C\\.? ?C\\.?)( ?§)? (?<article>\\d[a-z]?)\\W+(?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-        "mutations": [
+        "regex": "(Uniform Commercial Code|U\\.? ?C\\.? ?C\\.?)( ?§)? (?<article>\\d[a-z]?)[-‑–](?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+        "operations": [
             {
                 "token": "subsection",
-                "splitter": "\\W",
-                "joiner": "_"
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Code of Alabama, 1975",
@@ -1062,7 +985,7 @@ const schemas = [
             "https://alisondb.legislature.state.al.us/alison/CodeOfAlabama/1975/{title}-{chapter}-{section}.htm"
         ],
         "regex": "(\\b|^)(Ala(bama|\\.)|AL)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "title",
                 "case": "upper"
@@ -1071,65 +994,20 @@ const schemas = [
                 "token": "chapter",
                 "case": "upper"
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Alabama Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Alabama_Constitution",
+            "https://ballotpedia.org/Article_{article},_Alabama_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Ala(bama|\\.)|AL) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -1139,66 +1017,20 @@ const schemas = [
         "URL": [
             "http://www.akleg.gov/basis/statutes.asp#{title}.{chapter}.{section}"
         ],
-        "regex": "(\\b|^)(Alaska|AK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?)\\.(?<chapter>\\d+[A-Za-z]?)\\.(?<section>\\d+[A-Za-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Alaska|AK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?)\\.(?<chapter>\\d+[A-Za-z]?)\\.(?<section>\\d+[A-Za-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Alaska Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Alaska_Constitution",
+            "https://ballotpedia.org/Article_{article},_Alaska_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Alaska|AK) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -1208,66 +1040,20 @@ const schemas = [
         "URL": [
             "https://new.asbar.org/code-annotated/{title}-{section}"
         ],
-        "regex": "(\\b|^)Am(erican|\\.) ?Samoa( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+)\\.(?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)Am(erican|\\.) ?Samoa( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+)\\.(?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "American Samoa Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_American_Samoa_Constitution",
+            "https://ballotpedia.org/Article_{article},_American_Samoa_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)Am(erican|\\.) ?Samoa ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -1275,104 +1061,18 @@ const schemas = [
         "name": "Arkansas Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{arabic_article},_Arkansas_Constitution",
+            "https://ballotpedia.org/Article_{article},_Arkansas_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Ark(ansas|\\.)|AR) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "outputToken": "arabic_article"
+                "numberFormat": "digit"
             },
             {
                 "token": "section",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true
+                "numberFormat": "digit"
             }
         ]
     },
@@ -1380,28 +1080,20 @@ const schemas = [
         "name": "Arizona Revised Statutes",
         "defaults": {},
         "URL": [
-            "https://www.azleg.gov/viewdocument/?docName=https://www.azleg.gov/ars/{title}/{lpad}{section}.htm"
+            "https://www.azleg.gov/viewdocument/?docName=https://www.azleg.gov/ars/{title}/{section}.htm"
         ],
         "regex": "(\\b|^)(Ariz(ona|\\.)|AZ)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "section",
-                "splitter": "\\.",
-                "joiner": "-"
-            }
-        ],
-        "substitutions": [
+                "sub": [
+                    "\\.",
+                    "-"
+                ]
+            },
             {
                 "token": "section",
-                "index": {
-                    "\\d{5}(\\D\\d+)?": "",
-                    "\\d{4}(\\D\\d+)?": "0",
-                    "\\d{3}(\\D\\d+)?": "00",
-                    "\\d{2}(\\D\\d+)?": "000",
-                    "\\d(\\D\\d+)?": "0000"
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "lpad": 5
             }
         ]
     },
@@ -1413,100 +1105,14 @@ const schemas = [
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Ariz(ona|\\.)|AZ) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "outputToken": "arabic_article"
+                "numberFormat": "digit"
             },
             {
                 "token": "section",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true
+                "numberFormat": "digit"
             }
         ]
     },
@@ -1517,16 +1123,11 @@ const schemas = [
             "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode={codeAcronym}&sectionNum={section}"
         ],
         "regex": "(\\b|^)(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Code( Ann(otated|\\.))?,?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "code",
-                "case": "upper"
-            }
-        ],
-        "substitutions": [
-            {
-                "token": "code",
-                "index": {
+                "output": "codeAcronym",
+                "lookup": {
                     "Bus(iness|\\.) (and|&) Prof(essions|s?\\.)|B\\.? ?& ?P\\.?|BPC": "BPC",
                     "Civ(il|\\.)|CIV": "CIV",
                     "(Code( of)? )?(Civil Procedure|Civ\\. ?P(roc?)?\\.)|CCP": "CCP",
@@ -1556,9 +1157,7 @@ const schemas = [
                     "Veh(icle|(ic)?\\.)|VEH": "VEH",
                     "Water|WAT": "WAT",
                     "Welf(are|\\.) (and|&) Inst(itutions|s?\\.)|WIC": "WIC"
-                },
-                "useRegex": true,
-                "outputToken": "codeAcronym"
+                }
             }
         ]
     },
@@ -1569,67 +1168,22 @@ const schemas = [
         },
         "URL": [
             "https://leginfo.legislature.ca.gov/faces/codes_display{displayType}.xhtml?lawCode=CONS",
-            "&article={roman_article}",
+            "&article={article}",
             "&sectionNum=SEC.%20{section}."
         ],
         "regex": "(\\b|^)(Cal(ifornia|\\.)|CAL?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             },
             {
                 "token": "section",
-                "index": {
-                    ".+": "Section"
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "displayType"
+                "output": "displayType",
+                "optionalLookup": {
+                    ".+": null,
+                    "Section": null
+                }
             }
         ]
     },
@@ -1639,27 +1193,20 @@ const schemas = [
             "year": "2020"
         },
         "URL": [
-            "https://leg.colorado.gov/sites/default/files/images/olls/crs{year}-title-{lpad}{title}.pdf#search={lpad}{title}-{article}-{section}."
+            "https://leg.colorado.gov/sites/default/files/images/olls/crs{year}-title-{lpad_title}.pdf#search={title}-{article}-{section}."
         ],
         "regex": "(\\b|^)(Colo(rado|\\.)|CO)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?)[-‑–](?<article>\\d+(\\.\\d+)?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "title",
-                "index": {
-                    "\\d{2}": "",
-                    "\\d": "0"
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "output": "lpad_title",
+                "lpad": 2
             },
             {
                 "token": "year",
-                "index": {
+                "optionalLookup": {
                     "1[89]\\d{2}|200\\d|201[0-2]": "2020"
-                },
-                "useRegex": true,
-                "allowUnmatched": true
+                }
             }
         ]
     },
@@ -1667,58 +1214,14 @@ const schemas = [
         "name": "Colorado Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Colorado_Constitution",
+            "https://ballotpedia.org/Article_{article},_Colorado_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Colo(rado|\\.)|CO) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -1728,66 +1231,20 @@ const schemas = [
         "URL": [
             "https://www.lawserver.com/law/state/connecticut/ct-laws/connecticut_statutes_{section}"
         ],
-        "regex": "(\\b|^)(Conn(ecticut|\\.)|CT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<section>(\\d[a-z\\-]*\\w|\\d+))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Conn(ecticut|\\.)|CT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<section>(\\d[a-z\\-]*\\w|\\d+))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Connecticut Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Connecticut_Constitution",
+            "https://ballotpedia.org/Article_{article},_Connecticut_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Conn(ecticut|\\.)|CT) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -1798,13 +1255,12 @@ const schemas = [
             "https://www.lawserver.com/law/state/delaware/de-code/delaware_code_title_{title}_{section}"
         ],
         "regex": "(\\b|^)([Tt]it(le|\\.) )?(?<title>\\d{1,2}),? (Del(aware|\\.)|DE) ?C(ode|\\.) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "section",
                 "case": "lower"
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Delaware General Corporations Law",
@@ -1813,11 +1269,11 @@ const schemas = [
             "https://delcode.delaware.gov/title8/c001/sc{subchapter}/index.shtml#{section}."
         ],
         "regex": "(\\b|^)(D\\.? ?G\\.? ?C\\.? ?L\\.?|Del(aware|\\.) ?Gen(eral|\\.) ?Corp(orations?|s?\\.) ?L(aw|\\.)) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
+                "output": "subchapter",
+                "lookup": {
                     "1[01]\\d": "01",
                     "12\\d": "02",
                     "13\\d": "03",
@@ -1836,9 +1292,7 @@ const schemas = [
                     "37\\d|38[0-5]": "16",
                     "38[89]|390": "17",
                     "39[1-9]": "18"
-                },
-                "useRegex": true,
-                "outputToken": "subchapter"
+                }
             }
         ]
     },
@@ -1846,58 +1300,14 @@ const schemas = [
         "name": "Delaware Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Delaware_Constitution",
+            "https://ballotpedia.org/Article_{article},_Delaware_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Del(aware|\\.)|DE) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -1908,9 +1318,7 @@ const schemas = [
             "https://code.dccouncil.us/dc/council/code/sections/{title}-{section}.html",
             "#{subsection}"
         ],
-        "regex": "(\\b|^)(District of Columbia( Official)?|D\\.? ?C\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(District of Columbia( Official)?|D\\.? ?C\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Florida Statutes",
@@ -1918,21 +1326,13 @@ const schemas = [
             "year": "2020"
         },
         "URL": [
-            "https://www.flsenate.gov/Laws/Statutes/{year}/{lpad}{chapter}.{section}"
+            "https://www.flsenate.gov/Laws/Statutes/{year}/{chapter}.{section}"
         ],
         "regex": "(\\b|^)(Fl(orida|a?\\.)|FL)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "chapter",
-                "index": {
-                    "\\d{4}": "",
-                    "\\d{3}": "0",
-                    "\\d{2}": "00",
-                    "\\d{1}": "000"
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "lpad": 4
             }
         ]
     },
@@ -1940,67 +1340,18 @@ const schemas = [
         "name": "Florida Constitution",
         "defaults": {},
         "URL": [
-            "https://www.flsenate.gov/Laws/Constitution#A{arabic_article}",
-            "S{lpad}{section}"
+            "https://www.flsenate.gov/Laws/Constitution#A{article}",
+            "S{section}"
         ],
         "regex": "(\\b|^)(Fl(orida|a?\\.)|FL) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
-                    "\\d{2}": "",
-                    "\\d": "0"
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "lpad": 2
             },
             {
                 "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "outputToken": "arabic_article"
+                "numberFormat": "digit"
             }
         ]
     },
@@ -2010,57 +1361,13 @@ const schemas = [
             "paragraph": "1"
         },
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Georgia_Constitution"
+            "https://ballotpedia.org/Article_{article},_Georgia_Constitution"
         ],
         "regex": "(\\b|^)G(eorgia|a\\.|A) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Pp]ar(agraph|a?\\.) ?(?<paragraph>[\\dIVXivx]{1,8})))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -2070,66 +1377,20 @@ const schemas = [
         "URL": [
             "https://www.lawserver.com/law/state/hawaii/hi-statutes/hawaii_statutes_{chapter}-{section}"
         ],
-        "regex": "(\\b|^)(Haw(ai.?i|\\.)|HI)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Haw(ai.?i|\\.)|HI)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Hawaii Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Hawaii_Constitution",
+            "https://ballotpedia.org/Article_{article},_Hawaii_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Haw(ai.?i|\\.)|HI) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -2139,9 +1400,7 @@ const schemas = [
         "URL": [
             "https://legislature.idaho.gov/statutesrules/idstat/Title{title}/T{title}CH{chapter}/SECT{title}-{section}/"
         ],
-        "regex": "(\\b|^)I(daho|D)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>(?<chapter>\\d{1,2})\\d{2}[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)I(daho|D)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>(?<chapter>\\d{1,2})\\d{2}[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Idaho Constitution",
@@ -2151,54 +1410,10 @@ const schemas = [
             "#Section_{section}"
         ],
         "regex": "(\\b|^)I(daho|D) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -2206,32 +1421,17 @@ const schemas = [
         "name": "Illinois Compiled Statutes",
         "defaults": {},
         "URL": [
-            "https://www.ilga.gov/legislation/ilcs/fulltext.asp?DocName={chlpad}{chapter}{actlpad}{act}0K{section}"
+            "https://www.ilga.gov/legislation/ilcs/fulltext.asp?DocName={chapter}{act}0K{section}"
         ],
         "regex": "(\\b|^)(?<chapter>\\d+) ILCS (?<act>\\d+)/(?<section>(\\d[\\d.-]*\\w|\\d))",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "chapter",
-                "index": {
-                    "\\d{4}": "",
-                    "\\d{3}": "0",
-                    "\\d{2}": "00",
-                    "\\d{1}": "000"
-                },
-                "useRegex": true,
-                "outputToken": "chlpad"
+                "lpad": 4
             },
             {
                 "token": "act",
-                "index": {
-                    "\\d{4}": "",
-                    "\\d{3}": "0",
-                    "\\d{2}": "00",
-                    "\\d{1}": "000"
-                },
-                "useRegex": true,
-                "outputToken": "actlpad"
+                "lpad": 4
             }
         ]
     },
@@ -2239,58 +1439,14 @@ const schemas = [
         "name": "Illinois Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Illinois_Constitution",
+            "https://ballotpedia.org/Article_{article},_Illinois_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Il(linois|l?\\.)|IL) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -2300,19 +1456,13 @@ const schemas = [
             "year": "2020"
         },
         "URL": [
-            "https://iga.in.gov/legislative/laws/{year}/ic/titles/{lpad}{title}#{title}-{article}-{chapter}-{section}"
+            "https://iga.in.gov/legislative/laws/{year}/ic/titles/{title}#{title}-{article}-{chapter}-{section}"
         ],
         "regex": "(\\b|^)(Ind(iana|\\.)|IN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+)-(?<article>\\d+(\\.\\d+)?)-(?<chapter>\\d+(\\.\\d+)?)-(?<section>\\d+(\\.\\d+)?)(,? \\((?<year>\\d{4})\\))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "title",
-                "index": {
-                    "\\d{2}": "0",
-                    "\\d": "0"
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "lpad": 2
             }
         ]
     },
@@ -2320,104 +1470,18 @@ const schemas = [
         "name": "Indiana Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{arabic_article},_Indiana_Constitution",
+            "https://ballotpedia.org/Article_{article},_Indiana_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Ind(iana|\\.)|IN) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "outputToken": "arabic_article"
+                "numberFormat": "digit"
             },
             {
                 "token": "section",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true
+                "numberFormat": "digit"
             }
         ]
     },
@@ -2427,66 +1491,20 @@ const schemas = [
         "URL": [
             "https://www.legis.iowa.gov/docs/code/{chapter}.{section}.pdf"
         ],
-        "regex": "(\\b|^)I(owa|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)I(owa|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Iowa Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Iowa_Constitution",
+            "https://ballotpedia.org/Article_{article},_Iowa_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)I(owa|A) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -2496,121 +1514,34 @@ const schemas = [
         "URL": [
             "https://www.lawserver.com/law/state/kansas/ks-statutes/kansas_statutes_{chapter}-{section}"
         ],
-        "regex": "(\\b|^)(Kan(sas|\\.)|KS)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Kan(sas|\\.)|KS)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Kansas Constitution",
         "defaults": {},
         "URL": [
             "https://ballotpedia.org/",
-            "Article_{arabic_article}",
+            "Article_{article}",
             "{part}",
             ",_Kansas_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Kan(sas|\\.)|KS) ?Const(itution|\\.) ?([Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})|(?<part>Bill of Rights|Preamble))(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [
-            {
-                "token": "part",
-                "splitter": " ",
-                "joiner": "_"
-            }
-        ],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "outputToken": "arabic_article"
+                "numberFormat": "roman"
             },
             {
                 "token": "section",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true
+                "numberFormat": "roman"
+            },
+            {
+                "token": "part",
+                "sub": [
+                    " ",
+                    "_"
+                ]
             }
         ]
     },
@@ -2621,28 +1552,28 @@ const schemas = [
             "https://www.lawserver.com/law/state/kentucky/ky-statutes/kentucky_statutes_{chapter}-{section}"
         ],
         "regex": "(\\b|^)(K(entucky|y\\.|Y)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|KRS )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>(\\d[\\d.]*\\w|\\d))\\.(?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "chapter",
                 "case": "lower",
-                "splitter": "\\.",
-                "joiner": "-"
+                "sub": [
+                    "\\.",
+                    "-"
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Kentucky Constitution",
         "defaults": {},
         "URL": [
-            "https://apps.legislature.ky.gov/Law/Constitution/Constitution/ViewConstitution?rsn={rsn}"
+            "https://apps.legislature.ky.gov/Law/Constitution/Constitution/ViewConstitution?rsn={section}"
         ],
         "regex": "(\\b|^)K(entucky|y\\.|Y) ?Const(itution|\\.),?( ?(Art(icle|\\.) ?)?([IVXivx]{1,7}|\\d{1,2}|Bill of Rights|Rights of Victims of Crime|Dist(ribution|\\.) of the Powers of Gov(ernment|('t)?\\.?)|(The )?(Leg(islative|(is)?\\.)|Exec(utive|\\.)|Jud(icial|\\.)) ?Dep(artment|('t)?\\.?)|Counties (and|&) County Seats|Impeachments|(C(ounty|ty\\.)|Fisc(al|\\.)) ?C(ourts|ts\\.)|Justices of the Peace|Suff(rage|\\.) ?(and|&) ?Elec(tions|\\.)|Mun(icipalities|i?\\.)|Rev(enue|\\.) ?(and|&) ?Tax(ation|\\.?)|Educ(ation|\\.)|Corp(orations?|s?\\.)|R(ailroads|\\.R\\.) (and|&) Com(merce|m?\\.)|(The )?Militia|Gen(eral|\\.) ?Prov(isions|s?\\.)|Mode of Rev(ision|\\.)),?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "section",
-                "index": {
+                "lookup": {
                     "1": "3",
                     "2": "4",
                     "3": "5",
@@ -2915,8 +1846,7 @@ const schemas = [
                     "260": "298",
                     "261": "299",
                     "263": "301"
-                },
-                "outputToken": "rsn"
+                }
             }
         ]
     },
@@ -2926,30 +1856,25 @@ const schemas = [
         "URL": [
             "https://www.lawserver.com/law/state/louisiana/la-laws/louisiana_revised_statutes_{title}-{section}"
         ],
-        "regex": "(\\b|^)L(ouisiana|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?):(?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)L(ouisiana|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?):(?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Louisiana Codes",
         "defaults": {},
         "URL": [
-            "https://www.lawserver.com/law/state/louisiana/la-codes/louisiana_{code_slug}_{article}"
+            "https://www.lawserver.com/law/state/louisiana/la-codes/louisiana_{code}_{article}"
         ],
         "regex": "(\\b|^)L(ouisiana|a\\.|A) ?(?<code>Civ(il|\\.) ?Code|Code( of)? ((Civ(il|\\.)|Crim(inal|\\.)) ?Proc(edure|\\.)|Evid(ence|\\.))|Child(ren'?s|\\.) ?Code)( Ann(otated|\\.))?,?( [Aa]rt(icle|\\.))? (?<article>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "code",
-                "index": {
+                "lookup": {
                     "Civ(il|\\.) ?Code": "civil_code",
                     "Code( of)? Civ(il|\\.) ?Proc(edure|\\.)": "code_of_civil_procedure",
                     "Code( of)? Crim(inal|\\.) ?Proc(edure|\\.)": "code_of_criminal_procedure",
                     "Code( of)? Evid(ence|\\.)": "code_of_evidence",
                     "Child(ren'?s|\\.) ?Code": "childrens_code"
-                },
-                "useRegex": true,
-                "outputToken": "code_slug"
+                }
             }
         ]
     },
@@ -2957,58 +1882,14 @@ const schemas = [
         "name": "Louisiana Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Louisiana_Constitution",
+            "https://ballotpedia.org/Article_{article},_Louisiana_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)L(ouisiana|a\\.|A) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3019,82 +1900,41 @@ const schemas = [
             "https://legislature.maine.gov/legis/statutes/{title}/title{title}sec{section}.html"
         ],
         "regex": "(\\b|^)M(aine|e\\.|E)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "title",
-                "splitter": "—",
-                "joiner": "-"
+                "sub": [
+                    "—",
+                    "-"
+                ]
             },
             {
                 "token": "section",
-                "splitter": "—",
-                "joiner": "-"
+                "sub": [
+                    "—",
+                    "-"
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Maine Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article}",
+            "https://ballotpedia.org/Article_{article}",
             "--Part_{part}",
             ",_Maine_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)M(aine|e\\.|E) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? [Pp](art|t\\.) ?(?<part>\\d))?(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             },
             {
                 "token": "part",
-                "index": {
+                "lookup": {
                     "1": "First",
                     "2": "Second"
                 }
@@ -3105,20 +1945,21 @@ const schemas = [
         "name": "Maryland Code",
         "defaults": {},
         "URL": [
-            "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article={article_code}&section={title}-{section}"
+            "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article={articleCode}&section={title}-{section}"
         ],
         "regex": "(\\b|^)M(aryland|d\\.|D)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?(?<article>(Ac|Al|[BCEFHILNPRST]).{4,38}?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>[\\dA-Z\\-–.]*[\\dA-Z])(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "section",
-                "splitter": "–",
-                "joiner": "-"
-            }
-        ],
-        "substitutions": [
+                "lookup": [
+                    "–",
+                    "-"
+                ]
+            },
             {
                 "token": "article",
-                "index": {
+                "output": "articleCode",
+                "lookup": {
                     "Acric(ulture|\\.)": "gag",
                     "Alco(holic|\\.) ?Bev(erages|s?\\.)": "gab",
                     "Bus(iness|\\.) ?Occ(upations|\\.) ?(and|&) ?Prof(essions|s?\\.)": "gbo",
@@ -3154,9 +1995,7 @@ const schemas = [
                     "Tax ?[-–] ?Gen(eral|\\.)": "gtg",
                     "Tax ?[-–] ?Prop(erty|\\.)": "gtp",
                     "Transp(ortation|\\.)": "gtr"
-                },
-                "useRegex": true,
-                "outputToken": "article_code"
+                }
             }
         ]
     },
@@ -3164,58 +2003,14 @@ const schemas = [
         "name": "Maryland Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Maryland_Constitution",
+            "https://ballotpedia.org/Article_{article},_Maryland_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)M(aryland|d\\.|D) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3226,14 +2021,15 @@ const schemas = [
             "https://malegislature.gov/GeneralLaws/GoTo?ChapterGoTo={chapter}&SectionGoTo={section}"
         ],
         "regex": "(\\b|^)((Mass(achusetts|\\.)|MA) ?(Gen(eral|\\.)|Ann(otated|\\.)) ?Laws( Ann(otated|\\.))?|M\\.?G\\.?L\\.?(A\\.?)?|A\\.?L\\.?M\\.?),? [Cc](hapter|h?\\.) ?(?<chapter>\\d+[A-Z]?),? ((&sect;|&#167|§){1,2}|Sect?(ions?|s?\\.))? ?(?<section>\\d+[A-Z]?\\d*([/]\\d+[A-Z]?)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "section",
-                "splitter": "/",
-                "joiner": "~"
+                "sub": [
+                    "/",
+                    "~"
+                ]
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Massachusetts Constitution",
@@ -3248,163 +2044,32 @@ const schemas = [
             "{isSecond}Article{article}"
         ],
         "regex": "(\\b|^)(Mass(achusetts|\\.)|MA) Const(itution|\\.),? [Pp](art|t\\.) ?(?<part>II?|1|2|[Tt]he ([Ff]irst|[Ss]econd))(,? [Cc](hapter|h?\\.) ?(?<chapter>\\d+|[IVXivx]{1,7})(,? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>\\d+|[IVXivx]{1,7}))?)?(,? [Aa]rt(icle|\\.) ?(?<article>\\d+|[IVXivx]{1,7}))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "part",
-                "index": {
+                "output": "isFirst",
+                "optionalLookup": {
                     "1|I|.*irst": ""
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "isFirst"
+                }
             },
             {
                 "token": "part",
-                "index": {
+                "output": "isSecond",
+                "optionalLookup": {
                     "2|II|.*econd": ""
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "isSecond"
+                }
             },
             {
                 "token": "chapter",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true
+                "numberFormat": "roman"
             },
             {
                 "token": "section",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true
+                "numberFormat": "roman"
             },
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3414,66 +2079,20 @@ const schemas = [
         "URL": [
             "https://legislature.mi.gov/doc.aspx?mcl-{chapter}-{section}"
         ],
-        "regex": "(\\b|^)(Mich(igan|\\.)|MI) Comp(iled|\\.) Laws( (Serv(ice|\\.)|Ann(otated|\\.)))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Mich(igan|\\.)|MI) Comp(iled|\\.) Laws( (Serv(ice|\\.)|Ann(otated|\\.)))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Michigan Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Michigan_Constitution",
+            "https://ballotpedia.org/Article_{article},_Michigan_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Mich(igan|\\.)|MI) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3484,66 +2103,20 @@ const schemas = [
             "https://www.revisor.mn.gov/statutes/cite/{chapter}.{section}",
             "#stat.{chapter}.{section}.{subdivision}"
         ],
-        "regex": "(\\b|^)(Minn(esota|\\.)|MN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>\\((?<subdivision>\\d\\w*)\\)(\\(\\w+\\))*|(\\(\\w+\\))+)?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Minn(esota|\\.)|MN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(?<subsection>\\((?<subdivision>\\d\\w*)\\)(\\(\\w+\\))*|(\\(\\w+\\))+)?"
     },
     {
         "name": "Minnesota Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Minnesota_Constitution",
+            "https://ballotpedia.org/Article_{article},_Minnesota_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Minn(esota|\\.)|MN) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3555,66 +2128,20 @@ const schemas = [
         "URL": [
             "https://law.justia.com/codes/mississippi/{year}/title-{title}/chapter-{chapter}/section-{title}-{chapter}-{section}/index.html"
         ],
-        "regex": "(\\b|^)(Miss(issippi|\\.)|MS)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Miss(issippi|\\.)|MS)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?"
     },
     {
         "name": "Mississippi Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Mississippi_Constitution",
+            "https://ballotpedia.org/Article_{article},_Mississippi_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Miss(issippi|\\.)|MS) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3624,66 +2151,20 @@ const schemas = [
         "URL": [
             "https://revisor.mo.gov/main/OneSection.aspx?section={chapter}.{section}"
         ],
-        "regex": "(\\b|^)((M(issouri|o\\.|O)( Ann(otated|\\.))? ?Rev(ised|\\.) ?Stat(utes|s?\\.)( Ann(otated|\\.))?|R\\.?S\\.?M[Oo]\\.?)) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)((M(issouri|o\\.|O)( Ann(otated|\\.))? ?Rev(ised|\\.) ?Stat(utes|s?\\.)( Ann(otated|\\.))?|R\\.?S\\.?M[Oo]\\.?)) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Missouri Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Missouri_Constitution",
+            "https://ballotpedia.org/Article_{article},_Missouri_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)M(issouri|o\\.|O) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3693,66 +2174,20 @@ const schemas = [
         "URL": [
             "https://www.lawserver.com/law/state/montana/mt-code/montana_code_{title}-{chapter}-{section}"
         ],
-        "regex": "(\\b|^)(Mont(ana|\\.)|MT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Mont(ana|\\.)|MT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Montana Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Montana_Constitution",
+            "https://ballotpedia.org/Article_{article},_Montana_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Mont(ana|\\.)|MT) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3762,66 +2197,20 @@ const schemas = [
         "URL": [
             "https://www.nebraskalegislature.gov/laws/statutes.php?statute={chapter}-{section}"
         ],
-        "regex": "(\\b|^)(Neb(raska|\\.)|NE)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Neb(raska|\\.)|NE)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Nebraska Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Nebraska_Constitution",
+            "https://ballotpedia.org/Article_{article},_Nebraska_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Neb(raska|\\.)|NE) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -3832,21 +2221,30 @@ const schemas = [
             "https://www.lawserver.com/law/state/new-hampshire/nh-statutes/new_hampshire_revised_statutes_{chapter}_{section}"
         ],
         "regex": "(\\b|^)(New Hampshire|N\\.? ?H\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+([-–][A-Za-z])?):(?<section>\\d+([-‑–][A-Za-z])?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "chapter",
-                "case": "lower",
-                "splitter": "[–‑]",
-                "joiner": "-"
+                "sub": [
+                    "[–‑]",
+                    "-"
+                ]
+            },
+            {
+                "token": "chapter",
+                "case": "lower"
             },
             {
                 "token": "section",
-                "case": "lower",
-                "splitter": "–",
-                "joiner": "-"
+                "sub": [
+                    "–‑",
+                    "-"
+                ]
+            },
+            {
+                "token": "section",
+                "case": "lower"
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "New Hampshire Constitution",
@@ -3859,29 +2257,25 @@ const schemas = [
             "#Article_{article}"
         ],
         "regex": "(\\b|^)(New Hampshire|N\\.? ?H\\.?) ?Const(itution|\\.),? ?[Pp](art|t\\.) ?(?<part>II?|1|2|([Tt]he )([Ff]irst|[Ss]econd)),? [Aa]rt(icle|\\.) ?(?<article>\\d+(-\\w)?)",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "part",
-                "index": {
+                "output": "isPart1",
+                "optionalLookup": {
                     "I|1|The First": ""
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "isPart1"
+                }
             },
             {
                 "token": "part",
-                "index": {
+                "output": "isPart2",
+                "optionalLookup": {
                     "II|2|The Second": ""
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "isPart2"
+                }
             },
             {
                 "token": "article",
-                "index": {
+                "output": "part2Section",
+                "optionalLookup": {
                     "[1-8](-[ab])?": "Part_Second",
                     "(9|2[0-4])(-[ab])?": "House_of_Representatives",
                     "(2[5-9]|3\\d|40)(-[ab])?": "Senate",
@@ -3893,10 +2287,7 @@ const schemas = [
                     "82": "Clerks_of_Courts",
                     "83": "Encouragement_of_Literature,_Trade,_Etc.",
                     "(8[4-9]|9\\d|10[01])": "Oaths_and_Subscriptions_Exclusion_from_Offices,_Etc."
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "part2Section"
+                }
             }
         ]
     },
@@ -3906,9 +2297,7 @@ const schemas = [
         "URL": [
             "https://njlaw.rutgers.edu/collections/njstats/showsect.php?title={title}&chapter={chapter}&section={section}&actn=getsect"
         ],
-        "regex": "(\\b|^)((N\\.? ?J\\.?|New Jersey)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|N\\.?J\\.?S\\.?A )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?):(?<chapter>\\d+[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?[A-Za-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)((N\\.? ?J\\.?|New Jersey)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|N\\.?J\\.?S\\.?A )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?):(?<chapter>\\d+[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?[A-Za-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "New Jersey Constitution",
@@ -3919,99 +2308,14 @@ const schemas = [
             "#Paragraph_{paragraph}"
         ],
         "regex": "(\\b|^)(N\\.? ?J\\.?|New Jersey) ?Const(itution|\\.),? ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8}),? ((&sect;|&#167|§|[Ss]ec(tion|t?\\.)) ?(?<section>[\\dIVXivx]{1,8})|[Pp](ar(agraph|a?\\.)) ?(?<paragraph>\\d+))",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true
+                "numberFormat": "roman"
             },
             {
                 "token": "section",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4019,20 +2323,14 @@ const schemas = [
         "name": "Nevada Revised Statutes",
         "defaults": {},
         "URL": [
-            "https://www.leg.state.nv.us/NRS/NRS-{lpad}{chapter}.html#NRS{lpad}{chapter}Sec{section}"
+            "https://www.leg.state.nv.us/NRS/NRS-{lpad_chapter}.html#NRS{chapter}Sec{section}"
         ],
         "regex": "(\\b|^)((Nev(ada|\\.)|NV)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|NRS )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "chapter",
-                "index": {
-                    "\\d{3}[A-Z]?": "",
-                    "\\d{2}[A-Z]?": "0",
-                    "\\d{1}[A-Z]?": "00"
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "output": "lpad_chapter",
+                "lpad": 3
             }
         ]
     },
@@ -4040,104 +2338,18 @@ const schemas = [
         "name": "Nevada Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{arabic_article},_Nevada_Constitution",
+            "https://ballotpedia.org/Article_{article},_Nevada_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Nev(ada|\\.)|NV) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "outputToken": "arabic_article"
+                "numberFormat": "digit"
             },
             {
                 "token": "section",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true
+                "numberFormat": "digit"
             }
         ]
     },
@@ -4148,11 +2360,11 @@ const schemas = [
             "https://nmonesource.com/nmos/nmsa/en/item/{chapter_code}/index.do#!b/{chapter}-{article}-{section}"
         ],
         "regex": "(\\b|^)((New Mexico|N\\.? ?M\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|NMSA )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Za-z]?)-(?<article>\\d+[A-Za-z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "chapter",
-                "index": {
+                "output": "chapter_code",
+                "lookup": {
                     "1": "4351",
                     "2": "4359",
                     "3": "4362",
@@ -4236,8 +2448,7 @@ const schemas = [
                     "75": "4421",
                     "76": "4424",
                     "77": "4427"
-                },
-                "outputToken": "chapter_code"
+                }
             }
         ]
     },
@@ -4245,58 +2456,14 @@ const schemas = [
         "name": "New Mexico Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_New_Mexico_Constitution",
+            "https://ballotpedia.org/Article_{article},_New_Mexico_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(New Mexico|N\\.? ?M\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4307,11 +2474,11 @@ const schemas = [
             "https://www.nysenate.gov/legislation/laws/{chapterAcronym}/{section}"
         ],
         "regex": "(\\b|^)(New York|N\\.? ?Y\\.?) ?(?<chapter>.{2,40}?)( Law)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "chapter",
-                "index": {
+                "output": "chapterAcronym",
+                "lookup": {
                     "Abandoned Property|ABP": "ABP",
                     "Agric(ulture|\\.) (and|&) M(arkets|kts)|AGM|A&M": null,
                     "Alc(oholic|o?\\.) Bev(erage|\\.) Cont(rol|\\.)|ABC": "ABC",
@@ -4392,9 +2559,7 @@ const schemas = [
                     "Vill(age|\\.)|VIL": "VIL",
                     "Vol(unteer|\\.) Ambul(ance|\\.) Workers'? Benefit|VAW": "VAW",
                     "Vol(unteer|\\.) Fire(fighters'?|\\.) Ben(efit|\\.)|VOL": "VOL"
-                },
-                "useRegex": true,
-                "outputToken": "chapterAcronym"
+                }
             }
         ]
     },
@@ -4402,58 +2567,14 @@ const schemas = [
         "name": "New York Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_New_York_Constitution",
+            "https://ballotpedia.org/Article_{article},_New_York_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(New York|N\\.? ?Y\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4463,66 +2584,20 @@ const schemas = [
         "URL": [
             "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_{chapter}/GS_{chapter}-{section}.html"
         ],
-        "regex": "(\\b|^)((North Carolina|N\\.? ?C\\.?) ?Gen(eral|\\.) ?Stat(utes|s?\\.)|N\\.? ?C\\.? ?G\\.? ?S\\.?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)((North Carolina|N\\.? ?C\\.?) ?Gen(eral|\\.) ?Stat(utes|s?\\.)|N\\.? ?C\\.? ?G\\.? ?S\\.?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "North Carolina Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_North_Carolina_Constitution",
+            "https://ballotpedia.org/Article_{article},_North_Carolina_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(North Carolina|N\\.? ?C\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4530,41 +2605,17 @@ const schemas = [
         "name": "North Dakota Century Code",
         "defaults": {},
         "URL": [
-            "https://www.lawserver.com/law/state/north-dakota/nd-code/north_dakota_code_{title}_{chapter_lpad}{chapter}_{section_lpad}{section}"
+            "https://www.lawserver.com/law/state/north-dakota/nd-code/north_dakota_code_{title}_{chapter}_{section}"
         ],
         "regex": "(\\b|^)(North Dakota|N\\.? ?D\\.?) ?Cent(ury|\\.) ?Code( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
-            {
-                "token": "title",
-                "splitter": "\\.",
-                "joiner": "-"
-            },
+        "operations": [
             {
                 "token": "chapter",
-                "splitter": "\\.",
-                "joiner": "-"
-            }
-        ],
-        "substitutions": [
-            {
-                "token": "chapter",
-                "index": {
-                    "\\d{2}(\\D\\d+)?": "",
-                    "\\d(\\D\\d+)?": "0"
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "chapter_lpad"
+                "lpad": 2
             },
             {
                 "token": "section",
-                "index": {
-                    "\\d{2}(\\D\\d+)?": "",
-                    "\\d(\\D\\d+)?": "0"
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "section_lpad"
+                "lpad": 2
             }
         ]
     },
@@ -4576,54 +2627,10 @@ const schemas = [
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(North Dakota|N\\.? ?D\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4633,66 +2640,20 @@ const schemas = [
         "URL": [
             "https://cnmilaw.org/pdf/cmc_section/T{title}/{section}.pdf"
         ],
-        "regex": "(\\b|^)(?<title>\\d+) N(orthern|\\.) ?Mar(iana|\\.) ?I(slands|\\.)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(?<title>\\d+) N(orthern|\\.) ?Mar(iana|\\.) ?I(slands|\\.)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Northern Mariana Islands Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Northern_Mariana_Islands_Constitution",
+            "https://ballotpedia.org/Article_{article},_Northern_Mariana_Islands_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)N(orthern|\\.) ?Mar(iana|\\.) ?I(slands|\\.) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4703,66 +2664,20 @@ const schemas = [
             "https://codes.ohio.gov/orc/{chapter}",
             ".{section}v1"
         ],
-        "regex": "(\\b|^)O(hio|H)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+)(\\.(?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?)?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)O(hio|H)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+)(\\.(?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?)?"
     },
     {
         "name": "Ohio Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Ohio_Constitution",
+            "https://ballotpedia.org/Article_{article},_Ohio_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)O(hio|H) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4775,13 +2690,12 @@ const schemas = [
             "https://law.justia.com/codes/oklahoma/{year}/title-{title}/section-{title}-{section}/index.html"
         ],
         "regex": "(\\b|^)(Okla(homa|\\.)|OK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "title",
                 "case": "lower"
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Oklahoma Constitution",
@@ -4791,54 +2705,10 @@ const schemas = [
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Okla(homa|\\.)|OK) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4848,9 +2718,7 @@ const schemas = [
         "URL": [
             "https://www.oregonlaws.org/ors/{chapter}.{section}"
         ],
-        "regex": "(\\b|^)(Or(egon|e?\\.)|OR)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Or(egon|e?\\.)|OR)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Oregon Constitution",
@@ -4860,32 +2728,24 @@ const schemas = [
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Or(egon|e?\\.)|OR) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[IVXivx]{1,5}(-\\w(\\(\\d\\))?)?)(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [
+        "operations": [
             {
                 "token": "article",
                 "case": "upper"
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Pennsylvania Code",
         "defaults": {},
         "URL": [
-            "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/{lpad}{title}/chapter{chapter}/s{chapter}.{section}.html"
+            "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/{title}/chapter{chapter}/s{chapter}.{section}.html"
         ],
         "regex": "(\\b|^)(?<title>\\d+) (Pennsylvania|Pa\\.|PA)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "title",
-                "index": {
-                    "\\d{3}": "",
-                    "\\d{2}": "0",
-                    "\\d{1}": "00"
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "lpad": 3
             }
         ]
     },
@@ -4893,58 +2753,14 @@ const schemas = [
         "name": "Pennsylvania Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Pennsylvania_Constitution",
+            "https://ballotpedia.org/Article_{article},_Pennsylvania_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Pennsylvania|Pa\\.|PA) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -4952,58 +2768,14 @@ const schemas = [
         "name": "Puerto Rico Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Puerto_Rico_Constitution",
+            "https://ballotpedia.org/Article_{article},_Puerto_Rico_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Puerto Rico|P\\.? ?R\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5013,66 +2785,20 @@ const schemas = [
         "URL": [
             "http://webserver.rilin.state.ri.us/Statutes/TITLE{title}/{title}-{chapter}/{title}-{chapter}-{section}.HTM"
         ],
-        "regex": "(\\b|^)(Rhode Island|R\\.? ?I\\.?) ?Gen(eral|\\.) ?Laws ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Rhode Island|R\\.? ?I\\.?) ?Gen(eral|\\.) ?Laws ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Rhode Island Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Rhode_Island_Constitution",
+            "https://ballotpedia.org/Article_{article},_Rhode_Island_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Rhode Island|R\\.? ?I\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5080,20 +2806,14 @@ const schemas = [
         "name": "South Carolina Code of Laws",
         "defaults": {},
         "URL": [
-            "https://www.scstatehouse.gov/code/t{title}c{lpad}{chapter}.php#{title}-{chapter}-{section}"
+            "https://www.scstatehouse.gov/code/t{title}c{lpad_chapter}.php#{title}-{chapter}-{section}"
         ],
         "regex": "(\\b|^)(South Carolina|S\\.? ?C\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "chapter",
-                "index": {
-                    "\\d{3}": "",
-                    "\\d{2}": "0",
-                    "\\d": "00"
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "output": "lpad_chapter",
+                "lpad": 3
             }
         ]
     },
@@ -5101,58 +2821,14 @@ const schemas = [
         "name": "South Carolina Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_South_Carolina_Constitution",
+            "https://ballotpedia.org/Article_{article},_South_Carolina_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(South Carolina|S\\.? ?C\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5162,66 +2838,20 @@ const schemas = [
         "URL": [
             "https://sdlegislature.gov/Statutes/Codified_Laws/DisplayStatute.aspx?Type=Statute&Statute={title}-{chapter}-{section}"
         ],
-        "regex": "(\\b|^)(South Dakota|S\\.? ?D\\.?) ?(Codified|Comp(iled|\\.)) Laws( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(South Dakota|S\\.? ?D\\.?) ?(Codified|Comp(iled|\\.)) Laws( Ann(otated|\\.))? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "South Dakota Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_South_Dakota_Constitution",
+            "https://ballotpedia.org/Article_{article},_South_Dakota_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(South Dakota|S\\.? ?D\\.?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5231,66 +2861,20 @@ const schemas = [
         "URL": [
             "https://www.lawserver.com/law/state/tennessee/tn-code/tennessee_code_{title}-{chapter}-{section}"
         ],
-        "regex": "(\\b|^)(Tenn(essee|\\.)|TN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Tenn(essee|\\.)|TN)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Tennessee Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Tennessee_Constitution",
+            "https://ballotpedia.org/Article_{article},_Tennessee_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Tenn(essee|\\.)|TN) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5301,11 +2885,11 @@ const schemas = [
             "https://statutes.capitol.texas.gov/Docs/{codeAcronym}/htm/{codeAcronym}.{chapter}.htm#{chapter}.{section}"
         ],
         "regex": "(\\b|^)(Tex(as|\\.)|TX) (?<code>\\w.{2,40}?)( Code( Ann(otated|\\.))?)? ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "code",
-                "index": {
+                "output": "codeAcronym",
+                "lookup": {
                     "Agric(ulture|\\.)|AGC?": "AG",
                     "Alc(oholic|o?\\.) Bev(erage|\\.)|ABC?": "AB",
                     "Aux(iliary|\\.) Water Laws|A?WL": "WL",
@@ -5335,9 +2919,7 @@ const schemas = [
                     "Util(ities|\\.)|UTC?": "UT",
                     "Water|WAC?": "WA",
                     "Vernon's Civ(il|\\.) Stat(utes|s?\\.)": "VC"
-                },
-                "useRegex": true,
-                "outputToken": "codeAcronym"
+                }
             }
         ]
     },
@@ -5345,103 +2927,17 @@ const schemas = [
         "name": "Texas Constitution",
         "defaults": {},
         "URL": [
-            "https://statutes.capitol.texas.gov/Docs/CN/htm/CN.{arabic_article}/CN.{arabic_article}.{section}.htm"
+            "https://statutes.capitol.texas.gov/Docs/CN/htm/CN.{article}/CN.{article}.{section}.htm"
         ],
         "regex": "(\\b|^)(Tex(as|\\.)|TX) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "outputToken": "arabic_article"
+                "numberFormat": "digit"
             },
             {
                 "token": "section",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true
+                "numberFormat": "digit"
             }
         ]
     },
@@ -5453,70 +2949,25 @@ const schemas = [
             "#{title}-{chapter}-{section}{subsection}"
         ],
         "regex": "(\\b|^)(Utah|UT)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [
+        "operations": [
             {
                 "token": "title",
                 "case": "upper"
             }
-        ],
-        "substitutions": []
+        ]
     },
     {
         "name": "Utah Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Utah_Constitution",
+            "https://ballotpedia.org/Article_{article},_Utah_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Utah|UT) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5526,9 +2977,7 @@ const schemas = [
         "URL": [
             "https://www.lawserver.com/law/state/vermont/vt-statutes/vermont_statutes_title_{title}_{section}"
         ],
-        "regex": "(\\b|^)V(ermont|t\\.|T)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)V(ermont|t\\.|T)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Vermont Constitution",
@@ -5544,43 +2993,40 @@ const schemas = [
             "{isChapterII}#Section_{article}"
         ],
         "regex": "(\\b|^)V(ermont|t\\.|T) ?Const(itution|\\.),? ?[Cc](hapter|h?\\.) ?(?<chapter>[Ii]{1,2})(,? ([Aa]rt(icle|\\.)|&sect;|&#167|§) ?(?<article>\\d+)(st|nd|th)?)?",
-        "mutations": [
+        "operations": [
             {
                 "token": "chapter",
                 "case": "upper"
-            }
-        ],
-        "substitutions": [
-            {
-                "token": "chapter",
-                "index": {
-                    "I": ""
-                },
-                "allowUnmatched": true,
-                "outputToken": "isChapterI"
             },
             {
                 "token": "chapter",
-                "index": {
-                    "II": ""
-                },
+                "output": "isChapterI",
+                "optionalLookup": {
+                    "I": ""
+                }
+            },
+            {
+                "token": "chapter",
+                "output": "isChapterII",
                 "allowUnmatched": true,
-                "outputToken": "isChapterII"
+                "optionalLookup": {
+                    "II": ""
+                }
             },
             {
                 "token": "article",
-                "index": {
+                "output": "articleSuffix",
+                "lookup": {
                     "1": "st",
                     "2": "nd",
                     "3": "rd",
                     "[4-9]|\\d{2,}": "th"
-                },
-                "useRegex": true,
-                "outputToken": "articleSuffix"
+                }
             },
             {
                 "token": "article",
-                "index": {
+                "output": "chapter2section",
+                "optionalLookup": {
                     "[1-5]": "Delegation_and_Distribution_of_Powers",
                     "[6-9]|1\\d": "Legislative_Department",
                     "2[0-7]": "Executive_Department",
@@ -5593,10 +3039,7 @@ const schemas = [
                     "6\\d|7[01]": "General_Provisions",
                     "7[23]": "Amendment_of_the_Constitution",
                     "7[4-6]": "Temporary_Provisions"
-                },
-                "useRegex": true,
-                "allowUnmatched": true,
-                "outputToken": "chapter2section"
+                }
             }
         ]
     },
@@ -5606,66 +3049,20 @@ const schemas = [
         "URL": [
             "https://law.lis.virginia.gov/vacode/title{title}/section{title}-{section}"
         ],
-        "regex": "(\\b|^)(?<!W\\. )(?<!West )(?<!W\\.)V(irginia|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(?<!W\\. )(?<!West )(?<!W\\.)V(irginia|a\\.|A)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Virginia Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Virginia_Constitution",
+            "https://ballotpedia.org/Article_{article},_Virginia_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(?<!W\\. )(?<!West )(?<!W\\.)V(irginia|a\\.|A) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5677,9 +3074,7 @@ const schemas = [
         "URL": [
             "https://law.justia.com/codes/virgin-islands/{year}/title-{title}/chapter-{chapter}/{section}/"
         ],
-        "regex": "(\\b|^)(Virgin Islands|V\\.? ?I\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Virgin Islands|V\\.? ?I\\.?)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?"
     },
     {
         "name": "Revised Code of Washington",
@@ -5687,66 +3082,20 @@ const schemas = [
         "URL": [
             "https://app.leg.wa.gov/RCW/default.aspx?cite={title}.{chapter}.{section}"
         ],
-        "regex": "(\\b|^)((Wash(ington|\\.)|WA)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|R\\.?C\\.?W\\.? )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?)\\.(?<chapter>\\d+[A-Za-z]?)\\.(?<section>\\d+[A-Za-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)((Wash(ington|\\.)|WA)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?|R\\.?C\\.?W\\.? )((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Za-z]?)\\.(?<chapter>\\d+[A-Za-z]?)\\.(?<section>\\d+[A-Za-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Washington Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Washington_State_Constitution",
+            "https://ballotpedia.org/Article_{article},_Washington_State_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Wash(ington|\\.)|WA) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5756,9 +3105,7 @@ const schemas = [
         "URL": [
             "http://www.wvlegislature.gov/wvcode/ChapterEntire.cfm?chap={chapter}&art={article}&section={section}"
         ],
-        "regex": "(\\b|^)(West Virginia|W\\. ?Va?\\.|WV)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Za-z]?)-(?<article>\\d+[A-Za-z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(West Virginia|W\\. ?Va?\\.|WV)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Za-z]?)-(?<article>\\d+[A-Za-z]?)-(?<section>\\d+(\\.\\d+)?[A-Z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "West Virginia Constitution",
@@ -5768,54 +3115,10 @@ const schemas = [
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(West Virginia|W\\. ?Va?\\.|WV) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5826,66 +3129,20 @@ const schemas = [
             "https://docs.legis.wisconsin.gov/document/statutes/{chapter}.{section}",
             "{subsection}"
         ],
-        "regex": "(\\b|^)(Wis(consin|\\.)|WI)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": []
+        "regex": "(\\b|^)(Wis(consin|\\.)|WI)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)\\.(?<section>\\d+\\w?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "Wisconsin Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Wisconsin_Constitution",
+            "https://ballotpedia.org/Article_{article},_Wisconsin_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Wis(consin|\\.)|WI) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "1|I": "I",
-                    "2|II": "II",
-                    "3|III": "III",
-                    "4|IV": "IV",
-                    "5|V": "V",
-                    "6|VI": "VI",
-                    "7|VII": "VII",
-                    "8|VIII": "VIII",
-                    "9|IX": "IX",
-                    "10|X": "X",
-                    "11|XI": "XI",
-                    "12|XII": "XII",
-                    "13|XIII": "XIII",
-                    "14|XIV": "XIV",
-                    "15|XV": "XV",
-                    "16|XVI": "XVI",
-                    "17|XVII": "XVII",
-                    "18|XVIII": "XVIII",
-                    "19|XIX": "XIX",
-                    "20|XX": "XX",
-                    "21|XXI": "XXI",
-                    "22|XXII": "XXII",
-                    "23|XXIII": "XXIII",
-                    "24|XXIV": "XXIV",
-                    "25|XXV": "XXV",
-                    "26|XXVI": "XXVI",
-                    "27|XXVII": "XXVII",
-                    "28|XXVIII": "XXVIII",
-                    "29|XXIX": "XXIX",
-                    "30|XXX": "XXX",
-                    "31|XXXI": "XXXI",
-                    "32|XXXII": "XXXII",
-                    "33|XXXIII": "XXXIII",
-                    "34|XXXIV": "XXXIV",
-                    "35|XXXV": "XXXV",
-                    "36|XXXVI": "XXXVI",
-                    "37|XXXVII": "XXXVII",
-                    "38|XXXVIII": "XXXVIII",
-                    "39|XXXIX": "XXXIX",
-                    "40|XXXX": "XXXX"
-                },
-                "useRegex": true,
-                "outputToken": "roman_article"
+                "numberFormat": "roman"
             }
         ]
     },
@@ -5893,19 +3150,14 @@ const schemas = [
         "name": "Wyoming Statutes",
         "defaults": {},
         "URL": [
-            "https://wyoleg.gov/statutes/compress/title{lpad}{title}.pdf#search={title}-{chapter}-{section}."
+            "https://wyoleg.gov/statutes/compress/title{lpad_title}.pdf#search={title}-{chapter}-{section}."
         ],
         "regex": "(\\b|^)(Wyo(ming|\\.)|WY)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "title",
-                "index": {
-                    "\\d": "0",
-                    "\\d{2}": ""
-                },
-                "useRegex": true,
-                "outputToken": "lpad"
+                "output": "lpad_title",
+                "lpad": 2
             }
         ]
     },
@@ -5913,104 +3165,18 @@ const schemas = [
         "name": "Wyoming Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{arabic_article},_Wyoming_Constitution",
+            "https://ballotpedia.org/Article_{article},_Wyoming_Constitution",
             "#Section_{section}"
         ],
         "regex": "(\\b|^)(Wyo(ming|\\.)|WY) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?",
-        "mutations": [],
-        "substitutions": [
+        "operations": [
             {
                 "token": "article",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true,
-                "outputToken": "arabic_article"
+                "numberFormat": "digit"
             },
             {
                 "token": "section",
-                "index": {
-                    "I|1": "1",
-                    "II|2": "2",
-                    "III|3": "3",
-                    "IV|4": "4",
-                    "V|5": "5",
-                    "VI|6": "6",
-                    "VII|7": "7",
-                    "VIII|8": "8",
-                    "IX|9": "9",
-                    "X|10": "10",
-                    "XI|11": "11",
-                    "XII|12": "12",
-                    "XIII|13": "13",
-                    "XIV|14": "14",
-                    "XV|15": "15",
-                    "XVI|16": "16",
-                    "XVII|17": "17",
-                    "XVIII|18": "18",
-                    "XIX|19": "19",
-                    "XX|20": "20",
-                    "XXI|21": "21",
-                    "XXII|22": "22",
-                    "XXIII|23": "23",
-                    "XXIV|24": "24",
-                    "XXV|25": "25",
-                    "XXVI|26": "26",
-                    "XXVII|27": "27",
-                    "XXVIII|28": "28",
-                    "XXIX|29": "29",
-                    "XXX|30": "30",
-                    "XXXI|31": "31",
-                    "XXXII|32": "32",
-                    "XXXIII|33": "33",
-                    "XXXIV|34": "34",
-                    "XXXV|35": "35",
-                    "XXXVI|36": "36",
-                    "XXXVII|37": "37",
-                    "XXXVIII|38": "38",
-                    "XXXIX|39": "39",
-                    "XXXX|40": "40"
-                },
-                "useRegex": true
+                "numberFormat": "digit"
             }
         ]
     },
@@ -6021,20 +3187,29 @@ const schemas = [
             "https://cite.case.law/{reporter}/{volume}/{page}",
             "#p{pincite}"
         ],
-        "regex": "(\\b|^)(?<=\\b)(?<volume>\\d+) (?<reporter>Abb\\. Ct\\. App\\.|Abb\\.N\\. Cas\\.|Abb\\. Pr\\.|Abb\\. Pr\\. \\(n\\.s\\.\\)|Va\\. \\(Va\\. Cas\\.\\)|Adams Co\\. L\\.J\\.|Add\\.|Dallam|Franklin Co\\. Legal J\\.|Aik\\.|Ala\\. App\\.|Ala\\.|Alaska Fed\\.|Alaska|Am\\. Samoa|Am\\. Samoa 2d|Am\\. Samoa 3d|Ohio App\\. Unrep\\.|Ant\\. N\\.P\\. Cas\\.|A\\.D\\. ?2d|A\\.D\\.|A\\.D\\. ?3d|Ky\\. \\(Hughes\\)|Ariz\\. App\\.|Ariz\\.|Ark\\. App\\.|Ark\\.|Armstrong\\. Election Cases|A\\.|Balt\\. C\\. Rep\\.|Barb\\. Ch\\.|Barb\\.|B\\. Co\\. Leg\\. J\\.|Berk's Co\\. L\\.J\\.\\.|Blackf\\.|Blair Co\\. L\\.R\\.|Blair Co\\. L\\.R\\. 2d|Bosworth Super\\. Ct\\. Rep\\.|Bradford Co\\. L\\.J\\.|Brad\\.|Brayt\\.|Bucks Co\\. L\\.R\\.|Bur\\.|Bur\\.|Butler Co\\. Legal J\\.|E\\.D\\. Pa\\.|Cai\\. Cas\\.|Cai\\.|Cal\\. ?App\\.|Cal\\. ?App\\. ?5th|Cal\\. ?App\\. ?4th|Cal\\. ?App\\. ?[23]d|Cal\\. ?[23]d|Cal\\. ?[45]th|Cal\\.|Cal\\. ?Super\\. ?Ct\\.|Cal\\. ?Unrep\\.|Cambria Co\\. L\\.J\\.|Cambria Co\\. Rep\\.|Carbon Co\\. L\\.J\\.|N\\.C\\. \\(Car\\. L\\. Rep\\.\\)|N\\.J\\. \\(Manumission\\)|S\\.C\\.L\\. \\(McMul\\.\\)|S\\.C\\.L\\. \\(Chev\\.\\)|Tapp\\. Rep\\.|D\\. Pa\\.|Ohio|S\\.C\\. Eq\\. \\(Chev\\. Eq\\.\\)|Monaghan|Sadler|Ky\\. \\(Litt\\. Sel\\. Cas\\.\\)|C\\.C\\.L\\.J\\.|C\\.C\\.L\\.J\\. 2d|S\\.C\\. Eq\\. \\(McCord Eq\\.\\)|S\\.C\\. Eq\\. \\(Ril\\. Eq\\.\\)|Chand\\.|Charlton Rep\\.|Ches\\. Co\\. Rep\\.|D\\. Chip\\.|N\\. Chip\\.|Mun\\.  L\\. Rep\\.|Hosea's Rep\\.|N\\.Y\\. City Ct\\. Rep\\.|Cl\\. Ch\\.|Cole\\. & Cai\\. Cas\\.|Cole\\. Cas\\.|Colo\\. App\\.|Colo\\. L\\. Rep\\.|Colo\\. N\\. P\\.|Colo\\.|Willson|White & W\\.|N\\.C\\. \\(Cam\\. & Nor\\.\\)|King's Conflicting Cases|Conn\\. App\\.|Conn\\. Cir\\. Ct\\.|Kirby|Root|Conn\\.|Conn\\. Supp\\.|Connoly Sur\\. Rep\\.|Ct\\. Cl\\.|C\\.C\\.P\\.A\\.|Ct\\. Cust\\.|Cow\\.|Craw\\. Co\\. Leg\\. J\\.|Cumberland L\\.J\\.|Cust\\. B\\. & Dec\\.|Dakota|Dallam|Dall\\.|Daly \\(N\\.Y\\.\\)|Dau\\. Co\\. Rep\\.|Day|T\\.C\\.A\\.|P\\.R\\. Dec\\.|Teiss\\.|Va\\. Ch\\. Dec\\.|Ky\\. \\(Sneed\\)|Pears\\.|Smith|Ga\\. Super\\. Ct\\.|Georgia Decisions|C\\.M\\.A\\.|Del\\. Cas\\.|Del\\. Ch\\.|Del\\. Co\\. Reps\\.|Del\\. \\(Harr\\.\\)|Del\\. \\(Penne\\.\\)|Del\\. \\(Boyce\\)|Del\\. \\(Marv\\.\\)|Del\\. \\(Houst\\.\\)|Del\\.|Dem\\. Sur\\.|Denio|Docket|Dudley Rep\\.|Duer Super\\. Ct\\. Rep\\.|Edm\\. Sel\\. Cas\\.|E\\.D\\. Smith|Edw\\. Ch\\.|S\\.C\\. Eq\\. \\(McMul\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Speers Eq\\.\\)|Erie\\. Co\\. L\\.J\\.|P\\.R\\. Sent\\.|Fay\\. L\\.J\\.|F\\. Cas\\.|Fed\\. Cl\\.|F\\.|F\\. ?2d|F\\. ?3d|F\\.R\\.D\\.|F\\. ?Supp\\.( ?[23]d)?|Fla\\.|Fla\\. Supp\\.|Fla\\. Supp\\. 2d|Ga\\. App\\.|Ga\\. L\\. Rep\\.|Ga\\.|Gault|Gibb\\. Surr\\.|Guam|Hall Super\\. Ct\\. Rep\\.|H\\. & G\\.|Haw\\. App\\.|Haw\\.|Haz\\. Pa\\. Reg\\.|Va\\. \\(Hen\\. & M\\.\\)|Hill & Den\\.|Hill|Hilt\\.|Hoff\\. Ch\\.|Hopk\\. Ch\\.|How\\. App\\. Cas\\.|How\\. Pr\\.|How\\. Pr\\. \\(n\\.s\\.\\)|Idaho|Ill\\. App\\.|Ill\\. App\\. 2d|Ill\\. App\\. 3d|Ill\\. Cir\\. Ct\\. Rep\\.|Ill\\. Ct\\. Cl\\.|Ill\\. \\(Scam\\)|Ill\\. \\(Breese\\)|Ill\\. \\(Gilm\\.\\)|Ill\\.|Ill\\. 2d|Ind\\. App\\.|Ind\\. L\\. Rep\\.|Ind\\.|Indian Terr\\.|Iowa|Jeff\\.|Johns\\. Cas\\.|Johns\\. Ch\\.|Johns\\.|Jones and Spencer's Super\\. Ct\\. Rep\\.|Edsall|Pa\\. \\(Admiralty\\)|Kan\\. App\\. 2d|Kan\\.|Ky\\. \\(A\\.K\\. Marsh\\.\\)|Ky\\. Op\\.|Ky\\.|Keyes|Lack\\. Bar\\. R\\.|Lack\\. Bar  R\\.|Lack\\. Jur\\.|Lack\\. L\\. N\\.|Lack\\. L\\.R\\.|Lanc\\. Bar|Lanc\\. L\\. Rev\\.|Lans\\. Ch\\.|Lans\\.|Law\\. L\\.J\\.|Law Times|Law Times \\(N\\.S\\.\\)|Lebanon Co\\. L\\.J\\.|Foster|Leg\\. Gaz\\.|Leg\\. Gaz\\.|Pa\\. Leg\\. Gaz\\.|Gunby|Leg\\. Rec\\. Rep\\.|Lehigh Co\\. L\\.J\\.|Lehigh Val\\. L\\. Rep\\.|Liquor Tax Rep\\.|Lock\\. Rev\\. Cas\\.|La\\. Ann\\.|La\\. App\\.|La\\.|La\\.|Luz\\. L\\.J\\.|Luz\\. L\\.O\\.|Luz\\. Leg\\. Reg\\.|Luz\\. Leg\\. Reg\\.|Lycoming R\\.|Magis\\. & Const\\.|Me\\.|McGrath|N\\.C\\. \\(Mart\\.\\)|Mart\\. \\(n\\.s\\.\\)|Mart\\. \\(o\\.s\\.\\)|Md\\. App\\.|Md\\.|H\\. & McH\\.|Mass\\. \\(Allen\\)|Mass\\. App\\. Ct\\.|Mass\\. App\\. Dec\\.|Davis L\\. Ct\\. Cas\\.|Davis L\\. Ct\\. Cas\\.|Mass\\. \\(Cush\\)|Mass\\. \\(Pick\\.\\)|Mass\\. \\(Gray\\)|Mass\\. \\(Tyng\\)|Mass\\. \\(Will\\.\\)|Mass\\. \\(Met\\.\\)|Mass\\.|Mass\\. Supp\\.|Mercer|Mich\\. App\\. |Howell N\\.P\\.|Mich\\.|M\\.C\\.L\\.J\\.|Mills Surr\\.|Minn\\.|Minor|Va\\.|Miss\\. Ct\\. Rec\\.|Miss\\. Dec\\.|Miss\\. \\(Walker\\)|Miss\\.|Miss\\. \\(Howard\\)|Miss\\. \\(S\\. & M\\.\\)|Mor\\. St\\. Cas\\.|Mo\\. App\\.|Mo\\.|Monroe L\\.R\\.|Mont\\.|Mont\\. Co\\. L\\. Rep\\.|Navajo Rptr\\.|Neb\\. App\\.|Neb\\.|Nev\\.|N\\.H\\.|N\\.J\\. Eq\\.|N\\.J\\.L\\.|N\\.J\\. Misc\\.|N\\.J\\.|N\\.J\\. Super\\.|N\\.J\\. Tax Ct\\.|N\\.M\\.|N\\.M\\.|N\\.Y\\. Crim\\.|Misc\\. ?2d|Misc\\. ?3d|Misc\\.|N\\.Y\\. ?2d|N\\.Y\\.|N\\.Y\\. ?3d|N\\.Y\\. St\\. Rptr\\.|Northam\\. Law Rep\\.|N\\.C\\. App\\.|N\\.C\\.|N\\.C\\. \\(Busb\\. Eq\\)|N\\.C\\. \\(Busb\\.\\)|N\\.C\\. \\(Dev\\. & Bat\\. Eq\\.\\)|N\\.C\\. \\(Dev\\. & Bat\\.\\)|N\\.C\\. \\(Dev\\. Eq\\.\\)|N\\.C\\. \\(Dev\\.\\)|N\\.C\\. \\(Hawks\\)|N\\.C\\. \\(Hayw\\.\\)|N\\.C\\. \\(Ired\\. Eq\\.\\)|N\\.C\\. \\(Ired\\.\\)|N\\.C\\. \\(Jones Eq\\.\\)|N\\.C\\. \\(Jones\\)|N\\.C\\. \\(Mur\\.\\)|N\\.C\\. \\(Phil\\. Eq\\.\\)|N\\.C\\. \\(Phil\\.\\)|N\\.C\\. \\(Tay\\.\\)|N\\.C\\. \\(Win\\.\\)|N\\.D\\.|N\\. ?E\\.|N\\.E\\. ?[23]d|N\\. E\\. [23]d|N\\. Mar\\. I\\. Commw\\.|N\\. Mar\\. I\\.|Northum\\. Co\\. Leg\\. N\\.|Northumb\\. L\\.J\\.|N\\. ?W\\.|N\\.W\\. ?2d|N\\. W\\. 2d|Ohio App\\.|Ohio App\\. 2d|Ohio App\\. 3d|Ohio C\\.C\\. Dec\\.|Ohio C\\.C\\. \\(N\\.S\\.\\)|Ohio Cir\\. Dec\\.|Ohio Ct\\. App\\.|Ohio Misc\\.|Ohio Misc\\. 2d|Ohio Nisi Prius|Ohio Nisi Prius \\(N\\.S\\.\\)|Ohio Op\\. 2d|Ohio Op\\. 3d|Ohio Op\\.|Ohio St\\.|Ohio St\\. \\(n\\.s\\.\\)|Ohio St\\. 2d|Ohio St\\. 3d|Okla\\. Crim\\.|Okla\\.|Olwine's L\\.J\\.|Or\\.|Or\\. App\\.|Or\\. Tax|P\\.|P\\. ?2d|P\\. ?3d|Paige Ch\\.|Park\\. Crim\\. Rep\\.|Pelt\\.|Pa\\. L\\. Rec\\.|Pa\\. Commw\\.|Pa\\. Corp\\. R\\.|Pa\\. Co\\. Ct\\.|Pa\\. D\\. & C\\. 2d|Pa\\. D\\. & C\\.|Pa\\. D\\. & C\\. 3d|Pa\\. D\\. & C\\. 5th|Pa\\. D\\. & C\\. 4th|Pa\\. Fid\\.|Pa\\. Fid\\. 2d|Pa\\. Fid\\. 3d|Pa\\. Just\\. L\\. Rep\\.|Pa\\. L\\.J\\. Rep\\.|Pa\\.|Pa\\. Super\\. Ct\\.|Pennyp\\.|Phila\\. Co\\. R\\.|Phila\\. Reports|Pin\\.|Pittsb\\. L\\.J\\.|Pitts\\. R\\.|Port\\.|P\\.R\\. Fed\\.|Pow\\. Surr\\.|Mich\\. Pr\\.|Singer Prob\\. Cas\\.|N\\.Y\\. Proc\\. Ct\\. Ass\\.|P\\.R\\.|Rec\\. Q\\. Ct\\.|Rec\\. Ct\\. Assistants|Rec\\. Co\\. Ch\\. \\(S\\.C\\.\\)|Rec\\. Ct\\. Gen\\. Sess\\.|Rec\\. Bucks\\. Co\\. \\(Pa\\.\\)|Rec\\. T\\. Warwick \\(R\\.I\\.\\)|Rec\\. Ct\\. Ches\\. Co\\. Pa\\.|Rec\\. Co\\. Ct\\.|Rec\\. V\\.A\\. Ct\\. \\(R\\.I\\.\\)|Redf\\.|S\\.C\\.L\\. \\(Ril\\.\\)|Ct\\. Cl\\.|Mich\\. Ct\\. Cl\\.|App\\. D\\.C\\.|Bro\\. Com\\. P\\.|Ashm\\. \\(Pa\\.\\)|Conn\\. Super\\. Ct\\.|Conn\\. Super\\. Ct\\.|Disney \\(Ohio\\)|Binn\\.|Pen\\. & W\\.|Rawle|Serg\\. & Rawl\\.|Watts & Serg\\.|Whart\\.|Yeates|S\\.C\\. Eq\\. \\(Des\\.Eq\\.\\)|Ky\\. \\(Hard\\.\\)|Handy|Super\\. Ct\\. Jud\\.|Tenn\\. \\(Hayw\\.\\)|Grant|D\\.C\\. \\(MacArth\\. & M\\.\\)|D\\.C\\. \\(Tuck\\. & Cl\\.\\)|Jahn|S\\.C\\.L\\. \\(Strob\\.\\)|Gill|G\\. & J\\.|S\\.C\\. Eq\\. \\(Dud\\. Eq\\.\\)|S\\.C\\.L\\. \\(Bail\\.\\)|N\\.Y\\.|Walk\\. Ch\\.|Tenn\\. Crim\\. App\\.|H\\. & J\\.|Wilson|Miss\\. \\(S\\. & M\\. Ch\\.\\)|S\\.C\\.L\\. \\(Bay\\)|Morris|Watts|Tenn\\. \\(Mart\\. & Yer\\.\\)|Tenn\\. \\(Cold\\.\\)|Tenn\\. \\(Heisk\\.\\)|Tenn\\. \\(Yer\\.\\)|Tenn\\. \\(Head\\)|Tenn\\. \\(Meigs\\)|Tenn\\. \\(Hum\\.\\)|D\\.C\\.|D\\.C\\. \\(MacArth\\.\\)|D\\.C\\. \\(Mackey\\)|Doug\\.|Ark\\. Terr\\. Rep\\.|McGl\\.|D\\.C\\. \\(patent\\)|Ky\\. \\(Bibb\\)|Ky\\. \\(Litt\\.\\)|Ky\\. \\(T\\.B\\. Mon\\.\\)|Ky\\. \\(B\\. Mon\\.\\)|Wright|Ohio Ch\\.|Ky\\. \\(J\\.J\\. Marsh\\.\\)|S\\.C\\.L\\. \\(Speers\\)|S\\.C\\.L\\. \\(Rich\\.\\)|S\\.C\\.L\\. \\(Rice\\)|S\\.C\\.L\\. \\(Rich\\.\\)|S\\.C\\.L\\. \\(Dud\\.\\)|S\\.C\\.L\\. \\(Hill\\)|Hay\\. & Haz\\.|D\\.C\\. Cir\\.|D\\.C\\. \\(Cranch\\)|Brightly|Walker|Ind\\. App\\.|Kan\\. App\\.|Md\\. Ch\\.|Md\\. Ch\\.|Freem\\. Ch\\.|Wilcox|S\\.C\\.L\\. \\(McCord\\)|S\\.C\\.L\\. \\(Nott & McC\\.\\)|S\\.C\\.L\\. \\(Harp\\.\\)|Harr\\. Ch\\.|Miles|Cal\\. ?Dist\\. Ct\\.|McCahon|S\\.C\\. Eq\\. \\(Rice Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Hill Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Cas\\.\\)|S\\.C\\. Eq\\. \\(Strobh\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Bail\\. Eq\\.\\)|Greene|Myrick|D\\. Haw\\.|Rep\\. Cont\\. Elect\\. Case\\.|Rep\\. Cont\\. El\\.|Howison|Coffey|Charlton|S\\.C\\. Eq\\. \\(Harp\\. Eq\\.\\)|Brewster|S\\.C\\.L\\. \\(Mill\\)|S\\.C\\.L\\. \\(Tread\\.\\)|S\\.C\\.L\\. \\(Brev\\.\\)|Mass\\. App\\. Div\\.|Mass\\. App\\. Div\\.|Goebel|Ky\\. \\(Dana\\)|Ky\\. \\(Duv\\.\\)|Ky\\. \\(Met\\.\\)|Ky\\. \\(Bush\\)|Vaux|Tenn\\. \\(Swan\\)|Tenn\\. \\(Sneed\\)|Bradf\\.|T\\.C\\.|B\\.T\\.A\\.|R\\.I\\. Ct\\. Rec\\.|R\\.I\\. Dec\\.|R\\.I\\.|Super\\. Ct\\. \\(R\\.I\\.\\)|Robertson's Super\\. Ct\\. Rep\\.|Rob\\.|Sand\\. Ch\\.|Sandford Super\\. Ct\\. Rep\\.|Sarat\\. Ch\\. Sent\\.|Schuy\\. L\\. Rec\\.|Schuy\\. Reg\\.|Seld\\. Notes|Yates|Parsons|Sick\\. Op\\. Att'y Gen\\.|Silv\\. Ct\\. App\\.|Silv\\. Sup\\.|Smith|Som\\. L\\.J\\.|S\\.C\\.|S\\.D\\.|S\\. ?E\\.|S\\.E\\. ?2d|S\\. E\\. 2d|So\\.|So\\. ?2d|So\\. ?3d|S\\. ?W\\.|S\\.W\\. ?[23]d|S\\. W\\. [23]d|Stew\\.|Stew\\. & P\\.|S\\.C\\.D\\.C\\. \\(N\\.S\\.\\)|N\\.Y\\. Sup\\. Ct\\.|Susq\\. Leg\\. Chron\\.|Sweeney Super\\. Ct\\. Rep\\.|Robards|N\\.C\\. \\(Taylor\\)|La\\. App\\. \\(Teiss\\.\\)|Tenn\\. App\\.|Tenn\\. Cas\\.|Tenn\\. Ch\\. R\\.|Tenn\\.|Tenn\\. \\(Peck\\)|Tenn\\. \\(Cooke\\)|Tenn\\. \\(Overt\\.\\)|Tex\\. Civ\\. App\\.|Tex\\. Ct\\. App\\.|Tex\\. Crim\\.|Tex\\. L\\. R\\.|Tex\\.|Posey|N\\.J\\. \\(Burlington County Ct\\.\\)|Cin\\. Sup\\. Ct\\. Rep\\.|Com\\. Pl\\. Rep\\.|Pa\\. Dist\\.|Mass\\. Law Rep\\.|Mich\\. N\\.P\\. R\\.|Westchester|Ohio Law Abs\\.|Ohio L\\.R\\.|Ald\\.|Thomp\\. & Cook|Blume Sup\\. Ct\\. Trans\\.|Trans\\. App\\.|Tuck\\. Surr\\.|Tyl\\.|Cl\\. Ct\\.|U\\.S\\. App\\. D\\.C\\.|Ct\\. Int'l Trade|Cust\\. Ct\\.|U\\. ?S\\.|U\\.S\\. \\(Black\\)|U\\.S\\. \\(Cranch\\)|U\\.S\\. \\(Dall\\.\\)|U\\.S\\. \\(How\\.\\)|U\\.S\\. \\(Pet\\.\\)|U\\.S\\. \\(Wall\\.\\)|U\\.S\\. \\(Wheat\\.\\)|Mann\\. Unrep\\. Cas\\.|Blume Unrep\\. Op\\.|Unrep\\. Tenn\\. Cas\\.|Cal\\.|Utah|Utah 2d|Vt\\.|Va\\. Cir\\.|Va\\. Col\\. Dec\\.|Va\\. App\\.|Va\\. Dec\\.|Va\\. \\(Rand\\.\\)|Va\\. \\(Munf\\.\\)|Va\\. \\(Wash\\.\\)|Va\\.|Va\\. \\(Gratt\\.\\)|Va\\. \\(Gilmer\\)|Va\\. \\(Call\\)|Va\\. \\(Patt\\. & Heath\\)|Va\\. \\(Rob\\.\\)|Va\\. \\(Leigh\\)|V\\.I\\.|Wash\\. App\\.|Wash\\. Co\\.\\(Pa\\.\\)|Wash\\.|Wash\\. 2d|Wash\\. Terr\\.|Week\\. No\\. Cas\\. \\(Pa\\.\\)|Wend\\.|Wes\\. C\\.L\\.J\\.|Tribal|A\\. ?2d|A\\. ?3d|B\\.R\\.|F\\. App'?x\\.?|Haw\\.|M\\.J\\.|N\\.Y\\.S\\. 2d|N\\.Y\\.S\\. 2d|N\\.Y\\.S\\.|Vet\\. App\\.|W\\. Va\\.|Wheel\\. Cr\\. Cas\\.|Wis\\.|Wis\\. 2d|Wyo\\.|Yates Sel\\. Cas\\.|York Leg\\. Rec\\.) (?<page>\\d+)\\b(,?( at)? (?<pincite>\\d+)(([-‑–]| to | through )(?<pincite_end>\\d+)|(,? )?(footnote|f?n\\.) ?(?<footnote>\\d+))?\\b(?! \\w))?",
-        "mutations": [
+        "regex": "(\\b|^)(?<volume>\\d+) (?<reporter>Abb\\. Ct\\. App\\.|Abb\\.N\\. Cas\\.|Abb\\. Pr\\.|Abb\\. Pr\\. \\(n\\.s\\.\\)|Va\\. \\(Va\\. Cas\\.\\)|Adams Co\\. L\\.J\\.|Add\\.|Dallam|Franklin Co\\. Legal J\\.|Aik\\.|Ala\\. App\\.|Ala\\.|Alaska Fed\\.|Alaska|Am\\. Samoa|Am\\. Samoa 2d|Am\\. Samoa 3d|Ohio App\\. Unrep\\.|Ant\\. N\\.P\\. Cas\\.|A\\.D\\. ?2d|A\\.D\\.|A\\.D\\. ?3d|Ky\\. \\(Hughes\\)|Ariz\\. App\\.|Ariz\\.|Ark\\. App\\.|Ark\\.|Armstrong\\. Election Cases|A\\.|Balt\\. C\\. Rep\\.|Barb\\. Ch\\.|Barb\\.|B\\. Co\\. Leg\\. J\\.|Berk's Co\\. L\\.J\\.\\.|Blackf\\.|Blair Co\\. L\\.R\\.|Blair Co\\. L\\.R\\. 2d|Bosworth Super\\. Ct\\. Rep\\.|Bradford Co\\. L\\.J\\.|Brad\\.|Brayt\\.|Bucks Co\\. L\\.R\\.|Bur\\.|Bur\\.|Butler Co\\. Legal J\\.|E\\.D\\. Pa\\.|Cai\\. Cas\\.|Cai\\.|Cal\\. ?App\\.|Cal\\. ?App\\. ?5th|Cal\\. ?App\\. ?4th|Cal\\. ?App\\. ?[23]d|Cal\\. ?[23]d|Cal\\. ?[45]th|Cal\\.|Cal\\. ?Super\\. ?Ct\\.|Cal\\. ?Unrep\\.|Cambria Co\\. L\\.J\\.|Cambria Co\\. Rep\\.|Carbon Co\\. L\\.J\\.|N\\.C\\. \\(Car\\. L\\. Rep\\.\\)|N\\.J\\. \\(Manumission\\)|S\\.C\\.L\\. \\(McMul\\.\\)|S\\.C\\.L\\. \\(Chev\\.\\)|Tapp\\. Rep\\.|D\\. Pa\\.|Ohio|S\\.C\\. Eq\\. \\(Chev\\. Eq\\.\\)|Monaghan|Sadler|Ky\\. \\(Litt\\. Sel\\. Cas\\.\\)|C\\.C\\.L\\.J\\.|C\\.C\\.L\\.J\\. 2d|S\\.C\\. Eq\\. \\(McCord Eq\\.\\)|S\\.C\\. Eq\\. \\(Ril\\. Eq\\.\\)|Chand\\.|Charlton Rep\\.|Ches\\. Co\\. Rep\\.|D\\. Chip\\.|N\\. Chip\\.|Mun\\.  L\\. Rep\\.|Hosea's Rep\\.|N\\.Y\\. City Ct\\. Rep\\.|Cl\\. Ch\\.|Cole\\. & Cai\\. Cas\\.|Cole\\. Cas\\.|Colo\\. App\\.|Colo\\. L\\. Rep\\.|Colo\\. N\\. P\\.|Colo\\.|Willson|White & W\\.|N\\.C\\. \\(Cam\\. & Nor\\.\\)|King's Conflicting Cases|Conn\\. App\\.|Conn\\. Cir\\. Ct\\.|Kirby|Root|Conn\\.|Conn\\. Supp\\.|Connoly Sur\\. Rep\\.|Ct\\. Cl\\.|C\\.C\\.P\\.A\\.|Ct\\. Cust\\.|Cow\\.|Craw\\. Co\\. Leg\\. J\\.|Cumberland L\\.J\\.|Cust\\. B\\. & Dec\\.|Dakota|Dallam|Dall\\.|Daly \\(N\\.Y\\.\\)|Dau\\. Co\\. Rep\\.|Day|T\\.C\\.A\\.|P\\.R\\. Dec\\.|Teiss\\.|Va\\. Ch\\. Dec\\.|Ky\\. \\(Sneed\\)|Pears\\.|Smith|Ga\\. Super\\. Ct\\.|Georgia Decisions|C\\.M\\.A\\.|Del\\. Cas\\.|Del\\. Ch\\.|Del\\. Co\\. Reps\\.|Del\\. \\(Harr\\.\\)|Del\\. \\(Penne\\.\\)|Del\\. \\(Boyce\\)|Del\\. \\(Marv\\.\\)|Del\\. \\(Houst\\.\\)|Del\\.|Dem\\. Sur\\.|Denio|Docket|Dudley Rep\\.|Duer Super\\. Ct\\. Rep\\.|Edm\\. Sel\\. Cas\\.|E\\.D\\. Smith|Edw\\. Ch\\.|S\\.C\\. Eq\\. \\(McMul\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Speers Eq\\.\\)|Erie\\. Co\\. L\\.J\\.|P\\.R\\. Sent\\.|Fay\\. L\\.J\\.|F\\. Cas\\.|Fed\\. Cl\\.|F\\.|F\\. ?2d|F\\. ?3d|F\\.R\\.D\\.|F\\. ?Supp\\.( ?[23]d)?|Fla\\.|Fla\\. Supp\\.|Fla\\. Supp\\. 2d|Ga\\. App\\.|Ga\\. L\\. Rep\\.|Ga\\.|Gault|Gibb\\. Surr\\.|Guam|Hall Super\\. Ct\\. Rep\\.|H\\. & G\\.|Haw\\. App\\.|Haw\\.|Haz\\. Pa\\. Reg\\.|Va\\. \\(Hen\\. & M\\.\\)|Hill & Den\\.|Hill|Hilt\\.|Hoff\\. Ch\\.|Hopk\\. Ch\\.|How\\. App\\. Cas\\.|How\\. Pr\\.|How\\. Pr\\. \\(n\\.s\\.\\)|Idaho|Ill\\. App\\.|Ill\\. App\\. 2d|Ill\\. App\\. 3d|Ill\\. Cir\\. Ct\\. Rep\\.|Ill\\. Ct\\. Cl\\.|Ill\\. \\(Scam\\)|Ill\\. \\(Breese\\)|Ill\\. \\(Gilm\\.\\)|Ill\\.|Ill\\. 2d|Ind\\. App\\.|Ind\\. L\\. Rep\\.|Ind\\.|Indian Terr\\.|Iowa|Jeff\\.|Johns\\. Cas\\.|Johns\\. Ch\\.|Johns\\.|Jones and Spencer's Super\\. Ct\\. Rep\\.|Edsall|Pa\\. \\(Admiralty\\)|Kan\\. App\\. 2d|Kan\\.|Ky\\. \\(A\\.K\\. Marsh\\.\\)|Ky\\. Op\\.|Ky\\.|Keyes|Lack\\. Bar\\. R\\.|Lack\\. Bar  R\\.|Lack\\. Jur\\.|Lack\\. L\\. N\\.|Lack\\. L\\.R\\.|Lanc\\. Bar|Lanc\\. L\\. Rev\\.|Lans\\. Ch\\.|Lans\\.|Law\\. L\\.J\\.|Law Times|Law Times \\(N\\.S\\.\\)|Lebanon Co\\. L\\.J\\.|Foster|Leg\\. Gaz\\.|Leg\\. Gaz\\.|Pa\\. Leg\\. Gaz\\.|Gunby|Leg\\. Rec\\. Rep\\.|Lehigh Co\\. L\\.J\\.|Lehigh Val\\. L\\. Rep\\.|Liquor Tax Rep\\.|Lock\\. Rev\\. Cas\\.|La\\. Ann\\.|La\\. App\\.|La\\.|La\\.|Luz\\. L\\.J\\.|Luz\\. L\\.O\\.|Luz\\. Leg\\. Reg\\.|Luz\\. Leg\\. Reg\\.|Lycoming R\\.|Magis\\. & Const\\.|Me\\.|McGrath|N\\.C\\. \\(Mart\\.\\)|Mart\\. \\(n\\.s\\.\\)|Mart\\. \\(o\\.s\\.\\)|Md\\. App\\.|Md\\.|H\\. & McH\\.|Mass\\. \\(Allen\\)|Mass\\. App\\. Ct\\.|Mass\\. App\\. Dec\\.|Davis L\\. Ct\\. Cas\\.|Davis L\\. Ct\\. Cas\\.|Mass\\. \\(Cush\\)|Mass\\. \\(Pick\\.\\)|Mass\\. \\(Gray\\)|Mass\\. \\(Tyng\\)|Mass\\. \\(Will\\.\\)|Mass\\. \\(Met\\.\\)|Mass\\.|Mass\\. Supp\\.|Mercer|Mich\\. App\\. |Howell N\\.P\\.|Mich\\.|M\\.C\\.L\\.J\\.|Mills Surr\\.|Minn\\.|Minor|Va\\.|Miss\\. Ct\\. Rec\\.|Miss\\. Dec\\.|Miss\\. \\(Walker\\)|Miss\\.|Miss\\. \\(Howard\\)|Miss\\. \\(S\\. & M\\.\\)|Mor\\. St\\. Cas\\.|Mo\\. App\\.|Mo\\.|Monroe L\\.R\\.|Mont\\.|Mont\\. Co\\. L\\. Rep\\.|Navajo Rptr\\.|Neb\\. App\\.|Neb\\.|Nev\\.|N\\.H\\.|N\\.J\\. Eq\\.|N\\.J\\.L\\.|N\\.J\\. Misc\\.|N\\.J\\.|N\\.J\\. Super\\.|N\\.J\\. Tax Ct\\.|N\\.M\\.|N\\.M\\.|N\\.Y\\. Crim\\.|Misc\\. ?2d|Misc\\. ?3d|Misc\\.|N\\.Y\\. ?2d|N\\.Y\\.|N\\.Y\\. ?3d|N\\.Y\\. St\\. Rptr\\.|Northam\\. Law Rep\\.|N\\.C\\. App\\.|N\\.C\\.|N\\.C\\. \\(Busb\\. Eq\\)|N\\.C\\. \\(Busb\\.\\)|N\\.C\\. \\(Dev\\. & Bat\\. Eq\\.\\)|N\\.C\\. \\(Dev\\. & Bat\\.\\)|N\\.C\\. \\(Dev\\. Eq\\.\\)|N\\.C\\. \\(Dev\\.\\)|N\\.C\\. \\(Hawks\\)|N\\.C\\. \\(Hayw\\.\\)|N\\.C\\. \\(Ired\\. Eq\\.\\)|N\\.C\\. \\(Ired\\.\\)|N\\.C\\. \\(Jones Eq\\.\\)|N\\.C\\. \\(Jones\\)|N\\.C\\. \\(Mur\\.\\)|N\\.C\\. \\(Phil\\. Eq\\.\\)|N\\.C\\. \\(Phil\\.\\)|N\\.C\\. \\(Tay\\.\\)|N\\.C\\. \\(Win\\.\\)|N\\.D\\.|N\\. ?E\\.|N\\.E\\. ?[23]d|N\\. E\\. [23]d|N\\. Mar\\. I\\. Commw\\.|N\\. Mar\\. I\\.|Northum\\. Co\\. Leg\\. N\\.|Northumb\\. L\\.J\\.|N\\. ?W\\.|N\\.W\\. ?2d|N\\. W\\. 2d|Ohio App\\.|Ohio App\\. 2d|Ohio App\\. 3d|Ohio C\\.C\\. Dec\\.|Ohio C\\.C\\. \\(N\\.S\\.\\)|Ohio Cir\\. Dec\\.|Ohio Ct\\. App\\.|Ohio Misc\\.|Ohio Misc\\. 2d|Ohio Nisi Prius|Ohio Nisi Prius \\(N\\.S\\.\\)|Ohio Op\\. 2d|Ohio Op\\. 3d|Ohio Op\\.|Ohio St\\.|Ohio St\\. \\(n\\.s\\.\\)|Ohio St\\. 2d|Ohio St\\. 3d|Okla\\. Crim\\.|Okla\\.|Olwine's L\\.J\\.|Or\\.|Or\\. App\\.|Or\\. Tax|P\\.|P\\. ?2d|P\\. ?3d|Paige Ch\\.|Park\\. Crim\\. Rep\\.|Pelt\\.|Pa\\. L\\. Rec\\.|Pa\\. Commw\\.|Pa\\. Corp\\. R\\.|Pa\\. Co\\. Ct\\.|Pa\\. D\\. & C\\. 2d|Pa\\. D\\. & C\\.|Pa\\. D\\. & C\\. 3d|Pa\\. D\\. & C\\. 5th|Pa\\. D\\. & C\\. 4th|Pa\\. Fid\\.|Pa\\. Fid\\. 2d|Pa\\. Fid\\. 3d|Pa\\. Just\\. L\\. Rep\\.|Pa\\. L\\.J\\. Rep\\.|Pa\\.|Pa\\. Super\\. Ct\\.|Pennyp\\.|Phila\\. Co\\. R\\.|Phila\\. Reports|Pin\\.|Pittsb\\. L\\.J\\.|Pitts\\. R\\.|Port\\.|P\\.R\\. Fed\\.|Pow\\. Surr\\.|Mich\\. Pr\\.|Singer Prob\\. Cas\\.|N\\.Y\\. Proc\\. Ct\\. Ass\\.|P\\.R\\.|Rec\\. Q\\. Ct\\.|Rec\\. Ct\\. Assistants|Rec\\. Co\\. Ch\\. \\(S\\.C\\.\\)|Rec\\. Ct\\. Gen\\. Sess\\.|Rec\\. Bucks\\. Co\\. \\(Pa\\.\\)|Rec\\. T\\. Warwick \\(R\\.I\\.\\)|Rec\\. Ct\\. Ches\\. Co\\. Pa\\.|Rec\\. Co\\. Ct\\.|Rec\\. V\\.A\\. Ct\\. \\(R\\.I\\.\\)|Redf\\.|S\\.C\\.L\\. \\(Ril\\.\\)|Ct\\. Cl\\.|Mich\\. Ct\\. Cl\\.|App\\. D\\.C\\.|Bro\\. Com\\. P\\.|Ashm\\. \\(Pa\\.\\)|Conn\\. Super\\. Ct\\.|Conn\\. Super\\. Ct\\.|Disney \\(Ohio\\)|Binn\\.|Pen\\. & W\\.|Rawle|Serg\\. & Rawl\\.|Watts & Serg\\.|Whart\\.|Yeates|S\\.C\\. Eq\\. \\(Des\\.Eq\\.\\)|Ky\\. \\(Hard\\.\\)|Handy|Super\\. Ct\\. Jud\\.|Tenn\\. \\(Hayw\\.\\)|Grant|D\\.C\\. \\(MacArth\\. & M\\.\\)|D\\.C\\. \\(Tuck\\. & Cl\\.\\)|Jahn|S\\.C\\.L\\. \\(Strob\\.\\)|Gill|G\\. & J\\.|S\\.C\\. Eq\\. \\(Dud\\. Eq\\.\\)|S\\.C\\.L\\. \\(Bail\\.\\)|N\\.Y\\.|Walk\\. Ch\\.|Tenn\\. Crim\\. App\\.|H\\. & J\\.|Wilson|Miss\\. \\(S\\. & M\\. Ch\\.\\)|S\\.C\\.L\\. \\(Bay\\)|Morris|Watts|Tenn\\. \\(Mart\\. & Yer\\.\\)|Tenn\\. \\(Cold\\.\\)|Tenn\\. \\(Heisk\\.\\)|Tenn\\. \\(Yer\\.\\)|Tenn\\. \\(Head\\)|Tenn\\. \\(Meigs\\)|Tenn\\. \\(Hum\\.\\)|D\\.C\\.|D\\.C\\. \\(MacArth\\.\\)|D\\.C\\. \\(Mackey\\)|Doug\\.|Ark\\. Terr\\. Rep\\.|McGl\\.|D\\.C\\. \\(patent\\)|Ky\\. \\(Bibb\\)|Ky\\. \\(Litt\\.\\)|Ky\\. \\(T\\.B\\. Mon\\.\\)|Ky\\. \\(B\\. Mon\\.\\)|Wright|Ohio Ch\\.|Ky\\. \\(J\\.J\\. Marsh\\.\\)|S\\.C\\.L\\. \\(Speers\\)|S\\.C\\.L\\. \\(Rich\\.\\)|S\\.C\\.L\\. \\(Rice\\)|S\\.C\\.L\\. \\(Rich\\.\\)|S\\.C\\.L\\. \\(Dud\\.\\)|S\\.C\\.L\\. \\(Hill\\)|Hay\\. & Haz\\.|D\\.C\\. Cir\\.|D\\.C\\. \\(Cranch\\)|Brightly|Walker|Ind\\. App\\.|Kan\\. App\\.|Md\\. Ch\\.|Md\\. Ch\\.|Freem\\. Ch\\.|Wilcox|S\\.C\\.L\\. \\(McCord\\)|S\\.C\\.L\\. \\(Nott & McC\\.\\)|S\\.C\\.L\\. \\(Harp\\.\\)|Harr\\. Ch\\.|Miles|Cal\\. ?Dist\\. Ct\\.|McCahon|S\\.C\\. Eq\\. \\(Rice Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Hill Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Rich\\. Cas\\.\\)|S\\.C\\. Eq\\. \\(Strobh\\. Eq\\.\\)|S\\.C\\. Eq\\. \\(Bail\\. Eq\\.\\)|Greene|Myrick|D\\. Haw\\.|Rep\\. Cont\\. Elect\\. Case\\.|Rep\\. Cont\\. El\\.|Howison|Coffey|Charlton|S\\.C\\. Eq\\. \\(Harp\\. Eq\\.\\)|Brewster|S\\.C\\.L\\. \\(Mill\\)|S\\.C\\.L\\. \\(Tread\\.\\)|S\\.C\\.L\\. \\(Brev\\.\\)|Mass\\. App\\. Div\\.|Mass\\. App\\. Div\\.|Goebel|Ky\\. \\(Dana\\)|Ky\\. \\(Duv\\.\\)|Ky\\. \\(Met\\.\\)|Ky\\. \\(Bush\\)|Vaux|Tenn\\. \\(Swan\\)|Tenn\\. \\(Sneed\\)|Bradf\\.|T\\.C\\.|B\\.T\\.A\\.|R\\.I\\. Ct\\. Rec\\.|R\\.I\\. Dec\\.|R\\.I\\.|Super\\. Ct\\. \\(R\\.I\\.\\)|Robertson's Super\\. Ct\\. Rep\\.|Rob\\.|Sand\\. Ch\\.|Sandford Super\\. Ct\\. Rep\\.|Sarat\\. Ch\\. Sent\\.|Schuy\\. L\\. Rec\\.|Schuy\\. Reg\\.|Seld\\. Notes|Yates|Parsons|Sick\\. Op\\. Att'y Gen\\.|Silv\\. Ct\\. App\\.|Silv\\. Sup\\.|Smith|Som\\. L\\.J\\.|S\\.C\\.|S\\.D\\.|S\\. ?E\\.|S\\.E\\. ?2d|S\\. E\\. 2d|So\\.|So\\. ?2d|So\\. ?3d|S\\. ?W\\.|S\\.W\\. ?[23]d|S\\. W\\. [23]d|Stew\\.|Stew\\. & P\\.|S\\.C\\.D\\.C\\. \\(N\\.S\\.\\)|N\\.Y\\. Sup\\. Ct\\.|Susq\\. Leg\\. Chron\\.|Sweeney Super\\. Ct\\. Rep\\.|Robards|N\\.C\\. \\(Taylor\\)|La\\. App\\. \\(Teiss\\.\\)|Tenn\\. App\\.|Tenn\\. Cas\\.|Tenn\\. Ch\\. R\\.|Tenn\\.|Tenn\\. \\(Peck\\)|Tenn\\. \\(Cooke\\)|Tenn\\. \\(Overt\\.\\)|Tex\\. Civ\\. App\\.|Tex\\. Ct\\. App\\.|Tex\\. Crim\\.|Tex\\. L\\. R\\.|Tex\\.|Posey|N\\.J\\. \\(Burlington County Ct\\.\\)|Cin\\. Sup\\. Ct\\. Rep\\.|Com\\. Pl\\. Rep\\.|Pa\\. Dist\\.|Mass\\. Law Rep\\.|Mich\\. N\\.P\\. R\\.|Westchester|Ohio Law Abs\\.|Ohio L\\.R\\.|Ald\\.|Thomp\\. & Cook|Blume Sup\\. Ct\\. Trans\\.|Trans\\. App\\.|Tuck\\. Surr\\.|Tyl\\.|Cl\\. Ct\\.|U\\.S\\. App\\. D\\.C\\.|Ct\\. Int'l Trade|Cust\\. Ct\\.|U\\. ?S\\.|U\\.S\\. \\(Black\\)|U\\.S\\. \\(Cranch\\)|U\\.S\\. \\(Dall\\.\\)|U\\.S\\. \\(How\\.\\)|U\\.S\\. \\(Pet\\.\\)|U\\.S\\. \\(Wall\\.\\)|U\\.S\\. \\(Wheat\\.\\)|Mann\\. Unrep\\. Cas\\.|Blume Unrep\\. Op\\.|Unrep\\. Tenn\\. Cas\\.|Cal\\.|Utah|Utah 2d|Vt\\.|Va\\. Cir\\.|Va\\. Col\\. Dec\\.|Va\\. App\\.|Va\\. Dec\\.|Va\\. \\(Rand\\.\\)|Va\\. \\(Munf\\.\\)|Va\\. \\(Wash\\.\\)|Va\\.|Va\\. \\(Gratt\\.\\)|Va\\. \\(Gilmer\\)|Va\\. \\(Call\\)|Va\\. \\(Patt\\. & Heath\\)|Va\\. \\(Rob\\.\\)|Va\\. \\(Leigh\\)|V\\.I\\.|Wash\\. App\\.|Wash\\. Co\\.\\(Pa\\.\\)|Wash\\.|Wash\\. 2d|Wash\\. Terr\\.|Week\\. No\\. Cas\\. \\(Pa\\.\\)|Wend\\.|Wes\\. C\\.L\\.J\\.|Tribal|A\\. ?2d|A\\. ?3d|B\\.R\\.|F\\. App'?x\\.?|Haw\\.|M\\.J\\.|N\\.Y\\.S\\. 2d|N\\.Y\\.S\\. 2d|N\\.Y\\.S\\.|Vet\\. App\\.|W\\. Va\\.|Wheel\\. Cr\\. Cas\\.|Wis\\.|Wis\\. 2d|Wyo\\.|Yates Sel\\. Cas\\.|York Leg\\. Rec\\.) (?<page>\\d+)\\b(,?( at)? (?<pincite>\\d+)(([-‑–]| to | through )(?<pincite_end>\\d+)|(,? )?(footnote|f?n\\.) ?(?<footnote>\\d+))?\\b(?! \\w))?",
+        "operations": [
             {
                 "token": "reporter",
-                "case": "lower",
-                "omit": "[.()&,']",
-                "splitter": " ",
-                "joiner": "-"
-            }
-        ],
-        "substitutions": [
+                "case": "lower"
+            },
             {
                 "token": "reporter",
-                "index": {
+                "sub": [
+                    "[.()&,']",
+                    ""
+                ]
+            },
+            {
+                "token": "reporter",
+                "sub": [
+                    " ",
+                    "-"
+                ]
+            },
+            {
+                "token": "reporter",
+                "optionalLookup": {
                     "a-2d": "a2d",
                     "a-3d": "a3d",
                     "ad-2d": "ad2d",
@@ -6082,8 +3257,7 @@ const schemas = [
                     "sw-3d": "sw3d",
                     "s-w-3d": "sw3d",
                     "u-s": "us"
-                },
-                "allowUnmatched": true
+                }
             }
         ]
     }
@@ -6142,8 +3316,7 @@ function handleQuery(query) {
 function getUrlForQuery(query) {
   let match = getMatch(query);
   handleDefaults(match);
-  handleMutations(match);
-  handleSubstitutions(match);
+  processTokens(match);
   updateUrlParts(match);
   return buildUrl(match);
 }
@@ -6152,7 +3325,7 @@ function getUrlForQuery(query) {
 // and return the tokens and schema of the first match
 const MATCH_ERROR = "Sorry, I couldn't recognize that citation."
 function getMatch(query) {
-  for (var i = 0; i < schemas.length; i++) {
+  for (var i in schemas) {
     var schema = schemas[i];
     var match = query.match(new RegExp(schema['regex'], 'i'));
     if (match) {
@@ -6193,116 +3366,148 @@ function handleDefaults(match) {
   }
 }
 
-// for each mutation specified by the schema, modify
-// the relevant token in place
-function handleMutations(match) {
+// for each token processing operation in the schema,
+// modify the tokens accordingly
+function processTokens(match) {
   let {schema, tokens} = match;
-  for (var m in schema.mutations) {
-    let mutation = schema.mutations[m];
-    if (typeof tokens[mutation['token']] === 'undefined') {
-      continue;
-    }
-    let token = tokens[mutation['token']];
-    if (!token) {
-      continue;
-    }
-    if ('omit' in mutation) {
-      let omission = new RegExp(mutation['omit'], 'g');
-      token = token.replace(omission, '');
-    }
-    if (('splitter' in mutation) & ('joiner' in mutation)) {
-      let splitter = new RegExp(mutation['splitter'], 'g');
-      let split_token = token.split(splitter).filter(Boolean);
-      token = split_token.join(mutation['joiner']);
-    }
-    if ('case' in mutation) {
-      if (mutation['case'] == 'upper') {
-        token = token.toUpperCase();
-      }
-      else if (mutation['case'] == 'lower') {
-        token = token.toLowerCase();
-      }
-    }
-    console.log(
-      'performed string mutation to turn ' + mutation['token'] + ' "'
-      + tokens[mutation['token']] + '" into "' + token + '"'
-    );
-    tokens[mutation['token']] = token;
+  let appliedAnOperation = false;
+  if (!('operations' in schema)) {
+    return;
   }
-  console.log(' ');
-}
-
-// for each substitution specified by the schema, look up the token in an
-// index, and set it (or the outputToken) to the corresponding value.
-// Optionally use regex matching for the index lookup. Throw an error If
-// a token is out of index, unless allowUnmatched is set, in which case
-// leave it unmodified.
-const SUBSTITUTION_ERROR = "Sorry, I can't find that {token} in the {schema}."
-function handleSubstitutions(match) {
-  let {schema, tokens} = match;
-  for (var s in schema.substitutions) {
-  let sub = schema.substitutions[s];
-  if (tokens[sub['token']] === undefined) {
-    continue;
-  }
-  let outputToken;
-  if ('outputToken' in sub) {
-    outputToken = sub['outputToken'];
-  }
-  else {
-    outputToken = sub['token'];
-  }
-  let newToken;
-  if (sub['useRegex']) {
-    for (var token in sub['index']) {
-      var regexStr = '^(' + token + ')$';
-      if (tokens[sub['token']].match(new RegExp(regexStr, 'i'))) {
-        newToken = sub['index'][token];
-        break;
-      }
-    }
-  }
-  else {
-    newToken = sub['index'][tokens[sub['token']]];
-    if (newToken === undefined) {
-      newToken = sub['index'][tokens[sub['token']].toUpperCase()];
-    }
-    if (newToken === undefined) {
-      newToken = sub['index'][tokens[sub['token']].toLowerCase()];
-    }
-  }
-  if (newToken === undefined) {
-    let matchPattern;
-    if (sub['useRegex']) {
-      matchPattern = 'regex "' + regexStr + '"';
-    }
-    else {
-      matchPattern = 'any value in the index';
-    }
-    console.log(
-      'tried looking up ' + '"' + tokens[sub['token']] +'" in a table, '
-      + 'but could not find a corresponding value'
-    );
-    if (('allowUnmatched' in sub) & sub['allowUnmatched']) {
-      console.log("that's fine, since that lookup is optional");
+  for (var o in schema.operations) {
+    var operation = schema.operations[o];
+    var inputValue = tokens[operation['token']];
+    
+    // skip tokens that were not set
+    if (inputValue === undefined) {
       continue;
     }
     else {
-      console.log("since that lookup was mandatory, no URL can be built");
-      error_text = SUBSTITUTION_ERROR.replace('{schema}', schema.name);
-      error_text = error_text.replace('{token}', sub['token']);
-      throw Error(error_text);
+      appliedAnOperation = true;
+    }
+    
+    // determine output token
+    if ('output' in operation) {
+      output = operation['output'];
+    }
+    else {
+      output = operation['token'];
+    }
+    
+    // handle case modification
+    if ('case' in operation) {
+      if (operation['case'] == 'upper') {
+        tokens[output] = inputValue.toUpperCase();
+      }
+      else if (operation['case'] == 'lower') {
+        tokens[output] = inputValue.toLowerCase();
+      }
+      else if (operation['case'] == 'title') {
+        tokens[output] = inputValue.replace(
+          /\w\S*/g,
+          function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+          }
+        );
+      }
+    }
+    
+    // handle regex substitution
+    if ('sub' in operation) {
+      let regex = new RegExp(operation['sub'][0], 'ig');
+      let outputValue = inputValue.replace(regex, operation['sub'][1]);
+      tokens[output] = outputValue;
+      console.log(
+        'replaced all instances of regex "' + operation['sub'][0] + '" in '
+        + 'token "' + operation['token'] + '" with "' + operation['sub'][1]
+        + '" to set token "${output}" to "${outputValue}".'
+      );
+    }
+    
+    // handle regex lookups
+    let lookupTypes = ['lookup', 'optionalLookup'];
+    for (var t in lookupTypes) {
+      if (lookupTypes[t] in operation) {
+        let outputValue;
+        
+        console.log(tokens[operation['token']]);
+        
+        for (var key in operation[lookupTypes[t]]) {
+          let regexStr = '^(' + key + ')$';
+          if (tokens[operation['token']].match(new RegExp(regexStr, 'i'))) {
+            outputValue = operation[lookupTypes[t]][key];
+            break;
+          }
+        }
+        if (outputValue !== undefined) {
+          tokens[output] = outputValue;
+        }
+        else if (lookupTypes[t] == 'optionalLookup') {
+          console.log(
+            'tried to look up token "' + operation['token'] + '" in an index,'
+            + 'but failed, so token "' + output + '" will not be modified.'
+          );
+        }
+        else {
+          throw Error(
+            "Sorry, I can't find that" + operation['token'] + " in the " + schema
+          );
+        }
+      }
+    }
+    
+    // change between digits and roman numerals
+    // this method is lazy and only goes up to 40
+    if ('numberFormat' in operation) {
+      let numerals = [
+        ['I', '1'], ['II', '2'], ['III', '3'], ['IV', '4'], ['V', '5'],
+        ['VI', '6'], ['VII', '7'], ['VIII', '8'], ['IX', '9'], ['X', '10'],
+        ['XI', '11'], ['XII', '12'], ['XIII', '13'], ['XIV', '14'],
+        ['XV', '15'], ['XVI', '16'], ['XVII', '17'], ['XVIII', '18'],
+        ['XIX', '19'], ['XX', '20'], ['XXI', '21'], ['XXII', '22'],
+        ['XXIII', '23'], ['XXIV', '24'], ['XXV', '25'], ['XXVI', '26'], 
+        ['XXVII', '27'], ['XXVIII', '28'], ['XXIX', '29'], ['XXX', '30'],
+        ['XXXI', '31'], ['XXXII', '32'], ['XXXIII', '33'], ['XXXIV', '34'],
+        ['XXXV', '35'], ['XXXVI', '36'], ['XXXVII', '37'], ['XXXVIII', '38'],
+        ['XXXIX', '39'], ['XL', '40']
+      ];
+      // determine which format is used to look up the other
+      let key, value;
+      if (operation['numberFormat'] == 'roman') {
+        key = 1;
+        value = 0;
+      }
+      else if (operation['numberFormat'] == 'digit') {
+        key = 0;
+        value = 1;
+      }
+      // perform the appropriate lookup, outputting the input value
+      // unchanged if the lookup fails
+      tokens[output] = inputValue;
+      for (var pair in numerals) {
+        if (numerals[pair][key].match(inputValue.toUpperCase())) {
+          tokens[output] = numerals[pair][value];
+          break;
+        }
+      }
+    }
+    
+    // left pad with zeros
+    if ('lpad' in operation) {
+      let outputValue = inputValue;
+      while (outputValue.length < operation['lpad']) {
+        outputValue = '0' + outputValue;
+      }
+      tokens[output] = outputValue
+      console.log(
+        'added zeros to the beginning of ' + operation['token']
+        + ' until it was ' + String(operation['lpad']) + ' characters long'
+      );
     }
   }
-  else {
-    console.log(
-      'looked up ' + sub['token'] + ' "' + tokens[sub['token']] 
-      + '" in a table to set ' + outputToken + ' to "' + newToken + '"'
-    );
-    tokens[outputToken] = newToken;
+  if (appliedAnOperation) {
+    console.log(' ');
   }
-  }
-  console.log(' ');
 }
 
 // go through the pieces of the schema's URL template, and replace any
@@ -6341,7 +3546,7 @@ function buildUrl(match) {
       console.log('added "' + part + '"');
     }
     else {
-      console.log('omitted "'+part+'" because it has a placeholder');
+      console.log('omitted "'+part+'" because it still has a placeholder');
     }
   }
   console.log('finished building URL: ' + url);
@@ -6421,7 +3626,7 @@ Clean Air Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex
 Clean Water Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Clean%20Water%20Act%7CC%5C.%3F%20%3FW%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Fair Housing Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Fair%20Housing%20Act%7CF%5C.%3F%20%3Fh%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Americans With Disabilities Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Americans%20%5BWw%5Dith%20Disabilities%20Act%7CA%5C.%20D%5C.%20A%5C.%7CA%5C.%3FD%5C.%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Uniform Commercial Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Uniform%20Commercial%20Code%7CU%5C.%3F%20%3FC%5C.%3F%20%3FC%5C.%3F%29%28%20%3F%C2%A7%29%3F%20%28%5Cd%5Ba-z%5D%3F%29%5CW%2B%28%5Cd%2B%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Uniform Commercial Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Uniform%20Commercial%20Code%7CU%5C.%3F%20%3FC%5C.%3F%20%3FC%5C.%3F%29%28%20%3F%C2%A7%29%3F%20%28%5Cd%5Ba-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Code of Alabama, 1975 | [alisondb.legislature.state.al.us](https://alisondb.legislature.state.al.us) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Ala%28bama%7C%5C.%29%7CAL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Alabama Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Ala%28bama%7C%5C.%29%7CAL%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Alaska Statutes | [www.akleg.gov](http://www.akleg.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Alaska%7CAK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
