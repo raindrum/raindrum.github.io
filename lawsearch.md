@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-03-17
+Modified: 2021-03-31
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -123,7 +123,7 @@ const schemas = [
             "https://www.law.cornell.edu/rules/frcp/rule_{rule}",
             "#rule_{rule}_{subsection}"
         ],
-        "regex": "(F\\.? ?R\\.? ?C\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Civ\\.? ?Pr?o?c?\\.?|Federal Rules? of Civil Procedure) ?(Rule )?(?<rule>\\d+[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+        "regex": "(F\\.? ?R\\.? ?C\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Civ\\.? ?Pr?o?c?\\.?|Federal Rules? of Civil Procedure) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
         "operations": [
             {
                 "token": "subsection",
@@ -147,7 +147,7 @@ const schemas = [
         "URL": [
             "https://www.law.cornell.edu/rules/frap/rule_{rule}"
         ],
-        "regex": "(\\b|^)(F\\.? ?R\\.? ?A\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?App\\.? ?Pr?o?c?\\.?|Federal Rules? of Appellate Procedure) ?(Rule )?(?<rule>\\d+[a-z]?)"
+        "regex": "(\\b|^)(F\\.? ?R\\.? ?A\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?App\\.? ?Pr?o?c?\\.?|Federal Rules? of Appellate Procedure) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)"
     },
     {
         "name": "Federal Rules of Criminal Procedure",
@@ -157,7 +157,7 @@ const schemas = [
             "/rule_{rule}",
             "#rule_{rule}_{subsection}"
         ],
-        "regex": "(F\\.? ?R\\.? ?Cr\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Crim\\.? ?Pr?o?c?\\.?|Federal Rules? of Criminal Procedure) ?(Rule )?(?<rule>\\d+[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
+        "regex": "(F\\.? ?R\\.? ?Cr\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Crim\\.? ?Pr?o?c?\\.?|Federal Rules? of Criminal Procedure) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
         "operations": [
             {
                 "token": "subsection",
@@ -181,7 +181,7 @@ const schemas = [
         "URL": [
             "https://www.law.cornell.edu/rules/fre/rule_{rule}"
         ],
-        "regex": "(\\b|^)(F\\.? ?R\\.? ?E\\.?|Fed\\.? R(\\.?|ule) ?Evid\\.?|Federal Rules? of Evidence) ?(Rule )?(?<rule>\\d+[a-z]?)"
+        "regex": "(\\b|^)(F\\.? ?R\\.? ?E\\.?|Fed\\.? R(\\.?|ule) ?Evid\\.?|Federal Rules? of Evidence) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)"
     },
     {
         "name": "Immigration and Nationality Act",
@@ -1947,11 +1947,11 @@ const schemas = [
         "URL": [
             "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article={articleCode}&section={title}-{section}"
         ],
-        "regex": "(\\b|^)M(aryland|d\\.|D)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?(?<article>(Ac|Al|[BCEFHILNPRST]).{4,38}?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>[\\dA-Z\\-–.]*[\\dA-Z])(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
+        "regex": "(\\b|^)M(aryland|d\\.|D) (?<article>(Ac|Al|[BCEFHILNPRST]).{4,38}?) (Code( Ann(otated|\\.))? )?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>[\\dA-Z\\-–.]*[\\dA-Z])(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
         "operations": [
             {
                 "token": "section",
-                "lookup": [
+                "sub": [
                     "–",
                     "-"
                 ]
@@ -1986,7 +1986,7 @@ const schemas = [
                     "Land Use": "glu",
                     "Local Gov(ernment|'t)": "glg",
                     "Nat(ural|\\.) ?Res(ources|\\.)": "gnr",
-                    "Pub(lic|\\.) ?Safety": "gps",
+                    "Pub(lic|\\.) ?Saf(ety|\\.)": "gps",
                     "Pub(lic|\\.) ?Util(ity|\\.)": "gpu",
                     "Real Prop(erty|\\.)": "grp",
                     "State Fin(ance|\\.) (and|&) Proc(urement|\\.)": "gsf",
@@ -2473,7 +2473,7 @@ const schemas = [
         "URL": [
             "https://www.nysenate.gov/legislation/laws/{chapterAcronym}/{section}"
         ],
-        "regex": "(\\b|^)(New York|N\\.? ?Y\\.?) ?(?<chapter>.{2,40}?)( Law)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
+        "regex": "(\\b|^)(New York|N\\.? ?Y\\.?) ?(?<chapter>.{2,40}?)( Law)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.-]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
         "operations": [
             {
                 "token": "chapter",
@@ -2560,6 +2560,10 @@ const schemas = [
                     "Vol(unteer|\\.) Ambul(ance|\\.) Workers'? Benefit|VAW": "VAW",
                     "Vol(unteer|\\.) Fire(fighters'?|\\.) Ben(efit|\\.)|VOL": "VOL"
                 }
+            },
+            {
+                "token": "section",
+                "case": "upper"
             }
         ]
     },
@@ -3008,7 +3012,6 @@ const schemas = [
             {
                 "token": "chapter",
                 "output": "isChapterII",
-                "allowUnmatched": true,
                 "optionalLookup": {
                     "II": ""
                 }
@@ -3017,10 +3020,10 @@ const schemas = [
                 "token": "article",
                 "output": "articleSuffix",
                 "lookup": {
-                    "1": "st",
-                    "2": "nd",
-                    "3": "rd",
-                    "[4-9]|\\d{2,}": "th"
+                    "(\\d*[02-9])?1": "st",
+                    "(\\d*[02-9])?2": "nd",
+                    "(\\d*[02-9])?3": "rd",
+                    "(\\d*[02-9])?[4-9]|\\d*1\\d": "th"
                 }
             },
             {
@@ -3611,10 +3614,10 @@ U.S. Public Laws | [uscode.house.gov](https://uscode.house.gov) | [view regex](h
 U.S. Statutes at Large | [www.govinfo.gov](https://www.govinfo.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28%5Cd%2B%29%20Stat%5C.%3F%20%28%5Cd%2B%29%28%5B%E2%80%93%E2%80%91-%5D%5Cd%2B%29%3F)
 Federal Register | [www.federalregister.gov](https://www.federalregister.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28%5Cd%2B%29%20%28Fed%5C.%20%3FReg%5C.%7CF%5C.%3F%20%3FR%5C.%3F%29%20%28%5Cd%28%5B%2C%5Cd%5D%2B%5Cd%29%3F%29)
 Code of Federal Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Title%20%29%3F%28%5Cd%2B%29%20%28C%5C.%3F%20%3FF%5C.%3F%20%3FR%5C.%3F%7CCode%20of%20Federal%20Regulations%29%28%20%5BPp%5Darts%3F%7C%20%5BPp%5Dts%3F%5C.%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Federal Rules of Civil Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28F%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FCiv%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Civil%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%5Ba-z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Federal Rules of Appellate Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28F%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FApp%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Appellate%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%5Ba-z%5D%3F%29)
-Federal Rules of Criminal Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28F%5C.%3F%20%3FR%5C.%3F%20%3FCr%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FCrim%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Criminal%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%5Ba-z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Federal Rules of Evidence | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28F%5C.%3F%20%3FR%5C.%3F%20%3FE%5C.%3F%7CFed%5C.%3F%20R%28%5C.%3F%7Cule%29%20%3FEvid%5C.%3F%7CFederal%20Rules%3F%20of%20Evidence%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%5Ba-z%5D%3F%29)
+Federal Rules of Civil Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28F%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FCiv%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Civil%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Ba-z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Federal Rules of Appellate Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28F%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FApp%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Appellate%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Ba-z%5D%3F%29)
+Federal Rules of Criminal Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28F%5C.%3F%20%3FR%5C.%3F%20%3FCr%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FCrim%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Criminal%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Ba-z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Federal Rules of Evidence | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28F%5C.%3F%20%3FR%5C.%3F%20%3FE%5C.%3F%7CFed%5C.%3F%20R%28%5C.%3F%7Cule%29%20%3FEvid%5C.%3F%7CFederal%20Rules%3F%20of%20Evidence%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Ba-z%5D%3F%29)
 Immigration and Nationality Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Immigration%20%28%5BAa%5Dnd%7C%26%29%20Nationality%20Act%7CI%5C.%3FN%5C.%3FA%5C.%3F%7CI%5C.%20N%5C.%20A%5C.%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Internal Revenue Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Internal%20Revenue%20Code%7CI%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Treasury Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29Treas%28ury%7C%5C.%3F%29%20%3FReg%28ulations%3F%7C%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
@@ -3668,7 +3671,7 @@ Louisiana Codes | [www.lawserver.com](https://www.lawserver.com) | [view regex](
 Louisiana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29L%28ouisiana%7Ca%5C.%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Maine Statutes | [legislature.maine.gov](https://legislature.maine.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29M%28aine%7Ce%5C.%7CE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Maine Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29M%28aine%7Ce%5C.%7CE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%5BPp%5D%28art%7Ct%5C.%29%20%3F%28%5Cd%29%29%3F%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Maryland Code | [mgaleg.maryland.gov](https://mgaleg.maryland.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29M%28aryland%7Cd%5C.%7CD%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Ac%7CAl%7C%5BBCEFHILNPRST%5D%29.%7B4%2C38%7D%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5B%5CdA-Z%5C-%E2%80%93.%5D%2A%5B%5CdA-Z%5D%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Maryland Code | [mgaleg.maryland.gov](https://mgaleg.maryland.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29M%28aryland%7Cd%5C.%7CD%29%20%28%28Ac%7CAl%7C%5BBCEFHILNPRST%5D%29.%7B4%2C38%7D%3F%29%20%28Code%28%20Ann%28otated%7C%5C.%29%29%3F%20%29%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5B%5CdA-Z%5C-%E2%80%93.%5D%2A%5B%5CdA-Z%5D%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Maryland Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29M%28aryland%7Cd%5C.%7CD%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Massachusetts General Laws | [malegislature.gov](https://malegislature.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28%28Mass%28achusetts%7C%5C.%29%7CMA%29%20%3F%28Gen%28eral%7C%5C.%29%7CAnn%28otated%7C%5C.%29%29%20%3FLaws%28%20Ann%28otated%7C%5C.%29%29%3F%7CM%5C.%3FG%5C.%3FL%5C.%3F%28A%5C.%3F%29%3F%7CA%5C.%3FL%5C.%3FM%5C.%3F%29%2C%3F%20%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5Cd%2B%5BA-Z%5D%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%5Cd%2B%5BA-Z%5D%3F%5Cd%2A%28%5B%2F%5D%5Cd%2B%5BA-Z%5D%3F%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Massachusetts Constitution | [malegislature.gov](https://malegislature.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Mass%28achusetts%7C%5C.%29%7CMA%29%20Const%28itution%7C%5C.%29%2C%3F%20%5BPp%5D%28art%7Ct%5C.%29%20%3F%28II%3F%7C1%7C2%7C%5BTt%5Dhe%20%28%5BFf%5Dirst%7C%5BSs%5Decond%29%29%28%2C%3F%20%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%3F%29%3F%28%2C%3F%20%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%3F)
@@ -3692,7 +3695,7 @@ Nevada Revised Statutes | [www.leg.state.nv.us](https://www.leg.state.nv.us) | [
 Nevada Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28Nev%28ada%7C%5C.%29%7CNV%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 New Mexico Statutes Annotated 1978 | [nmonesource.com](https://nmonesource.com) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28%28New%20Mexico%7CN%5C.%3F%20%3FM%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CNMSA%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%5BA-Za-z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 New Mexico Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28New%20Mexico%7CN%5C.%3F%20%3FM%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Consolidated Laws of New York | [www.nysenate.gov](https://www.nysenate.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28New%20York%7CN%5C.%3F%20%3FY%5C.%3F%29%20%3F%28.%7B2%2C40%7D%3F%29%28%20Law%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Consolidated Laws of New York | [www.nysenate.gov](https://www.nysenate.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28New%20York%7CN%5C.%3F%20%3FY%5C.%3F%29%20%3F%28.%7B2%2C40%7D%3F%29%28%20Law%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 New York Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28New%20York%7CN%5C.%3F%20%3FY%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 North Carolina General Statutes | [www.ncleg.gov](https://www.ncleg.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FGen%28eral%7C%5C.%29%20%3FStat%28utes%7Cs%3F%5C.%29%7CN%5C.%3F%20%3FC%5C.%3F%20%3FG%5C.%3F%20%3FS%5C.%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 North Carolina Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
