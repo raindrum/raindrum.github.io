@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-03-31
+Modified: 2021-04-05
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -2588,7 +2588,7 @@ const schemas = [
         "URL": [
             "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_{chapter}/GS_{chapter}-{section}.html"
         ],
-        "regex": "(\\b|^)((North Carolina|N\\.? ?C\\.?) ?Gen(eral|\\.) ?Stat(utes|s?\\.)|N\\.? ?C\\.? ?G\\.? ?S\\.?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+        "regex": "(\\b|^)((North Carolina|N\\.? ?C\\.?) ?Gen(eral|\\.) ?Stat(utes|s?\\.?)|N\\.? ?C\\.? ?G\\.? ?S\\.?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "North Carolina Constitution",
@@ -2895,7 +2895,7 @@ const schemas = [
                 "output": "codeAcronym",
                 "lookup": {
                     "Agric(ulture|\\.)|AGC?": "AG",
-                    "Alc(oholic|o?\\.) Bev(erage|\\.)|ABC?": "AB",
+                    "Alc(oholic|o?\\.) Bev(erage|\\.)|ABC?": "AL",
                     "Aux(iliary|\\.) Water Laws|A?WL": "WL",
                     "Bus(iness|\\.) (and|&) Com(merce|m?\\.)|B&C|BCC?": "BC",
                     "Bus(iness|\\.) Org(anizations|s\\.)|BOC?": "BO",
@@ -3697,7 +3697,7 @@ New Mexico Statutes Annotated 1978 | [nmonesource.com](https://nmonesource.com) 
 New Mexico Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28New%20Mexico%7CN%5C.%3F%20%3FM%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Consolidated Laws of New York | [www.nysenate.gov](https://www.nysenate.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28New%20York%7CN%5C.%3F%20%3FY%5C.%3F%29%20%3F%28.%7B2%2C40%7D%3F%29%28%20Law%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 New York Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28New%20York%7CN%5C.%3F%20%3FY%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-North Carolina General Statutes | [www.ncleg.gov](https://www.ncleg.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FGen%28eral%7C%5C.%29%20%3FStat%28utes%7Cs%3F%5C.%29%7CN%5C.%3F%20%3FC%5C.%3F%20%3FG%5C.%3F%20%3FS%5C.%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+North Carolina General Statutes | [www.ncleg.gov](https://www.ncleg.gov) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FGen%28eral%7C%5C.%29%20%3FStat%28utes%7Cs%3F%5C.%3F%29%7CN%5C.%3F%20%3FC%5C.%3F%20%3FG%5C.%3F%20%3FS%5C.%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 North Carolina Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 North Dakota Century Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28North%20Dakota%7CN%5C.%3F%20%3FD%5C.%3F%29%20%3FCent%28ury%7C%5C.%29%20%3FCode%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 North Dakota Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28%5Cb%7C%5E%29%28North%20Dakota%7CN%5C.%3F%20%3FD%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)

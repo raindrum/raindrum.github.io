@@ -2604,7 +2604,7 @@ const schemas = [
         "URL": [
             "https://www.ncleg.gov/EnactedLegislation/Statutes/HTML/BySection/Chapter_{chapter}/GS_{chapter}-{section}.html"
         ],
-        "regex": "(\\b|^)((North Carolina|N\\.? ?C\\.?) ?Gen(eral|\\.) ?Stat(utes|s?\\.)|N\\.? ?C\\.? ?G\\.? ?S\\.?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+        "regex": "(\\b|^)((North Carolina|N\\.? ?C\\.?) ?Gen(eral|\\.) ?Stat(utes|s?\\.?)|N\\.? ?C\\.? ?G\\.? ?S\\.?) ((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<chapter>\\d+[A-Z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
     },
     {
         "name": "North Carolina Constitution",
@@ -2911,7 +2911,7 @@ const schemas = [
                 "output": "codeAcronym",
                 "lookup": {
                     "Agric(ulture|\\.)|AGC?": "AG",
-                    "Alc(oholic|o?\\.) Bev(erage|\\.)|ABC?": "AB",
+                    "Alc(oholic|o?\\.) Bev(erage|\\.)|ABC?": "AL",
                     "Aux(iliary|\\.) Water Laws|A?WL": "WL",
                     "Bus(iness|\\.) (and|&) Com(merce|m?\\.)|B&C|BCC?": "BC",
                     "Bus(iness|\\.) Org(anizations|s\\.)|BOC?": "BO",
@@ -4069,7 +4069,7 @@ document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\
 <tr>
 <td>North Carolina General Statutes</td>
 <td><a href="https://www.ncleg.gov">www.ncleg.gov</a></td>
-<td><a href="https://regexper.com#%28%5Cb%7C%5E%29%28%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FGen%28eral%7C%5C.%29%20%3FStat%28utes%7Cs%3F%5C.%29%7CN%5C.%3F%20%3FC%5C.%3F%20%3FG%5C.%3F%20%3FS%5C.%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F">view regex</a></td>
+<td><a href="https://regexper.com#%28%5Cb%7C%5E%29%28%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FGen%28eral%7C%5C.%29%20%3FStat%28utes%7Cs%3F%5C.%3F%29%7CN%5C.%3F%20%3FC%5C.%3F%20%3FG%5C.%3F%20%3FS%5C.%3F%29%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F">view regex</a></td>
 </tr>
 <tr>
 <td>North Carolina Constitution</td>
