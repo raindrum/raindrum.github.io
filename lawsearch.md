@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-04-18
+Modified: 2021-04-26
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -9,14 +9,14 @@ Type a legal citation into the box below, and I'll try to send you to whatever i
 // This script was made with CiteURL, an extensible framework to turn
 // legal references into URLs.
 //
-// The "schemas" variable directly below holds the data necessary to 
-// turn each kind of citation into a URL. Some or all of the schemas may
+// The "templates" variable directly below holds the data necessary to 
+// turn each kind of citation into a URL. Some or all of the templates may
 // have been made by a third party and are not part of CiteURL itself.
 //
 // CiteURL is copyright of Simon Raindrum Sherred under the MIT License,
 // and is available at https://github.com/raindrum/citeurl.
 
-const schemas = [
+const templates = [
     {
         "name": "United States Code",
         "defaults": {},
@@ -25,9 +25,8 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "([Tt]itle )?(?<title>\\d+) (U\\.?|United) ?(S\\.?|States) ?C(ode|\\.?)( ?[AS]\\.?| Ann(otated|o?\\.)| Serv(ice|\\.))? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?",
-            "([Tt]itle )?(?<title>\\d+) (U\\.?|United) ?(S\\.?|States) ?C(ode|\\.?)( ?[AS]\\.?| Ann(otated|o?\\.)| Serv(ice|\\.))? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
-            "[Ss]ection ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))? of ([Tt]itle )?(?<title>\\d+) of the (U\\.?|United) ?(S\\.?|States) ?C(ode|\\.?)( ?[AS]\\.?| Ann(otated|o?\\.)| Serv(ice|\\.))?"
+            "([Tt]itle )?(?<title>\\d+) (U\\.?|United) ?(S\\.?|States) ?C(ode|\\.?)( ?[AS]\\.?| Ann(otated|o?\\.)| Serv(ice|\\.))?((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?",
+            "[Ss]ection((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))? of ([Tt]itle )?(?<title>\\d+) of the (U\\.?|United) ?(S\\.?|States) ?C(ode|\\.?)( ?[AS]\\.?| Ann(otated|o?\\.)| Serv(ice|\\.))?"
         ],
         "operations": [
             {
@@ -58,8 +57,11 @@ const schemas = [
             "_C{clause}"
         ],
         "regexes": [
+            "(^|(U\\.? ?S\\.?|United States) ?Const(itution|\\.))([Aa]rt(icle|\\.) (?<article>[\\dIViv]{1,3}|[Oo]ne|[Tt]wo|[Tt]hree|[Ff]our|[Ff]ive|[Ss]ix|[Ss]even)|[Aa]m(endment|(end|dt?)?\\.) (?<amendment>[\\dXIVxiv]{1,3}))((,? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>\\d+|[IVXivx]{1,7}))((,? ([Cc]l(ause|\\.) ?(?<clause>\\d+))))?)?",
+            "(((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>\\d+|[IVXivx]{1,7})((,? ([Cc]l(ause|\\.) ?(?<clause>\\d+))))? of )?([Tt]he )?(?<amendment>\\d{1,2}(st|nd|rd|th)|([Tt]wenty(-| )?)?([Ff]irst|[Ss]econd|[Tt]hird|[Ff]ourth|[Ff]ifth|[Ss]ixth|[Ss]eventh|[Ee]ighth|[Nn]inth)|[Tt]enth|[Ee]leventh|[Tt]welfth|([Tt]hir|[Ff]our|[Ff]if|[Ss]ix|[Ss]even|[Ee]igh|[Nn]ine)teenth|[Tt]wentieth) [Aa]m(endment|dt?\\.|end\\.)",
             "(U\\.? ?S\\.?|United States) ?Const(itution|\\.),? ([Aa]rt(icle|\\.) (?<article>[\\dIViv]{1,3}|[Oo]ne|[Tt]wo|[Tt]hree|[Ff]our|[Ff]ive|[Ss]ix|[Ss]even)|[Aa]m(endment|(end|dt?)?\\.) (?<amendment>[\\dXIVxiv]{1,3}))((,? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>\\d+|[IVXivx]{1,7}))((,? ([Cc]l(ause|\\.) ?(?<clause>\\d+))))?)?",
-            "([Aa]rt(icle|\\.) (?<article>[\\dIViv]{1,3}|[Oo]ne|[Tt]wo|[Tt]hree|[Ff]our|[Ff]ive|[Ss]ix|[Ss]even)|[Aa]m(endment|(end|dt?)?\\.) (?<amendment>[\\dXIVxiv]{1,3}))((,? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>\\d+|[IVXivx]{1,7}))((,? ([Cc]l(ause|\\.) ?(?<clause>\\d+))))?)? of the (U\\.? ?S\\.?|United States) ?Const(itution|\\.)"
+            "([Aa]rt(icle|\\.) (?<article>[\\dIViv]{1,3}|[Oo]ne|[Tt]wo|[Tt]hree|[Ff]our|[Ff]ive|[Ss]ix|[Ss]even)|[Aa]m(endment|(end|dt?)?\\.) (?<amendment>[\\dXIVxiv]{1,3}))((,? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>\\d+|[IVXivx]{1,7}))((,? ([Cc]l(ause|\\.) ?(?<clause>\\d+))))?)? (of|to) the (U\\.? ?S\\.?|United States) ?Const(itution|\\.)",
+            "(((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>\\d+|[IVXivx]{1,7})((,? ([Cc]l(ause|\\.) ?(?<clause>\\d+))))? of )?([Tt]he )?(?<amendment>\\d{1,2}(st|nd|rd|th)|([Tt]wenty(-| )?)?([Ff]irst|[Ss]econd|[Tt]hird|[Ff]ourth|[Ff]ifth|[Ss]ixth|[Ss]eventh|[Ee]ighth|[Nn]inth)|[Tt]enth|[Ee]leventh|[Tt]welfth|([Tt]hir|[Ff]our|[Ff]if|[Ss]ix|[Ss]even|[Ee]igh|[Nn]ine)teenth|[Tt]wentieth) [Aa]m(endment|dt?\\.|end\\.) (of|to) the (U\\.? ?S\\.?|United States) ?Const(itution|\\.)"
         ],
         "operations": [
             {
@@ -72,6 +74,47 @@ const schemas = [
                     "five": "5",
                     "six": "6",
                     "seven": "7"
+                }
+            },
+            {
+                "token": "amendment",
+                "sub": [
+                    "(st|nd|rd|th)$",
+                    ""
+                ]
+            },
+            {
+                "token": "amendment",
+                "optionalLookup": {
+                    "fir": "1",
+                    "seco": "2",
+                    "thi": "3",
+                    "four": "4",
+                    "fif": "5",
+                    "six": "6",
+                    "seven": "7",
+                    "eigh": "8",
+                    "nin": "9",
+                    "ten": "10",
+                    "eleven": "11",
+                    "twelf": "12",
+                    "thirteen": "13",
+                    "fourteen": "14",
+                    "fifteen": "15",
+                    "sixteen": "16",
+                    "seventeen": "17",
+                    "eighteen": "18",
+                    "nineteen": "19",
+                    "twentie": "20",
+                    "twenty(- )?fir": "21",
+                    "twenty(- )?seco": "22",
+                    "twenty(- )?thi": "23",
+                    "twenty(- )?four": "24",
+                    "twenty(- )?fif": "25",
+                    "twenty(- )?six": "26",
+                    "twenty(- )?seven": "21",
+                    "twenty(- )?eigh": "28",
+                    "twenty(- )?nin": "29"
                 }
             },
             {
@@ -140,7 +183,7 @@ const schemas = [
             "#p-{section}{subsection}"
         ],
         "regexes": [
-            "([Tt]itle )?(?<title>\\d+) (C\\.? ?F\\.? ?R\\.?|Code of Federal Regulations)( [Pp]arts?| [Pp]ts?\\.)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "([Tt]itle )?(?<title>\\d+) (C\\.? ?F\\.? ?R\\.?|Code of Federal Regulations)( [Pp]arts?| [Pp]ts?\\.)?((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ]
     },
     {
@@ -151,7 +194,7 @@ const schemas = [
             "#rule_{rule}_{subsection}"
         ],
         "regexes": [
-            "(F\\.? ?R\\.? ?C\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Civ\\.? ?Pr?o?c?\\.?|Federal Rules? of Civil Procedure) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(F\\.? ?R\\.? ?C\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Civ\\.? ?Pr?o?c?\\.?|Federal Rules? of Civil Procedure) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -189,7 +232,7 @@ const schemas = [
             "#rule_{rule}_{subsection}"
         ],
         "regexes": [
-            "(F\\.? ?R\\.? ?Cr\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Crim\\.? ?Pr?o?c?\\.?|Federal Rules? of Criminal Procedure) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(F\\.? ?R\\.? ?Cr\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?Crim\\.? ?Pr?o?c?\\.?|Federal Rules? of Criminal Procedure) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -228,7 +271,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "(Immigration ([Aa]nd|&) Nationality Act|I\\.?N\\.?A\\.?|I\\. N\\. A\\.) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(Immigration ([Aa]nd|&) Nationality Act|I\\.?N\\.?A\\.?|I\\. N\\. A\\.)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -442,7 +485,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "(Internal Revenue Code|I\\.? ?R\\.? ?C\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(Internal Revenue Code|I\\.? ?R\\.? ?C\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -471,7 +514,7 @@ const schemas = [
             "#p-{section}{subsection}"
         ],
         "regexes": [
-            "Treas(ury|\\.?) ?Reg(ulations?|\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "Treas(ury|\\.?) ?Reg(ulations?|\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -500,7 +543,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "(Natioanal Labor Relations Act|N\\.? ?L\\.? ?R\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(Natioanal Labor Relations Act|N\\.? ?L\\.? ?R\\.? ?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -573,7 +616,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "(Endangered Species Act|E\\.? ?S\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(Endangered Species Act|E\\.? ?S\\.? ?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -622,7 +665,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "(C\\.? ?A\\.? ?A\\.?|Clean Air Act) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(C\\.? ?A\\.? ?A\\.?|Clean Air Act)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -815,7 +858,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "(Clean Water Act|C\\.? ?W\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(Clean Water Act|C\\.? ?W\\.? ?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -878,7 +921,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "(Fair Housing Act|F\\.? ?h\\.? ?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(Fair Housing Act|F\\.? ?h\\.? ?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -936,7 +979,7 @@ const schemas = [
             "#{subsection}"
         ],
         "regexes": [
-            "(Americans [Ww]ith Disabilities Act|A\\. D\\. A\\.|A\\.?D\\.?A\\.?) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(Americans [Ww]ith Disabilities Act|A\\. D\\. A\\.|A\\.?D\\.?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -1018,7 +1061,7 @@ const schemas = [
             "#{article}-{section}{subsection}"
         ],
         "regexes": [
-            "(Uniform Commercial Code|U\\.? ?C\\.? ?C\\.?)( ?§)? (?<article>\\d[a-z]?)[-‑–](?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.?) ?)? ?(?<subsection>(\\(\\w+\\))+|((\\w{1,5}) ?)+))?"
+            "(Uniform Commercial Code|U\\.? ?C\\.? ?C\\.?)( ?§)? (?<article>\\d[a-z]?)[-‑–](?<section>\\d+)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -1200,7 +1243,7 @@ const schemas = [
             "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode={codeAcronym}&sectionNum={section}"
         ],
         "regexes": [
-            "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?Code( Ann(otated|\\.))?,?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "(Cal(ifornia|\\.)|CAL?) ?(?<code>[BCDEFGHILMPRSUVW].{2,40}?)( ?C(ode|\\.)( Ann(otated|\\.))?,?)?((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -1344,7 +1387,7 @@ const schemas = [
             "https://www.lawserver.com/law/state/delaware/de-code/delaware_code_title_{title}_{section}"
         ],
         "regexes": [
-            "([Tt]it(le|\\.) )?(?<title>\\d{1,2}),? (Del(aware|\\.)|DE) ?C(ode|\\.) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "([Tt]it(le|\\.) )?(?<title>\\d{1,2}),? (Del(aware|\\.)|DE) ?C(ode|\\.)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -1360,7 +1403,7 @@ const schemas = [
             "https://delcode.delaware.gov/title8/c001/sc{subchapter}/index.shtml#{section}."
         ],
         "regexes": [
-            "(D\\.? ?G\\.? ?C\\.? ?L\\.?|Del(aware|\\.) ?Gen(eral|\\.) ?Corp(orations?|s?\\.) ?L(aw|\\.)) ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "(D\\.? ?G\\.? ?C\\.? ?L\\.?|Del(aware|\\.) ?Gen(eral|\\.) ?Corp(orations?|s?\\.) ?L(aw|\\.))((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -1699,7 +1742,7 @@ const schemas = [
             "https://apps.legislature.ky.gov/Law/Constitution/Constitution/ViewConstitution?rsn={section}"
         ],
         "regexes": [
-            "K(entucky|y\\.|Y) ?Const(itution|\\.),?( ?(Art(icle|\\.) ?)?([IVXivx]{1,7}|\\d{1,2}|Bill of Rights|Rights of Victims of Crime|Dist(ribution|\\.) of the Powers of Gov(ernment|('t)?\\.?)|(The )?(Leg(islative|(is)?\\.)|Exec(utive|\\.)|Jud(icial|\\.)) ?Dep(artment|('t)?\\.?)|Counties (and|&) County Seats|Impeachments|(C(ounty|ty\\.)|Fisc(al|\\.)) ?C(ourts|ts\\.)|Justices of the Peace|Suff(rage|\\.) ?(and|&) ?Elec(tions|\\.)|Mun(icipalities|i?\\.)|Rev(enue|\\.) ?(and|&) ?Tax(ation|\\.?)|Educ(ation|\\.)|Corp(orations?|s?\\.)|R(ailroads|\\.R\\.) (and|&) Com(merce|m?\\.)|(The )?Militia|Gen(eral|\\.) ?Prov(isions|s?\\.)|Mode of Rev(ision|\\.)),?)? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))"
+            "K(entucky|y\\.|Y) ?Const(itution|\\.),?( ?(Art(icle|\\.) ?)?([IVXivx]{1,7}|\\d{1,2}|Bill of Rights|Rights of Victims of Crime|Dist(ribution|\\.) of the Powers of Gov(ernment|('t)?\\.?)|(The )?(Leg(islative|(is)?\\.)|Exec(utive|\\.)|Jud(icial|\\.)) ?Dep(artment|('t)?\\.?)|Counties (and|&) County Seats|Impeachments|(C(ounty|ty\\.)|Fisc(al|\\.)) ?C(ourts|ts\\.)|Justices of the Peace|Suff(rage|\\.) ?(and|&) ?Elec(tions|\\.)|Mun(icipalities|i?\\.)|Rev(enue|\\.) ?(and|&) ?Tax(ation|\\.?)|Educ(ation|\\.)|Corp(orations?|s?\\.)|R(ailroads|\\.R\\.) (and|&) Com(merce|m?\\.)|(The )?Militia|Gen(eral|\\.) ?Prov(isions|s?\\.)|Mode of Rev(ision|\\.)),?)?((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)"
         ],
         "operations": [
             {
@@ -2037,7 +2080,7 @@ const schemas = [
             "https://legislature.maine.gov/legis/statutes/{title}/title{title}sec{section}.html"
         ],
         "regexes": [
-            "M(aine|e\\.|E)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "M(aine|e\\.|E)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),?((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -2846,7 +2889,7 @@ const schemas = [
             "https://cnmilaw.org/pdf/cmc_section/T{title}/{section}.pdf"
         ],
         "regexes": [
-            "(?<title>\\d+) N(orthern|\\.) ?Mar(iana|\\.) ?I(slands|\\.)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "(?<title>\\d+) N(orthern|\\.) ?Mar(iana|\\.) ?I(slands|\\.)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ]
     },
     {
@@ -2903,7 +2946,7 @@ const schemas = [
             "https://law.justia.com/codes/oklahoma/{year}/title-{title}/section-{title}-{section}/index.html"
         ],
         "regexes": [
-            "(Okla(homa|\\.)|OK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?"
+            "(Okla(homa|\\.)|OK)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),?((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?(,? \\((?<year>\\d{4})\\))?"
         ],
         "operations": [
             {
@@ -3229,7 +3272,7 @@ const schemas = [
             "https://www.lawserver.com/law/state/vermont/vt-statutes/vermont_statutes_title_{title}_{section}"
         ],
         "regexes": [
-            "V(ermont|t\\.|T)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),? ((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.))? ?(?<section>(\\d[\\w.]*\\w|\\d))(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "V(ermont|t\\.|T)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?,? [Tt]it(le|\\.) ?(?<title>\\d+([-‑–][A-Z])?),?((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ]
     },
     {
@@ -3544,27 +3587,271 @@ const schemas = [
 // on page load, check whether there's a URL parameter.
 // If there is, insert it into the search bar, and run the
 // search. Otherwise, unhide the page for normal display.
-document.addEventListener("DOMContentLoaded", () => {
-  if (!location.search) {
-    return document.body.removeAttribute('hidden');
-  }
-  let query = decodeURIComponent(location.search);
-  query = query.trim().replace(/^\?(?:q=)?|\.$|,$|;$/g, '');
-  document.getElementById("q").value = query.replace(/\+/g, ' ');
-  
-  handleQuery(query);
-});
+if (typeof document !== 'undefined') {
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!location.search) {
+      return document.body.removeAttribute('hidden');
+    }
+    let query = decodeURIComponent(location.search);
+    query = query.trim().replace(/^\?(?:q=)?|\.$|,$|;$/g, '');
+    document.getElementById("q").value = query.replace(/\+/g, ' ');
+    
+    handleQuery(query);
+  });
+}
 
-window.addEventListener( "pageshow", function ( event ) {
-  var historyTraversal = event.persisted || (
-    typeof window.performance != "undefined" &&
-    window.performance.navigation.type === 2
-  );
-  if ( historyTraversal ) {
-    // Handle page restore.
-    window.location.reload();
+if (
+    typeof window !== 'undefined'
+    && typeof window.addEventListener !== 'undefined'
+) {
+  window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || (
+      typeof window.performance != "undefined" &&
+      window.performance.navigation.type === 2
+    );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload();
+    }
+  });
+}
+
+function log(text) {
+  if (typeof console !== 'undefined') {
+    console.log(text)
   }
-});
+}
+
+class Citation {
+  constructor(template, text) {
+    // first, try matching the template
+    let regexMatch = false;
+    for (var r in template['regexes']) {
+      regexMatch = text.match(new RegExp(template['regexes'][r], 'i'));
+      if (regexMatch) {
+        break;
+      }
+    }
+    if (regexMatch) {
+      log(
+        '"' + text + '" matched regex for ' + template['name']
+        + ', and these tokens were found:'
+      );
+      for (var group in regexMatch.groups) {
+        log(group + ': "' + regexMatch.groups[group] + '"');
+      }
+      log(' ');
+    }
+    else {
+      throw Error("The provided text and template do not match.");
+    }
+    
+    this.tokens = regexMatch.groups;
+    this.text = text;
+    this.template = template['name'];
+    
+    // this variable will become this.processedTokens
+    var tokens = {}
+    Object.assign(tokens, this.tokens);
+    
+    // set default values for missing tokens
+    for (var d in template.defaults) {
+      if (!tokens[d]) {
+        log(
+          d + ' was not specified, so it will be set to "'
+          + template.defaults[d] + '" by default'
+        );
+        tokens[d] = template.defaults[d];
+        log(' ');
+      }
+    }
+    
+    // apply predefined operations to the found tokens
+    let appliedAnOperation = false;
+    if (!('operations' in template)) {
+      return;
+    }
+    function titleCase (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+    for (var o in template.operations) {
+      var operation = template.operations[o];
+      var inputValue = tokens[operation['token']];
+      
+      // skip tokens that were not set
+      if (inputValue === undefined) {
+        continue;
+      }
+      else {
+        appliedAnOperation = true;
+      }
+      
+      // determine output token
+      if ('output' in operation) {
+        var output = operation['output'];
+      }
+      else {
+        var output = operation['token'];
+      }
+      
+      // handle case modification
+      if ('case' in operation) {
+        if (operation['case'] == 'upper') {
+          tokens[output] = inputValue.toUpperCase();
+        }
+        else if (operation['case'] == 'lower') {
+          tokens[output] = inputValue.toLowerCase();
+        }
+        else if (operation['case'] == 'title') {
+          tokens[output] = inputValue.replace(/\w\S*/g, titleCase);
+        }
+      }
+      
+      // handle regex substitution
+      if ('sub' in operation) {
+        let regex = new RegExp(operation['sub'][0], 'ig');
+        let outputValue = inputValue.replace(regex, operation['sub'][1]);
+        tokens[output] = outputValue;
+        log(
+          'replaced all instances of regex "' + operation['sub'][0] + '" in '
+          + 'token "' + operation['token'] + '" with "' + operation['sub'][1]
+          + '" to set token "${output}" to "${outputValue}".'
+        );
+      }
+      
+      // handle regex lookups
+      let lookupTypes = ['lookup', 'optionalLookup'];
+      for (var t in lookupTypes) {
+        if (lookupTypes[t] in operation) {
+          let outputValue;
+          
+          log(tokens[operation['token']]);
+          
+          for (var key in operation[lookupTypes[t]]) {
+            let regexStr = '^(' + key + ')$';
+            if (tokens[operation['token']].match(new RegExp(regexStr, 'i'))) {
+              outputValue = operation[lookupTypes[t]][key];
+              break;
+            }
+          }
+          if (outputValue !== undefined) {
+            tokens[output] = outputValue;
+          }
+          else if (lookupTypes[t] == 'optionalLookup') {
+            log(
+              'tried to look up token "' + operation['token'] + '" in an index,'
+              + 'but failed, so token "' + output + '" will not be modified.'
+            );
+          }
+          else {
+            throw Error(
+              "Sorry, I can't find that" + operation['token'] + " in the " + template
+            );
+          }
+        }
+      }
+      
+      // Bidirectional conversion between digits and roman numerals. This method
+      // is lazy and only goes up to 100, but if you need it to go higher, you
+      // can just add more numeral-digit pairs to the list.
+      if ('numberFormat' in operation) {
+        let numerals = [
+          ['I', '1'], ['II', '2'], ['III', '3'], ['IV', '4'], ['V', '5'],
+          ['VI', '6'], ['VII', '7'], ['VIII', '8'], ['IX', '9'], ['X', '10'],
+          ['XI', '11'], ['XII', '12'], ['XIII', '13'], ['XIV', '14'],
+          ['XV', '15'], ['XVI', '16'], ['XVII', '17'], ['XVIII', '18'],
+          ['XIX', '19'], ['XX', '20'], ['XXI', '21'], ['XXII', '22'],
+          ['XXIII', '23'], ['XXIV', '24'], ['XXV', '25'], ['XXVI', '26'], 
+          ['XXVII', '27'], ['XXVIII', '28'], ['XXIX', '29'], ['XXX', '30'],
+          ['XXXI', '31'], ['XXXII', '32'], ['XXXIII', '33'], ['XXXIV', '34'],
+          ['XXXV', '35'], ['XXXVI', '36'], ['XXXVII', '37'], ['XXXVIII', '38'],
+          ['XXXIX', '39'], ['XL', '40'], ['XLI', '41'], ['XLII', '42'],
+          ['XLIII', '43'], ['XLIV', '44'], ['XLV', '45'], ['XLVI', '46'],
+          ['XLVII', '47'], ['XLVIII', '48'], ['XLIX', '49'], ['L', '50'],
+          ['LI', '51'], ['LII', '52'], ['LIII', '53'], ['LIV', '54'],
+          ['LV', '55'], ['LVI', '56'], ['LVII', '57'], ['LVIII', '58'],
+          ['LIX', '59'], ['LX', '60'], ['LXI', '61'], ['LXII', '62'],
+          ['LXIII', '63'], ['LXIV', '64'], ['LXV', '65'], ['LXVI', '66'],
+          ['LXVII', '67'], ['LXVIII', '68'], ['LXIX', '69'], ['LXX', '70'],
+          ['LXXI', '71'], ['LXXII', '72'], ['LXXIII', '73'], ['LXXIV', '74'],
+          ['LXXV', '75'], ['LXXVI', '76'], ['LXXVII', '77'], ['LXXVIII', '78'],
+          ['LXXIX', '79'], ['LXXX', '80'], ['LXXXI', '81'], ['LXXXII', '82'],
+          ['LXXXIII', '83'], ['LXXXIV', '84'], ['LXXXV', '85'],
+          ['LXXXVI', '86'], ['LXXXVII', '87'], ['LXXXVIII', '88'],
+          ['LXXXIX', '89'], ['XC', '90'], ['XCI', '91'], ['XCII', '92'],
+          ['XCIII', '93'], ['XCIV', '94'], ['XCV', '95'], ['XCVI', '96'],
+          ['XCVII', '97'], ['XCVIII', '98'], ['XCIX', '99'], ['C', '100']
+        ];
+        // determine which format is being used to look up the other
+        let key, value;
+        if (operation['numberFormat'] == 'roman') {
+          key = 1;
+          value = 0;
+        }
+        else if (operation['numberFormat'] == 'digit') {
+          key = 0;
+          value = 1;
+        }
+        // perform the appropriate lookup, outputting the input value
+        // unchanged if the lookup fails
+        tokens[output] = inputValue;
+        for (var pair in numerals) {
+          if (numerals[pair][key].match(inputValue.toUpperCase())) {
+            tokens[output] = numerals[pair][value];
+            break;
+          }
+        }
+      }
+      
+      // left pad with zeros
+      if ('lpad' in operation) {
+        let outputValue = inputValue;
+        while (outputValue.length < operation['lpad']) {
+          outputValue = '0' + outputValue;
+        }
+        tokens[output] = outputValue
+        log(
+          'added zeros to the beginning of ' + operation['token']
+          + ' until it was ' + String(operation['lpad']) + ' characters long'
+        );
+      }
+    }
+    if (appliedAnOperation) {
+      log(' ');
+    }
+    this.processedTokens = tokens;
+    
+    // finally, fill in placeholders in the URL template to generate the
+    // URL, skipping any sections of the template that contain a missing
+    // placeholder.
+    let URL = [];
+    let missingPlaceholder = new RegExp("\\{.+\\}");
+    log("generating URL from parts provided in the citation template...");
+    for (var part in template.URL) {
+      let URLPart = template.URL[part]
+      for (var k in this.processedTokens) {
+        if (typeof this.processedTokens[k] === 'undefined') {
+          continue;
+        }
+        let placeholder = new RegExp("\\{" + k + "\\}", 'g');
+        URLPart = URLPart.replace(placeholder, this.processedTokens[k]);
+      }
+      if (!URLPart.match(missingPlaceholder)) {
+        URL.push(URLPart);
+        log('"' + template.URL[part] + '"   -->   "' + URLPart + '"')
+      }
+      else {
+        log(
+          'omitting "' + template.URL[part]
+          + '" since it references a missing placeholder'
+        )
+      }
+    }
+    this.URL = URL.join('');
+    log('Finished building URL: "' + this.URL + '"');
+    log(' ');
+  }
+}
 
 // run search from form entry
 function handleSearch(event) {
@@ -3592,265 +3879,34 @@ function handleQuery(query) {
 
 // perform each step to convert query into URL
 function getUrlForQuery(query) {
-  let match = getMatch(query);
-  handleDefaults(match);
-  processTokens(match);
-  updateUrlParts(match);
-  return buildUrl(match);
+  let citation = getCitations(query, true);
+  return citation.URL;
 }
 
-// check the query against each schema one-by-one,
-// and return the tokens and schema of the first match
-const MATCH_ERROR = "Sorry, I couldn't recognize that citation."
-function getMatch(query) {
-  for (var i in schemas) {
-    var schema = schemas[i];
-    var match = false;
-    for (var r in schema['regexes']) {
-      match = query.match(new RegExp(schema['regexes'][r], 'i'));
-      if (match) {
-        break;
-      }
+// check the query against each template one-by-one,
+// and return the tokens and template of the first match
+const MATCH_ERROR = "Sorry, I couldn't recognize that citation.";
+function getCitations(query, returnFirst) {
+  var citations = [];
+  for (var i in templates) {
+    let citation = false;
+    try {
+      citation = new Citation(templates[i], query);
+      if (returnFirst) { return citation }
+      citations.push(citation);
     }
-    if (match) {
-      console.log(
-        '"' + query + '" matched regex for ' + schema['name']
-        + ', and these tokens were found:'
-      );
-      for (var group in match.groups) {
-        console.log(group + ': "' + match.groups[group] + '"');
-      }
-      console.log(' ');
-      return {
-        tokens: match.groups,
-        schema: schema
-      };
-    }
-  }
-  console.log(
-    '"' + query + '" did not match the regex for any schema. Check the '
-    + 'page source to see the schemas and their regexes.'
-  );
-  throw Error(MATCH_ERROR);
-}
-
-// for each default token value specified by the schema,
-// apply it to the relevant token if that token was not set
-function handleDefaults(match) {
-  let {schema, tokens} = match;
-  for (var d in schema.defaults) {
-    if (!tokens[d]) {
-      console.log(
-        d + ' was not specified, so it will be set to "'
-        + schema.defaults[d] + '" by default'
-      );
-      tokens[d] = schema.defaults[d];
-      console.log(' ');
-    }
-  }
-}
-
-// for each token processing operation in the schema,
-// modify the tokens accordingly
-function processTokens(match) {
-  let {schema, tokens} = match;
-  let appliedAnOperation = false;
-  if (!('operations' in schema)) {
-    return;
-  }
-  for (var o in schema.operations) {
-    var operation = schema.operations[o];
-    var inputValue = tokens[operation['token']];
-    
-    // skip tokens that were not set
-    if (inputValue === undefined) {
+    catch (error) {
       continue;
     }
-    else {
-      appliedAnOperation = true;
-    }
-    
-    // determine output token
-    if ('output' in operation) {
-      output = operation['output'];
-    }
-    else {
-      output = operation['token'];
-    }
-    
-    // handle case modification
-    if ('case' in operation) {
-      if (operation['case'] == 'upper') {
-        tokens[output] = inputValue.toUpperCase();
-      }
-      else if (operation['case'] == 'lower') {
-        tokens[output] = inputValue.toLowerCase();
-      }
-      else if (operation['case'] == 'title') {
-        tokens[output] = inputValue.replace(
-          /\w\S*/g,
-          function (txt) {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-          }
-        );
-      }
-    }
-    
-    // handle regex substitution
-    if ('sub' in operation) {
-      let regex = new RegExp(operation['sub'][0], 'ig');
-      let outputValue = inputValue.replace(regex, operation['sub'][1]);
-      tokens[output] = outputValue;
-      console.log(
-        'replaced all instances of regex "' + operation['sub'][0] + '" in '
-        + 'token "' + operation['token'] + '" with "' + operation['sub'][1]
-        + '" to set token "${output}" to "${outputValue}".'
-      );
-    }
-    
-    // handle regex lookups
-    let lookupTypes = ['lookup', 'optionalLookup'];
-    for (var t in lookupTypes) {
-      if (lookupTypes[t] in operation) {
-        let outputValue;
-        
-        console.log(tokens[operation['token']]);
-        
-        for (var key in operation[lookupTypes[t]]) {
-          let regexStr = '^(' + key + ')$';
-          if (tokens[operation['token']].match(new RegExp(regexStr, 'i'))) {
-            outputValue = operation[lookupTypes[t]][key];
-            break;
-          }
-        }
-        if (outputValue !== undefined) {
-          tokens[output] = outputValue;
-        }
-        else if (lookupTypes[t] == 'optionalLookup') {
-          console.log(
-            'tried to look up token "' + operation['token'] + '" in an index,'
-            + 'but failed, so token "' + output + '" will not be modified.'
-          );
-        }
-        else {
-          throw Error(
-            "Sorry, I can't find that" + operation['token'] + " in the " + schema
-          );
-        }
-      }
-    }
-    
-    // Bidirectional conversion between digits and roman numerals. This method
-    // is lazy and only goes up to 100, but if you need it to go higher, you
-    // can just add more numeral-digit pairs to the list.
-    if ('numberFormat' in operation) {
-      let numerals = [
-        ['I', '1'], ['II', '2'], ['III', '3'], ['IV', '4'], ['V', '5'],
-        ['VI', '6'], ['VII', '7'], ['VIII', '8'], ['IX', '9'], ['X', '10'],
-        ['XI', '11'], ['XII', '12'], ['XIII', '13'], ['XIV', '14'],
-        ['XV', '15'], ['XVI', '16'], ['XVII', '17'], ['XVIII', '18'],
-        ['XIX', '19'], ['XX', '20'], ['XXI', '21'], ['XXII', '22'],
-        ['XXIII', '23'], ['XXIV', '24'], ['XXV', '25'], ['XXVI', '26'], 
-        ['XXVII', '27'], ['XXVIII', '28'], ['XXIX', '29'], ['XXX', '30'],
-        ['XXXI', '31'], ['XXXII', '32'], ['XXXIII', '33'], ['XXXIV', '34'],
-        ['XXXV', '35'], ['XXXVI', '36'], ['XXXVII', '37'], ['XXXVIII', '38'],
-        ['XXXIX', '39'], ['XL', '40'], ['XLI', '41'], ['XLII', '42'],
-        ['XLIII', '43'], ['XLIV', '44'], ['XLV', '45'], ['XLVI', '46'],
-        ['XLVII', '47'], ['XLVIII', '48'], ['XLIX', '49'], ['L', '50'],
-        ['LI', '51'], ['LII', '52'], ['LIII', '53'], ['LIV', '54'],
-        ['LV', '55'], ['LVI', '56'], ['LVII', '57'], ['LVIII', '58'],
-        ['LIX', '59'], ['LX', '60'], ['LXI', '61'], ['LXII', '62'],
-        ['LXIII', '63'], ['LXIV', '64'], ['LXV', '65'], ['LXVI', '66'],
-        ['LXVII', '67'], ['LXVIII', '68'], ['LXIX', '69'], ['LXX', '70'],
-        ['LXXI', '71'], ['LXXII', '72'], ['LXXIII', '73'], ['LXXIV', '74'],
-        ['LXXV', '75'], ['LXXVI', '76'], ['LXXVII', '77'], ['LXXVIII', '78'],
-        ['LXXIX', '79'], ['LXXX', '80'], ['LXXXI', '81'], ['LXXXII', '82'],
-        ['LXXXIII', '83'], ['LXXXIV', '84'], ['LXXXV', '85'],
-        ['LXXXVI', '86'], ['LXXXVII', '87'], ['LXXXVIII', '88'],
-        ['LXXXIX', '89'], ['XC', '90'], ['XCI', '91'], ['XCII', '92'],
-        ['XCIII', '93'], ['XCIV', '94'], ['XCV', '95'], ['XCVI', '96'],
-        ['XCVII', '97'], ['XCVIII', '98'], ['XCIX', '99'], ['C', '100']
-      ];
-      // determine which format is being used to look up the other
-      let key, value;
-      if (operation['numberFormat'] == 'roman') {
-        key = 1;
-        value = 0;
-      }
-      else if (operation['numberFormat'] == 'digit') {
-        key = 0;
-        value = 1;
-      }
-      // perform the appropriate lookup, outputting the input value
-      // unchanged if the lookup fails
-      tokens[output] = inputValue;
-      for (var pair in numerals) {
-        if (numerals[pair][key].match(inputValue.toUpperCase())) {
-          tokens[output] = numerals[pair][value];
-          break;
-        }
-      }
-    }
-    
-    // left pad with zeros
-    if ('lpad' in operation) {
-      let outputValue = inputValue;
-      while (outputValue.length < operation['lpad']) {
-        outputValue = '0' + outputValue;
-      }
-      tokens[output] = outputValue
-      console.log(
-        'added zeros to the beginning of ' + operation['token']
-        + ' until it was ' + String(operation['lpad']) + ' characters long'
-      );
-    }
   }
-  if (appliedAnOperation) {
-    console.log(' ');
+  if (returnFirst) {
+    log(
+      '"' + query + '" did not match the regex for any template. Check the '
+      + 'page source to see the templates and their regexes.'
+    );
+    throw Error(MATCH_ERROR);
   }
-}
-
-// go through the pieces of the schema's URL template, and replace any
-// section in curly braces with the value of the fully-processed token
-// of the same name, Leave placeholders unchanged if they reference
-// undefined tokens.
-function updateUrlParts(match) {
-  let {schema, tokens} = match;
-  console.log("replacing placeholders in each part of the URL template...");
-  for (var part in schema.URL) {
-    console.log('before: "' + schema.URL[part] + '"');
-    for (var k in tokens) {
-      if (typeof tokens[k] === 'undefined') {
-        continue;
-      }
-      let placeholder = new RegExp("\\{" + k + "\\}", 'g');
-      schema.URL[part] = schema.URL[part].replace(placeholder, tokens[k]);
-    }
-    console.log('after:  "' + schema.URL[part] + '"');
-  }
-  console.log(' ');
-}
-
-// after the placeholders in the URL parts have been filled in,
-// concatenate the parts to make a full URL. Omit any part that
-// still contains a placeholder
-function buildUrl(match) {
-  let {schema, tokens} = match;
-  let url = '';
-  let missingPlaceholder = new RegExp("\\{.+\\}");
-  console.log('building URL from parts...');
-  for (p in schema.URL) {
-  let part = schema.URL[p];
-    if (!part.match(missingPlaceholder)) {
-      url += part;
-      console.log('added "' + part + '"');
-    }
-    else {
-      console.log('omitted "'+part+'" because it still has a placeholder');
-    }
-  }
-  console.log('finished building URL: ' + url);
-  return url;
+  return citations;
 }
 </script><form class="citeurl-form" onsubmit="handleSearch(event)">
   <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go"><br>
@@ -3905,27 +3961,27 @@ These are the sources of law the program is able to recognize. If you're wonderi
 
 Source of Law | Website   | Citation Template
 ------------- | --------- | -----------------
-United States Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5BTt%5Ditle%20%29%3F%28%5Cd%2B%29%20%28U%5C.%3F%7CUnited%29%20%3F%28S%5C.%3F%7CStates%29%20%3FC%28ode%7C%5C.%3F%29%28%20%3F%5BAS%5D%5C.%3F%7C%20Ann%28otated%7Co%3F%5C.%29%7C%20Serv%28ice%7C%5C.%29%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%7C%5BSs%5Dection%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%20of%20%28%5BTt%5Ditle%20%29%3F%28%5Cd%2B%29%20of%20the%20%28U%5C.%3F%7CUnited%29%20%3F%28S%5C.%3F%7CStates%29%20%3FC%28ode%7C%5C.%3F%29%28%20%3F%5BAS%5D%5C.%3F%7C%20Ann%28otated%7Co%3F%5C.%29%7C%20Serv%28ice%7C%5C.%29%29%3F)
-United States Constitution | [constitution.congress.gov](https://constitution.congress.gov) | [view regex](https://regexper.com#%28U%5C.%3F%20%3FS%5C.%3F%7CUnited%20States%29%20%3FConst%28itution%7C%5C.%29%2C%3F%20%28%5BAa%5Drt%28icle%7C%5C.%29%20%28%5B%5CdIViv%5D%7B1%2C3%7D%7C%5BOo%5Dne%7C%5BTt%5Dwo%7C%5BTt%5Dhree%7C%5BFf%5Dour%7C%5BFf%5Dive%7C%5BSs%5Dix%7C%5BSs%5Deven%29%7C%5BAa%5Dm%28endment%7C%28end%7Cdt%3F%29%3F%5C.%29%20%28%5B%5CdXIVxiv%5D%7B1%2C3%7D%29%29%28%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%28%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%29%3F%29%3F%7C%28%5BAa%5Drt%28icle%7C%5C.%29%20%28%5B%5CdIViv%5D%7B1%2C3%7D%7C%5BOo%5Dne%7C%5BTt%5Dwo%7C%5BTt%5Dhree%7C%5BFf%5Dour%7C%5BFf%5Dive%7C%5BSs%5Dix%7C%5BSs%5Deven%29%7C%5BAa%5Dm%28endment%7C%28end%7Cdt%3F%29%3F%5C.%29%20%28%5B%5CdXIVxiv%5D%7B1%2C3%7D%29%29%28%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%28%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%29%3F%29%3F%20of%20the%20%28U%5C.%3F%20%3FS%5C.%3F%7CUnited%20States%29%20%3FConst%28itution%7C%5C.%29)
+United States Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28%5BTt%5Ditle%20%29%3F%28%5Cd%2B%29%20%28U%5C.%3F%7CUnited%29%20%3F%28S%5C.%3F%7CStates%29%20%3FC%28ode%7C%5C.%3F%29%28%20%3F%5BAS%5D%5C.%3F%7C%20Ann%28otated%7Co%3F%5C.%29%7C%20Serv%28ice%7C%5C.%29%29%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%7C%5BSs%5Dection%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%20of%20%28%5BTt%5Ditle%20%29%3F%28%5Cd%2B%29%20of%20the%20%28U%5C.%3F%7CUnited%29%20%3F%28S%5C.%3F%7CStates%29%20%3FC%28ode%7C%5C.%3F%29%28%20%3F%5BAS%5D%5C.%3F%7C%20Ann%28otated%7Co%3F%5C.%29%7C%20Serv%28ice%7C%5C.%29%29%3F)
+United States Constitution | [constitution.congress.gov](https://constitution.congress.gov) | [view regex](https://regexper.com#%28U%5C.%3F%20%3FS%5C.%3F%7CUnited%20States%29%20%3FConst%28itution%7C%5C.%29%2C%3F%20%28%5BAa%5Drt%28icle%7C%5C.%29%20%28%5B%5CdIViv%5D%7B1%2C3%7D%7C%5BOo%5Dne%7C%5BTt%5Dwo%7C%5BTt%5Dhree%7C%5BFf%5Dour%7C%5BFf%5Dive%7C%5BSs%5Dix%7C%5BSs%5Deven%29%7C%5BAa%5Dm%28endment%7C%28end%7Cdt%3F%29%3F%5C.%29%20%28%5B%5CdXIVxiv%5D%7B1%2C3%7D%29%29%28%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%28%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%29%3F%29%3F%7C%28%5BAa%5Drt%28icle%7C%5C.%29%20%28%5B%5CdIViv%5D%7B1%2C3%7D%7C%5BOo%5Dne%7C%5BTt%5Dwo%7C%5BTt%5Dhree%7C%5BFf%5Dour%7C%5BFf%5Dive%7C%5BSs%5Dix%7C%5BSs%5Deven%29%7C%5BAa%5Dm%28endment%7C%28end%7Cdt%3F%29%3F%5C.%29%20%28%5B%5CdXIVxiv%5D%7B1%2C3%7D%29%29%28%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%28%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%29%3F%29%3F%20%28of%7Cto%29%20the%20%28U%5C.%3F%20%3FS%5C.%3F%7CUnited%20States%29%20%3FConst%28itution%7C%5C.%29%7C%28%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%28%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%29%3F%20of%20%29%3F%28%5BTt%5Dhe%20%29%3F%28%5Cd%7B1%2C2%7D%28st%7Cnd%7Crd%7Cth%29%7C%28%5BTt%5Dwenty%28-%7C%20%29%3F%29%3F%28%5BFf%5Dirst%7C%5BSs%5Decond%7C%5BTt%5Dhird%7C%5BFf%5Dourth%7C%5BFf%5Difth%7C%5BSs%5Dixth%7C%5BSs%5Deventh%7C%5BEe%5Dighth%7C%5BNn%5Dinth%29%7C%5BTt%5Denth%7C%5BEe%5Dleventh%7C%5BTt%5Dwelfth%7C%28%5BTt%5Dhir%7C%5BFf%5Dour%7C%5BFf%5Dif%7C%5BSs%5Dix%7C%5BSs%5Deven%7C%5BEe%5Digh%7C%5BNn%5Dine%29teenth%7C%5BTt%5Dwentieth%29%20%5BAa%5Dm%28endment%7Cdt%3F%5C.%7Cend%5C.%29%20%28of%7Cto%29%20the%20%28U%5C.%3F%20%3FS%5C.%3F%7CUnited%20States%29%20%3FConst%28itution%7C%5C.%29)
 U.S. Public Laws | [uscode.house.gov](https://uscode.house.gov) | [view regex](https://regexper.com#Pub%28%5C.%3F%7Clic%29%20%3FL%28%5C.%3F%7Caw%29%20%3F%28No%5C.%3F%29%3F%20%3F%28%5Cd%2B%29%5B%E2%80%93%E2%80%91-%5D%28%5Cd%2B%29)
 U.S. Statutes at Large | [www.govinfo.gov](https://www.govinfo.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20Stat%5C.%3F%20%28%5Cd%2B%29%28%5B%E2%80%93%E2%80%91-%5D%5Cd%2B%29%3F)
 Federal Register | [www.federalregister.gov](https://www.federalregister.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20%28Fed%5C.%20%3FReg%5C.%7CF%5C.%3F%20%3FR%5C.%3F%29%20%28%5Cd%28%5B%2C%5Cd%5D%2B%5Cd%29%3F%29)
-Code of Federal Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#%28%5BTt%5Ditle%20%29%3F%28%5Cd%2B%29%20%28C%5C.%3F%20%3FF%5C.%3F%20%3FR%5C.%3F%7CCode%20of%20Federal%20Regulations%29%28%20%5BPp%5Darts%3F%7C%20%5BPp%5Dts%3F%5C.%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Code of Federal Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#%28%5BTt%5Ditle%20%29%3F%28%5Cd%2B%29%20%28C%5C.%3F%20%3FF%5C.%3F%20%3FR%5C.%3F%7CCode%20of%20Federal%20Regulations%29%28%20%5BPp%5Darts%3F%7C%20%5BPp%5Dts%3F%5C.%29%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Federal Rules of Civil Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28F%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FCiv%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Civil%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Ba-z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Federal Rules of Appellate Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28F%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FApp%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Appellate%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Ba-z%5D%3F%29)
 Federal Rules of Criminal Procedure | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28F%5C.%3F%20%3FR%5C.%3F%20%3FCr%5C.%3F%20%3FP%5C.%3F%7CFed%5C.%3F%20%3FR%28%5C.%3F%7Cule%29%20%3FCrim%5C.%3F%20%3FPr%3Fo%3Fc%3F%5C.%3F%7CFederal%20Rules%3F%20of%20Criminal%20Procedure%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Ba-z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Federal Rules of Evidence | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28F%5C.%3F%20%3FR%5C.%3F%20%3FE%5C.%3F%7CFed%5C.%3F%20R%28%5C.%3F%7Cule%29%20%3FEvid%5C.%3F%7CFederal%20Rules%3F%20of%20Evidence%29%20%3F%28Rule%20%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Ba-z%5D%3F%29)
-Immigration and Nationality Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Immigration%20%28%5BAa%5Dnd%7C%26%29%20Nationality%20Act%7CI%5C.%3FN%5C.%3FA%5C.%3F%7CI%5C.%20N%5C.%20A%5C.%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Internal Revenue Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Internal%20Revenue%20Code%7CI%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Treasury Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#Treas%28ury%7C%5C.%3F%29%20%3FReg%28ulations%3F%7C%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-National Labor Relations Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Natioanal%20Labor%20Relations%20Act%7CN%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Immigration and Nationality Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Immigration%20%28%5BAa%5Dnd%7C%26%29%20Nationality%20Act%7CI%5C.%3FN%5C.%3FA%5C.%3F%7CI%5C.%20N%5C.%20A%5C.%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Internal Revenue Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Internal%20Revenue%20Code%7CI%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Treasury Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#Treas%28ury%7C%5C.%3F%29%20%3FReg%28ulations%3F%7C%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+National Labor Relations Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Natioanal%20Labor%20Relations%20Act%7CN%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 National Labor Relations Board Decisions | [www.nlrb.gov](https://www.nlrb.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FB%5C.%3F%20%28%5Cd%2B%29)
 National Labor Relations Board Slip Opinions | [www.nlrb.gov](https://www.nlrb.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FB%5C.%3F%20%28Slip%20Op%5C.%20%29%3FNo%5C.%20%28%5Cd%2B%29)
-Endangered Species Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Endangered%20Species%20Act%7CE%5C.%3F%20%3FS%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Clean Air Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%7CClean%20Air%20Act%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Clean Water Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Clean%20Water%20Act%7CC%5C.%3F%20%3FW%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Fair Housing Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Fair%20Housing%20Act%7CF%5C.%3F%20%3Fh%5C.%3F%20%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Americans With Disabilities Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Americans%20%5BWw%5Dith%20Disabilities%20Act%7CA%5C.%20D%5C.%20A%5C.%7CA%5C.%3FD%5C.%3FA%5C.%3F%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Endangered Species Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Endangered%20Species%20Act%7CE%5C.%3F%20%3FS%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Clean Air Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%7CClean%20Air%20Act%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Clean Water Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Clean%20Water%20Act%7CC%5C.%3F%20%3FW%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Fair Housing Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Fair%20Housing%20Act%7CF%5C.%3F%20%3Fh%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Americans With Disabilities Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Americans%20%5BWw%5Dith%20Disabilities%20Act%7CA%5C.%20D%5C.%20A%5C.%7CA%5C.%3FD%5C.%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Uniform Commercial Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Uniform%20Commercial%20Code%7CU%5C.%3F%20%3FC%5C.%3F%20%3FC%5C.%3F%29%28%20%3F%C2%A7%29%3F%20%28%5Cd%5Ba-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Code of Alabama, 1975 | [alisondb.legislature.state.al.us](https://alisondb.legislature.state.al.us) | [view regex](https://regexper.com#%28Ala%28bama%7C%5C.%29%7CAL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Alabama Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ala%28bama%7C%5C.%29%7CAL%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
@@ -3936,14 +3992,14 @@ American Samoa Constitution | [ballotpedia.org](https://ballotpedia.org) | [view
 Arkansas Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ark%28ansas%7C%5C.%29%7CAR%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Arizona Revised Statutes | [www.azleg.gov](https://www.azleg.gov) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Arizona Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ariz%28ona%7C%5C.%29%7CAZ%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-California Codes | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FCode%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+California Codes | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3F%28%5BBCDEFGHILMPRSUVW%5D.%7B2%2C40%7D%3F%29%28%20%3FC%28ode%7C%5C.%29%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%29%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 California Constitution | [leginfo.legislature.ca.gov](https://leginfo.legislature.ca.gov) | [view regex](https://regexper.com#%28Cal%28ifornia%7C%5C.%29%7CCAL%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Colorado Revised Statutes | [leg.colorado.gov](https://leg.colorado.gov) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
 Colorado Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Colo%28rado%7C%5C.%29%7CCO%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 General Statutes of Connecticut | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Conn%28ecticut%7C%5C.%29%7CCT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5Ba-z%5C-%5D%2A%5B%5Cw%5D%2B%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Connecticut Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Conn%28ecticut%7C%5C.%29%7CCT%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Delaware Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28%5BTt%5Dit%28le%7C%5C.%29%20%29%3F%28%5Cd%7B1%2C2%7D%29%2C%3F%20%28Del%28aware%7C%5C.%29%7CDE%29%20%3FC%28ode%7C%5C.%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Delaware General Corporations Law | [delcode.delaware.gov](https://delcode.delaware.gov) | [view regex](https://regexper.com#%28D%5C.%3F%20%3FG%5C.%3F%20%3FC%5C.%3F%20%3FL%5C.%3F%7CDel%28aware%7C%5C.%29%20%3FGen%28eral%7C%5C.%29%20%3FCorp%28orations%3F%7Cs%3F%5C.%29%20%3FL%28aw%7C%5C.%29%29%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Delaware Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28%5BTt%5Dit%28le%7C%5C.%29%20%29%3F%28%5Cd%7B1%2C2%7D%29%2C%3F%20%28Del%28aware%7C%5C.%29%7CDE%29%20%3FC%28ode%7C%5C.%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Delaware General Corporations Law | [delcode.delaware.gov](https://delcode.delaware.gov) | [view regex](https://regexper.com#%28D%5C.%3F%20%3FG%5C.%3F%20%3FC%5C.%3F%20%3FL%5C.%3F%7CDel%28aware%7C%5C.%29%20%3FGen%28eral%7C%5C.%29%20%3FCorp%28orations%3F%7Cs%3F%5C.%29%20%3FL%28aw%7C%5C.%29%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Delaware Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Del%28aware%7C%5C.%29%7CDE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 District of Columbia Official Code | [code.dccouncil.us](https://code.dccouncil.us) | [view regex](https://regexper.com#%28District%20of%20Columbia%28%20Official%29%3F%7CD%5C.%3F%20%3FC%5C.%3F%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Florida Statutes | [www.flsenate.gov](https://www.flsenate.gov) | [view regex](https://regexper.com#%28Fl%28orida%7Ca%3F%5C.%29%7CFL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
@@ -3962,11 +4018,11 @@ Iowa Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](ht
 Kansas Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28Kan%28sas%7C%5C.%29%7CKS%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Kansas Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Kan%28sas%7C%5C.%29%7CKS%29%20%3FConst%28itution%7C%5C.%29%20%3F%28%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%7C%28Bill%20of%20Rights%7CPreamble%29%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Kentucky Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28K%28entucky%7Cy%5C.%7CY%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%7CKRS%20%29%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%28%5Cd%5B%5Cd.%5D%2A%5Cw%7C%5Cd%29%29%5C.%28%5Cd%2B%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Kentucky Constitution | [apps.legislature.ky.gov](https://apps.legislature.ky.gov) | [view regex](https://regexper.com#K%28entucky%7Cy%5C.%7CY%29%20%3FConst%28itution%7C%5C.%29%2C%3F%28%20%3F%28Art%28icle%7C%5C.%29%20%3F%29%3F%28%5BIVXivx%5D%7B1%2C7%7D%7C%5Cd%7B1%2C2%7D%7CBill%20of%20Rights%7CRights%20of%20Victims%20of%20Crime%7CDist%28ribution%7C%5C.%29%20of%20the%20Powers%20of%20Gov%28ernment%7C%28%27t%29%3F%5C.%3F%29%7C%28The%20%29%3F%28Leg%28islative%7C%28is%29%3F%5C.%29%7CExec%28utive%7C%5C.%29%7CJud%28icial%7C%5C.%29%29%20%3FDep%28artment%7C%28%27t%29%3F%5C.%3F%29%7CCounties%20%28and%7C%26%29%20County%20Seats%7CImpeachments%7C%28C%28ounty%7Cty%5C.%29%7CFisc%28al%7C%5C.%29%29%20%3FC%28ourts%7Cts%5C.%29%7CJustices%20of%20the%20Peace%7CSuff%28rage%7C%5C.%29%20%3F%28and%7C%26%29%20%3FElec%28tions%7C%5C.%29%7CMun%28icipalities%7Ci%3F%5C.%29%7CRev%28enue%7C%5C.%29%20%3F%28and%7C%26%29%20%3FTax%28ation%7C%5C.%3F%29%7CEduc%28ation%7C%5C.%29%7CCorp%28orations%3F%7Cs%3F%5C.%29%7CR%28ailroads%7C%5C.R%5C.%29%20%28and%7C%26%29%20Com%28merce%7Cm%3F%5C.%29%7C%28The%20%29%3FMilitia%7CGen%28eral%7C%5C.%29%20%3FProv%28isions%7Cs%3F%5C.%29%7CMode%20of%20Rev%28ision%7C%5C.%29%29%2C%3F%29%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29)
+Kentucky Constitution | [apps.legislature.ky.gov](https://apps.legislature.ky.gov) | [view regex](https://regexper.com#K%28entucky%7Cy%5C.%7CY%29%20%3FConst%28itution%7C%5C.%29%2C%3F%28%20%3F%28Art%28icle%7C%5C.%29%20%3F%29%3F%28%5BIVXivx%5D%7B1%2C7%7D%7C%5Cd%7B1%2C2%7D%7CBill%20of%20Rights%7CRights%20of%20Victims%20of%20Crime%7CDist%28ribution%7C%5C.%29%20of%20the%20Powers%20of%20Gov%28ernment%7C%28%27t%29%3F%5C.%3F%29%7C%28The%20%29%3F%28Leg%28islative%7C%28is%29%3F%5C.%29%7CExec%28utive%7C%5C.%29%7CJud%28icial%7C%5C.%29%29%20%3FDep%28artment%7C%28%27t%29%3F%5C.%3F%29%7CCounties%20%28and%7C%26%29%20County%20Seats%7CImpeachments%7C%28C%28ounty%7Cty%5C.%29%7CFisc%28al%7C%5C.%29%29%20%3FC%28ourts%7Cts%5C.%29%7CJustices%20of%20the%20Peace%7CSuff%28rage%7C%5C.%29%20%3F%28and%7C%26%29%20%3FElec%28tions%7C%5C.%29%7CMun%28icipalities%7Ci%3F%5C.%29%7CRev%28enue%7C%5C.%29%20%3F%28and%7C%26%29%20%3FTax%28ation%7C%5C.%3F%29%7CEduc%28ation%7C%5C.%29%7CCorp%28orations%3F%7Cs%3F%5C.%29%7CR%28ailroads%7C%5C.R%5C.%29%20%28and%7C%26%29%20Com%28merce%7Cm%3F%5C.%29%7C%28The%20%29%3FMilitia%7CGen%28eral%7C%5C.%29%20%3FProv%28isions%7Cs%3F%5C.%29%7CMode%20of%20Rev%28ision%7C%5C.%29%29%2C%3F%29%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29)
 Louisiana Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%3A%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Louisiana Codes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%20%3F%28Civ%28il%7C%5C.%29%20%3FCode%7CCode%28%20of%29%3F%20%28%28Civ%28il%7C%5C.%29%7CCrim%28inal%7C%5C.%29%29%20%3FProc%28edure%7C%5C.%29%7CEvid%28ence%7C%5C.%29%29%7CChild%28ren%27%3Fs%7C%5C.%29%20%3FCode%29%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%28%20%5BAa%5Drt%28icle%7C%5C.%29%29%3F%20%28%5Cd%2B%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Louisiana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Maine Statutes | [legislature.maine.gov](https://legislature.maine.gov) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Maine Statutes | [legislature.maine.gov](https://legislature.maine.gov) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Maine Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%5BPp%5D%28art%7Ct%5C.%29%20%3F%28%5Cd%29%29%3F%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Maryland Code | [mgaleg.maryland.gov](https://mgaleg.maryland.gov) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%20%28%28Ac%7CAl%7C%5BBCEFHILNPRST%5D%29.%7B4%2C38%7D%3F%29%20%28Code%28%20Ann%28otated%7C%5C.%29%29%3F%20%29%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5B%5CdA-Z%5C-%E2%80%93.%5D%2A%5B%5CdA-Z%5D%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Maryland Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
@@ -3998,11 +4054,11 @@ North Carolina General Statutes | [www.ncleg.gov](https://www.ncleg.gov) | [view
 North Carolina Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28North%20Carolina%7CN%5C.%3F%20%3FC%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 North Dakota Century Code | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#%28North%20Dakota%7CN%5C.%3F%20%3FD%5C.%3F%29%20%3FCent%28ury%7C%5C.%29%20%3FCode%28%20Ann%28otated%7C%5C.%29%29%3F%20%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 North Dakota Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28North%20Dakota%7CN%5C.%3F%20%3FD%5C.%3F%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Northern Mariana Islands Commonwealth Code | [cnmilaw.org](https://cnmilaw.org) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%28orthern%7C%5C.%29%20%3FMar%28iana%7C%5C.%29%20%3FI%28slands%7C%5C.%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Northern Mariana Islands Commonwealth Code | [cnmilaw.org](https://cnmilaw.org) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%28orthern%7C%5C.%29%20%3FMar%28iana%7C%5C.%29%20%3FI%28slands%7C%5C.%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Northern Mariana Islands Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#N%28orthern%7C%5C.%29%20%3FMar%28iana%7C%5C.%29%20%3FI%28slands%7C%5C.%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Ohio Revised Code | [codes.ohio.gov](https://codes.ohio.gov) | [view regex](https://regexper.com#O%28hio%7CH%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29%28%5C.%28%5Cd%2B%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%29%3F)
 Ohio Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#O%28hio%7CH%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Oklahoma Statutes | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Okla%28homa%7C%5C.%29%7COK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
+Oklahoma Statutes | [law.justia.com](https://law.justia.com) | [view regex](https://regexper.com#%28Okla%28homa%7C%5C.%29%7COK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
 Oklahoma Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Okla%28homa%7C%5C.%29%7COK%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Oregon Revised Statutes | [www.oregonlaws.org](https://www.oregonlaws.org) | [view regex](https://regexper.com#%28Or%28egon%7Ce%3F%5C.%29%7COR%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5C.%28%5Cd%2B%5Cw%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Oregon Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Or%28egon%7Ce%3F%5C.%29%7COR%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5BIVXivx%5D%7B1%2C5%7D%28-%5Cw%28%5C%28%5Cd%5C%29%29%3F%29%3F%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
@@ -4021,7 +4077,7 @@ Texas Codes | [statutes.capitol.texas.gov](https://statutes.capitol.texas.gov) |
 Texas Constitution | [statutes.capitol.texas.gov](https://statutes.capitol.texas.gov) | [view regex](https://regexper.com#%28Tex%28as%7C%5C.%29%7CTX%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Utah Code | [le.utah.gov](https://le.utah.gov) | [view regex](https://regexper.com#%28Utah%7CUT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Utah Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Utah%7CUT%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Vermont Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#V%28ermont%7Ct%5C.%7CT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Vermont Statutes | [www.lawserver.com](https://www.lawserver.com) | [view regex](https://regexper.com#V%28ermont%7Ct%5C.%7CT%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Vermont Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#V%28ermont%7Ct%5C.%7CT%29%20%3FConst%28itution%7C%5C.%29%2C%3F%20%3F%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5BIi%5D%7B1%2C2%7D%29%28%2C%3F%20%28%5BAa%5Drt%28icle%7C%5C.%29%7C%26sect%3B%7C%26%23167%7C%C2%A7%29%20%3F%28%5Cd%2B%29%28st%7Cnd%7Cth%29%3F%29%3F)
 Virginia Code | [law.lis.virginia.gov](https://law.lis.virginia.gov) | [view regex](https://regexper.com#V%28irginia%7Ca%5C.%7CA%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Virginia Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#V%28irginia%7Ca%5C.%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)

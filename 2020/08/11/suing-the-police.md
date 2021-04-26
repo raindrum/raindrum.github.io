@@ -1,7 +1,8 @@
-Modified: 2020-11-23
 Tags: ucla, law, notes, outline, police
 
-These are my organized notes from Suing The Police, a two-week class I took at UCLA Law in January 2020, with Professor Joanna Schwartz. I'm hoping to post more of my notes from other classes to the site, but it may be a while.
+These are my organized notes from Suing The Police, a two-week class I took at UCLA Law in January 2020, with Professor Joanna Schwartz. I've tried to add hyperlinks to to various sources, so it might be helpful as a jumping-off point for research. Needless to say, **nothing here is legal advice.**
+
+I'm hoping to post more of my notes from other classes to the site, but it may be a while.
 
 ## Introduction to § 1983
 
