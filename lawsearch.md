@@ -3938,9 +3938,9 @@ Law Search is a JavaScript implementation of [CiteURL](https://raindrum.github.i
 
 When you type a citation into the search bar, Law Search tries to match your query against each of the templates. If your query *looks like* a valid citation to one of the supported sources of law, it translates the citation into a URL and sends you to that URL, whether it's actually valid or not.
 
-The translation process occurs entirely in your browser, with no server-side logic or data collection. In fact, if you want to, you can even <a href="" download>download this page</a> and run it without connecting to my website; you'll just miss out on updates. Also, if you open a browser console with `ctrl-shift-i` before you run a search, you can see the process step-by-step.
+The translation process occurs entirely in your browser, with no server-side logic or data collection. In fact, if you want to, you can even <a href="" download>download this page</a> and run it without connecting to my website; you'll just miss out on updates.
 
-Two final notes for the more technically-inclined: First, you can [make your own](https://raindrum.github.io/citeurl/#frontends/#javascript) personalized instance of Law Search, to support any source of law you want.
+Two final notes for the more technically-inclined: First, you can [make your own](https://raindrum.github.io/citeurl/frontends#javascript) personalized instance of Law Search, to support any source of law you want.
 
 Second, while Law Search itself is just a lookup tool, the underlying [CiteURL](https://raindrum.github.io/citeurl) program can do more. You can feed it a whole block of text, like a court opinion or a brief, and it will insert a hyperlink for every citation it finds, or list every authority by depth of treatment.
 
