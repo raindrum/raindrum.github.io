@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-04-26
+Modified: 2021-04-28
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -3638,12 +3638,14 @@ class Citation {
         + ', and these tokens were found:'
       );
       for (var group in regexMatch.groups) {
-        log(group + ': "' + regexMatch.groups[group] + '"');
+        if (typeof group !== 'undefined') {
+          log(group + ': "' + regexMatch.groups[group] + '"');
+        }
       }
       log(' ');
     }
     else {
-      throw Error("The provided text and template do not match.");
+      throw Error("The given query does not match the given template.");
     }
     
     this.tokens = regexMatch.groups;
@@ -3725,12 +3727,15 @@ class Citation {
         if (lookupTypes[t] in operation) {
           let outputValue;
           
-          log(tokens[operation['token']]);
-          
           for (var key in operation[lookupTypes[t]]) {
             let regexStr = '^(' + key + ')$';
             if (tokens[operation['token']].match(new RegExp(regexStr, 'i'))) {
               outputValue = operation[lookupTypes[t]][key];
+              log(
+                'Looked up ' + operation['token'] + ' "'
+                + tokens[operation['token']] + '" in a table, and used that '
+                + 'to set ' + output + ' to "' + outputValue + '"' 
+              );
               break;
             }
           }
@@ -3798,6 +3803,11 @@ class Citation {
         for (var pair in numerals) {
           if (numerals[pair][key].match(inputValue.toUpperCase())) {
             tokens[output] = numerals[pair][value];
+            log(
+              'translated ' + operation['token'] + ' to '
+              + operation['numberFormat'] + " format if it wasn't already, and"
+              + ' saved the result (' + tokens[output] + ') to ' + output
+            );
             break;
           }
         }
@@ -3812,7 +3822,8 @@ class Citation {
         tokens[output] = outputValue
         log(
           'added zeros to the beginning of ' + operation['token']
-          + ' until it was ' + String(operation['lpad']) + ' characters long'
+          + ' until it was ' + String(operation['lpad']) + ' characters long,'
+          + ' and saved the result to ' + tokens[output]
         );
       }
     }
@@ -3826,7 +3837,7 @@ class Citation {
     // placeholder.
     let URL = [];
     let missingPlaceholder = new RegExp("\\{.+\\}");
-    log("generating URL from parts provided in the citation template...");
+    log("filling in placeholders in each part of the URL template...");
     for (var part in template.URL) {
       let URLPart = template.URL[part]
       for (var k in this.processedTokens) {
@@ -3919,13 +3930,25 @@ Law Search recognizes vaguely Bluebook-style citations to the following sources 
 - the U.S. Constitution and all state constitutions
 - codified laws for every state and territory except Arkansas, Georgia, Guam, and Puerto Rico
 
-For the full list, and the recognized citation formats for each, see [Sources of Law](#sources-of-law).
+For a list of supported sources and their citation styles, see [Sources of Law](#sources-of-law).
+
+## How it Works
+
+Law Search is a JavaScript implementation of [CiteURL](https://raindrum.github.io/citeurl), a framework I wrote to translate citations into URLs. For each body of law that Law Search recognizes, there is a CiteURL template that defines what a citation has to look like, what its relevant fields are (e.g. volume and page number), and how to construct a URL from those fields. You can find the full list of these templates, and the websites they link to, [below](#sources-of-law).
+
+When you type a citation into the search bar, Law Search tries to match your query against each of the templates. If your query *looks like* a valid citation to one of the supported sources of law, it translates the citation into a URL and sends you to that URL, whether it's actually valid or not.
+
+The translation process occurs entirely in your browser, with no server-side logic or data collection. In fact, if you want to, you can even <a href="" download>download this page</a> and run it without connecting to my website; you'll just miss out on updates. Also, if you open a browser console with `ctrl-shift-i` before you run a search, you can see the process step-by-step.
+
+Two final notes for the more technically-inclined: First, you can [make your own](https://raindrum.github.io/citeurl/#frontends/#javascript) personalized instance of Law Search, to support any source of law you want.
+
+Second, while Law Search itself is just a lookup tool, the underlying [CiteURL](https://raindrum.github.io/citeurl) program can do more. You can feed it a whole block of text, like a court opinion or a brief, and it will insert a hyperlink for every citation it finds, or list every authority by depth of treatment.
 
 ## Bookmark This Search!
 
-You're totally welcome to use the search engine by coming to my site and typing your citation into the search bar whenever you want to look something up. But it's more convenient if you can set up a search keyword so that you can just type something like "ls 42 usc 1983" in your URL bar to look up the law.
+You're totally welcome to use Law Search by coming to my site and typing your citation into the search bar whenever you want to look something up. But it's more convenient if you can set up a search keyword so that you can just type something like "ls 42 usc 1983" in your URL bar to look up the law.
 
-To do that on Firefox, you can just right-click the search bar at the top of this page, and click "Add a Keyword For This Search."
+To do that on Firefox, you can just right-click the search bar at the top of this page, and click `Add a Keyword for this Search...`.
 
 On Chrome, go to `Settings > Manage Search Engines`. From there, click `Add`, and paste this address into the URL field:
 
@@ -3934,30 +3957,25 @@ On Chrome, go to `Settings > Manage Search Engines`. From there, click `Add`, an
 document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\?|#/)[0] + "?%s";
 </script>
 
-Either way, you'll also need to designate a keyword. I use "ls", but anything works. Then you can just type "ls " in your URL bar, followed by a citation, to be redirected to the relevant page immediately.
-
-## How it Works
-
-Law Search is not technically a search engine. Essentially it tries to match your query against a series of templates (technically [regexes](https://en.wikipedia.org/wiki/Regular_expression), each one recognizing one kind of citation. These templates are listed [below](#sources-of-law). Each template has instructions for how to turn a citation into a link to a website where you can read it.
-
-The websites vary across different sources of law, but here are some of the most prominent ones:
-
-- For court opinions, Law Search uses Harvard's [Caselaw Access Project](https://case.law/). I recommend making an account there, so you won't need to prove your non-robot status quite as often. Unfortunately they only support pre-2018 cases, so anything more recent than that will be a broken link. Also note that you can go directly to a specific page of an opinion if you provide a pincite, like "338 <span>F.2d</span> 708, 715."
-- For the U.S. code and a number of federal rules (e.g. rules of civil procedure), it uses Cornell's [Legal Information Institute](https://www.law.cornell.edu/). Unfortunately their website header gets in the way when you link directly to a subsection, so I recommend the header with [Ublock Origin](https://ublockorigin.com/), or getting into a habit of scrolling up slightly.
-- Many federal laws, like the Immigration and Nationality Act (INA) and National Labor Relations Act (NLRA), are often cited by their original section numbers (e.g. "NLRA <span>§</span> 7") instead of the corresponding U.S. Code provisions. Law Search supports this kind of citation for a few bodies of law, by linking directly to the corresponding U.S. code citation on the Cornell website.
-- For codified state laws, Law Search mostly uses individual states' websites, but when they aren't compatible, it uses [lawserver.com](https://www.lawserver.com/), or occasionally [Justia](https://law.justia.com/codes/). All U.S. states and territories are supported in some form, except for Arkansas, Georgia, Guam, and Puerto Rico, whose laws are only available on LexisNexis or on sites where generating a URL would require more information than a typical citation contains.
-- For state constitutions, it mostly uses [ballotpedia.org](https://ballotpedia.org/).
-
-Note that it's entirely possible for Law Search to generate broken links, because it will create a link from any citation that *looks* correct, regardless of whether the referenced law actually exists.
-
-Two final notes for those interested in the more technical side:
-
-- Law Search runs entirely in your browser, without any server-side logic. If you want to, you can even <a href="" download>download this page</a> and run the search locally without even connecting to my website; you'll just miss out on updates.
-- I also maintain Law Search as a Python library called [CiteURL](https://github.com/raindrum/citeurl/). The advantage of the Python version is that it can process an entire block of text, like a court opinion, and insert hyperlinks for every citation it finds, including shortform citations.
+For other browsers, you can follow [this guide](https://www.howtogeek.com/114176/HOW-TO-EASILY-CREATE-SEARCH-PLUGINS-ADD-ANY-SEARCH-ENGINE-TO-YOUR-BROWSER/) to add it as a custom search engine.
 
 ## Sources of Law
 
-These are the sources of law the program is able to recognize. If you're wondering what a citation to each source needs to look like, you can click the 'view regex' link to see a diagram.
+Law Search supports the U.S. Code and Code of Federal Regulations, most pre-2018 state and federal court cases, and nearly every state's constitution and codified laws. It also supports a few federal rules and administrative materials like the Federal Register, as well as a few specific federal statutes like the National Labor Relations Act and the Immigration and Nationality Act.
+
+Here's some information on the sites that Law Search links to most frequently:
+
+- For **court opinions**, Law Search uses Harvard's [Caselaw Access Project](https://case.law/). I recommend you make a free account there so that you won't need to prove your non-robot status every time. Unfortunately, the site only supports pre-2018 cases, so anything more recent than that will be a broken link. Also note that you can go directly to a specific page of an opinion if you provide a pincite, like "338 <span>F.2d</span> 708, 715."
+
+- For the **U.S. Code** and a number of federal rules (e.g. rules of civil procedure), Law Search uses Cornell's [Legal Information Institute](https://www.law.cornell.edu/). If you cite a subsection of the law, you'll be taken directly to the right place. Unfortunately their website header gets in the way of the start of the subsection, so I recommend hiding the header with [Ublock Origin](https://ublockorigin.com/), or else getting into a habit of scrolling up a little bit.
+
+- Many major federal laws, like the Immigration and Nationality Act (INA) and National Labor Relations Act (NLRA), are often cited by reference to their original section numbers (e.g. "NLRA <span>§</span> 7") instead of the corresponding U.S. Code provisions. This is inconvenient, as oftentimes there aren't good ways to browse these laws online. Law Search supports a few such bodies of law by translating their citations into the corresponding U.S. Code citations on the Cornell website. Note that this means that any cross-references on the resulting page will refer to the codified law.
+
+- For codified **state laws**, Law Search mostly uses individual state government websites, but when they aren't compatible, it uses [lawserver.com](https://www.lawserver.com/), or occasionally [Justia](https://law.justia.com/codes/). All U.S. states and territories are supported in some form, except for Arkansas, Georgia, Guam, and Puerto Rico, whose laws are only available on LexisNexis or on sites where generating a URL would require more information than a typical citation contains. Note that session laws and state regulations are not yet supported.
+
+- For state constitutions, Law Search mostly uses [ballotpedia.org](https://ballotpedia.org/).
+
+Finally, here's a complete list of all the supported bodies of law, in no particular order. If you're wondering what a citation to each source needs to look like, you can click `view regex` to see a diagram:
 
 Source of Law | Website   | Citation Template
 ------------- | --------- | -----------------
@@ -4092,10 +4110,10 @@ Wyoming Statutes | [wyoleg.gov](https://wyoleg.gov) | [view regex](https://regex
 Wyoming Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Wyo%28ming%7C%5C.%29%7CWY%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Caselaw Access Project | [cite.case.law](https://cite.case.law) | [view regex](https://regexper.com#%28%5Cd%2B%29%20%28Abb%5C.%20Ct%5C.%20App%5C.%7CAbb%5C.N%5C.%20Cas%5C.%7CAbb%5C.%20Pr%5C.%7CAbb%5C.%20Pr%5C.%20%5C%28n%5C.s%5C.%5C%29%7CVa%5C.%20%5C%28Va%5C.%20Cas%5C.%5C%29%7CAdams%20Co%5C.%20L%5C.J%5C.%7CAdd%5C.%7CDallam%7CFranklin%20Co%5C.%20Legal%20J%5C.%7CAik%5C.%7CAla%5C.%20App%5C.%7CAla%5C.%7CAlaska%20Fed%5C.%7CAlaska%7CAm%5C.%20Samoa%7CAm%5C.%20Samoa%202d%7CAm%5C.%20Samoa%203d%7COhio%20App%5C.%20Unrep%5C.%7CAnt%5C.%20N%5C.P%5C.%20Cas%5C.%7CA%5C.D%5C.%20%3F2d%7CA%5C.D%5C.%7CA%5C.D%5C.%20%3F3d%7CKy%5C.%20%5C%28Hughes%5C%29%7CAriz%5C.%20App%5C.%7CAriz%5C.%7CArk%5C.%20App%5C.%7CArk%5C.%7CArmstrong%5C.%20Election%20Cases%7CA%5C.%7CBalt%5C.%20C%5C.%20Rep%5C.%7CBarb%5C.%20Ch%5C.%7CBarb%5C.%7CB%5C.%20Co%5C.%20Leg%5C.%20J%5C.%7CBerk%27s%20Co%5C.%20L%5C.J%5C.%5C.%7CBlackf%5C.%7CBlair%20Co%5C.%20L%5C.R%5C.%7CBlair%20Co%5C.%20L%5C.R%5C.%202d%7CBosworth%20Super%5C.%20Ct%5C.%20Rep%5C.%7CBradford%20Co%5C.%20L%5C.J%5C.%7CBrad%5C.%7CBrayt%5C.%7CBucks%20Co%5C.%20L%5C.R%5C.%7CBur%5C.%7CBur%5C.%7CButler%20Co%5C.%20Legal%20J%5C.%7CE%5C.D%5C.%20Pa%5C.%7CCai%5C.%20Cas%5C.%7CCai%5C.%7CCal%5C.%20%3FApp%5C.%7CCal%5C.%20%3FApp%5C.%20%3F5th%7CCal%5C.%20%3FApp%5C.%20%3F4th%7CCal%5C.%20%3FApp%5C.%20%3F%5B23%5Dd%7CCal%5C.%20%3F%5B23%5Dd%7CCal%5C.%20%3F%5B45%5Dth%7CCal%5C.%7CCal%5C.%20%3FSuper%5C.%20%3FCt%5C.%7CCal%5C.%20%3FUnrep%5C.%7CCambria%20Co%5C.%20L%5C.J%5C.%7CCambria%20Co%5C.%20Rep%5C.%7CCarbon%20Co%5C.%20L%5C.J%5C.%7CN%5C.C%5C.%20%5C%28Car%5C.%20L%5C.%20Rep%5C.%5C%29%7CN%5C.J%5C.%20%5C%28Manumission%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28McMul%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Chev%5C.%5C%29%7CTapp%5C.%20Rep%5C.%7CD%5C.%20Pa%5C.%7COhio%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Chev%5C.%20Eq%5C.%5C%29%7CMonaghan%7CSadler%7CKy%5C.%20%5C%28Litt%5C.%20Sel%5C.%20Cas%5C.%5C%29%7CC%5C.C%5C.L%5C.J%5C.%7CC%5C.C%5C.L%5C.J%5C.%202d%7CS%5C.C%5C.%20Eq%5C.%20%5C%28McCord%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Ril%5C.%20Eq%5C.%5C%29%7CChand%5C.%7CCharlton%20Rep%5C.%7CChes%5C.%20Co%5C.%20Rep%5C.%7CD%5C.%20Chip%5C.%7CN%5C.%20Chip%5C.%7CMun%5C.%20%20L%5C.%20Rep%5C.%7CHosea%27s%20Rep%5C.%7CN%5C.Y%5C.%20City%20Ct%5C.%20Rep%5C.%7CCl%5C.%20Ch%5C.%7CCole%5C.%20%26%20Cai%5C.%20Cas%5C.%7CCole%5C.%20Cas%5C.%7CColo%5C.%20App%5C.%7CColo%5C.%20L%5C.%20Rep%5C.%7CColo%5C.%20N%5C.%20P%5C.%7CColo%5C.%7CWillson%7CWhite%20%26%20W%5C.%7CN%5C.C%5C.%20%5C%28Cam%5C.%20%26%20Nor%5C.%5C%29%7CKing%27s%20Conflicting%20Cases%7CConn%5C.%20App%5C.%7CConn%5C.%20Cir%5C.%20Ct%5C.%7CKirby%7CRoot%7CConn%5C.%7CConn%5C.%20Supp%5C.%7CConnoly%20Sur%5C.%20Rep%5C.%7CCt%5C.%20Cl%5C.%7CC%5C.C%5C.P%5C.A%5C.%7CCt%5C.%20Cust%5C.%7CCow%5C.%7CCraw%5C.%20Co%5C.%20Leg%5C.%20J%5C.%7CCumberland%20L%5C.J%5C.%7CCust%5C.%20B%5C.%20%26%20Dec%5C.%7CDakota%7CDallam%7CDall%5C.%7CDaly%20%5C%28N%5C.Y%5C.%5C%29%7CDau%5C.%20Co%5C.%20Rep%5C.%7CDay%7CT%5C.C%5C.A%5C.%7CP%5C.R%5C.%20Dec%5C.%7CTeiss%5C.%7CVa%5C.%20Ch%5C.%20Dec%5C.%7CKy%5C.%20%5C%28Sneed%5C%29%7CPears%5C.%7CSmith%7CGa%5C.%20Super%5C.%20Ct%5C.%7CGeorgia%20Decisions%7CC%5C.M%5C.A%5C.%7CDel%5C.%20Cas%5C.%7CDel%5C.%20Ch%5C.%7CDel%5C.%20Co%5C.%20Reps%5C.%7CDel%5C.%20%5C%28Harr%5C.%5C%29%7CDel%5C.%20%5C%28Penne%5C.%5C%29%7CDel%5C.%20%5C%28Boyce%5C%29%7CDel%5C.%20%5C%28Marv%5C.%5C%29%7CDel%5C.%20%5C%28Houst%5C.%5C%29%7CDel%5C.%7CDem%5C.%20Sur%5C.%7CDenio%7CDocket%7CDudley%20Rep%5C.%7CDuer%20Super%5C.%20Ct%5C.%20Rep%5C.%7CEdm%5C.%20Sel%5C.%20Cas%5C.%7CE%5C.D%5C.%20Smith%7CEdw%5C.%20Ch%5C.%7CS%5C.C%5C.%20Eq%5C.%20%5C%28McMul%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Speers%20Eq%5C.%5C%29%7CErie%5C.%20Co%5C.%20L%5C.J%5C.%7CP%5C.R%5C.%20Sent%5C.%7CFay%5C.%20L%5C.J%5C.%7CF%5C.%20Cas%5C.%7CFed%5C.%20Cl%5C.%7CF%5C.%7CF%5C.%20%3F2d%7CF%5C.%20%3F3d%7CF%5C.R%5C.D%5C.%7CF%5C.%20%3FSupp%5C.%28%20%3F%5B23%5Dd%29%3F%7CFla%5C.%7CFla%5C.%20Supp%5C.%7CFla%5C.%20Supp%5C.%202d%7CGa%5C.%20App%5C.%7CGa%5C.%20L%5C.%20Rep%5C.%7CGa%5C.%7CGault%7CGibb%5C.%20Surr%5C.%7CGuam%7CHall%20Super%5C.%20Ct%5C.%20Rep%5C.%7CH%5C.%20%26%20G%5C.%7CHaw%5C.%20App%5C.%7CHaw%5C.%7CHaz%5C.%20Pa%5C.%20Reg%5C.%7CVa%5C.%20%5C%28Hen%5C.%20%26%20M%5C.%5C%29%7CHill%20%26%20Den%5C.%7CHill%7CHilt%5C.%7CHoff%5C.%20Ch%5C.%7CHopk%5C.%20Ch%5C.%7CHow%5C.%20App%5C.%20Cas%5C.%7CHow%5C.%20Pr%5C.%7CHow%5C.%20Pr%5C.%20%5C%28n%5C.s%5C.%5C%29%7CIdaho%7CIll%5C.%20App%5C.%7CIll%5C.%20App%5C.%202d%7CIll%5C.%20App%5C.%203d%7CIll%5C.%20Cir%5C.%20Ct%5C.%20Rep%5C.%7CIll%5C.%20Ct%5C.%20Cl%5C.%7CIll%5C.%20%5C%28Scam%5C%29%7CIll%5C.%20%5C%28Breese%5C%29%7CIll%5C.%20%5C%28Gilm%5C.%5C%29%7CIll%5C.%7CIll%5C.%202d%7CInd%5C.%20App%5C.%7CInd%5C.%20L%5C.%20Rep%5C.%7CInd%5C.%7CIndian%20Terr%5C.%7CIowa%7CJeff%5C.%7CJohns%5C.%20Cas%5C.%7CJohns%5C.%20Ch%5C.%7CJohns%5C.%7CJones%20and%20Spencer%27s%20Super%5C.%20Ct%5C.%20Rep%5C.%7CEdsall%7CPa%5C.%20%5C%28Admiralty%5C%29%7CKan%5C.%20App%5C.%202d%7CKan%5C.%7CKy%5C.%20%5C%28A%5C.K%5C.%20Marsh%5C.%5C%29%7CKy%5C.%20Op%5C.%7CKy%5C.%7CKeyes%7CLack%5C.%20Bar%5C.%20R%5C.%7CLack%5C.%20Bar%20%20R%5C.%7CLack%5C.%20Jur%5C.%7CLack%5C.%20L%5C.%20N%5C.%7CLack%5C.%20L%5C.R%5C.%7CLanc%5C.%20Bar%7CLanc%5C.%20L%5C.%20Rev%5C.%7CLans%5C.%20Ch%5C.%7CLans%5C.%7CLaw%5C.%20L%5C.J%5C.%7CLaw%20Times%7CLaw%20Times%20%5C%28N%5C.S%5C.%5C%29%7CLebanon%20Co%5C.%20L%5C.J%5C.%7CFoster%7CLeg%5C.%20Gaz%5C.%7CLeg%5C.%20Gaz%5C.%7CPa%5C.%20Leg%5C.%20Gaz%5C.%7CGunby%7CLeg%5C.%20Rec%5C.%20Rep%5C.%7CLehigh%20Co%5C.%20L%5C.J%5C.%7CLehigh%20Val%5C.%20L%5C.%20Rep%5C.%7CLiquor%20Tax%20Rep%5C.%7CLock%5C.%20Rev%5C.%20Cas%5C.%7CLa%5C.%20Ann%5C.%7CLa%5C.%20App%5C.%7CLa%5C.%7CLa%5C.%7CLuz%5C.%20L%5C.J%5C.%7CLuz%5C.%20L%5C.O%5C.%7CLuz%5C.%20Leg%5C.%20Reg%5C.%7CLuz%5C.%20Leg%5C.%20Reg%5C.%7CLycoming%20R%5C.%7CMagis%5C.%20%26%20Const%5C.%7CMe%5C.%7CMcGrath%7CN%5C.C%5C.%20%5C%28Mart%5C.%5C%29%7CMart%5C.%20%5C%28n%5C.s%5C.%5C%29%7CMart%5C.%20%5C%28o%5C.s%5C.%5C%29%7CMd%5C.%20App%5C.%7CMd%5C.%7CH%5C.%20%26%20McH%5C.%7CMass%5C.%20%5C%28Allen%5C%29%7CMass%5C.%20App%5C.%20Ct%5C.%7CMass%5C.%20App%5C.%20Dec%5C.%7CDavis%20L%5C.%20Ct%5C.%20Cas%5C.%7CDavis%20L%5C.%20Ct%5C.%20Cas%5C.%7CMass%5C.%20%5C%28Cush%5C%29%7CMass%5C.%20%5C%28Pick%5C.%5C%29%7CMass%5C.%20%5C%28Gray%5C%29%7CMass%5C.%20%5C%28Tyng%5C%29%7CMass%5C.%20%5C%28Will%5C.%5C%29%7CMass%5C.%20%5C%28Met%5C.%5C%29%7CMass%5C.%7CMass%5C.%20Supp%5C.%7CMercer%7CMich%5C.%20App%5C.%20%7CHowell%20N%5C.P%5C.%7CMich%5C.%7CM%5C.C%5C.L%5C.J%5C.%7CMills%20Surr%5C.%7CMinn%5C.%7CMinor%7CVa%5C.%7CMiss%5C.%20Ct%5C.%20Rec%5C.%7CMiss%5C.%20Dec%5C.%7CMiss%5C.%20%5C%28Walker%5C%29%7CMiss%5C.%7CMiss%5C.%20%5C%28Howard%5C%29%7CMiss%5C.%20%5C%28S%5C.%20%26%20M%5C.%5C%29%7CMor%5C.%20St%5C.%20Cas%5C.%7CMo%5C.%20App%5C.%7CMo%5C.%7CMonroe%20L%5C.R%5C.%7CMont%5C.%7CMont%5C.%20Co%5C.%20L%5C.%20Rep%5C.%7CNavajo%20Rptr%5C.%7CNeb%5C.%20App%5C.%7CNeb%5C.%7CNev%5C.%7CN%5C.H%5C.%7CN%5C.J%5C.%20Eq%5C.%7CN%5C.J%5C.L%5C.%7CN%5C.J%5C.%20Misc%5C.%7CN%5C.J%5C.%7CN%5C.J%5C.%20Super%5C.%7CN%5C.J%5C.%20Tax%20Ct%5C.%7CN%5C.M%5C.%7CN%5C.M%5C.%7CN%5C.Y%5C.%20Crim%5C.%7CMisc%5C.%20%3F2d%7CMisc%5C.%20%3F3d%7CMisc%5C.%7CN%5C.Y%5C.%20%3F2d%7CN%5C.Y%5C.%7CN%5C.Y%5C.%20%3F3d%7CN%5C.Y%5C.%20St%5C.%20Rptr%5C.%7CNortham%5C.%20Law%20Rep%5C.%7CN%5C.C%5C.%20App%5C.%7CN%5C.C%5C.%7CN%5C.C%5C.%20%5C%28Busb%5C.%20Eq%5C%29%7CN%5C.C%5C.%20%5C%28Busb%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20%26%20Bat%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20%26%20Bat%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Dev%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Hawks%5C%29%7CN%5C.C%5C.%20%5C%28Hayw%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Ired%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Ired%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Jones%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Jones%5C%29%7CN%5C.C%5C.%20%5C%28Mur%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Phil%5C.%20Eq%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Phil%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Tay%5C.%5C%29%7CN%5C.C%5C.%20%5C%28Win%5C.%5C%29%7CN%5C.D%5C.%7CN%5C.%20%3FE%5C.%7CN%5C.E%5C.%20%3F%5B23%5Dd%7CN%5C.%20E%5C.%20%5B23%5Dd%7CN%5C.%20Mar%5C.%20I%5C.%20Commw%5C.%7CN%5C.%20Mar%5C.%20I%5C.%7CNorthum%5C.%20Co%5C.%20Leg%5C.%20N%5C.%7CNorthumb%5C.%20L%5C.J%5C.%7CN%5C.%20%3FW%5C.%7CN%5C.W%5C.%20%3F2d%7CN%5C.%20W%5C.%202d%7COhio%20App%5C.%7COhio%20App%5C.%202d%7COhio%20App%5C.%203d%7COhio%20C%5C.C%5C.%20Dec%5C.%7COhio%20C%5C.C%5C.%20%5C%28N%5C.S%5C.%5C%29%7COhio%20Cir%5C.%20Dec%5C.%7COhio%20Ct%5C.%20App%5C.%7COhio%20Misc%5C.%7COhio%20Misc%5C.%202d%7COhio%20Nisi%20Prius%7COhio%20Nisi%20Prius%20%5C%28N%5C.S%5C.%5C%29%7COhio%20Op%5C.%202d%7COhio%20Op%5C.%203d%7COhio%20Op%5C.%7COhio%20St%5C.%7COhio%20St%5C.%20%5C%28n%5C.s%5C.%5C%29%7COhio%20St%5C.%202d%7COhio%20St%5C.%203d%7COkla%5C.%20Crim%5C.%7COkla%5C.%7COlwine%27s%20L%5C.J%5C.%7COr%5C.%7COr%5C.%20App%5C.%7COr%5C.%20Tax%7CP%5C.%7CP%5C.%20%3F2d%7CP%5C.%20%3F3d%7CPaige%20Ch%5C.%7CPark%5C.%20Crim%5C.%20Rep%5C.%7CPelt%5C.%7CPa%5C.%20L%5C.%20Rec%5C.%7CPa%5C.%20Commw%5C.%7CPa%5C.%20Corp%5C.%20R%5C.%7CPa%5C.%20Co%5C.%20Ct%5C.%7CPa%5C.%20D%5C.%20%26%20C%5C.%202d%7CPa%5C.%20D%5C.%20%26%20C%5C.%7CPa%5C.%20D%5C.%20%26%20C%5C.%203d%7CPa%5C.%20D%5C.%20%26%20C%5C.%205th%7CPa%5C.%20D%5C.%20%26%20C%5C.%204th%7CPa%5C.%20Fid%5C.%7CPa%5C.%20Fid%5C.%202d%7CPa%5C.%20Fid%5C.%203d%7CPa%5C.%20Just%5C.%20L%5C.%20Rep%5C.%7CPa%5C.%20L%5C.J%5C.%20Rep%5C.%7CPa%5C.%7CPa%5C.%20Super%5C.%20Ct%5C.%7CPennyp%5C.%7CPhila%5C.%20Co%5C.%20R%5C.%7CPhila%5C.%20Reports%7CPin%5C.%7CPittsb%5C.%20L%5C.J%5C.%7CPitts%5C.%20R%5C.%7CPort%5C.%7CP%5C.R%5C.%20Fed%5C.%7CPow%5C.%20Surr%5C.%7CMich%5C.%20Pr%5C.%7CSinger%20Prob%5C.%20Cas%5C.%7CN%5C.Y%5C.%20Proc%5C.%20Ct%5C.%20Ass%5C.%7CP%5C.R%5C.%7CRec%5C.%20Q%5C.%20Ct%5C.%7CRec%5C.%20Ct%5C.%20Assistants%7CRec%5C.%20Co%5C.%20Ch%5C.%20%5C%28S%5C.C%5C.%5C%29%7CRec%5C.%20Ct%5C.%20Gen%5C.%20Sess%5C.%7CRec%5C.%20Bucks%5C.%20Co%5C.%20%5C%28Pa%5C.%5C%29%7CRec%5C.%20T%5C.%20Warwick%20%5C%28R%5C.I%5C.%5C%29%7CRec%5C.%20Ct%5C.%20Ches%5C.%20Co%5C.%20Pa%5C.%7CRec%5C.%20Co%5C.%20Ct%5C.%7CRec%5C.%20V%5C.A%5C.%20Ct%5C.%20%5C%28R%5C.I%5C.%5C%29%7CRedf%5C.%7CS%5C.C%5C.L%5C.%20%5C%28Ril%5C.%5C%29%7CCt%5C.%20Cl%5C.%7CMich%5C.%20Ct%5C.%20Cl%5C.%7CApp%5C.%20D%5C.C%5C.%7CBro%5C.%20Com%5C.%20P%5C.%7CAshm%5C.%20%5C%28Pa%5C.%5C%29%7CConn%5C.%20Super%5C.%20Ct%5C.%7CConn%5C.%20Super%5C.%20Ct%5C.%7CDisney%20%5C%28Ohio%5C%29%7CBinn%5C.%7CPen%5C.%20%26%20W%5C.%7CRawle%7CSerg%5C.%20%26%20Rawl%5C.%7CWatts%20%26%20Serg%5C.%7CWhart%5C.%7CYeates%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Des%5C.Eq%5C.%5C%29%7CKy%5C.%20%5C%28Hard%5C.%5C%29%7CHandy%7CSuper%5C.%20Ct%5C.%20Jud%5C.%7CTenn%5C.%20%5C%28Hayw%5C.%5C%29%7CGrant%7CD%5C.C%5C.%20%5C%28MacArth%5C.%20%26%20M%5C.%5C%29%7CD%5C.C%5C.%20%5C%28Tuck%5C.%20%26%20Cl%5C.%5C%29%7CJahn%7CS%5C.C%5C.L%5C.%20%5C%28Strob%5C.%5C%29%7CGill%7CG%5C.%20%26%20J%5C.%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Dud%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Bail%5C.%5C%29%7CN%5C.Y%5C.%7CWalk%5C.%20Ch%5C.%7CTenn%5C.%20Crim%5C.%20App%5C.%7CH%5C.%20%26%20J%5C.%7CWilson%7CMiss%5C.%20%5C%28S%5C.%20%26%20M%5C.%20Ch%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Bay%5C%29%7CMorris%7CWatts%7CTenn%5C.%20%5C%28Mart%5C.%20%26%20Yer%5C.%5C%29%7CTenn%5C.%20%5C%28Cold%5C.%5C%29%7CTenn%5C.%20%5C%28Heisk%5C.%5C%29%7CTenn%5C.%20%5C%28Yer%5C.%5C%29%7CTenn%5C.%20%5C%28Head%5C%29%7CTenn%5C.%20%5C%28Meigs%5C%29%7CTenn%5C.%20%5C%28Hum%5C.%5C%29%7CD%5C.C%5C.%7CD%5C.C%5C.%20%5C%28MacArth%5C.%5C%29%7CD%5C.C%5C.%20%5C%28Mackey%5C%29%7CDoug%5C.%7CArk%5C.%20Terr%5C.%20Rep%5C.%7CMcGl%5C.%7CD%5C.C%5C.%20%5C%28patent%5C%29%7CKy%5C.%20%5C%28Bibb%5C%29%7CKy%5C.%20%5C%28Litt%5C.%5C%29%7CKy%5C.%20%5C%28T%5C.B%5C.%20Mon%5C.%5C%29%7CKy%5C.%20%5C%28B%5C.%20Mon%5C.%5C%29%7CWright%7COhio%20Ch%5C.%7CKy%5C.%20%5C%28J%5C.J%5C.%20Marsh%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Speers%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rich%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rice%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Rich%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Dud%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Hill%5C%29%7CHay%5C.%20%26%20Haz%5C.%7CD%5C.C%5C.%20Cir%5C.%7CD%5C.C%5C.%20%5C%28Cranch%5C%29%7CBrightly%7CWalker%7CInd%5C.%20App%5C.%7CKan%5C.%20App%5C.%7CMd%5C.%20Ch%5C.%7CMd%5C.%20Ch%5C.%7CFreem%5C.%20Ch%5C.%7CWilcox%7CS%5C.C%5C.L%5C.%20%5C%28McCord%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Nott%20%26%20McC%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Harp%5C.%5C%29%7CHarr%5C.%20Ch%5C.%7CMiles%7CCal%5C.%20%3FDist%5C.%20Ct%5C.%7CMcCahon%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rice%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Hill%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Rich%5C.%20Cas%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Strobh%5C.%20Eq%5C.%5C%29%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Bail%5C.%20Eq%5C.%5C%29%7CGreene%7CMyrick%7CD%5C.%20Haw%5C.%7CRep%5C.%20Cont%5C.%20Elect%5C.%20Case%5C.%7CRep%5C.%20Cont%5C.%20El%5C.%7CHowison%7CCoffey%7CCharlton%7CS%5C.C%5C.%20Eq%5C.%20%5C%28Harp%5C.%20Eq%5C.%5C%29%7CBrewster%7CS%5C.C%5C.L%5C.%20%5C%28Mill%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Tread%5C.%5C%29%7CS%5C.C%5C.L%5C.%20%5C%28Brev%5C.%5C%29%7CMass%5C.%20App%5C.%20Div%5C.%7CMass%5C.%20App%5C.%20Div%5C.%7CGoebel%7CKy%5C.%20%5C%28Dana%5C%29%7CKy%5C.%20%5C%28Duv%5C.%5C%29%7CKy%5C.%20%5C%28Met%5C.%5C%29%7CKy%5C.%20%5C%28Bush%5C%29%7CVaux%7CTenn%5C.%20%5C%28Swan%5C%29%7CTenn%5C.%20%5C%28Sneed%5C%29%7CBradf%5C.%7CT%5C.C%5C.%7CB%5C.T%5C.A%5C.%7CR%5C.I%5C.%20Ct%5C.%20Rec%5C.%7CR%5C.I%5C.%20Dec%5C.%7CR%5C.I%5C.%7CSuper%5C.%20Ct%5C.%20%5C%28R%5C.I%5C.%5C%29%7CRobertson%27s%20Super%5C.%20Ct%5C.%20Rep%5C.%7CRob%5C.%7CSand%5C.%20Ch%5C.%7CSandford%20Super%5C.%20Ct%5C.%20Rep%5C.%7CSarat%5C.%20Ch%5C.%20Sent%5C.%7CSchuy%5C.%20L%5C.%20Rec%5C.%7CSchuy%5C.%20Reg%5C.%7CSeld%5C.%20Notes%7CYates%7CParsons%7CSick%5C.%20Op%5C.%20Att%27y%20Gen%5C.%7CSilv%5C.%20Ct%5C.%20App%5C.%7CSilv%5C.%20Sup%5C.%7CSmith%7CSom%5C.%20L%5C.J%5C.%7CS%5C.C%5C.%7CS%5C.D%5C.%7CS%5C.%20%3FE%5C.%7CS%5C.E%5C.%20%3F2d%7CS%5C.%20E%5C.%202d%7CSo%5C.%7CSo%5C.%20%3F2d%7CSo%5C.%20%3F3d%7CS%5C.%20%3FW%5C.%7CS%5C.W%5C.%20%3F%5B23%5Dd%7CS%5C.%20W%5C.%20%5B23%5Dd%7CStew%5C.%7CStew%5C.%20%26%20P%5C.%7CS%5C.C%5C.D%5C.C%5C.%20%5C%28N%5C.S%5C.%5C%29%7CN%5C.Y%5C.%20Sup%5C.%20Ct%5C.%7CSusq%5C.%20Leg%5C.%20Chron%5C.%7CSweeney%20Super%5C.%20Ct%5C.%20Rep%5C.%7CRobards%7CN%5C.C%5C.%20%5C%28Taylor%5C%29%7CLa%5C.%20App%5C.%20%5C%28Teiss%5C.%5C%29%7CTenn%5C.%20App%5C.%7CTenn%5C.%20Cas%5C.%7CTenn%5C.%20Ch%5C.%20R%5C.%7CTenn%5C.%7CTenn%5C.%20%5C%28Peck%5C%29%7CTenn%5C.%20%5C%28Cooke%5C%29%7CTenn%5C.%20%5C%28Overt%5C.%5C%29%7CTex%5C.%20Civ%5C.%20App%5C.%7CTex%5C.%20Ct%5C.%20App%5C.%7CTex%5C.%20Crim%5C.%7CTex%5C.%20L%5C.%20R%5C.%7CTex%5C.%7CPosey%7CN%5C.J%5C.%20%5C%28Burlington%20County%20Ct%5C.%5C%29%7CCin%5C.%20Sup%5C.%20Ct%5C.%20Rep%5C.%7CCom%5C.%20Pl%5C.%20Rep%5C.%7CPa%5C.%20Dist%5C.%7CMass%5C.%20Law%20Rep%5C.%7CMich%5C.%20N%5C.P%5C.%20R%5C.%7CWestchester%7COhio%20Law%20Abs%5C.%7COhio%20L%5C.R%5C.%7CAld%5C.%7CThomp%5C.%20%26%20Cook%7CBlume%20Sup%5C.%20Ct%5C.%20Trans%5C.%7CTrans%5C.%20App%5C.%7CTuck%5C.%20Surr%5C.%7CTyl%5C.%7CCl%5C.%20Ct%5C.%7CU%5C.S%5C.%20App%5C.%20D%5C.C%5C.%7CCt%5C.%20Int%27l%20Trade%7CCust%5C.%20Ct%5C.%7CU%5C.%20%3FS%5C.%7CU%5C.S%5C.%20%5C%28Black%5C%29%7CU%5C.S%5C.%20%5C%28Cranch%5C%29%7CU%5C.S%5C.%20%5C%28Dall%5C.%5C%29%7CU%5C.S%5C.%20%5C%28How%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Pet%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Wall%5C.%5C%29%7CU%5C.S%5C.%20%5C%28Wheat%5C.%5C%29%7CMann%5C.%20Unrep%5C.%20Cas%5C.%7CBlume%20Unrep%5C.%20Op%5C.%7CUnrep%5C.%20Tenn%5C.%20Cas%5C.%7CCal%5C.%7CUtah%7CUtah%202d%7CVt%5C.%7CVa%5C.%20Cir%5C.%7CVa%5C.%20Col%5C.%20Dec%5C.%7CVa%5C.%20App%5C.%7CVa%5C.%20Dec%5C.%7CVa%5C.%20%5C%28Rand%5C.%5C%29%7CVa%5C.%20%5C%28Munf%5C.%5C%29%7CVa%5C.%20%5C%28Wash%5C.%5C%29%7CVa%5C.%7CVa%5C.%20%5C%28Gratt%5C.%5C%29%7CVa%5C.%20%5C%28Gilmer%5C%29%7CVa%5C.%20%5C%28Call%5C%29%7CVa%5C.%20%5C%28Patt%5C.%20%26%20Heath%5C%29%7CVa%5C.%20%5C%28Rob%5C.%5C%29%7CVa%5C.%20%5C%28Leigh%5C%29%7CV%5C.I%5C.%7CWash%5C.%20App%5C.%7CWash%5C.%20Co%5C.%5C%28Pa%5C.%5C%29%7CWash%5C.%7CWash%5C.%202d%7CWash%5C.%20Terr%5C.%7CWeek%5C.%20No%5C.%20Cas%5C.%20%5C%28Pa%5C.%5C%29%7CWend%5C.%7CWes%5C.%20C%5C.L%5C.J%5C.%7CTribal%7CA%5C.%20%3F2d%7CA%5C.%20%3F3d%7CB%5C.R%5C.%7CF%5C.%20App%27%3Fx%5C.%3F%7CHaw%5C.%7CM%5C.J%5C.%7CN%5C.Y%5C.S%5C.%202d%7CN%5C.Y%5C.S%5C.%202d%7CN%5C.Y%5C.S%5C.%7CVet%5C.%20App%5C.%7CW%5C.%20Va%5C.%7CWheel%5C.%20Cr%5C.%20Cas%5C.%7CWis%5C.%7CWis%5C.%202d%7CWyo%5C.%7CYates%20Sel%5C.%20Cas%5C.%7CYork%20Leg%5C.%20Rec%5C.%29%20%28%5Cd%2B%29%5Cb%28%2C%3F%28%20at%29%3F%20%28%5Cd%2B%29%28%28%5B-%E2%80%91%E2%80%93%5D%7C%20to%20%7C%20through%20%29%28%5Cd%2B%29%7C%28%2C%3F%20%29%3F%28footnote%7Cf%3Fn%5C.%29%20%3F%28%5Cd%2B%29%29%3F%5Cb%29%3F)
 
-If you find an issue in one of these, or if there's a source of law you'd like to see added, please open a ticket [here](https://github.com/raindrum/citeurl/issues)!
+If you find an issue with one of these, or if there's a source of law you'd like to see added, please open a ticket [here](https://github.com/raindrum/citeurl/issues)!
 
 ---
 
-If you get a lot of use out of Law Search and want to support it financially, you can use the link below:
+By the way, if you get a lot of use out of Law Search and want to support the project, you can use the link below:
 
 <a href="https://ko-fi.com/simonsherred"><button>☕ Buy me a coffee</button></a>
