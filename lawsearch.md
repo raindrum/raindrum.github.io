@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-04-28
+Modified: 2021-05-01
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -217,10 +217,27 @@ const templates = [
         "name": "Federal Rules of Appellate Procedure",
         "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/rules/frap/rule_{rule}"
+            "https://www.law.cornell.edu/rules/frap/rule_{rule}",
+            "#rule_{rule}_{subsection}"
         ],
         "regexes": [
             "(F\\.? ?R\\.? ?A\\.? ?P\\.?|Fed\\.? ?R(\\.?|ule) ?App\\.? ?Pr?o?c?\\.?|Federal Rules? of Appellate Procedure) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)"
+        ],
+        "operations": [
+            {
+                "token": "subsection",
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
+            }
         ]
     },
     {
@@ -255,7 +272,8 @@ const templates = [
         "name": "Federal Rules of Evidence",
         "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/rules/fre/rule_{rule}"
+            "https://www.law.cornell.edu/rules/fre/rule_{rule}",
+            "#rule_{rule}_{subsection}"
         ],
         "regexes": [
             "(F\\.? ?R\\.? ?E\\.?|Fed\\.? R(\\.?|ule) ?Evid\\.?|Federal Rules? of Evidence) ?(Rule )?(?<rule>\\d+(\\.\\d+)?[a-z]?)"
@@ -263,11 +281,9 @@ const templates = [
     },
     {
         "name": "Immigration and Nationality Act",
-        "defaults": {
-            "title": "8"
-        },
+        "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/uscode/text/{title}/{section}",
+            "https://www.law.cornell.edu/uscode/text/8/{section}",
             "#{subsection}"
         ],
         "regexes": [
@@ -477,11 +493,9 @@ const templates = [
     },
     {
         "name": "Internal Revenue Code",
-        "defaults": {
-            "title": "26"
-        },
+        "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/uscode/text/{title}/{section}",
+            "https://www.law.cornell.edu/uscode/text/26/{section}",
             "#{subsection}"
         ],
         "regexes": [
@@ -506,44 +520,24 @@ const templates = [
     },
     {
         "name": "Treasury Regulations",
-        "defaults": {
-            "title": "26"
-        },
+        "defaults": {},
         "URL": [
-            "https://ecfr.federalregister.gov/cfr-reference?cfr%5Bdate%5D=current&cfr%5Breference%5D={title} CFR {section}",
+            "https://ecfr.federalregister.gov/cfr-reference?cfr%5Bdate%5D=current&cfr%5Breference%5D=26 CFR {section}",
             "#p-{section}{subsection}"
         ],
         "regexes": [
             "Treas(ury|\\.?) ?Reg(ulations?|\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
-        ],
-        "operations": [
-            {
-                "token": "subsection",
-                "sub": [
-                    "\\W+",
-                    "_"
-                ]
-            },
-            {
-                "token": "subsection",
-                "sub": [
-                    "^_|_$",
-                    ""
-                ]
-            }
         ]
     },
     {
         "name": "National Labor Relations Act",
-        "defaults": {
-            "title": "29"
-        },
+        "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/uscode/text/{title}/{section}",
+            "https://www.law.cornell.edu/uscode/text/29/{section}",
             "#{subsection}"
         ],
         "regexes": [
-            "(Natioanal Labor Relations Act|N\\.? ?L\\.? ?R\\.? ?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "(National Labor Relations Act|N\\.? ?L\\.? ?R\\.? ?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -608,11 +602,9 @@ const templates = [
     },
     {
         "name": "Endangered Species Act",
-        "defaults": {
-            "title": "16"
-        },
+        "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/uscode/text/{title}/{section}",
+            "https://www.law.cornell.edu/uscode/text/16/{section}",
             "#{subsection}"
         ],
         "regexes": [
@@ -657,11 +649,9 @@ const templates = [
     },
     {
         "name": "Clean Air Act",
-        "defaults": {
-            "title": "42"
-        },
+        "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/uscode/text/{title}/{section}",
+            "https://www.law.cornell.edu/uscode/text/42/{section}",
             "#{subsection}"
         ],
         "regexes": [
@@ -845,16 +835,28 @@ const templates = [
                     "617": "7671p",
                     "618": "7671q"
                 }
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "\\W+",
+                    "_"
+                ]
+            },
+            {
+                "token": "subsection",
+                "sub": [
+                    "^_|_$",
+                    ""
+                ]
             }
         ]
     },
     {
         "name": "Clean Water Act",
-        "defaults": {
-            "title": "33"
-        },
+        "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/uscode/text/{title}/{section}",
+            "https://www.law.cornell.edu/uscode/text/33/{section}",
             "#{subsection}"
         ],
         "regexes": [
@@ -913,15 +915,13 @@ const templates = [
     },
     {
         "name": "Fair Housing Act",
-        "defaults": {
-            "title": "42"
-        },
+        "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/uscode/text/{title}/{section}",
+            "https://www.law.cornell.edu/uscode/text/42/{section}",
             "#{subsection}"
         ],
         "regexes": [
-            "(Fair Housing Act|F\\.? ?h\\.? ?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "(Fair Housing Act|F\\.? ?H\\.? ?A\\.?)((,? )?(&sect;|&#167|§){1,2}|Sect?\\.?|Sections?)? ?(?<section>\\d[\\w.-]*\\w|\\d)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -971,11 +971,9 @@ const templates = [
     },
     {
         "name": "Americans With Disabilities Act",
-        "defaults": {
-            "title": "42"
-        },
+        "defaults": {},
         "URL": [
-            "https://www.law.cornell.edu/uscode/text/{title}/{section}",
+            "https://www.law.cornell.edu/uscode/text/42/{section}",
             "#{subsection}"
         ],
         "regexes": [
@@ -984,7 +982,7 @@ const templates = [
         "operations": [
             {
                 "token": "section",
-                "index": {
+                "lookup": {
                     "2": "12101",
                     "3": "12102",
                     "101": "12111",
@@ -1084,7 +1082,7 @@ const templates = [
         "name": "Code of Alabama, 1975",
         "defaults": {},
         "URL": [
-            "https://alisondb.legislature.state.al.us/alison/CodeOfAlabama/1975/{title}-{chapter}-{section}.htm"
+            "http://alisondb.legislature.state.al.us/alison/CodeOfAlabama/1975/{title}-{chapter}-{section}.htm"
         ],
         "regexes": [
             "(Ala(bama|\\.)|AL)( ?Rev(ised|\\.))?( ?Ann(otated|\\.))?( ?Gen(eral|\\.))? ?(Codes?|Stat(utes|s?\\.?))( ?Ann(otated|\\.))?,? ?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<chapter>\\d+(\\.\\d+)?[A-Za-z]?)[-‑–](?<section>\\d+(\\.\\d+)?)(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
@@ -1219,7 +1217,7 @@ const templates = [
         "name": "Arizona Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{arabic_article},_Arizona_Constitution",
+            "https://ballotpedia.org/Article_{article},_Arizona_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -1291,7 +1289,7 @@ const templates = [
         "URL": [
             "https://leginfo.legislature.ca.gov/faces/codes_display{displayType}.xhtml?lawCode=CONS",
             "&article={article}",
-            "&sectionNum=SEC.%20{section}."
+            "&sectionNum=SEC. {section}."
         ],
         "regexes": [
             "(Cal(ifornia|\\.)|CAL?) ?Const(itution|\\.) ?[Aa]rt(icle|\\.) ?(?<article>[\\dIVXivx]{1,8})(,? ?((&sect;|&#167|§){1,2}|[Ss]ect?(ions?|s?\\.)) ?(?<section>(\\d[\\w.]*\\w|\\d))(,? ([Cc]l(ause|\\.) ?(?<clause>\\d+)))?)?"
@@ -1305,8 +1303,7 @@ const templates = [
                 "token": "section",
                 "output": "displayType",
                 "optionalLookup": {
-                    ".+": null,
-                    "Section": null
+                    ".+": "Section"
                 }
             }
         ]
@@ -2132,7 +2129,7 @@ const templates = [
             "https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article={articleCode}&section={title}-{section}"
         ],
         "regexes": [
-            "M(aryland|d\\.|D) (?<article>(Ac|Al|[BCEFHILNPRST]).{4,38}?) (Code( Ann(otated|\\.))? )?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>[\\dA-Z\\-–.]*[\\dA-Z])(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
+            "M(aryland|d\\.|D) (Code( Ann(otated|\\.))?,? )?(?<article>(Ac|Al|[BCEFHILNPRST]).{4,38}?) (Code( Ann(otated|\\.))?,? )?((Sections?|(&sect;|&#167|§){1,2}) ?)?(?<title>\\d+[A-Z]?)[-‑–](?<section>[\\dA-Z\\-–.]*[\\dA-Z])(((,? )?sub(sections?|divisions?|(sec|d(iv)?)?s?\\.) ?)?(?<subsection>(\\(\\w+\\))+))?"
         ],
         "operations": [
             {
@@ -3940,9 +3937,7 @@ When you type a citation into the search bar, Law Search tries to match your que
 
 The translation process occurs entirely in your browser, with no server-side logic or data collection. In fact, if you want to, you can even <a href="" download>download this page</a> and run it without connecting to my website; you'll just miss out on updates.
 
-Two final notes for the more technically-inclined: First, you can [make your own](https://raindrum.github.io/citeurl/frontends#javascript) personalized instance of Law Search, to support any source of law you want.
-
-Second, while Law Search itself is just a lookup tool, the underlying [CiteURL](https://raindrum.github.io/citeurl) program can do more. You can feed it a whole block of text, like a court opinion or a brief, and it will insert a hyperlink for every citation it finds, or list every authority by depth of treatment.
+Two final notes for the more technically-inclined: First, Law Search is essentially a stripped-down version of [CiteURL](https://raindrum.github.io/citeurl), which can not only look up individual citations, but can also insert hyperlinks for every longform or shortform citation it finds in a document. Second, if you need to look up citations that Law Search doesn't support, it's not too hard to [make your own](https://raindrum.github.io/citeurl/frontends#javascript) personal instance of Law Search.
 
 ## Bookmark This Search!
 
@@ -3957,7 +3952,7 @@ On Chrome, go to `Settings > Manage Search Engines`. From there, click `Add`, an
 document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\?|#/)[0] + "?%s";
 </script>
 
-For other browsers, you can follow [this guide](https://www.howtogeek.com/114176/HOW-TO-EASILY-CREATE-SEARCH-PLUGINS-ADD-ANY-SEARCH-ENGINE-TO-YOUR-BROWSER/) to add it as a custom search engine.
+For other browsers, you can follow [this guide](https://www.howtogeek.com/114176/HOW-TO-EASILY-CREATE-SEARCH-PLUGINS-ADD-ANY-SEARCH-ENGINE-TO-YOUR-BROWSER/).
 
 ## Sources of Law
 
@@ -3967,9 +3962,9 @@ Here's some information on the sites that Law Search links to most frequently:
 
 - For **court opinions**, Law Search uses Harvard's [Caselaw Access Project](https://case.law/). I recommend you make a free account there so that you won't need to prove your non-robot status every time. Unfortunately, the site only supports pre-2018 cases, so anything more recent than that will be a broken link. Also note that you can go directly to a specific page of an opinion if you provide a pincite, like "338 <span>F.2d</span> 708, 715."
 
-- For the **U.S. Code** and a number of federal rules (e.g. rules of civil procedure), Law Search uses Cornell's [Legal Information Institute](https://www.law.cornell.edu/). If you cite a subsection of the law, you'll be taken directly to the right place. Unfortunately their website header gets in the way of the start of the subsection, so I recommend hiding the header with [Ublock Origin](https://ublockorigin.com/), or else getting into a habit of scrolling up a little bit.
+- For the **U.S. Code** and a number of federal rules like the FRCP, Law Search uses Cornell's [Legal Information Institute](https://www.law.cornell.edu/). If you cite a subsection of the law, you should be taken directly to the right place on the page. Unfortunately their website header gets in the way of the start of the subsection, so I recommend you hide the header with [Ublock Origin](https://ublockorigin.com/), or else get into a habit of scrolling up a little bit.
 
-- Many major federal laws, like the Immigration and Nationality Act (INA) and National Labor Relations Act (NLRA), are often cited by reference to their original section numbers (e.g. "NLRA <span>§</span> 7") instead of the corresponding U.S. Code provisions. This is inconvenient, as oftentimes there aren't good ways to browse these laws online. Law Search supports a few such bodies of law by translating their citations into the corresponding U.S. Code citations on the Cornell website. Note that this means that any cross-references on the resulting page will refer to the codified law.
+- Many major federal laws, like the Immigration and Nationality Act (INA) and National Labor Relations Act (NLRA), are often cited by reference to their original section numbers (e.g. "NLRA <span>§</span> 7") instead of the corresponding U.S. Code provisions. CiteURL supports a few such laws by translating their citations into the corresponding U.S. Code sections on the Cornell website. Note that this means that any cross-references on the resulting page will refer to the sections of the codified law, not the Act itself.
 
 - For codified **state laws**, Law Search mostly uses individual state government websites, but when they aren't compatible, it uses [lawserver.com](https://www.lawserver.com/), or occasionally [Justia](https://law.justia.com/codes/). All U.S. states and territories are supported in some form, except for Arkansas, Georgia, Guam, and Puerto Rico, whose laws are only available on LexisNexis or on sites where generating a URL would require more information than a typical citation contains. Note that session laws and state regulations are not yet supported.
 
@@ -3992,16 +3987,16 @@ Federal Rules of Evidence | [www.law.cornell.edu](https://www.law.cornell.edu) |
 Immigration and Nationality Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Immigration%20%28%5BAa%5Dnd%7C%26%29%20Nationality%20Act%7CI%5C.%3FN%5C.%3FA%5C.%3F%7CI%5C.%20N%5C.%20A%5C.%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Internal Revenue Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Internal%20Revenue%20Code%7CI%5C.%3F%20%3FR%5C.%3F%20%3FC%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Treasury Regulations | [ecfr.federalregister.gov](https://ecfr.federalregister.gov) | [view regex](https://regexper.com#Treas%28ury%7C%5C.%3F%29%20%3FReg%28ulations%3F%7C%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-National Labor Relations Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Natioanal%20Labor%20Relations%20Act%7CN%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+National Labor Relations Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28National%20Labor%20Relations%20Act%7CN%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 National Labor Relations Board Decisions | [www.nlrb.gov](https://www.nlrb.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FB%5C.%3F%20%28%5Cd%2B%29)
 National Labor Relations Board Slip Opinions | [www.nlrb.gov](https://www.nlrb.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20N%5C.%3F%20%3FL%5C.%3F%20%3FR%5C.%3F%20%3FB%5C.%3F%20%28Slip%20Op%5C.%20%29%3FNo%5C.%20%28%5Cd%2B%29)
 Endangered Species Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Endangered%20Species%20Act%7CE%5C.%3F%20%3FS%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Clean Air Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28C%5C.%3F%20%3FA%5C.%3F%20%3FA%5C.%3F%7CClean%20Air%20Act%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Clean Water Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Clean%20Water%20Act%7CC%5C.%3F%20%3FW%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Fair Housing Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Fair%20Housing%20Act%7CF%5C.%3F%20%3Fh%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Fair Housing Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Fair%20Housing%20Act%7CF%5C.%3F%20%3FH%5C.%3F%20%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Americans With Disabilities Act | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Americans%20%5BWw%5Dith%20Disabilities%20Act%7CA%5C.%20D%5C.%20A%5C.%7CA%5C.%3FD%5C.%3FA%5C.%3F%29%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Uniform Commercial Code | [www.law.cornell.edu](https://www.law.cornell.edu) | [view regex](https://regexper.com#%28Uniform%20Commercial%20Code%7CU%5C.%3F%20%3FC%5C.%3F%20%3FC%5C.%3F%29%28%20%3F%C2%A7%29%3F%20%28%5Cd%5Ba-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
-Code of Alabama, 1975 | [alisondb.legislature.state.al.us](https://alisondb.legislature.state.al.us) | [view regex](https://regexper.com#%28Ala%28bama%7C%5C.%29%7CAL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Code of Alabama, 1975 | [alisondb.legislature.state.al.us](http://alisondb.legislature.state.al.us) | [view regex](https://regexper.com#%28Ala%28bama%7C%5C.%29%7CAL%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%5BA-Za-z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Alabama Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ala%28bama%7C%5C.%29%7CAL%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Alaska Statutes | [www.akleg.gov](http://www.akleg.gov) | [view regex](https://regexper.com#%28Alaska%7CAK%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%5C.%28%5Cd%2B%5BA-Za-z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Alaska Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Alaska%7CAK%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
@@ -4042,7 +4037,7 @@ Louisiana Codes | [www.lawserver.com](https://www.lawserver.com) | [view regex](
 Louisiana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#L%28ouisiana%7Ca%5C.%7CA%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Maine Statutes | [legislature.maine.gov](https://legislature.maine.gov) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%2C%3F%20%5BTt%5Dit%28le%7C%5C.%29%20%3F%28%5Cd%2B%28%5B-%E2%80%91%E2%80%93%5D%5BA-Z%5D%29%3F%29%2C%3F%28%28%2C%3F%20%29%3F%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%5C.%3F%7CSections%3F%29%3F%20%3F%28%5Cd%5B%5Cw.-%5D%2A%5Cw%7C%5Cd%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Maine Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aine%7Ce%5C.%7CE%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%5BPp%5D%28art%7Ct%5C.%29%20%3F%28%5Cd%29%29%3F%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Maryland Code | [mgaleg.maryland.gov](https://mgaleg.maryland.gov) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%20%28%28Ac%7CAl%7C%5BBCEFHILNPRST%5D%29.%7B4%2C38%7D%3F%29%20%28Code%28%20Ann%28otated%7C%5C.%29%29%3F%20%29%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5B%5CdA-Z%5C-%E2%80%93.%5D%2A%5B%5CdA-Z%5D%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
+Maryland Code | [mgaleg.maryland.gov](https://mgaleg.maryland.gov) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%20%28Code%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%20%29%3F%28%28Ac%7CAl%7C%5BBCEFHILNPRST%5D%29.%7B4%2C38%7D%3F%29%20%28Code%28%20Ann%28otated%7C%5C.%29%29%3F%2C%3F%20%29%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%5B%5CdA-Z%5C-%E2%80%93.%5D%2A%5B%5CdA-Z%5D%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Maryland Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#M%28aryland%7Cd%5C.%7CD%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Massachusetts General Laws | [malegislature.gov](https://malegislature.gov) | [view regex](https://regexper.com#%28%28Mass%28achusetts%7C%5C.%29%7CMA%29%20%3F%28Gen%28eral%7C%5C.%29%7CAnn%28otated%7C%5C.%29%29%20%3FLaws%28%20Ann%28otated%7C%5C.%29%29%3F%7CM%5C.%3FG%5C.%3FL%5C.%3F%28A%5C.%3F%29%3F%7CA%5C.%3FL%5C.%3FM%5C.%3F%29%2C%3F%20%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5Cd%2B%5BA-Z%5D%3F%29%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7CSect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%5Cd%2B%5BA-Z%5D%3F%5Cd%2A%28%5B%2F%5D%5Cd%2B%5BA-Z%5D%3F%29%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Massachusetts Constitution | [malegislature.gov](https://malegislature.gov) | [view regex](https://regexper.com#%28Mass%28achusetts%7C%5C.%29%7CMA%29%20Const%28itution%7C%5C.%29%2C%3F%20%5BPp%5D%28art%7Ct%5C.%29%20%3F%28II%3F%7C1%7C2%7C%5BTt%5Dhe%20%28%5BFf%5Dirst%7C%5BSs%5Decond%29%29%28%2C%3F%20%5BCc%5D%28hapter%7Ch%3F%5C.%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%28%2C%3F%20%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%3F%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%3F%29%3F%28%2C%3F%20%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5Cd%2B%7C%5BIVXivx%5D%7B1%2C7%7D%29%29%3F)
