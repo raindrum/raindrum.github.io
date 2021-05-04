@@ -1571,7 +1571,7 @@ const templates = [
         "name": "Idaho Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Idaho_Constitution",
+            "https://ballotpedia.org/Article_{article},_Idaho_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -1591,7 +1591,7 @@ const templates = [
             "https://www.ilga.gov/legislation/ilcs/fulltext.asp?DocName={chapter}{act}0K{section}"
         ],
         "regexes": [
-            "(?<chapter>\\d+) ILCS (?<act>\\d+)/(?<section>(\\d[\\d.-]*\\w|\\d))"
+            "([Cc]h(apter|\\.) )?(?<chapter>\\d+) (ILCS|Ill(inois|\\.) Comp(iled|\\.) Stat(utes|\\.)) (?<act>\\d+)/(?<section>(\\d[\\d.-]*\\w|\\d))"
         ],
         "operations": [
             {
@@ -2882,7 +2882,7 @@ const templates = [
         "name": "North Dakota Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_North_Dakota_Constitution",
+            "https://ballotpedia.org/Article_{article},_North_Dakota_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -2972,7 +2972,7 @@ const templates = [
         "name": "Oklahoma Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Oklahoma_Constitution",
+            "https://ballotpedia.org/Article_{article},_Oklahoma_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -3433,7 +3433,7 @@ const templates = [
         "name": "West Virginia Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_West_Virginia_Constitution",
+            "https://ballotpedia.org/Article_{article},_West_Virginia_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -4233,7 +4233,7 @@ document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\
 <tr>
 <td>Illinois Compiled Statutes</td>
 <td><a href="https://www.ilga.gov">www.ilga.gov</a></td>
-<td><a href="https://regexper.com#%28%5Cd%2B%29%20ILCS%20%28%5Cd%2B%29%2F%28%28%5Cd%5B%5Cd.-%5D%2A%5Cw%7C%5Cd%29%29">view regex</a></td>
+<td><a href="https://regexper.com#%28%5BCc%5Dh%28apter%7C%5C.%29%20%29%3F%28%5Cd%2B%29%20%28ILCS%7CIll%28inois%7C%5C.%29%20Comp%28iled%7C%5C.%29%20Stat%28utes%7C%5C.%29%29%20%28%5Cd%2B%29%2F%28%28%5Cd%5B%5Cd.-%5D%2A%5Cw%7C%5Cd%29%29">view regex</a></td>
 </tr>
 <tr>
 <td>Illinois Constitution</td>

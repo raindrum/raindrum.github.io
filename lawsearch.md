@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-05-02
+Modified: 2021-05-03
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -1555,7 +1555,7 @@ const templates = [
         "name": "Idaho Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Idaho_Constitution",
+            "https://ballotpedia.org/Article_{article},_Idaho_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -1575,7 +1575,7 @@ const templates = [
             "https://www.ilga.gov/legislation/ilcs/fulltext.asp?DocName={chapter}{act}0K{section}"
         ],
         "regexes": [
-            "(?<chapter>\\d+) ILCS (?<act>\\d+)/(?<section>(\\d[\\d.-]*\\w|\\d))"
+            "([Cc]h(apter|\\.) )?(?<chapter>\\d+) (ILCS|Ill(inois|\\.) Comp(iled|\\.) Stat(utes|\\.)) (?<act>\\d+)/(?<section>(\\d[\\d.-]*\\w|\\d))"
         ],
         "operations": [
             {
@@ -2866,7 +2866,7 @@ const templates = [
         "name": "North Dakota Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_North_Dakota_Constitution",
+            "https://ballotpedia.org/Article_{article},_North_Dakota_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -2956,7 +2956,7 @@ const templates = [
         "name": "Oklahoma Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_Oklahoma_Constitution",
+            "https://ballotpedia.org/Article_{article},_Oklahoma_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -3417,7 +3417,7 @@ const templates = [
         "name": "West Virginia Constitution",
         "defaults": {},
         "URL": [
-            "https://ballotpedia.org/Article_{roman_article},_West_Virginia_Constitution",
+            "https://ballotpedia.org/Article_{article},_West_Virginia_Constitution",
             "#Section_{section}"
         ],
         "regexes": [
@@ -4022,7 +4022,7 @@ Hawaii Revised Statutes | [www.lawserver.com](https://www.lawserver.com) | [view
 Hawaii Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Haw%28ai.%3Fi%7C%5C.%29%7CHI%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Idaho Code | [legislature.idaho.gov](https://legislature.idaho.gov) | [view regex](https://regexper.com#I%28daho%7CD%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%5BA-Z%5D%3F%29%5B-%E2%80%91%E2%80%93%5D%28%28%5Cd%7B1%2C2%7D%29%5Cd%7B2%7D%5BA-Z%5D%3F%29%28%28%28%2C%3F%20%29%3Fsub%28sections%3F%7Cdivisions%3F%7C%28sec%7Cd%28iv%29%3F%29%3Fs%3F%5C.%29%20%3F%29%3F%28%28%5C%28%5Cw%2B%5C%29%29%2B%29%29%3F)
 Idaho Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#I%28daho%7CD%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
-Illinois Compiled Statutes | [www.ilga.gov](https://www.ilga.gov) | [view regex](https://regexper.com#%28%5Cd%2B%29%20ILCS%20%28%5Cd%2B%29%2F%28%28%5Cd%5B%5Cd.-%5D%2A%5Cw%7C%5Cd%29%29)
+Illinois Compiled Statutes | [www.ilga.gov](https://www.ilga.gov) | [view regex](https://regexper.com#%28%5BCc%5Dh%28apter%7C%5C.%29%20%29%3F%28%5Cd%2B%29%20%28ILCS%7CIll%28inois%7C%5C.%29%20Comp%28iled%7C%5C.%29%20Stat%28utes%7C%5C.%29%29%20%28%5Cd%2B%29%2F%28%28%5Cd%5B%5Cd.-%5D%2A%5Cw%7C%5Cd%29%29)
 Illinois Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Il%28linois%7Cl%3F%5C.%29%7CIL%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
 Indiana Code | [iga.in.gov](https://iga.in.gov) | [view regex](https://regexper.com#%28Ind%28iana%7C%5C.%29%7CIN%29%28%20%3FRev%28ised%7C%5C.%29%29%3F%28%20%3FAnn%28otated%7C%5C.%29%29%3F%28%20%3FGen%28eral%7C%5C.%29%29%3F%20%3F%28Codes%3F%7CStat%28utes%7Cs%3F%5C.%3F%29%29%28%20%3FAnn%28otated%7C%5C.%29%29%3F%2C%3F%20%3F%28%28Sections%3F%7C%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%29%20%3F%29%3F%28%5Cd%2B%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29-%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%28%2C%3F%20%5C%28%28%5Cd%7B4%7D%29%5C%29%29%3F)
 Indiana Constitution | [ballotpedia.org](https://ballotpedia.org) | [view regex](https://regexper.com#%28Ind%28iana%7C%5C.%29%7CIN%29%20%3FConst%28itution%7C%5C.%29%20%3F%5BAa%5Drt%28icle%7C%5C.%29%20%3F%28%5B%5CdIVXivx%5D%7B1%2C8%7D%29%28%2C%3F%20%3F%28%28%26sect%3B%7C%26%23167%7C%C2%A7%29%7B1%2C2%7D%7C%5BSs%5Dect%3F%28ions%3F%7Cs%3F%5C.%29%29%20%3F%28%28%5Cd%5B%5Cw.%5D%2A%5Cw%7C%5Cd%29%29%28%2C%3F%20%28%5BCc%5Dl%28ause%7C%5C.%29%20%3F%28%5Cd%2B%29%29%29%3F%29%3F)
