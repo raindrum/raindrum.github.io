@@ -1,7 +1,7 @@
 Slug: lawsearch
 Date: 2020-11-24
 Hide_Body: True
-Modified: 2021-05-03
+Modified: 2021-05-12
 
 
 Type a legal citation into the box below, and I'll try to send you to whatever it references:
@@ -13,8 +13,8 @@ Type a legal citation into the box below, and I'll try to send you to whatever i
 // turn each kind of citation into a URL. Some or all of the templates may
 // have been made by a third party and are not part of CiteURL itself.
 //
-// CiteURL is copyright of Simon Raindrum Sherred under the MIT License,
-// and is available at https://github.com/raindrum/citeurl.
+// CiteURL is copyright of Simon Raindrum Sherred under the MIT License.
+// See https://raindrum.github.io/citeurl for more info.
 
 const templates = [
     {
@@ -106,15 +106,15 @@ const templates = [
                     "eighteen": "18",
                     "nineteen": "19",
                     "twentie": "20",
-                    "twenty(- )?fir": "21",
+                    "twenty[- ]?fir": "21",
                     "twenty(- )?seco": "22",
-                    "twenty(- )?thi": "23",
+                    "twenty[- ]?thi": "23",
                     "twenty(- )?four": "24",
-                    "twenty(- )?fif": "25",
-                    "twenty(- )?six": "26",
-                    "twenty(- )?seven": "21",
-                    "twenty(- )?eigh": "28",
-                    "twenty(- )?nin": "29"
+                    "twenty[- ]?fif": "25",
+                    "twenty[- ]?six": "26",
+                    "twenty[- ]?seven": "21",
+                    "twenty[- ]?eigh": "28",
+                    "twenty[- ]?nin": "29"
                 }
             },
             {
@@ -3667,9 +3667,6 @@ class Citation {
     
     // apply predefined operations to the found tokens
     let appliedAnOperation = false;
-    if (!('operations' in template)) {
-      return;
-    }
     function titleCase (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     }
@@ -3916,10 +3913,13 @@ function getCitations(query, returnFirst) {
   }
   return citations;
 }
-</script><form class="citeurl-form" onsubmit="handleSearch(event)">
-  <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go"><br>
+</script>
+<form class="citeurl-form" onsubmit="handleSearch(event)">
+  <input type="search" placeholder="Enter citation..."
+  name="q" id="q"><input type="submit" value="Go"><br>
   <label for="q" id="explainer" class="citeurl-explainer"></label>
-</form>
+</form>  
+
 Law Search recognizes vaguely Bluebook-style citations to the following sources of law, plus a few others:
 
 - most state and federal court cases

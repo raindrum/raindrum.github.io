@@ -29,8 +29,8 @@
 // turn each kind of citation into a URL. Some or all of the templates may
 // have been made by a third party and are not part of CiteURL itself.
 //
-// CiteURL is copyright of Simon Raindrum Sherred under the MIT License,
-// and is available at https://github.com/raindrum/citeurl.
+// CiteURL is copyright of Simon Raindrum Sherred under the MIT License.
+// See https://raindrum.github.io/citeurl for more info.
 
 const templates = [
     {
@@ -122,15 +122,15 @@ const templates = [
                     "eighteen": "18",
                     "nineteen": "19",
                     "twentie": "20",
-                    "twenty(- )?fir": "21",
+                    "twenty[- ]?fir": "21",
                     "twenty(- )?seco": "22",
-                    "twenty(- )?thi": "23",
+                    "twenty[- ]?thi": "23",
                     "twenty(- )?four": "24",
-                    "twenty(- )?fif": "25",
-                    "twenty(- )?six": "26",
-                    "twenty(- )?seven": "21",
-                    "twenty(- )?eigh": "28",
-                    "twenty(- )?nin": "29"
+                    "twenty[- ]?fif": "25",
+                    "twenty[- ]?six": "26",
+                    "twenty[- ]?seven": "21",
+                    "twenty[- ]?eigh": "28",
+                    "twenty[- ]?nin": "29"
                 }
             },
             {
@@ -3683,9 +3683,6 @@ class Citation {
 
     // apply predefined operations to the found tokens
     let appliedAnOperation = false;
-    if (!('operations' in template)) {
-      return;
-    }
     function titleCase (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     }
@@ -3934,9 +3931,11 @@ function getCitations(query, returnFirst) {
 }
 </script>
 <form class="citeurl-form" onsubmit="handleSearch(event)">
-  <input type="search" placeholder="Enter citation..." name="q" id="q"><input type="submit" value="Go"><br>
+  <input type="search" placeholder="Enter citation..."
+  name="q" id="q"><input type="submit" value="Go"><br>
   <label for="q" id="explainer" class="citeurl-explainer"></label>
 </form>
+
 <p>Law Search recognizes vaguely Bluebook-style citations to the following sources of law, plus a few others:</p>
 <ul>
 <li>most state and federal court cases</li>
@@ -3945,12 +3944,12 @@ function getCitations(query, returnFirst) {
 <li>codified laws for every state and territory except Arkansas, Georgia, Guam, and Puerto Rico</li>
 </ul>
 <p>For a list of supported sources and their citation styles, see <a href="#sources-of-law">Sources of Law</a>.</p>
-<h2 id="how-it-works">How it Works</h2>
+<h3 id="how-it-works">How it Works</h3>
 <p>Law Search is a JavaScript implementation of <a href="https://raindrum.github.io/citeurl">CiteURL</a>, a framework I wrote to translate citations into URLs. For each body of law that Law Search recognizes, there is a CiteURL template that defines what a citation has to look like, what its relevant fields are (e.g. volume and page number), and how to construct a URL from those fields. You can find the full list of these templates, and the websites they link to, <a href="#sources-of-law">below</a>.</p>
 <p>When you type a citation into the search bar, Law Search tries to match your query against each of the templates. If your query <em>looks like</em> a valid citation to one of the supported sources of law, it translates the citation into a URL and sends you to that URL, whether it's actually valid or not.</p>
 <p>The translation process occurs entirely in your browser, with no server-side logic or data collection. In fact, if you want to, you can even <a href="" download>download this page</a> and run it without connecting to my website; you'll just miss out on updates.</p>
 <p>Two final notes for the more technically-inclined: First, Law Search is essentially a stripped-down version of <a href="https://raindrum.github.io/citeurl">CiteURL</a>, which can not only look up individual citations, but can also insert hyperlinks for every longform or shortform citation it finds in a document. Second, if you need to look up citations that Law Search doesn't support, it's not too hard to <a href="https://raindrum.github.io/citeurl/frontends#javascript">make your own</a> personal instance of Law Search.</p>
-<h2 id="bookmark-this-search">Bookmark This Search!</h2>
+<h3 id="bookmark-this-search">Bookmark This Search!</h3>
 <p>You're totally welcome to use Law Search by coming to my site and typing your citation into the search bar whenever you want to look something up. But it's more convenient if you can set up a search keyword so that you can just type something like "ls 42 usc 1983" in your URL bar to look up the law.</p>
 <p>To do that on Firefox, you can just right-click the search bar at the top of this page, and click <code>Add a Keyword for this Search...</code>.</p>
 <p>On Chrome, go to <code>Settings &gt; Manage Search Engines</code>. From there, click <code>Add</code>, and paste this address into the URL field:</p>
@@ -3960,7 +3959,7 @@ document.getElementById("bookmarkURL").innerHTML = window.location.href.split(/\
 </script>
 
 <p>For other browsers, you can follow <a href="https://www.howtogeek.com/114176/HOW-TO-EASILY-CREATE-SEARCH-PLUGINS-ADD-ANY-SEARCH-ENGINE-TO-YOUR-BROWSER/">this guide</a>.</p>
-<h2 id="sources-of-law">Sources of Law</h2>
+<h3 id="sources-of-law">Sources of Law</h3>
 <p>Law Search supports the U.S. Code and Code of Federal Regulations, most pre-2018 state and federal court cases, and nearly every state's constitution and codified laws. It also supports a few federal rules and administrative materials like the Federal Register, as well as a few specific federal statutes like the National Labor Relations Act and the Immigration and Nationality Act.</p>
 <p>Here's some information on the sites that Law Search links to most frequently:</p>
 <ul>

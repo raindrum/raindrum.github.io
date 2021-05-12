@@ -201,3 +201,15 @@ article[onclick]:hover, article[onclick]:active {
   color: var(--emph-text-color);
   font-weight: bold;
 }
+.toc {
+  border: 0.2em solid var(--link-color);
+  padding: 1em;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.toctitle {
+  color: var(--emph-text-color);
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
