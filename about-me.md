@@ -1,13 +1,14 @@
-Date: 2020-11-24
+Date: 2021-05-31
 
-I'm Simon Raindrum Sherred, a third-year UCLA Law student with a background in sociology and a focus on workers' and tenants' rights. In my free time, I like to create and solve computer problems. I also enjoy juggling.
+I'm Simon Raindrum Sherred, a recent UCLA Law graduate with a background in sociology and a focus on workers' and tenants' rights. These days I'm studying for the California bar exam.
 
-You can find my coding projects on [my GitHub profile](https://github.com/raindrum).
-
-If you'd like to get in touch, [send me an email](mailto:simonraindrum@gmail.com)!
+I write code in my free time. You can find my projects on [on GitHub](https://github.com/raindrum). I also enjoy juggling.
 
 ---
 
-If you want to support [Law Search](./lawsearch) or my other projects financially, you can use the link below:
+If you'd like to get in touch, [send me an email](mailto:simonraindrum@gmail.com)!
+
+If you want to support [citation.link](https://www.citation.link) or my other projects financially, you can use this link:
 
 <a href="https://ko-fi.com/simonsherred"><button>☕ Buy me a coffee</button></a>
+

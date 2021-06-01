@@ -40,7 +40,6 @@ li { margin-bottom: 0.2em; }
   width: 100%;
 }
 .table-wrapper { overflow-x: auto; }
-}
 table {
   border-collapse: separate;
   table-layout: fixed;
