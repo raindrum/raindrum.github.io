@@ -1,14 +1,11 @@
-Date: 2021-05-31
+Date: 2021-12-01
 
-I'm Simon Raindrum Sherred, a recent UCLA Law graduate with a background in sociology and a focus on workers' and tenants' rights. These days I'm studying for the California bar exam.
+My name is Simon Raindrum Sherred. I grew up in the Bay Area, studied sociology and legal studies at UCSC, and then law at UCLA. Nowadays, I'm proud to work as a staff attorney at the [Eviction Defense Network](https://edn.la) in Los Angeles.
 
-I write code in my free time. You can find my projects on [on GitHub](https://github.com/raindrum). I also enjoy juggling.
+In my spare time, I write code. You can find most of my projects [on GitHub](https://github.com/raindrum). So far, the most ambitious one is [citation.link](https://www.citation.link), a website I built for looking up references to court opinions, statutes, and law review articles.
+
+I also enjoy juggling.
 
 ---
 
 If you'd like to get in touch, [send me an email](mailto:simonraindrum@gmail.com)!
-
-If you want to support [citation.link](https://www.citation.link) or my other projects financially, you can use this link:
-
-<a href="https://ko-fi.com/simonsherred"><button>☕ Buy me a coffee</button></a>
-
